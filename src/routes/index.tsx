@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { WaitlistForm } from "@/components/WaitlistForm";
@@ -23,7 +23,7 @@ function useReveal() {
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -60px 0px" },
+      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" },
     );
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
@@ -76,12 +76,12 @@ function Landing() {
       <section className="relative mx-auto max-w-6xl px-6 pb-24 pt-32 sm:pt-40">
         <div
           aria-hidden
-          className="pointer-events-none absolute -left-32 top-10 h-[420px] w-[420px] rounded-full opacity-60 blur-3xl"
+          className="blob-float-1 pointer-events-none absolute -left-32 top-10 h-[420px] w-[420px] rounded-full opacity-60 blur-3xl"
           style={{ background: "radial-gradient(circle, rgba(191,96,64,0.35), transparent 70%)" }}
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-24 top-40 h-[480px] w-[480px] rounded-full opacity-50 blur-3xl"
+          className="blob-float-2 pointer-events-none absolute -right-24 top-40 h-[480px] w-[480px] rounded-full opacity-50 blur-3xl"
           style={{ background: "radial-gradient(circle, rgba(255,228,184,0.22), transparent 70%)" }}
         />
 
@@ -122,15 +122,13 @@ function Landing() {
               style={{ background: "var(--gradient-ember)" }}
             />
             <div
-              className="grain relative aspect-[3/2] overflow-hidden rounded-2xl"
+              className="grain waveform-card relative aspect-[3/2] overflow-hidden rounded-2xl"
               style={{
                 background:
                   "linear-gradient(135deg, rgba(12,10,8,0.92) 0%, rgba(20,12,8,0.88) 50%, rgba(15,10,6,0.90) 100%)",
                 backdropFilter: "blur(2px)",
                 WebkitBackdropFilter: "blur(2px)",
                 border: "1px solid rgba(191,96,64,0.18)",
-                boxShadow:
-                  "0 0 0 1px rgba(191,96,64,0.08), 0 24px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,246,233,0.04)",
               }}
             >
               <Waveform />
@@ -271,9 +269,10 @@ function Landing() {
             <a href="https://instagram.com/reaclyse" target="_blank" rel="noreferrer noopener" className="transition hover:text-peach">
               Instagram
             </a>
-            <a href="/privacy" className="transition hover:text-peach">
-              Privacy Policy
-            </a>
+            <Link to="/about" className="transition hover:text-peach">About</Link>
+            <Link to="/support" className="transition hover:text-peach">Support</Link>
+            <Link to="/contact" className="transition hover:text-peach">Contact</Link>
+            <Link to="/privacy" className="transition hover:text-peach">Privacy</Link>
           </nav>
         </div>
       </footer>

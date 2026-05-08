@@ -24,9 +24,7 @@ export function WaitlistForm({ variant = "hero" }: { variant?: "hero" | "footer"
         .from("waitlist_signups")
         .insert({ email: parsed.data, locale, source: "landing" });
 
-      if (error && error.code !== "23505") {
-        throw new Error(error.message);
-      }
+      if (error && error.code !== "23505") throw new Error(error.message);
       setDone(true);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong.");
@@ -37,14 +35,11 @@ export function WaitlistForm({ variant = "hero" }: { variant?: "hero" | "footer"
 
   if (done) {
     return (
-      <div
-        className={
-          variant === "hero"
-            ? "rounded-md border border-ember/40 bg-ember/10 px-5 py-4 text-cream"
-            : "text-cream"
-        }
-      >
-        <p className="font-display text-lg italic text-cream">
+      <div className="flex items-center gap-3 rounded-full border border-ember/30 bg-ember/10 px-5 py-3.5 animate-in fade-in slide-in-from-bottom-2 duration-500">
+        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ember/25 text-sm font-semibold text-ember">
+          ✓
+        </span>
+        <p className="font-display text-base italic text-cream">
           You're on the list. We'll be in touch.
         </p>
       </div>
@@ -53,7 +48,8 @@ export function WaitlistForm({ variant = "hero" }: { variant?: "hero" | "footer"
 
   return (
     <form onSubmit={onSubmit} className="w-full">
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch">
+      {/* Pill: input + button as one unified element */}
+      <div className="flex items-center gap-1.5 rounded-full border border-peach/20 bg-midnight/80 p-1.5 backdrop-blur-md transition-all duration-300 focus-within:border-ember/50 focus-within:shadow-[0_0_0_3px_rgba(191,96,64,0.10),0_0_48px_rgba(191,96,64,0.07)]">
         <label htmlFor={`email-${variant}`} className="sr-only">
           Email address
         </label>
@@ -66,18 +62,27 @@ export function WaitlistForm({ variant = "hero" }: { variant?: "hero" | "footer"
           maxLength={255}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="you@example.com"
-          className="flex-1 rounded-md border border-peach/20 bg-midnight/60 px-4 py-3 text-base text-foreground placeholder:text-muted-foreground/70 outline-none backdrop-blur-sm transition focus:border-peach focus:ring-2 focus:ring-peach/30"
+          placeholder="your@email.com"
+          className="min-w-0 flex-1 bg-transparent px-4 py-2.5 text-[15px] text-foreground placeholder:text-muted-foreground/45 outline-none"
         />
         <button
           type="submit"
           disabled={loading}
-          className="btn-ember inline-flex items-center justify-center rounded-md px-6 py-3 text-sm font-semibold tracking-wide disabled:opacity-60"
+          className="btn-ember shrink-0 rounded-full px-5 py-2.5 text-sm tracking-wide disabled:opacity-60"
         >
-          {loading ? "…" : "Reserve your place"}
+          {loading ? (
+            <span className="flex items-center gap-2">
+              <span className="inline-block h-3.5 w-3.5 animate-spin rounded-full border-2 border-midnight/25 border-t-midnight/70" />
+              Joining…
+            </span>
+          ) : variant === "footer" ? (
+            "Join the waitlist →"
+          ) : (
+            "Reserve your place →"
+          )}
         </button>
       </div>
-      <p className="mt-2 text-xs text-muted-foreground">
+      <p className={`mt-3 text-xs text-muted-foreground/55 ${variant === "footer" ? "text-center" : ""}`}>
         No spam. Unsubscribe anytime.
       </p>
     </form>
