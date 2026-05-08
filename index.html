@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <!-- Prevent flash of wrong theme before React hydrates -->
     <script>
       (function () {
@@ -11,13 +12,135 @@
         else if (t === "dark") document.documentElement.classList.add("dark");
       })();
     </script>
-    <title>ÉCHO — The voice journal. Coming to iOS.</title>
-    <meta name="description" content="ÉCHO by Réaclyse is a private voice journal for iPhone. Join the waitlist for the European launch." />
-    <meta property="og:title" content="ÉCHO — The voice journal" />
-    <meta property="og:description" content="A private journal, out loud. Coming to iOS in Europe." />
+
+    <!-- Primary Meta Tags -->
+    <title>ÉCHO — Private Voice Journal for iPhone | Réaclyse</title>
+    <meta name="title" content="ÉCHO — Private Voice Journal for iPhone | Réaclyse" />
+    <meta
+      name="description"
+      content="ÉCHO is a private voice journal for iPhone. One question a day, your voice recorded and encrypted. Weeks later, ÉCHO surfaces what you said before the doubt set in. Launching on iOS in Europe 2026."
+    />
+    <meta
+      name="keywords"
+      content="voice journal app, iPhone journal, daily reflection app, private voice diary, emotional tracking app, iOS journal app, voice journaling, self-reflection app, mindfulness app Europe, journal vocal iPhone, Tagebuch App iPhone, diario de voz iPhone"
+    />
+    <meta name="author" content="Réaclyse" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0C0A08" />
+    <link rel="canonical" href="https://echo.reaclyse.com/" />
+
+    <!-- Open Graph / Social Sharing -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://echo.reaclyse.com/" />
+    <meta property="og:site_name" content="ÉCHO by Réaclyse" />
+    <meta property="og:title" content="ÉCHO — Private Voice Journal for iPhone" />
+    <meta
+      property="og:description"
+      content="One question. Your voice. No typing, no blank pages. ÉCHO stores your answers encrypted and surfaces what you said weeks later. Launching on iOS in Europe 2026."
+    />
+    <meta property="og:image" content="https://echo.reaclyse.com/og-image.png" />
+    <meta property="og:image:alt" content="ÉCHO — The voice journal by Réaclyse" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+    <meta property="og:locale:alternate" content="de_DE" />
+    <meta property="og:locale:alternate" content="es_ES" />
+    <meta property="og:locale:alternate" content="it_IT" />
+
+    <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@reaclyse" />
+    <meta name="twitter:creator" content="@reaclyse" />
+    <meta name="twitter:title" content="ÉCHO — Private Voice Journal for iPhone" />
+    <meta
+      name="twitter:description"
+      content="One question. Your voice. No typing. ÉCHO stores your answers encrypted and surfaces what you said weeks later. Launching on iOS in Europe 2026."
+    />
+    <meta name="twitter:image" content="https://echo.reaclyse.com/og-image.png" />
+    <meta name="twitter:image:alt" content="ÉCHO — The voice journal by Réaclyse" />
+
+    <!-- Apple / PWA -->
+    <meta name="apple-mobile-web-app-title" content="ÉCHO" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <!-- Structured Data — Organization + SoftwareApplication + WebSite -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://reaclyse.com/#organization",
+            "name": "Réaclyse",
+            "url": "https://reaclyse.com",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://echo.reaclyse.com/favicon.svg"
+            },
+            "foundingLocation": "Luxembourg",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "email": "hello@reaclyse.com",
+              "contactType": "customer support",
+              "availableLanguage": ["English", "French", "German", "Spanish", "Italian"]
+            },
+            "sameAs": ["https://instagram.com/reaclyse", "https://reaclyse.com"]
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://echo.reaclyse.com/#app",
+            "name": "ÉCHO",
+            "alternateName": "Echo voice journal",
+            "description": "A private voice journal for iPhone. One question per day — you speak, ÉCHO stores your answer encrypted. Weeks later, it surfaces what you said before the doubt set in. Track emotional patterns and decisions over months.",
+            "applicationCategory": "LifestyleApplication",
+            "applicationSubCategory": "Journaling",
+            "operatingSystem": "iOS 17+",
+            "availableOnDevice": "iPhone",
+            "screenshot": "https://echo.reaclyse.com/og-image.png",
+            "featureList": [
+              "Daily voice journaling",
+              "On-device transcription",
+              "Encrypted private storage",
+              "Emotional pattern tracking",
+              "Time capsule comparisons",
+              "Offline-first design"
+            ],
+            "offers": {
+              "@type": "Offer",
+              "price": "7.99",
+              "priceCurrency": "EUR",
+              "availability": "https://schema.org/PreOrder",
+              "priceValidUntil": "2027-01-01"
+            },
+            "publisher": {
+              "@id": "https://reaclyse.com/#organization"
+            },
+            "inLanguage": ["en", "fr", "de", "es", "it"],
+            "countriesSupported": "FR DE ES IT LU BE NL AT CH"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://echo.reaclyse.com/#website",
+            "url": "https://echo.reaclyse.com",
+            "name": "ÉCHO by Réaclyse",
+            "description": "Private voice journal for iPhone — European iOS launch 2026",
+            "inLanguage": "en",
+            "publisher": {
+              "@id": "https://reaclyse.com/#organization"
+            }
+          }
+        ]
+      }
+    </script>
+
+    <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Font preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body>
     <div id="root"></div>

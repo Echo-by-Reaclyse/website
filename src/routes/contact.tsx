@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect } from "react";
 import { InnerPage, Section } from "@/components/InnerPage";
 
 export const Route = createFileRoute("/contact")({
@@ -7,12 +6,21 @@ export const Route = createFileRoute("/contact")({
 });
 
 function Contact() {
-  useEffect(() => {
-    document.title = "Contact — ÉCHO by Réaclyse";
-  }, []);
-
   return (
     <InnerPage title="Contact" subtitle="We'd love to hear from you.">
+      <title>Contact Réaclyse — ÉCHO Voice Journal</title>
+      <meta
+        name="description"
+        content="Contact Réaclyse about ÉCHO, the private voice journal for iPhone. General enquiries, press, partnerships, or GDPR data requests — hello@reaclyse.com."
+      />
+      <link rel="canonical" href="https://echo.reaclyse.com/contact" />
+      <meta property="og:title" content="Contact Réaclyse — ÉCHO Voice Journal" />
+      <meta
+        property="og:description"
+        content="General enquiries, press, partnerships, or data requests — hello@reaclyse.com."
+      />
+      <meta property="og:url" content="https://echo.reaclyse.com/contact" />
+
       <Section title="General enquiries">
         For questions about ÉCHO, partnerships, or press:{" "}
         <a href="mailto:hello@reaclyse.com" className="text-ember transition hover:opacity-75">

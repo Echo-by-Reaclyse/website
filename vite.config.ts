@@ -13,4 +13,15 @@ export default defineConfig({
   resolve: {
     alias: { "@": path.resolve(__dirname, "./src") },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "vendor-router": ["@tanstack/react-router"],
+          "vendor-query": ["@tanstack/react-query"],
+          "vendor-ui": ["sonner", "clsx", "tailwind-merge", "class-variance-authority"],
+        },
+      },
+    },
+  },
 });
