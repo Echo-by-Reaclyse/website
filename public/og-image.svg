@@ -1,0 +1,195 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <!-- Background ambient blobs -->
+    <radialGradient id="blob1" cx="15%" cy="35%" r="55%">
+      <stop offset="0%" stop-color="#BF6040" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#0C0A08" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="blob2" cx="82%" cy="65%" r="45%">
+      <stop offset="0%" stop-color="#FFE4B8" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#0C0A08" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Card glow -->
+    <radialGradient id="cardGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#BF6040" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#BF6040" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Ember gradient for the ÉCHO wordmark -->
+    <linearGradient id="ember" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#BF6040"/>
+      <stop offset="60%" stop-color="#D4724E"/>
+      <stop offset="100%" stop-color="#E8896A"/>
+    </linearGradient>
+    <!-- Top highlight line on card -->
+    <linearGradient id="cardTop" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#BF6040" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#BF6040" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#BF6040" stop-opacity="0"/>
+    </linearGradient>
+    <!-- Blur filter for glow -->
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="28" result="blur"/>
+    </filter>
+    <!-- Card clip -->
+    <clipPath id="waveClip">
+      <rect x="0" y="0" width="480" height="300" rx="20"/>
+    </clipPath>
+  </defs>
+
+  <!-- ── Background ── -->
+  <rect width="1200" height="630" fill="#0C0A08"/>
+  <rect width="1200" height="630" fill="url(#blob1)"/>
+  <rect width="1200" height="630" fill="url(#blob2)"/>
+
+  <!-- ── Left: text content ── -->
+
+  <!-- Badge pill -->
+  <rect x="80" y="88" width="278" height="28" rx="14"
+    fill="#BF6040" fill-opacity="0.06"
+    stroke="#BF6040" stroke-opacity="0.28" stroke-width="1"/>
+  <circle cx="102" cy="102" r="3.5" fill="#BF6040"/>
+  <text x="115" y="107"
+    font-family="'Arial', 'Helvetica Neue', sans-serif"
+    font-size="10.5" font-weight="500" letter-spacing="2.4"
+    fill="#BF6040">EUROPEAN LAUNCH · iOS 2026</text>
+
+  <!-- ÉCHO wordmark -->
+  <text x="76" y="232"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="118" font-weight="700" font-style="italic"
+    fill="url(#ember)">ÉCHO</text>
+
+  <!-- Tagline -->
+  <text x="80" y="288"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="26" font-weight="400"
+    fill="#FFF6E9">The voice journal.</text>
+
+  <!-- Description lines -->
+  <text x="80" y="334"
+    font-family="'Arial', 'Helvetica Neue', sans-serif"
+    font-size="15.5" fill="#FFF6E9" fill-opacity="0.52">One question. Your voice. No typing.</text>
+  <text x="80" y="358"
+    font-family="'Arial', 'Helvetica Neue', sans-serif"
+    font-size="15.5" fill="#FFF6E9" fill-opacity="0.52">Encrypted. Private. Yours alone.</text>
+
+  <!-- Divider -->
+  <rect x="80" y="408" width="200" height="1" fill="#BF6040" fill-opacity="0.28"/>
+
+  <!-- Byline -->
+  <text x="80" y="443"
+    font-family="'Arial', 'Helvetica Neue', sans-serif"
+    font-size="11" letter-spacing="3.5"
+    fill="#FFF6E9" fill-opacity="0.36">BY RÉACLYSE · LUXEMBOURG</text>
+
+  <!-- Stats row -->
+  <text x="80" y="510"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="20" font-weight="700"
+    fill="#FFF6E9">2026</text>
+  <text x="80" y="530"
+    font-family="'Arial', 'Helvetica Neue', sans-serif"
+    font-size="10" letter-spacing="2"
+    fill="#FFF6E9" fill-opacity="0.4">LAUNCH</text>
+
+  <text x="200" y="510"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="20" font-weight="700"
+    fill="#FFF6E9">iOS 17+</text>
+  <text x="200" y="530"
+    font-family="'Arial', 'Helvetica Neue', sans-serif"
+    font-size="10" letter-spacing="2"
+    fill="#FFF6E9" fill-opacity="0.4">PLATFORM</text>
+
+  <text x="340" y="510"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="20" font-weight="700"
+    fill="#FFF6E9">€7.99</text>
+  <text x="340" y="530"
+    font-family="'Arial', 'Helvetica Neue', sans-serif"
+    font-size="10" letter-spacing="2"
+    fill="#FFF6E9" fill-opacity="0.4">/ MONTH</text>
+
+  <!-- Vertical separator between left and right -->
+  <rect x="570" y="80" width="1" height="470" fill="#BF6040" fill-opacity="0.1"/>
+
+  <!-- ── Right: waveform card ── -->
+
+  <!-- Card ambient glow (behind card) -->
+  <ellipse cx="880" cy="315" rx="190" ry="120" fill="url(#cardGlow)" filter="url(#glow)"/>
+
+  <!-- Card container — nested SVG for clean clipping -->
+  <svg x="640" y="165" width="480" height="300">
+    <!-- Card background -->
+    <rect width="480" height="300" rx="20"
+      fill="#0E0B09" fill-opacity="0.96"/>
+    <!-- Grain texture overlay (subtle) -->
+    <rect width="480" height="300" rx="20"
+      fill="#BF6040" fill-opacity="0.025"/>
+    <!-- Card border -->
+    <rect width="480" height="300" rx="20"
+      fill="none" stroke="#BF6040" stroke-opacity="0.2" stroke-width="1"/>
+    <!-- Top highlight line -->
+    <rect x="40" y="0" width="400" height="1" rx="0.5" fill="url(#cardTop)"/>
+
+    <!-- Recording indicator dot -->
+    <circle cx="40" cy="48" r="5" fill="#BF6040">
+      <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <text x="54" y="53"
+      font-family="'Arial', 'Helvetica Neue', sans-serif"
+      font-size="11" letter-spacing="2.5"
+      fill="#FFF6E9" fill-opacity="0.45">RECORDING</text>
+
+    <!-- Waveform waves — clipped to card, centered vertically at cy=150 -->
+    <!-- Paths computed from buildWave() scaled to 480px wide, cy=150 -->
+    <g clip-path="url(#waveClip)">
+
+      <!-- Layer 1: n=3, amp=8, color rgba(255,246,233,0.07), strokeWidth=1 -->
+      <!-- halfCycleW=80, cp=29.136 -->
+      <path d="M 0 150 C 29.136 142, 50.864 142, 80 150 C 109.136 158, 130.864 158, 160 150 C 189.136 142, 210.864 142, 240 150 C 269.136 158, 290.864 158, 320 150 C 349.136 142, 370.864 142, 400 150 C 429.136 158, 450.864 158, 480 150"
+        fill="none" stroke="#FFF6E9" stroke-opacity="0.07" stroke-width="1" stroke-linecap="round"/>
+
+      <!-- Layer 2: n=2, amp=16, color rgba(191,96,64,0.22), strokeWidth=1.5 -->
+      <!-- halfCycleW=120, cp=43.704 -->
+      <path d="M 0 150 C 43.704 134, 76.296 134, 120 150 C 163.704 166, 196.296 166, 240 150 C 283.704 134, 316.296 134, 360 150 C 403.704 166, 436.296 166, 480 150"
+        fill="none" stroke="#BF6040" stroke-opacity="0.28" stroke-width="1.5" stroke-linecap="round"/>
+
+      <!-- Layer 3: n=1, amp=26, color rgba(255,246,233,0.48), strokeWidth=2 -->
+      <!-- halfCycleW=240, cp=87.408 -->
+      <path d="M 0 150 C 87.408 124, 152.592 124, 240 150 C 327.408 176, 392.592 176, 480 150"
+        fill="none" stroke="#FFF6E9" stroke-opacity="0.52" stroke-width="2" stroke-linecap="round"/>
+
+    </g>
+
+    <!-- Timer label bottom-right -->
+    <text x="440" y="272"
+      font-family="Georgia, 'Times New Roman', serif"
+      font-size="14" font-style="italic"
+      fill="#FFF6E9" fill-opacity="0.3" text-anchor="end">0:47</text>
+
+    <!-- Waveform label bottom-left -->
+    <text x="40" y="272"
+      font-family="'Arial', 'Helvetica Neue', sans-serif"
+      font-size="10" letter-spacing="2"
+      fill="#FFF6E9" fill-opacity="0.3">VOICE JOURNAL</text>
+
+  </svg>
+
+  <!-- Card caption -->
+  <text x="640" y="490"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="12" font-style="italic"
+    fill="#FFF6E9" fill-opacity="0.32">"Speech is more faithful than memory."</text>
+  <text x="1120" y="490"
+    font-family="'Arial', 'Helvetica Neue', sans-serif"
+    font-size="10" letter-spacing="1.5"
+    fill="#FFF6E9" fill-opacity="0.28" text-anchor="end">— RÉACLYSE</text>
+
+  <!-- echo.reaclyse.com URL -->
+  <text x="1120" y="580"
+    font-family="'Arial', 'Helvetica Neue', sans-serif"
+    font-size="13" letter-spacing="1"
+    fill="#BF6040" fill-opacity="0.6" text-anchor="end">echo.reaclyse.com</text>
+
+</svg>
