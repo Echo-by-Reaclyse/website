@@ -56,40 +56,40 @@
   --color-indigo-deep: var(--indigo-deep);
 }
 
+/* ─────────────────────────────────────────────────────────────
+   DARK THEME  (default — matches iOS app dark palette)
+───────────────────────────────────────────────────────────── */
 :root {
   --radius: 0.5rem;
 
-  --midnight: #0A1220;
-  --indigo-deep: #0E3272;
-  --indigo-glow: #1B4DA8;
-  --background: #0A1220;
-  --cream: #FFF6E9;
-  --peach: #FFE4B8;
-  --foreground: #FFF6E9;
-  --ink: #FFF6E9;
-  --ember: #BF6040;
-  --ember-bright: #E07A4F;
-  --rose: #D88560;
+  --midnight:        #0A1220;
+  --indigo-deep:     #0E3272;
+  --background:      #0A1220;
+  --foreground:      #FFF6E9;
+  --ink:             #FFF6E9;
+  --cream:           #FFF6E9;
+  --peach:           #FFE4B8;
+  --ember:           #BF6040;
+  --ember-bright:    #E07A4F;
+  --rose:            #D88560;
 
-  --card: #0E3272;
-  --card-foreground: #FFF6E9;
-  --popover: #0E3272;
-  --popover-foreground: #FFF6E9;
-
-  --primary: #BF6040;
-  --primary-foreground: #FFF6E9;
-  --secondary: #0E3272;
-  --secondary-foreground: #FFF6E9;
-  --muted: #0E3272;
-  --muted-foreground: rgba(255, 246, 233, 0.65);
-  --accent: #FFE4B8;
-  --accent-foreground: #0A1220;
-
-  --destructive: oklch(0.55 0.22 27);
-  --destructive-foreground: #FFF6E9;
-  --border: rgba(255, 228, 184, 0.14);
-  --input: #0A1220;
-  --ring: #BF6040;
+  --card:                  #0E3272;
+  --card-foreground:       #FFF6E9;
+  --popover:               #0E3272;
+  --popover-foreground:    #FFF6E9;
+  --primary:               #BF6040;
+  --primary-foreground:    #FFF6E9;
+  --secondary:             #0E3272;
+  --secondary-foreground:  #FFF6E9;
+  --muted:                 #0E3272;
+  --muted-foreground:      rgba(255, 246, 233, 0.60);
+  --accent:                #FFE4B8;
+  --accent-foreground:     #0A1220;
+  --destructive:           oklch(0.55 0.22 27);
+  --destructive-foreground:#FFF6E9;
+  --border:                rgba(255, 228, 184, 0.14);
+  --input:                 #0E3272;
+  --ring:                  #BF6040;
 
   --chart-1: var(--ember);
   --chart-2: var(--peach);
@@ -106,14 +106,99 @@
   --sidebar-border: var(--border);
   --sidebar-ring: var(--ring);
 
-  --gradient-paper: radial-gradient(ellipse at top, #133158 0%, #0A1220 60%);
-  --gradient-ember: linear-gradient(135deg, #BF6040 0%, #E07A4F 50%, #FFE4B8 100%);
-  --gradient-rose: linear-gradient(135deg, #BF6040, #D88560);
-  --gradient-divider: linear-gradient(90deg, transparent 0%, rgba(255, 228, 184, 0.35) 50%, transparent 100%);
-  --shadow-paper: 0 1px 0 rgba(255,255,255,0.04) inset, 0 30px 60px -20px rgba(0,0,0,0.6);
-  --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.55);
-  --shadow-ember: 0 20px 60px -20px rgba(191, 96, 64, 0.45);
-  --shadow-glow: 0 0 80px rgba(255, 228, 184, 0.12);
+  --gradient-paper:   radial-gradient(ellipse at top, #133158 0%, #0A1220 60%);
+  --gradient-ember:   linear-gradient(135deg, #BF6040 0%, #E07A4F 50%, #FFE4B8 100%);
+  --gradient-rose:    linear-gradient(135deg, #BF6040, #D88560);
+  --gradient-divider: linear-gradient(90deg, transparent 0%, rgba(255,228,184,0.35) 50%, transparent 100%);
+  --shadow-ember:     0 20px 60px -20px rgba(191, 96, 64, 0.45);
+  --shadow-soft:      0 10px 40px -10px rgba(0,0,0,0.55);
+
+  /* Nav + body bg (dark) */
+  --nav-bg:    color-mix(in oklab, #0A1220 72%, transparent);
+  --body-tint: rgba(191,96,64,0.18), rgba(27,77,168,0.25), rgba(255,228,184,0.08);
+  --body-base: radial-gradient(ellipse at top, #133158 0%, #0A1220 60%);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   LIGHT THEME  (matches iOS app light palette — warm parchment)
+   Applied via .light class OR system preference (no .dark class)
+───────────────────────────────────────────────────────────── */
+:root.light {
+  --midnight:        #FDF6EE;
+  --indigo-deep:     #F0E8DC;
+  --background:      #FDF6EE;
+  --foreground:      #1A0A04;
+  --ink:             #1A0A04;
+  --cream:           #1A0A04;
+  --peach:           #C86830;
+  --ember:           #BF6040;
+  --ember-bright:    #D4704A;
+  --rose:            #B85A36;
+
+  --card:                  #F5EBE0;
+  --card-foreground:       #1A0A04;
+  --popover:               #F5EBE0;
+  --popover-foreground:    #1A0A04;
+  --primary:               #BF6040;
+  --primary-foreground:    #FDF6EE;
+  --secondary:             #EDE3D6;
+  --secondary-foreground:  #1A0A04;
+  --muted:                 #EDE3D6;
+  --muted-foreground:      rgba(26, 10, 4, 0.50);
+  --accent:                #BF6040;
+  --accent-foreground:     #FDF6EE;
+  --destructive:           oklch(0.50 0.22 27);
+  --destructive-foreground:#FDF6EE;
+  --border:                rgba(191, 96, 64, 0.16);
+  --input:                 #EDE3D6;
+  --ring:                  #BF6040;
+
+  --gradient-divider: linear-gradient(90deg, transparent 0%, rgba(191,96,64,0.30) 50%, transparent 100%);
+  --shadow-ember:     0 16px 50px -16px rgba(191, 96, 64, 0.35);
+
+  --nav-bg:    rgba(253, 246, 238, 0.88);
+  --body-tint: rgba(191,96,64,0.07), rgba(191,96,64,0.04), rgba(191,96,64,0.02);
+  --body-base: linear-gradient(160deg, #FFF8F2 0%, #FAF2E6 50%, #F5EBE0 100%);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) {
+    --midnight:        #FDF6EE;
+    --indigo-deep:     #F0E8DC;
+    --background:      #FDF6EE;
+    --foreground:      #1A0A04;
+    --ink:             #1A0A04;
+    --cream:           #1A0A04;
+    --peach:           #C86830;
+    --ember:           #BF6040;
+    --ember-bright:    #D4704A;
+    --rose:            #B85A36;
+
+    --card:                  #F5EBE0;
+    --card-foreground:       #1A0A04;
+    --popover:               #F5EBE0;
+    --popover-foreground:    #1A0A04;
+    --primary:               #BF6040;
+    --primary-foreground:    #FDF6EE;
+    --secondary:             #EDE3D6;
+    --secondary-foreground:  #1A0A04;
+    --muted:                 #EDE3D6;
+    --muted-foreground:      rgba(26, 10, 4, 0.50);
+    --accent:                #BF6040;
+    --accent-foreground:     #FDF6EE;
+    --destructive:           oklch(0.50 0.22 27);
+    --destructive-foreground:#FDF6EE;
+    --border:                rgba(191, 96, 64, 0.16);
+    --input:                 #EDE3D6;
+    --ring:                  #BF6040;
+
+    --gradient-divider: linear-gradient(90deg, transparent 0%, rgba(191,96,64,0.30) 50%, transparent 100%);
+    --shadow-ember:     0 16px 50px -16px rgba(191, 96, 64, 0.35);
+
+    --nav-bg:    rgba(253, 246, 238, 0.88);
+    --body-tint: rgba(191,96,64,0.07), rgba(191,96,64,0.04), rgba(191,96,64,0.02);
+    --body-base: linear-gradient(160deg, #FFF8F2 0%, #FAF2E6 50%, #F5EBE0 100%);
+  }
 }
 
 @layer base {
@@ -125,13 +210,13 @@
   }
 
   body {
-    background-color: var(--midnight);
+    background-color: var(--background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
   }
 
-  /* Fixed gradient layer — avoids scroll repaint on mobile vs background-attachment:fixed */
+  /* Fixed gradient layer avoids scroll repaint vs background-attachment:fixed */
   body::before {
     content: '';
     position: fixed;
@@ -139,10 +224,8 @@
     z-index: -1;
     pointer-events: none;
     background-image:
-      radial-gradient(ellipse 80% 50% at 20% 0%,  rgba(191, 96, 64, 0.18)  0%, transparent 60%),
-      radial-gradient(ellipse 60% 50% at 80% 30%,  rgba(27, 77, 168, 0.25)  0%, transparent 55%),
-      radial-gradient(ellipse 70% 60% at 50% 100%, rgba(255, 228, 184, 0.08) 0%, transparent 60%),
-      var(--gradient-paper);
+      radial-gradient(ellipse 80% 50% at 20% 0%,  var(--body-tint)),
+      var(--body-base);
   }
 
   h1, h2, h3 {
@@ -152,7 +235,7 @@
     text-wrap: balance;
   }
 
-  ::selection { background: var(--color-ember); color: var(--color-cream); }
+  ::selection { background: var(--ember); color: #FFF6E9; }
 }
 
 @layer utilities {
@@ -172,15 +255,15 @@
     border: 0;
   }
 
-  /* ── Reveal: blur + scale + translate, expo-out easing ── */
+  /* ── Reveal: blur + scale + translate, expo-out ── */
   .reveal {
     opacity: 0;
     transform: translateY(24px) scale(0.983);
     filter: blur(5px);
     transition:
-      opacity  0.8s  cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-      filter   0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity   0.8s  cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.8s  cubic-bezier(0.16, 1, 0.3, 1),
+      filter    0.65s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: opacity, transform;
   }
   .reveal.is-visible {
@@ -198,26 +281,26 @@
   .nav-blur {
     backdrop-filter: blur(18px) saturate(160%);
     -webkit-backdrop-filter: blur(18px) saturate(160%);
-    background: color-mix(in oklab, var(--midnight) 72%, transparent);
+    background: var(--nav-bg);
     border-bottom: 1px solid var(--border);
-    box-shadow: 0 8px 32px -16px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 8px 32px -16px rgba(0, 0, 0, 0.18);
   }
 
   /* ── Floating hero blobs ── */
   @keyframes blob-1 {
-    0%, 100% { transform: translate(0px,   0px)   scale(1);    }
-    33%       { transform: translate(18px, -24px)  scale(1.05); }
-    66%       { transform: translate(-12px, 14px)  scale(0.97); }
+    0%, 100% { transform: translate(0px,   0px)  scale(1);    }
+    33%       { transform: translate(18px, -24px) scale(1.05); }
+    66%       { transform: translate(-12px, 14px) scale(0.97); }
   }
   @keyframes blob-2 {
-    0%, 100% { transform: translate(0px,   0px)   scale(1);    }
-    40%       { transform: translate(-20px, 16px)  scale(1.04); }
-    70%       { transform: translate(14px, -12px)  scale(0.98); }
+    0%, 100% { transform: translate(0px,   0px)  scale(1);    }
+    40%       { transform: translate(-20px, 16px) scale(1.04); }
+    70%       { transform: translate(14px, -12px) scale(0.98); }
   }
   .blob-float-1 { animation: blob-1 16s ease-in-out infinite; }
   .blob-float-2 { animation: blob-2 20s ease-in-out infinite; }
 
-  /* ── Waveform card subtle pulse ── */
+  /* ── Waveform card pulse ── */
   @keyframes waveform-breathe {
     0%, 100% {
       box-shadow:
@@ -241,27 +324,27 @@
     to   { transform: translateX(-50%); }
   }
 
-  /* ── Ember button ── */
-  .glow-ember { box-shadow: var(--shadow-ember); }
-
+  /* ── Text gradient ── */
   .text-gradient-ember {
     background: var(--gradient-ember);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
+  .glow-ember { box-shadow: var(--shadow-ember); }
 
+  /* ── Ember button ── */
   .btn-ember {
     position: relative;
     overflow: hidden;
     background: var(--gradient-ember);
-    color: var(--midnight);
+    color: #0A1220;
     font-weight: 600;
     box-shadow: var(--shadow-ember);
     transition:
-      transform   0.2s cubic-bezier(0.16, 1, 0.3, 1),
-      box-shadow  0.2s ease,
-      filter      0.2s ease;
+      transform  0.2s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.2s ease,
+      filter     0.2s ease;
   }
   .btn-ember::after {
     content: '';

@@ -3,6 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Prevent flash of wrong theme before React hydrates -->
+    <script>
+      (function () {
+        var t = localStorage.getItem("echo-theme");
+        if (t === "light") document.documentElement.classList.add("light");
+        else if (t === "dark") document.documentElement.classList.add("dark");
+      })();
+    </script>
     <title>ÉCHO — The voice journal. Coming to iOS.</title>
     <meta name="description" content="ÉCHO by Réaclyse is a private voice journal for iPhone. Join the waitlist for the European launch." />
     <meta property="og:title" content="ÉCHO — The voice journal" />

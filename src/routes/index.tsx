@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { WaitlistForm } from "@/components/WaitlistForm";
 import { Waveform } from "@/components/Waveform";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export const Route = createFileRoute("/")({
   component: Landing,
@@ -56,19 +57,22 @@ function Landing() {
           scrolled ? "nav-blur" : "bg-transparent"
         }`}
       >
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 sm:py-5">
           <div className="flex items-baseline gap-2">
             <span className="font-display text-2xl tracking-tight text-ink">ÉCHO</span>
-            <span className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+            <span className="hidden text-[11px] uppercase tracking-[0.2em] text-muted-foreground sm:inline">
               by Réaclyse
             </span>
           </div>
-          <a
-            href="#rejoindre"
-            className="text-xs uppercase tracking-[0.2em] text-ink/70 transition hover:text-peach"
-          >
-            Join waitlist
-          </a>
+          <div className="flex items-center gap-4">
+            <ThemeToggle />
+            <a
+              href="#rejoindre"
+              className="hidden text-xs uppercase tracking-[0.2em] text-ink/70 transition hover:text-peach sm:inline"
+            >
+              Join waitlist
+            </a>
+          </div>
         </div>
       </header>
 
@@ -115,7 +119,7 @@ function Landing() {
             </dl>
           </div>
 
-          <figure className="reveal reveal-delay-2 relative">
+          <figure className="reveal reveal-delay-2 relative mx-auto w-full max-w-sm sm:max-w-none lg:mx-0">
             <div
               aria-hidden
               className="absolute -inset-6 rounded-[2rem] opacity-70 blur-2xl"
@@ -133,10 +137,7 @@ function Landing() {
             >
               <Waveform />
             </div>
-            <figcaption
-              className="mt-3 font-display text-sm italic"
-              style={{ color: "rgba(255,228,184,0.45)" }}
-            >
+            <figcaption className="mt-3 font-display text-sm italic text-muted-foreground/60">
               "From the creator of The Return — RÉACLYSE's journal for decisions."
             </figcaption>
           </figure>
@@ -294,7 +295,7 @@ function Step({ n, title, body, delay }: { n: string; title: string; body: strin
 function Stat({ k, v }: { k: string; v: string }) {
   return (
     <div>
-      <dt className="font-display text-xl text-ink">{k}</dt>
+      <dt className="font-display text-base text-ink sm:text-xl">{k}</dt>
       <dd className="mt-1 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">{v}</dd>
     </div>
   );

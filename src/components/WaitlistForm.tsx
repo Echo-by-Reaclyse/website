@@ -39,7 +39,7 @@ export function WaitlistForm({ variant = "hero" }: { variant?: "hero" | "footer"
         <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ember/25 text-sm font-semibold text-ember">
           ✓
         </span>
-        <p className="font-display text-base italic text-cream">
+        <p className="font-display text-base italic text-ink">
           You're on the list. We'll be in touch.
         </p>
       </div>
