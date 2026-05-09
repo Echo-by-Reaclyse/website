@@ -1,12 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import {
-  motion,
-  AnimatePresence,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Toaster } from "@/components/ui/sonner";
 import { WaitlistForm } from "@/components/WaitlistForm";
 import { Waveform } from "@/components/Waveform";
@@ -371,51 +365,33 @@ const H1_LINE1 = ["Hear", "your", "own"];
 const H1_LINE2 = ["voice", "again."];
 
 function HeroSection() {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const smoothX = useSpring(mouseX, { stiffness: 45, damping: 24 });
-  const smoothY = useSpring(mouseY, { stiffness: 45, damping: 24 });
-  const orb2X = useTransform(smoothX, (x) => -x * 0.6);
-  const tiltY = useTransform(smoothX, [-30, 30], [-4, 4]);
-  const tiltX = useTransform(smoothY, [-30, 30], [3, -3]);
-
   return (
-    <section
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pb-0 pt-28"
-      onMouseMove={(e) => {
-        const { clientX, clientY, currentTarget } = e;
-        const r = currentTarget.getBoundingClientRect();
-        mouseX.set(((clientX - r.left) / r.width - 0.5) * 60);
-        mouseY.set(((clientY - r.top) / r.height - 0.5) * 60);
-      }}
-    >
-      {/* Animated orbs */}
-      <motion.div
+    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pb-0 pt-28">
+      {/* Static orbs — CSS keyframe animations, GPU composited */}
+      <div
         aria-hidden
-        className="pointer-events-none absolute left-[8%] top-[12%] h-[520px] w-[520px] rounded-full blur-3xl"
+        className="blob-float-1 pointer-events-none absolute left-[8%] top-[12%] h-[480px] w-[480px] rounded-full blur-3xl"
         style={{
-          background: "radial-gradient(circle, rgba(191,96,64,0.38), transparent 70%)",
-          opacity: 0.42,
-          x: smoothX,
-          y: smoothY,
+          background: "radial-gradient(circle, rgba(191,96,64,0.32), transparent 70%)",
+          opacity: 0.4,
+          willChange: "transform",
         }}
       />
-      <motion.div
+      <div
         aria-hidden
-        className="pointer-events-none absolute right-[4%] top-[32%] h-[440px] w-[440px] rounded-full blur-3xl"
+        className="blob-float-2 pointer-events-none absolute right-[4%] top-[32%] h-[400px] w-[400px] rounded-full blur-3xl"
         style={{
-          background: "radial-gradient(circle, rgba(27,77,168,0.5), transparent 70%)",
-          opacity: 0.35,
-          x: orb2X,
-          y: smoothY,
+          background: "radial-gradient(circle, rgba(27,77,168,0.45), transparent 70%)",
+          opacity: 0.32,
+          willChange: "transform",
         }}
       />
-      <motion.div
+      <div
         aria-hidden
-        className="pointer-events-none absolute bottom-[10%] left-[30%] h-[360px] w-[360px] rounded-full blur-3xl"
+        className="pointer-events-none absolute bottom-[10%] left-[30%] h-[320px] w-[320px] rounded-full blur-3xl"
         style={{
-          background: "radial-gradient(circle, rgba(255,228,184,0.12), transparent 70%)",
-          opacity: 0.5,
+          background: "radial-gradient(circle, rgba(255,228,184,0.1), transparent 70%)",
+          opacity: 0.45,
         }}
       />
 
@@ -529,22 +505,17 @@ function HeroSection() {
         ))}
       </motion.div>
 
-      {/* App mockup */}
+      {/* App mockup — float is pure translateY, composited */}
       <motion.div
         className="mt-16 pb-20 sm:mt-20"
-        initial={{ opacity: 0, y: 72, scale: 0.92 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ delay: 0.55, duration: 1.1, ease: EXPO }}
-        style={{ perspective: 1200 }}
+        initial={{ opacity: 0, y: 60 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.55, duration: 1.0, ease: EXPO }}
       >
         <motion.div
           animate={{ y: [0, -14, 0] }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          style={{ rotateY: tiltY, rotateX: tiltX }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+          style={{ willChange: "transform" }}
         >
           <AppMockup />
         </motion.div>
@@ -597,12 +568,8 @@ function ManifestoSection() {
             <motion.div
               key={p.title}
               variants={fadeUp}
-              className="group relative overflow-hidden rounded-2xl border border-peach/10 bg-card/30 p-8 backdrop-blur-sm"
-              whileHover={{
-                y: -6,
-                borderColor: "rgba(255,228,184,0.28)",
-                backgroundColor: "rgba(14,50,114,0.45)",
-              }}
+              className="group relative overflow-hidden rounded-2xl border border-peach/10 bg-card/30 p-8 backdrop-blur-sm transition-colors duration-200 hover:border-peach/[0.28] hover:bg-card/50"
+              whileHover={{ y: -6 }}
               transition={{ type: "spring", stiffness: 300, damping: 24 }}
             >
               {/* Subtle gradient accent at top */}
@@ -729,25 +696,14 @@ function FeaturesSection() {
             <motion.div
               key={feat.title}
               variants={fadeUp}
-              className="group relative overflow-hidden rounded-2xl border border-peach/10 bg-card/25 p-7 backdrop-blur-sm"
-              whileHover={{
-                y: -5,
-                borderColor: "rgba(255,228,184,0.26)",
-                backgroundColor: "rgba(14,50,114,0.4)",
-              }}
+              className="group relative overflow-hidden rounded-2xl border border-peach/10 bg-card/25 p-7 backdrop-blur-sm transition-colors duration-200 hover:border-peach/[0.26] hover:bg-card/40"
+              whileHover={{ y: -5 }}
               transition={{ type: "spring", stiffness: 320, damping: 26 }}
             >
               <div
                 aria-hidden
                 className="pointer-events-none absolute inset-x-0 top-0 h-px"
                 style={{ background: "var(--gradient-divider)" }}
-              />
-              {/* Subtle gradient glow on hover */}
-              <motion.div
-                aria-hidden
-                className="pointer-events-none absolute -bottom-6 -right-6 h-24 w-24 rounded-full blur-2xl"
-                style={{ background: "rgba(191,96,64,0)" }}
-                whileHover={{ background: "rgba(191,96,64,0.12)" }}
               />
               <span
                 className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-[10px] uppercase tracking-[0.18em] text-peach font-medium"
@@ -772,11 +728,12 @@ function QuoteSection() {
   return (
     <section className="relative overflow-hidden px-6 py-36">
       {/* Ambient glow */}
+      {/* Opacity-only pulse — no scale on blurred element */}
       <motion.div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
-        style={{ background: "radial-gradient(circle, rgba(255,228,184,0.1), transparent 70%)" }}
-        animate={{ scale: [1, 1.08, 1], opacity: [0.4, 0.7, 0.4] }}
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
+        style={{ background: "radial-gradient(circle, rgba(255,228,184,0.12), transparent 70%)" }}
+        animate={{ opacity: [0.25, 0.55, 0.25] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
 
@@ -838,8 +795,8 @@ function PricingSection() {
           className="mt-10 inline-block"
         >
           <motion.div
-            className="relative overflow-hidden rounded-3xl border border-peach/15 bg-card/30 p-10 backdrop-blur-sm"
-            whileHover={{ y: -5, borderColor: "rgba(255,228,184,0.28)" }}
+            className="relative overflow-hidden rounded-3xl border border-peach/15 bg-card/30 p-10 backdrop-blur-sm transition-colors duration-200 hover:border-peach/[0.28]"
+            whileHover={{ y: -5 }}
             transition={{ type: "spring", stiffness: 280, damping: 22 }}
           >
             <div
