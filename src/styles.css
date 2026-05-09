@@ -368,6 +368,76 @@
     transition-duration: 0.1s;
   }
 
+  /* ── Hero entrance animations (CSS — run before hydration) ── */
+  @keyframes heroWordUp {
+    from { opacity: 0; transform: translateY(60px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes heroFadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes heroScaleIn {
+    from { opacity: 0; transform: scale(0.86) translateY(12px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  /* ── Continuous hero utilities ── */
+  @keyframes phoneFloat {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-14px); }
+  }
+  @keyframes dotPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50%       { transform: scale(1.6); opacity: 0.4; }
+  }
+  @keyframes scrollCueLine {
+    0%   { transform: scaleY(0); opacity: 0.7; }
+    50%  { transform: scaleY(1); opacity: 0.7; }
+    100% { transform: scaleY(0); opacity: 0; }
+  }
+  @keyframes recordRing {
+    from { transform: scale(1);   opacity: 0.7; }
+    to   { transform: scale(1.5); opacity: 0;   }
+  }
+  @keyframes glowPulse {
+    0%, 100% { opacity: 0.25; }
+    50%       { opacity: 0.55; }
+  }
+
+  /* ── Hero utility classes ── */
+  .nav-entrance  { animation: heroFadeUp  0.6s  cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
+  .hero-badge    { animation: heroScaleIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both; }
+  .hero-word     { display: inline-block;
+                   animation: heroWordUp  0.92s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .hero-fade     { animation: heroFadeUp  0.8s  cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .badge-dot     { animation: dotPulse    1.8s  ease-in-out infinite; }
+  .phone-float   { animation: phoneFloat  5s    ease-in-out infinite;
+                   will-change: transform; }
+  .scroll-cue-line { animation: scrollCueLine 1.5s ease-in-out infinite;
+                     transform-origin: top center; }
+  .record-ring   { animation: recordRing  1.9s  ease-out infinite;
+                   will-change: transform, opacity; }
+  .quote-glow    { animation: glowPulse   6s    ease-in-out infinite; }
+
+  /* ── Card lift — spring-like overshoot via cubic-bezier ── */
+  .card-lift {
+    transition:
+      transform    0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+      border-color 0.2s  ease,
+      background-color 0.2s ease;
+  }
+  .card-lift:hover { transform: translateY(-5px); }
+
+  /* ── FAQ accordion — CSS grid height trick (no JS animation) ── */
+  .faq-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .faq-body[data-open="true"] { grid-template-rows: 1fr; }
+  .faq-body > div { overflow: hidden; }
+
   /* ── Reduced motion ── */
   @media (prefers-reduced-motion: reduce) {
     .reveal {
@@ -375,8 +445,17 @@
       transform: none !important;
       transition: none !important;
     }
-    .blob-float-1, .blob-float-2 {
+    .blob-float-1, .blob-float-2,
+    .phone-float, .badge-dot,
+    .record-ring, .quote-glow,
+    .scroll-cue-line {
       animation: none !important;
+    }
+    .hero-word, .hero-fade, .hero-badge,
+    .nav-entrance {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
     }
   }
 }
