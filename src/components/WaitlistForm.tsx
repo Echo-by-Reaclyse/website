@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { z } from "zod";
-import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 const emailSchema = z.string().trim().toLowerCase().email("Invalid email address");
@@ -20,11 +19,16 @@ export function WaitlistForm({ variant = "hero" }: { variant?: "hero" | "footer"
     setLoading(true);
     try {
       const locale = typeof navigator !== "undefined" ? navigator.language : null;
-      const { error } = await supabase
-        .from("waitlist_signups")
-        .insert({ email: parsed.data, locale, source: "landing" });
-
-      if (error && error.code !== "23505") throw new Error(error.message);
+      const apiBase = import.meta.env.VITE_API_URL ?? "";
+      const res = await fetch(`${apiBase}/subscribe`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: parsed.data, locale, source: "landing" }),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error((body as { error?: string }).error ?? "Something went wrong.");
+      }
       setDone(true);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong.");
