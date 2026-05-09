@@ -73,15 +73,13 @@ function Landing() {
 
   return (
     <div ref={rootRef} className="relative min-h-screen overflow-hidden">
-      {/* React 19: title + meta rendered in <head> automatically */}
       <title>ÉCHO — Private Voice Journal for iPhone | Réaclyse</title>
       <meta
         name="description"
         content="ÉCHO is a private voice journal for iPhone. One question a day, your voice recorded and encrypted. Weeks later, ÉCHO surfaces what you said before the doubt set in. Launching on iOS in Europe 2026."
       />
-      <link rel="canonical" href="https://echo.reaclyse.com/" />
+      <link rel="canonical" href="https://echobyreaclyse.com/" />
 
-      {/* FAQPage structured data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -105,7 +103,7 @@ function Landing() {
           scrolled ? "nav-blur" : "bg-transparent"
         }`}
       >
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 sm:py-5">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
           <div className="flex items-baseline gap-2">
             <span className="font-display text-2xl tracking-tight text-ink">ÉCHO</span>
             <span className="hidden text-[11px] uppercase tracking-[0.2em] text-muted-foreground sm:inline">
@@ -152,8 +150,7 @@ function Landing() {
               You already know. ÉCHO gives you the evidence.
             </p>
             <p className="reveal reveal-delay-3 mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              One question. Your voice. No typing, no blank pages. Just you, thinking out loud —
-              stored encrypted, surfaced back when it matters most.
+              One question. Your voice. No typing, no blank pages. Just you, thinking out loud.
             </p>
 
             <div id="rejoindre" className="reveal reveal-delay-4 mt-10 max-w-md scroll-mt-24">
@@ -168,25 +165,33 @@ function Landing() {
             </dl>
           </div>
 
-          <figure className="reveal reveal-delay-2 relative mx-auto w-full max-w-sm sm:max-w-none lg:mx-0">
+          <figure className="reveal reveal-delay-2 relative">
             <div
               aria-hidden
-              className="absolute -inset-6 rounded-[2rem] opacity-70 blur-2xl"
-              style={{ background: "var(--gradient-ember)" }}
-            />
-            <div
-              className="grain waveform-card relative aspect-[3/2] overflow-hidden rounded-2xl"
+              className="hero-figure-glow absolute -inset-6 rounded-[2rem] opacity-80 blur-3xl"
               style={{
                 background:
-                  "linear-gradient(135deg, rgba(12,10,8,0.92) 0%, rgba(20,12,8,0.88) 50%, rgba(15,10,6,0.90) 100%)",
+                  "radial-gradient(ellipse at center, rgba(10,18,32,0.95) 0%, rgba(14,50,114,0.55) 50%, transparent 80%)",
+              }}
+            />
+            <div
+              className="hero-figure-card grain relative aspect-[3/2] overflow-hidden rounded-2xl"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(10,18,32,0.95) 0%, rgba(14,50,114,0.55) 55%, rgba(10,18,32,0.95) 100%)",
                 backdropFilter: "blur(2px)",
                 WebkitBackdropFilter: "blur(2px)",
-                border: "1px solid rgba(191,96,64,0.18)",
+                border: "1px solid rgba(255,228,184,0.12)",
+                boxShadow:
+                  "0 0 0 1px rgba(255,228,184,0.07), 0 24px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,246,233,0.05)",
               }}
             >
               <Waveform />
             </div>
-            <figcaption className="mt-3 font-display text-sm italic text-muted-foreground/60">
+            <figcaption
+              className="mt-3 font-display text-sm italic"
+              style={{ color: "rgba(255,228,184,0.45)" }}
+            >
               "From the creator of The Return — RÉACLYSE's journal for decisions."
             </figcaption>
           </figure>
@@ -209,12 +214,12 @@ function Landing() {
             <Pillar
               delay="reveal-delay-2"
               title="It holds."
-              body="Every word stored. Encrypted. Private. Yours alone — never used to train AI models, never shared with third parties."
+              body="Encrypted. Private. Yours alone — not used for anything else."
             />
             <Pillar
               delay="reveal-delay-3"
               title="It returns."
-              body="Weeks later, ÉCHO surfaces what you said before the fear set in. Your past self becomes evidence for your present decisions."
+              body="Weeks later, ÉCHO surfaces what you said before the fear set in. The words were always there. ÉCHO just kept them safe."
             />
           </div>
         </div>
@@ -233,7 +238,7 @@ function Landing() {
               delay="reveal-delay-1"
               n="01"
               title="Record"
-              body="One question appears. You speak. 30 seconds or 10 minutes — there's no wrong answer, only your honest one."
+              body="One question appears. You speak. 30 seconds or 10 minutes."
             />
             <Step
               delay="reveal-delay-2"
@@ -245,7 +250,7 @@ function Landing() {
               delay="reveal-delay-3"
               n="03"
               title="Return"
-              body="Patterns surface. Emotions tracked. The words were always there — ÉCHO just kept them safe and brought them back."
+              body="The words were always there. ÉCHO just kept them safe."
             />
           </ol>
         </div>
@@ -307,19 +312,7 @@ function Landing() {
             <br />
             <em className="italic text-gradient-ember">Six weeks before you proved it right.</em>
           </h2>
-          <blockquote className="reveal reveal-delay-2 mt-14">
-            <p className="font-display text-3xl leading-snug text-ink sm:text-4xl">
-              <span className="font-display text-6xl leading-none text-peach/60">"</span>
-              Speech is more faithful than memory.
-              <br />
-              <em className="italic text-gradient-ember">ÉCHO keeps it for you.</em>
-              <span className="font-display text-6xl leading-none text-peach/60">"</span>
-            </p>
-            <footer className="mt-6 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              — Réaclyse, Luxembourg
-            </footer>
-          </blockquote>
-          <p className="reveal reveal-delay-3 mt-10 font-display text-sm italic text-muted-foreground">
+          <p className="reveal reveal-delay-3 mt-10 font-sans text-base text-muted-foreground sm:text-lg">
             Not what the AI thinks. What you said.
           </p>
         </div>
@@ -341,8 +334,7 @@ function Landing() {
             <span className="text-muted-foreground">/ year</span>
           </p>
           <p className="reveal reveal-delay-3 mx-auto mt-5 max-w-xl text-sm text-muted-foreground">
-            Waitlist members receive a special founding-member offer at launch. Your voice. Your words.
-            Never used for anything else. All billing through Apple's App Store.
+            Your voice. Your words. Never used for anything else.
           </p>
         </div>
       </section>
@@ -396,9 +388,6 @@ function Landing() {
             <br />
             <em className="italic text-gradient-ember">is yours.</em>
           </h2>
-          <p className="reveal reveal-delay-1 mx-auto mt-5 max-w-md text-sm text-muted-foreground">
-            Join the waitlist for ÉCHO — the private voice journal launching on iPhone in Europe in 2026.
-          </p>
           <div className="reveal reveal-delay-2 mx-auto mt-10 max-w-md">
             <WaitlistForm variant="footer" />
           </div>
@@ -434,17 +423,8 @@ function Landing() {
             >
               Instagram
             </a>
-            <Link to="/about" className="transition hover:text-peach">
-              About
-            </Link>
-            <Link to="/support" className="transition hover:text-peach">
-              Support
-            </Link>
-            <Link to="/contact" className="transition hover:text-peach">
-              Contact
-            </Link>
             <Link to="/privacy" className="transition hover:text-peach">
-              Privacy
+              Privacy Policy
             </Link>
           </nav>
         </div>
