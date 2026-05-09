@@ -312,6 +312,17 @@
     to   { transform: translateX(-50%); }
   }
 
+  /* ── Marquee (landing page strip) ── */
+  @keyframes marqueeScroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .marquee-track {
+    animation: marqueeScroll 30s linear infinite;
+    will-change: transform;
+    display: inline-block;
+  }
+
   /* ── Text gradient ── */
   .text-gradient-ember {
     background: var(--gradient-ember);

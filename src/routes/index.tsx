@@ -1,5 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import { Toaster } from "@/components/ui/sonner";
 import { WaitlistForm } from "@/components/WaitlistForm";
 import { Waveform } from "@/components/Waveform";
@@ -8,6 +15,91 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 export const Route = createFileRoute("/")({
   component: Landing,
 });
+
+// ── Shared motion config ────────────────────────────────────────
+const EXPO = [0.22, 1, 0.36, 1] as const;
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 32 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.75, ease: EXPO },
+  },
+};
+
+const staggerGrid = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.09, delayChildren: 0.06 } },
+};
+
+// ── Data ────────────────────────────────────────────────────────
+const QUESTIONS = [
+  "What did you need today that you didn't ask for?",
+  "What are you avoiding telling yourself?",
+  "Where do you feel most like yourself?",
+  "What decision are you delaying?",
+];
+
+const PILLARS = [
+  {
+    title: "You speak.",
+    body: "One question. Your voice. No typing, no blank pages. Just you, thinking out loud — the raw, honest version before the second-guessing begins.",
+  },
+  {
+    title: "It holds.",
+    body: "Encrypted. Private. Yours alone — not used for training, not shared, not monetised. Never.",
+  },
+  {
+    title: "It returns.",
+    body: "Weeks later, ÉCHO surfaces what you said before the fear set in. The words were always there. ÉCHO just kept them safe.",
+  },
+];
+
+const STEPS = [
+  {
+    n: "01",
+    title: "Record",
+    body: "One question appears. You speak. 30 seconds or 10 minutes.",
+  },
+  {
+    n: "02",
+    title: "Remember",
+    body: "ÉCHO transcribes on-device. You read your own words back. You already knew. You just forgot.",
+  },
+  {
+    n: "03",
+    title: "Return",
+    body: "The words were always there. ÉCHO just kept them safe.",
+  },
+];
+
+const FEATURES = [
+  {
+    title: "Voice-first journaling",
+    body: "Speak naturally. On-device transcription captures every word without your audio leaving your iPhone.",
+  },
+  {
+    title: "End-to-end encrypted",
+    body: "Your recordings and transcripts are encrypted at rest. No one — not even us — can read your entries.",
+  },
+  {
+    title: "Emotional pattern tracking",
+    body: "ÉCHO builds a longitudinal picture of your emotional state, decisions, and recurring themes over months.",
+  },
+  {
+    title: "Time capsule comparisons",
+    body: "Compare who you were six months ago to who you are now. See how your thinking has evolved in your own words.",
+  },
+  {
+    title: "Offline-first",
+    body: "Record anywhere, any time. ÉCHO works without an internet connection — your entries sync when you reconnect.",
+  },
+  {
+    title: "Zero data sharing",
+    body: "Your voice is never used to train external AI models. Your data is never sold or shared with third parties.",
+  },
+];
 
 const FAQ_ITEMS = [
   {
@@ -36,43 +128,944 @@ const FAQ_ITEMS = [
   },
 ];
 
-function useReveal() {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const root = ref.current;
-    if (!root) return;
-    const els = root.querySelectorAll<HTMLElement>(".reveal");
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add("is-visible");
-            io.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" },
-    );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, []);
-  return ref;
-}
-
-function Landing() {
-  const rootRef = useReveal();
-  const [scrolled, setScrolled] = useState(false);
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+// ── App Mockup ──────────────────────────────────────────────────
+function AppMockup() {
+  const [qIdx, setQIdx] = useState(0);
+  const [recording, setRecording] = useState(true);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const id = setInterval(() => setQIdx((q) => (q + 1) % QUESTIONS.length), 3800);
+    return () => clearInterval(id);
   }, []);
 
   return (
-    <div ref={rootRef} className="relative min-h-screen overflow-hidden">
+    <div
+      style={{
+        filter:
+          "drop-shadow(0 48px 72px rgba(0,0,0,0.7)) drop-shadow(0 0 40px rgba(191,96,64,0.18))",
+      }}
+    >
+      <div
+        className="relative w-[300px] sm:w-[340px] overflow-hidden rounded-[44px]"
+        style={{
+          background: "linear-gradient(165deg, #111D33 0%, #0A1220 100%)",
+          border: "1px solid rgba(255,228,184,0.11)",
+          boxShadow:
+            "inset 0 1px 0 rgba(255,246,233,0.07), inset 0 -1px 0 rgba(0,0,0,0.3)",
+        }}
+      >
+        {/* Dynamic island */}
+        <div className="flex justify-center pt-4 pb-1">
+          <div className="h-[30px] w-24 rounded-full bg-[#060C15]" />
+        </div>
+
+        {/* Status bar */}
+        <div
+          className="flex items-center justify-between px-8 pb-1 text-[11px]"
+          style={{ color: "rgba(255,246,233,0.45)" }}
+        >
+          <span className="font-medium">9:41</span>
+          <div className="flex items-center gap-1">
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor">
+              <rect x="0" y="4" width="3" height="8" rx="0.5" opacity="0.4" />
+              <rect x="4.5" y="2.5" width="3" height="9.5" rx="0.5" opacity="0.7" />
+              <rect x="9" y="0.5" width="3" height="11.5" rx="0.5" />
+              <rect x="14" y="3" width="2" height="6" rx="0.5" opacity="0.3" />
+            </svg>
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor">
+              <path d="M8 3.5C10.2 3.5 12.2 4.4 13.6 5.9L15 4.5C13.2 2.7 10.7 1.5 8 1.5S2.8 2.7 1 4.5L2.4 5.9C3.8 4.4 5.8 3.5 8 3.5Z" opacity="0.5" />
+              <path d="M8 6.5C9.5 6.5 10.8 7.1 11.8 8.1L13.2 6.7C11.8 5.3 9.9 4.5 8 4.5S4.2 5.3 2.8 6.7L4.2 8.1C5.2 7.1 6.5 6.5 8 6.5Z" opacity="0.75" />
+              <circle cx="8" cy="10.5" r="1.5" />
+            </svg>
+            <svg width="24" height="12" viewBox="0 0 24 12" fill="currentColor">
+              <rect x="0.5" y="0.5" width="20" height="11" rx="3" stroke="currentColor" strokeOpacity="0.35" fill="none" />
+              <rect x="2" y="2" width="15" height="8" rx="1.5" fill="currentColor" opacity="0.9" />
+              <path d="M22 4.5V7.5C22.8 7.2 23.5 6.6 23.5 6s-.7-1.2-1.5-1.5z" opacity="0.5" />
+            </svg>
+          </div>
+        </div>
+
+        {/* App content */}
+        <div className="px-7 pt-4 pb-6">
+          {/* Header row */}
+          <div className="flex items-center justify-between mb-6">
+            <p
+              className="font-display text-[11px] uppercase tracking-[0.22em]"
+              style={{ color: "rgba(255,228,184,0.38)" }}
+            >
+              ÉCHO
+            </p>
+            <p
+              className="text-[11px]"
+              style={{ color: "rgba(255,228,184,0.28)" }}
+            >
+              Saturday, 9 May
+            </p>
+          </div>
+
+          {/* Question area */}
+          <div className="relative min-h-[88px] mb-5">
+            <p
+              className="mb-2 text-[10px] uppercase tracking-[0.18em]"
+              style={{ color: "rgba(255,228,184,0.3)" }}
+            >
+              Today's question
+            </p>
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={qIdx}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -14 }}
+                transition={{ duration: 0.5, ease: EXPO }}
+                className="font-display text-[17px] leading-snug"
+                style={{ color: "rgba(255,246,233,0.92)" }}
+              >
+                {QUESTIONS[qIdx]}
+              </motion.p>
+            </AnimatePresence>
+          </div>
+
+          {/* Waveform */}
+          <div
+            className="h-[54px] rounded-2xl overflow-hidden"
+            style={{
+              background: "rgba(14,50,114,0.28)",
+              border: "1px solid rgba(255,228,184,0.07)",
+            }}
+          >
+            {recording ? (
+              <Waveform />
+            ) : (
+              <div className="flex h-full items-center justify-center">
+                <p
+                  className="text-[10px] uppercase tracking-[0.2em]"
+                  style={{ color: "rgba(255,228,184,0.22)" }}
+                >
+                  Tap to record
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Controls */}
+          <div className="mt-5 flex items-center justify-center gap-7">
+            <button
+              className="flex h-9 w-9 items-center justify-center rounded-full"
+              style={{ background: "rgba(255,228,184,0.06)" }}
+              onClick={() => setQIdx((q) => (q - 1 + QUESTIONS.length) % QUESTIONS.length)}
+              aria-label="Previous"
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M9 2L4 7l5 5" stroke="rgba(255,228,184,0.45)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+
+            {/* Record button */}
+            <button
+              onClick={() => setRecording(!recording)}
+              className="relative"
+              aria-label={recording ? "Stop recording" : "Start recording"}
+            >
+              {recording && (
+                <motion.div
+                  className="absolute -inset-3 rounded-full"
+                  style={{ background: "rgba(191,96,64,0.18)" }}
+                  animate={{ scale: [1, 1.45, 1], opacity: [0.7, 0, 0.7] }}
+                  transition={{ duration: 1.9, repeat: Infinity, ease: "easeOut" }}
+                />
+              )}
+              <motion.div
+                className="relative flex h-13 w-13 items-center justify-center rounded-full"
+                style={{
+                  width: 52,
+                  height: 52,
+                  background: "linear-gradient(145deg, #D47040, #BF6040)",
+                  boxShadow: "0 8px 24px rgba(191,96,64,0.5)",
+                }}
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.93 }}
+                transition={{ type: "spring", stiffness: 450, damping: 22 }}
+              >
+                {recording ? (
+                  <div
+                    className="rounded-sm bg-white/95"
+                    style={{ width: 14, height: 14 }}
+                  />
+                ) : (
+                  <div
+                    className="rounded-full bg-white/95"
+                    style={{ width: 18, height: 18 }}
+                  />
+                )}
+              </motion.div>
+            </button>
+
+            <button
+              className="flex h-9 w-9 items-center justify-center rounded-full"
+              style={{ background: "rgba(255,228,184,0.06)" }}
+              onClick={() => setQIdx((q) => (q + 1) % QUESTIONS.length)}
+              aria-label="Next"
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M5 2l5 5-5 5" stroke="rgba(255,228,184,0.45)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Timer */}
+          <p
+            className="mt-3 text-center text-[11px]"
+            style={{ color: "rgba(255,228,184,0.28)" }}
+          >
+            {recording ? "0:32" : "—"}
+          </p>
+        </div>
+
+        {/* Home indicator */}
+        <div className="flex justify-center pb-3 pt-1">
+          <div
+            className="h-1 w-24 rounded-full"
+            style={{ background: "rgba(255,246,233,0.16)" }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Marquee ────────────────────────────────────────────────────
+function MarqueeStrip() {
+  const items = [
+    "ONE QUESTION",
+    "YOUR VOICE",
+    "ENCRYPTED",
+    "PRIVATE",
+    "RETURNS",
+    "NO TYPING",
+    "ON-DEVICE",
+  ];
+  const track = items.map((i) => `${i}  ·  `).join("");
+
+  return (
+    <div
+      className="overflow-hidden border-y py-4"
+      style={{ borderColor: "rgba(255,228,184,0.09)" }}
+    >
+      <div
+        className="marquee-track font-display text-[11px] uppercase tracking-[0.22em] whitespace-nowrap"
+        style={{ color: "rgba(255,228,184,0.28)" }}
+      >
+        {/* Four copies so there's enough content for a seamless loop */}
+        {track}
+        {track}
+        {track}
+        {track}
+      </div>
+    </div>
+  );
+}
+
+// ── Hero ───────────────────────────────────────────────────────
+const H1_LINE1 = ["Hear", "your", "own"];
+const H1_LINE2 = ["voice", "again."];
+
+function HeroSection() {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const smoothX = useSpring(mouseX, { stiffness: 45, damping: 24 });
+  const smoothY = useSpring(mouseY, { stiffness: 45, damping: 24 });
+  const orb2X = useTransform(smoothX, (x) => -x * 0.6);
+  const tiltY = useTransform(smoothX, [-30, 30], [-4, 4]);
+  const tiltX = useTransform(smoothY, [-30, 30], [3, -3]);
+
+  return (
+    <section
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pb-0 pt-28"
+      onMouseMove={(e) => {
+        const { clientX, clientY, currentTarget } = e;
+        const r = currentTarget.getBoundingClientRect();
+        mouseX.set(((clientX - r.left) / r.width - 0.5) * 60);
+        mouseY.set(((clientY - r.top) / r.height - 0.5) * 60);
+      }}
+    >
+      {/* Animated orbs */}
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute left-[8%] top-[12%] h-[520px] w-[520px] rounded-full blur-3xl"
+        style={{
+          background: "radial-gradient(circle, rgba(191,96,64,0.38), transparent 70%)",
+          opacity: 0.42,
+          x: smoothX,
+          y: smoothY,
+        }}
+      />
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute right-[4%] top-[32%] h-[440px] w-[440px] rounded-full blur-3xl"
+        style={{
+          background: "radial-gradient(circle, rgba(27,77,168,0.5), transparent 70%)",
+          opacity: 0.35,
+          x: orb2X,
+          y: smoothY,
+        }}
+      />
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute bottom-[10%] left-[30%] h-[360px] w-[360px] rounded-full blur-3xl"
+        style={{
+          background: "radial-gradient(circle, rgba(255,228,184,0.12), transparent 70%)",
+          opacity: 0.5,
+        }}
+      />
+
+      {/* Badge */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.86, y: 12 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ delay: 0.08, duration: 0.65, ease: EXPO }}
+        className="mb-9"
+      >
+        <span className="inline-flex items-center gap-2 rounded-full border border-peach/30 bg-peach/5 px-4 py-1.5 text-[11px] uppercase tracking-[0.2em] text-peach backdrop-blur-sm">
+          <motion.span
+            className="h-1.5 w-1.5 rounded-full bg-peach"
+            animate={{ scale: [1, 1.6, 1], opacity: [1, 0.4, 1] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          />
+          European launch — iOS 2026
+        </span>
+      </motion.div>
+
+      {/* Headline */}
+      <h1
+        className="mb-8 text-center font-display leading-[0.9] tracking-tight"
+        style={{ fontSize: "clamp(3rem, 10.5vw, 7.25rem)" }}
+      >
+        <span className="mb-[0.04em] block">
+          {H1_LINE1.map((word, i) => (
+            <motion.span
+              key={word}
+              className="mr-[0.2em] inline-block text-ink"
+              initial={{ opacity: 0, y: 64 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 0.18 + i * 0.075,
+                duration: 0.92,
+                ease: EXPO,
+              }}
+            >
+              {word}
+            </motion.span>
+          ))}
+        </span>
+        <span className="block">
+          {H1_LINE2.map((word, i) => (
+            <motion.span
+              key={word}
+              className={`mr-[0.2em] inline-block ${
+                i === 1 ? "text-gradient-ember" : "text-ink"
+              }`}
+              initial={{ opacity: 0, y: 64 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 0.18 + (H1_LINE1.length + i) * 0.075,
+                duration: 0.92,
+                ease: EXPO,
+              }}
+            >
+              {word}
+            </motion.span>
+          ))}
+        </span>
+      </h1>
+
+      {/* Subheadline */}
+      <motion.p
+        className="max-w-lg text-center font-display text-xl text-ink sm:text-2xl"
+        initial={{ opacity: 0, y: 22 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.72, duration: 0.8, ease: EXPO }}
+      >
+        You already know. ÉCHO gives you the evidence.
+      </motion.p>
+      <motion.p
+        className="mt-3 max-w-md text-center text-base leading-relaxed text-muted-foreground sm:text-lg"
+        initial={{ opacity: 0, y: 22 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.82, duration: 0.8, ease: EXPO }}
+      >
+        One question. Your voice. No typing, no blank pages.
+      </motion.p>
+
+      {/* Waitlist form */}
+      <motion.div
+        id="rejoindre"
+        className="mt-10 w-full max-w-md scroll-mt-24"
+        initial={{ opacity: 0, y: 22 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.95, duration: 0.8, ease: EXPO }}
+      >
+        <WaitlistForm />
+      </motion.div>
+
+      {/* Stats row */}
+      <motion.div
+        className="mt-12 flex gap-10"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.12, duration: 0.8 }}
+      >
+        {[
+          { k: "2026", v: "Launch" },
+          { k: "iOS 17+", v: "Platform" },
+          { k: "9 countries", v: "Europe first" },
+        ].map(({ k, v }) => (
+          <div key={k} className="text-center">
+            <p className="font-display text-base text-ink sm:text-xl">{k}</p>
+            <p className="mt-0.5 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+              {v}
+            </p>
+          </div>
+        ))}
+      </motion.div>
+
+      {/* App mockup */}
+      <motion.div
+        className="mt-16 pb-20 sm:mt-20"
+        initial={{ opacity: 0, y: 72, scale: 0.92 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ delay: 0.55, duration: 1.1, ease: EXPO }}
+        style={{ perspective: 1200 }}
+      >
+        <motion.div
+          animate={{ y: [0, -14, 0] }}
+          transition={{
+            duration: 5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          style={{ rotateY: tiltY, rotateX: tiltX }}
+        >
+          <AppMockup />
+        </motion.div>
+      </motion.div>
+
+      {/* Scroll cue */}
+      <motion.div
+        className="absolute bottom-7 left-1/2 -translate-x-1/2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.4 }}
+        transition={{ delay: 1.5, duration: 0.8 }}
+      >
+        <motion.div
+          style={{
+            originY: 0,
+            height: 44,
+            width: 1,
+            background:
+              "linear-gradient(to bottom, rgba(255,228,184,0.7), transparent)",
+          }}
+          animate={{ scaleY: [0, 1, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </motion.div>
+    </section>
+  );
+}
+
+// ── Manifesto section ──────────────────────────────────────────
+function ManifestoSection() {
+  return (
+    <section className="relative mx-auto max-w-6xl px-6 py-28">
+      <div className="divider-gradient mb-16" />
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        variants={staggerGrid}
+      >
+        <motion.h2
+          variants={fadeUp}
+          className="font-display text-4xl text-ink sm:text-5xl"
+        >
+          What ÉCHO{" "}
+          <em className="italic text-gradient-ember">does.</em>
+        </motion.h2>
+
+        <div className="mt-14 grid gap-6 md:grid-cols-3">
+          {PILLARS.map((p, i) => (
+            <motion.div
+              key={p.title}
+              variants={fadeUp}
+              className="group relative overflow-hidden rounded-2xl border border-peach/10 bg-card/30 p-8 backdrop-blur-sm"
+              whileHover={{
+                y: -6,
+                borderColor: "rgba(255,228,184,0.28)",
+                backgroundColor: "rgba(14,50,114,0.45)",
+              }}
+              transition={{ type: "spring", stiffness: 300, damping: 24 }}
+            >
+              {/* Subtle gradient accent at top */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 top-0 h-px"
+                style={{ background: "var(--gradient-divider)" }}
+              />
+              {/* Number watermark */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute right-5 top-4 font-display text-7xl font-light leading-none select-none"
+                style={{ color: "rgba(255,228,184,0.04)" }}
+              >
+                0{i + 1}
+              </span>
+              <h3 className="font-display text-3xl text-ink">{p.title}</h3>
+              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                {p.body}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+    </section>
+  );
+}
+
+// ── How it works section ───────────────────────────────────────
+function HowItWorksSection() {
+  return (
+    <section className="relative mx-auto max-w-6xl px-6 py-28">
+      <div className="divider-gradient mb-16" />
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        variants={staggerGrid}
+      >
+        <motion.p
+          variants={fadeUp}
+          className="text-[11px] uppercase tracking-[0.2em] text-peach"
+        >
+          How it works
+        </motion.p>
+        <motion.h2
+          variants={fadeUp}
+          className="mt-3 max-w-2xl font-display text-4xl text-ink sm:text-5xl"
+        >
+          Three taps.{" "}
+          <em className="italic text-gradient-ember">The rest is listening.</em>
+        </motion.h2>
+
+        <ol className="mt-16 grid gap-0 md:grid-cols-3">
+          {STEPS.map((step, i) => (
+            <motion.li
+              key={step.n}
+              variants={fadeUp}
+              className="group relative"
+            >
+              {/* Connecting line (desktop) */}
+              {i < STEPS.length - 1 && (
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute right-0 top-[22px] hidden h-px w-full translate-x-1/2 md:block"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(255,228,184,0.15) 0%, rgba(255,228,184,0.06) 100%)",
+                  }}
+                />
+              )}
+              <div className="border-t border-peach/12 pt-8 md:pr-12">
+                <motion.span
+                  className="font-display text-lg text-gradient-ember"
+                  initial={{ opacity: 0, scale: 0.7 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.12 + 0.2, duration: 0.6, ease: EXPO }}
+                >
+                  {step.n}
+                </motion.span>
+                <h3 className="mt-3 font-display text-2xl text-ink">
+                  {step.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {step.body}
+                </p>
+              </div>
+            </motion.li>
+          ))}
+        </ol>
+      </motion.div>
+    </section>
+  );
+}
+
+// ── Features section ───────────────────────────────────────────
+function FeaturesSection() {
+  return (
+    <section className="relative mx-auto max-w-6xl px-6 py-28">
+      <div className="divider-gradient mb-16" />
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        variants={staggerGrid}
+      >
+        <motion.p
+          variants={fadeUp}
+          className="text-[11px] uppercase tracking-[0.2em] text-peach"
+        >
+          Features
+        </motion.p>
+        <motion.h2
+          variants={fadeUp}
+          className="mt-3 max-w-2xl font-display text-4xl text-ink sm:text-5xl"
+        >
+          Built for privacy.{" "}
+          <em className="italic text-gradient-ember">Designed for clarity.</em>
+        </motion.h2>
+
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {FEATURES.map((feat, i) => (
+            <motion.div
+              key={feat.title}
+              variants={fadeUp}
+              className="group relative overflow-hidden rounded-2xl border border-peach/10 bg-card/25 p-7 backdrop-blur-sm"
+              whileHover={{
+                y: -5,
+                borderColor: "rgba(255,228,184,0.26)",
+                backgroundColor: "rgba(14,50,114,0.4)",
+              }}
+              transition={{ type: "spring", stiffness: 320, damping: 26 }}
+            >
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 top-0 h-px"
+                style={{ background: "var(--gradient-divider)" }}
+              />
+              {/* Subtle gradient glow on hover */}
+              <motion.div
+                aria-hidden
+                className="pointer-events-none absolute -bottom-6 -right-6 h-24 w-24 rounded-full blur-2xl"
+                style={{ background: "rgba(191,96,64,0)" }}
+                whileHover={{ background: "rgba(191,96,64,0.12)" }}
+              />
+              <span
+                className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-[10px] uppercase tracking-[0.18em] text-peach font-medium"
+                style={{ background: "rgba(191,96,64,0.1)" }}
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3 className="mt-4 font-display text-xl text-ink">{feat.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {feat.body}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+    </section>
+  );
+}
+
+// ── Quote section ──────────────────────────────────────────────
+function QuoteSection() {
+  return (
+    <section className="relative overflow-hidden px-6 py-36">
+      {/* Ambient glow */}
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
+        style={{ background: "radial-gradient(circle, rgba(255,228,184,0.1), transparent 70%)" }}
+        animate={{ scale: [1, 1.08, 1], opacity: [0.4, 0.7, 0.4] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      <motion.div
+        className="relative mx-auto max-w-3xl text-center"
+        initial={{ opacity: 0, scale: 0.95, y: 24 }}
+        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.9, ease: EXPO }}
+      >
+        <h2 className="font-display text-4xl text-ink sm:text-6xl">
+          You said this.
+          <br />
+          <em className="italic text-gradient-ember">
+            Six weeks before you proved it right.
+          </em>
+        </h2>
+        <motion.p
+          className="mt-10 text-base text-muted-foreground sm:text-lg"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.25, duration: 0.7, ease: EXPO }}
+        >
+          Not what the AI thinks. What <em>you</em> said.
+        </motion.p>
+      </motion.div>
+    </section>
+  );
+}
+
+// ── Pricing section ────────────────────────────────────────────
+function PricingSection() {
+  return (
+    <section className="relative mx-auto max-w-3xl px-6 py-28 text-center">
+      <div className="divider-gradient mb-16" />
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        variants={staggerGrid}
+      >
+        <motion.p
+          variants={fadeUp}
+          className="text-[11px] uppercase tracking-[0.2em] text-peach"
+        >
+          Pricing
+        </motion.p>
+        <motion.h2
+          variants={fadeUp}
+          className="mt-3 font-display text-4xl text-ink sm:text-5xl"
+        >
+          Free for the{" "}
+          <em className="italic text-gradient-ember">first circle.</em>
+        </motion.h2>
+
+        <motion.div
+          variants={fadeUp}
+          className="mt-10 inline-block"
+        >
+          <motion.div
+            className="relative overflow-hidden rounded-3xl border border-peach/15 bg-card/30 p-10 backdrop-blur-sm"
+            whileHover={{ y: -5, borderColor: "rgba(255,228,184,0.28)" }}
+            transition={{ type: "spring", stiffness: 280, damping: 22 }}
+          >
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 top-0 h-px"
+              style={{ background: "var(--gradient-divider)" }}
+            />
+            <div className="flex items-baseline justify-center gap-3 font-display text-3xl sm:text-4xl">
+              <span>
+                <span className="text-gradient-ember">€7.99</span>
+                <span className="ml-1 text-xl text-muted-foreground">/ month</span>
+              </span>
+              <span className="text-muted-foreground">·</span>
+              <span>
+                <span className="text-gradient-ember">€69</span>
+                <span className="ml-1 text-xl text-muted-foreground">/ year</span>
+              </span>
+            </div>
+            <p className="mt-5 mx-auto max-w-xs text-sm text-muted-foreground">
+              Your voice. Your words. Never used for anything else.
+            </p>
+            <p className="mt-4 text-xs text-muted-foreground/55">
+              Waitlist members get founding-member pricing at launch.
+            </p>
+          </motion.div>
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
+
+// ── FAQ section ────────────────────────────────────────────────
+function FAQSection() {
+  const [open, setOpen] = useState<number | null>(null);
+
+  return (
+    <section className="relative mx-auto max-w-3xl px-6 py-28">
+      <div className="divider-gradient mb-16" />
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        variants={staggerGrid}
+      >
+        <motion.p
+          variants={fadeUp}
+          className="text-[11px] uppercase tracking-[0.2em] text-peach"
+        >
+          FAQ
+        </motion.p>
+        <motion.h2
+          variants={fadeUp}
+          className="mt-3 font-display text-4xl text-ink sm:text-5xl"
+        >
+          Questions{" "}
+          <em className="italic text-gradient-ember">answered.</em>
+        </motion.h2>
+
+        <motion.dl variants={staggerGrid} className="mt-14 space-y-3">
+          {FAQ_ITEMS.map((item, i) => (
+            <motion.div
+              key={i}
+              variants={fadeUp}
+              className="overflow-hidden rounded-2xl border border-peach/10 backdrop-blur-sm"
+              style={{ background: "rgba(14,50,114,0.15)" }}
+              animate={{
+                borderColor: open === i ? "rgba(255,228,184,0.22)" : "rgba(255,228,184,0.10)",
+              }}
+              transition={{ duration: 0.2 }}
+            >
+              <dt>
+                <button
+                  onClick={() => setOpen(open === i ? null : i)}
+                  aria-expanded={open === i}
+                  className="flex w-full items-start justify-between gap-4 p-6 text-left"
+                >
+                  <span className="font-display text-lg text-ink">{item.q}</span>
+                  <motion.span
+                    aria-hidden
+                    className="mt-1 shrink-0 text-peach text-xl leading-none"
+                    animate={{ rotate: open === i ? 45 : 0 }}
+                    transition={{ duration: 0.22, ease: EXPO }}
+                  >
+                    +
+                  </motion.span>
+                </button>
+              </dt>
+              <AnimatePresence initial={false}>
+                {open === i && (
+                  <motion.dd
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.35, ease: EXPO }}
+                    className="overflow-hidden"
+                  >
+                    <p className="px-6 pb-6 text-sm leading-relaxed text-muted-foreground">
+                      {item.a}
+                    </p>
+                  </motion.dd>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ))}
+        </motion.dl>
+      </motion.div>
+    </section>
+  );
+}
+
+// ── Final CTA section ──────────────────────────────────────────
+function FinalCTASection() {
+  return (
+    <section className="relative mx-auto max-w-3xl px-6 py-28 text-center">
+      <div className="divider-gradient mb-16" />
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        variants={staggerGrid}
+      >
+        <motion.h2
+          variants={fadeUp}
+          className="font-display text-4xl text-ink sm:text-5xl"
+        >
+          The first voice you should trust
+          <br />
+          <em className="italic text-gradient-ember">is yours.</em>
+        </motion.h2>
+        <motion.div variants={fadeUp} className="mx-auto mt-10 max-w-md">
+          <WaitlistForm variant="footer" />
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
+
+// ── Nav ────────────────────────────────────────────────────────
+function Nav({ scrolled }: { scrolled: boolean }) {
+  return (
+    <motion.header
+      className={`fixed inset-x-0 top-0 z-30 transition-all duration-300 ${
+        scrolled ? "nav-blur" : "bg-transparent"
+      }`}
+      initial={{ opacity: 0, y: -12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.05, duration: 0.6, ease: EXPO }}
+    >
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
+        <div className="flex items-baseline gap-2">
+          <span className="font-display text-2xl tracking-tight text-ink">ÉCHO</span>
+          <span className="hidden text-[11px] uppercase tracking-[0.2em] text-muted-foreground sm:inline">
+            by Réaclyse
+          </span>
+        </div>
+        <div className="flex items-center gap-5">
+          <ThemeToggle />
+          <a
+            href="#rejoindre"
+            className="hidden text-xs uppercase tracking-[0.2em] text-ink/60 transition-colors hover:text-peach sm:inline"
+          >
+            Join waitlist
+          </a>
+        </div>
+      </div>
+    </motion.header>
+  );
+}
+
+// ── Footer ─────────────────────────────────────────────────────
+function Footer() {
+  return (
+    <footer className="relative">
+      <div className="divider-gradient mx-auto max-w-6xl" />
+      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-4 px-6 py-10 text-xs text-muted-foreground sm:flex-row sm:items-center">
+        <div className="space-y-1">
+          <p className="font-display text-sm text-ink">
+            ÉCHO{" "}
+            <span className="text-muted-foreground">
+              — RÉACLYSE's journal for decisions.
+            </span>
+          </p>
+          <p>© 2026 Réaclyse. Luxembourg.</p>
+        </div>
+        <nav
+          aria-label="Footer navigation"
+          className="flex flex-wrap items-center gap-x-6 gap-y-2 uppercase tracking-[0.18em]"
+        >
+          <a
+            href="https://reaclyse.com"
+            target="_blank"
+            rel="noreferrer noopener"
+            className="transition-colors hover:text-peach"
+          >
+            réaclyse.com
+          </a>
+          <a
+            href="https://instagram.com/reaclyse"
+            target="_blank"
+            rel="noreferrer noopener"
+            className="transition-colors hover:text-peach"
+          >
+            Instagram
+          </a>
+          <Link to="/privacy" className="transition-colors hover:text-peach">
+            Privacy Policy
+          </Link>
+        </nav>
+      </div>
+    </footer>
+  );
+}
+
+// ── Landing (root) ─────────────────────────────────────────────
+function Landing() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const fn = () => setScrolled(window.scrollY > 12);
+    fn();
+    window.addEventListener("scroll", fn, { passive: true });
+    return () => window.removeEventListener("scroll", fn);
+  }, []);
+
+  return (
+    <div className="relative overflow-x-hidden">
       <title>ÉCHO — Private Voice Journal for iPhone | Réaclyse</title>
       <meta
         name="description"
@@ -97,391 +1090,17 @@ function Landing() {
 
       <Toaster richColors position="top-center" />
 
-      {/* Top bar */}
-      <header
-        className={`fixed inset-x-0 top-0 z-30 transition-all duration-300 ${
-          scrolled ? "nav-blur" : "bg-transparent"
-        }`}
-      >
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-          <div className="flex items-baseline gap-2">
-            <span className="font-display text-2xl tracking-tight text-ink">ÉCHO</span>
-            <span className="hidden text-[11px] uppercase tracking-[0.2em] text-muted-foreground sm:inline">
-              by Réaclyse
-            </span>
-          </div>
-          <div className="flex items-center gap-4">
-            <ThemeToggle />
-            <a
-              href="#rejoindre"
-              className="hidden text-xs uppercase tracking-[0.2em] text-ink/70 transition hover:text-peach sm:inline"
-            >
-              Join waitlist
-            </a>
-          </div>
-        </div>
-      </header>
-
-      {/* Hero */}
-      <section className="relative mx-auto max-w-6xl px-6 pb-24 pt-32 sm:pt-40">
-        <div
-          aria-hidden
-          className="blob-float-1 pointer-events-none absolute -left-32 top-10 h-[420px] w-[420px] rounded-full opacity-60 blur-3xl"
-          style={{ background: "radial-gradient(circle, rgba(191,96,64,0.35), transparent 70%)" }}
-        />
-        <div
-          aria-hidden
-          className="blob-float-2 pointer-events-none absolute -right-24 top-40 h-[480px] w-[480px] rounded-full opacity-50 blur-3xl"
-          style={{ background: "radial-gradient(circle, rgba(255,228,184,0.22), transparent 70%)" }}
-        />
-
-        <div className="relative grid items-center gap-16 lg:grid-cols-[1.1fr_1fr]">
-          <div>
-            <p className="reveal mb-6 inline-flex items-center gap-2 rounded-full border border-peach/30 bg-peach/5 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-peach">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-peach" />
-              European launch — iOS 2026
-            </p>
-            <h1 className="reveal reveal-delay-1 font-display text-5xl leading-[0.95] text-ink sm:text-6xl md:text-7xl">
-              Hear your own
-              <br />
-              <em className="font-display italic text-gradient-ember">voice again.</em>
-            </h1>
-            <p className="reveal reveal-delay-2 mt-7 max-w-xl font-display text-2xl leading-snug text-ink">
-              You already know. ÉCHO gives you the evidence.
-            </p>
-            <p className="reveal reveal-delay-3 mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              One question. Your voice. No typing, no blank pages. Just you, thinking out loud.
-            </p>
-
-            <div id="rejoindre" className="reveal reveal-delay-4 mt-10 max-w-md scroll-mt-24">
-              <WaitlistForm />
-            </div>
-
-            <dl className="reveal reveal-delay-5 mt-12 grid grid-cols-3 gap-6 pt-8">
-              <div className="col-span-3 divider-gradient mb-2" />
-              <Stat k="2026" v="Launch" />
-              <Stat k="iOS 17+" v="Platform" />
-              <Stat k="🇫🇷 🇩🇪 🇪🇸 🇮🇹" v="Europe first" />
-            </dl>
-          </div>
-
-          <figure className="reveal reveal-delay-2 relative">
-            <div
-              aria-hidden
-              className="hero-figure-glow absolute -inset-6 rounded-[2rem] opacity-80 blur-3xl"
-              style={{
-                background:
-                  "radial-gradient(ellipse at center, rgba(10,18,32,0.95) 0%, rgba(14,50,114,0.55) 50%, transparent 80%)",
-              }}
-            />
-            <div
-              className="hero-figure-card grain relative aspect-[3/2] overflow-hidden rounded-2xl"
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(10,18,32,0.95) 0%, rgba(14,50,114,0.55) 55%, rgba(10,18,32,0.95) 100%)",
-                backdropFilter: "blur(2px)",
-                WebkitBackdropFilter: "blur(2px)",
-                border: "1px solid rgba(255,228,184,0.12)",
-                boxShadow:
-                  "0 0 0 1px rgba(255,228,184,0.07), 0 24px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,246,233,0.05)",
-              }}
-            >
-              <Waveform />
-            </div>
-            <figcaption
-              className="mt-3 font-display text-sm italic"
-              style={{ color: "rgba(255,228,184,0.45)" }}
-            >
-              "From the creator of The Return — RÉACLYSE's journal for decisions."
-            </figcaption>
-          </figure>
-        </div>
-      </section>
-
-      {/* Manifesto */}
-      <section className="relative" aria-label="How ÉCHO works">
-        <div className="divider-gradient mx-auto max-w-6xl" />
-        <div className="mx-auto max-w-6xl px-6 py-24">
-          <h2 className="reveal font-display text-4xl text-ink sm:text-5xl">
-            What ÉCHO <em className="italic text-gradient-ember">does.</em>
-          </h2>
-          <div className="mt-14 grid gap-12 md:grid-cols-3">
-            <Pillar
-              delay="reveal-delay-1"
-              title="You speak."
-              body="One question. Your voice. No typing, no blank pages. Just you, thinking out loud — the raw, honest version before the second-guessing begins."
-            />
-            <Pillar
-              delay="reveal-delay-2"
-              title="It holds."
-              body="Encrypted. Private. Yours alone — not used for anything else."
-            />
-            <Pillar
-              delay="reveal-delay-3"
-              title="It returns."
-              body="Weeks later, ÉCHO surfaces what you said before the fear set in. The words were always there. ÉCHO just kept them safe."
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* How it works */}
-      <section className="relative" aria-label="Three steps to start journaling">
-        <div className="divider-gradient mx-auto max-w-6xl" />
-        <div className="mx-auto max-w-6xl px-6 py-24">
-          <p className="reveal text-[11px] uppercase tracking-[0.2em] text-peach">How it works</p>
-          <h2 className="reveal reveal-delay-1 mt-3 max-w-2xl font-display text-4xl text-ink sm:text-5xl">
-            Three taps. <em className="italic text-gradient-ember">The rest is listening.</em>
-          </h2>
-          <ol className="mt-14 grid gap-8 md:grid-cols-3">
-            <Step
-              delay="reveal-delay-1"
-              n="01"
-              title="Record"
-              body="One question appears. You speak. 30 seconds or 10 minutes."
-            />
-            <Step
-              delay="reveal-delay-2"
-              n="02"
-              title="Remember"
-              body="ÉCHO transcribes your voice on-device. You read your own words back. You already knew. You just forgot."
-            />
-            <Step
-              delay="reveal-delay-3"
-              n="03"
-              title="Return"
-              body="The words were always there. ÉCHO just kept them safe."
-            />
-          </ol>
-        </div>
-      </section>
-
-      {/* Features grid */}
-      <section className="relative" aria-label="Key features">
-        <div className="divider-gradient mx-auto max-w-6xl" />
-        <div className="mx-auto max-w-6xl px-6 py-24">
-          <p className="reveal text-[11px] uppercase tracking-[0.2em] text-peach">Features</p>
-          <h2 className="reveal reveal-delay-1 mt-3 max-w-2xl font-display text-4xl text-ink sm:text-5xl">
-            Built for privacy. <em className="italic text-gradient-ember">Designed for clarity.</em>
-          </h2>
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <Feature
-              icon="🎙️"
-              title="Voice-first journaling"
-              body="Speak naturally. On-device transcription captures every word without your audio leaving your iPhone."
-            />
-            <Feature
-              icon="🔒"
-              title="End-to-end encrypted"
-              body="Your recordings and transcripts are encrypted at rest. No one — not even us — can read your entries."
-            />
-            <Feature
-              icon="📈"
-              title="Emotional pattern tracking"
-              body="ÉCHO builds a longitudinal picture of your emotional state, decisions, and recurring themes over months."
-            />
-            <Feature
-              icon="⏳"
-              title="Time capsule comparisons"
-              body="Compare who you were six months ago to who you are now. See how your thinking has evolved in your own words."
-            />
-            <Feature
-              icon="✈️"
-              title="Offline-first"
-              body="Record anywhere, any time. ÉCHO works without an internet connection — your entries sync when you reconnect."
-            />
-            <Feature
-              icon="🤫"
-              title="Zero data sharing"
-              body="Your voice is never used to train external AI models. Your data is never sold or shared with third parties."
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* ÉCHO moment */}
-      <section className="relative px-6 py-28" aria-label="About ÉCHO">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-30 blur-3xl"
-          style={{ background: "radial-gradient(circle, rgba(255,228,184,0.35), transparent 70%)" }}
-        />
-        <div className="relative mx-auto max-w-3xl text-center">
-          <h2 className="reveal font-display text-4xl text-ink sm:text-6xl">
-            You said this.
-            <br />
-            <em className="italic text-gradient-ember">Six weeks before you proved it right.</em>
-          </h2>
-          <p className="reveal reveal-delay-3 mt-10 font-sans text-base text-muted-foreground sm:text-lg">
-            Not what the AI thinks. What you said.
-          </p>
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section className="relative" aria-label="Pricing">
-        <div className="divider-gradient mx-auto max-w-6xl" />
-        <div className="mx-auto max-w-3xl px-6 py-24 text-center">
-          <p className="reveal text-[11px] uppercase tracking-[0.2em] text-peach">Pricing</p>
-          <h2 className="reveal reveal-delay-1 mt-3 font-display text-4xl text-ink sm:text-5xl">
-            Free for the <em className="italic text-gradient-ember">first circle.</em>
-          </h2>
-          <p className="reveal reveal-delay-2 mx-auto mt-7 font-display text-2xl text-ink sm:text-3xl">
-            <span className="text-peach">€7.99</span>{" "}
-            <span className="text-muted-foreground">/ month</span>
-            <span className="mx-3 text-muted-foreground">·</span>
-            <span className="text-peach">€69</span>{" "}
-            <span className="text-muted-foreground">/ year</span>
-          </p>
-          <p className="reveal reveal-delay-3 mx-auto mt-5 max-w-xl text-sm text-muted-foreground">
-            Your voice. Your words. Never used for anything else.
-          </p>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="relative" aria-label="Frequently asked questions">
-        <div className="divider-gradient mx-auto max-w-6xl" />
-        <div className="mx-auto max-w-3xl px-6 py-24">
-          <p className="reveal text-[11px] uppercase tracking-[0.2em] text-peach">FAQ</p>
-          <h2 className="reveal reveal-delay-1 mt-3 font-display text-4xl text-ink sm:text-5xl">
-            Questions <em className="italic text-gradient-ember">answered.</em>
-          </h2>
-          <dl className="mt-14 space-y-4">
-            {FAQ_ITEMS.map((item, i) => (
-              <div
-                key={i}
-                className="reveal rounded-2xl border border-peach/10 bg-card/30 backdrop-blur-sm transition hover:border-peach/20"
-              >
-                <dt>
-                  <button
-                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                    aria-expanded={openFaq === i}
-                    className="flex w-full items-start justify-between gap-4 p-6 text-left"
-                  >
-                    <span className="font-display text-lg text-ink">{item.q}</span>
-                    <span
-                      aria-hidden
-                      className={`mt-1 shrink-0 text-peach transition-transform duration-200 ${openFaq === i ? "rotate-45" : ""}`}
-                    >
-                      +
-                    </span>
-                  </button>
-                </dt>
-                {openFaq === i && (
-                  <dd className="px-6 pb-6 text-sm leading-relaxed text-muted-foreground">
-                    {item.a}
-                  </dd>
-                )}
-              </div>
-            ))}
-          </dl>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="relative" aria-label="Join the waitlist">
-        <div className="divider-gradient mx-auto max-w-6xl" />
-        <div className="mx-auto max-w-3xl px-6 py-24 text-center">
-          <h2 className="reveal font-display text-4xl text-ink sm:text-5xl">
-            The first voice you should trust
-            <br />
-            <em className="italic text-gradient-ember">is yours.</em>
-          </h2>
-          <div className="reveal reveal-delay-2 mx-auto mt-10 max-w-md">
-            <WaitlistForm variant="footer" />
-          </div>
-        </div>
-      </section>
-
-      <footer className="relative">
-        <div className="divider-gradient mx-auto max-w-6xl" />
-        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-4 px-6 py-10 text-xs text-muted-foreground sm:flex-row sm:items-center">
-          <div className="space-y-1">
-            <p className="font-display text-sm text-ink">
-              ÉCHO <span className="text-muted-foreground">— RÉACLYSE's journal for decisions.</span>
-            </p>
-            <p>© 2026 Réaclyse. Luxembourg.</p>
-          </div>
-          <nav
-            aria-label="Footer navigation"
-            className="flex flex-wrap items-center gap-x-6 gap-y-2 uppercase tracking-[0.18em]"
-          >
-            <a
-              href="https://reaclyse.com"
-              target="_blank"
-              rel="noreferrer noopener"
-              className="transition hover:text-peach"
-            >
-              réaclyse.com
-            </a>
-            <a
-              href="https://instagram.com/reaclyse"
-              target="_blank"
-              rel="noreferrer noopener"
-              className="transition hover:text-peach"
-            >
-              Instagram
-            </a>
-            <Link to="/privacy" className="transition hover:text-peach">
-              Privacy Policy
-            </Link>
-          </nav>
-        </div>
-      </footer>
-    </div>
-  );
-}
-
-function Step({ n, title, body, delay }: { n: string; title: string; body: string; delay?: string }) {
-  return (
-    <li className={`reveal ${delay ?? ""} relative pt-6`}>
-      <div className="divider-gradient absolute inset-x-0 top-0" />
-      <span className="font-display text-sm text-peach">{n}</span>
-      <h3 className="mt-2 font-display text-2xl text-ink">{title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{body}</p>
-    </li>
-  );
-}
-
-function Stat({ k, v }: { k: string; v: string }) {
-  return (
-    <div>
-      <dt className="font-display text-base text-ink sm:text-xl">{k}</dt>
-      <dd className="mt-1 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">{v}</dd>
-    </div>
-  );
-}
-
-function Pillar({ title, body, delay }: { title: string; body: string; delay?: string }) {
-  return (
-    <div
-      className={`reveal ${delay ?? ""} group relative rounded-2xl border border-peach/10 bg-card/30 p-7 backdrop-blur-sm transition hover:border-peach/30 hover:bg-card/50`}
-    >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-px left-6 right-6 h-px"
-        style={{ background: "var(--gradient-divider)" }}
-      />
-      <h3 className="font-display text-2xl text-ink">{title}</h3>
-      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{body}</p>
-    </div>
-  );
-}
-
-function Feature({ icon, title, body }: { icon: string; title: string; body: string }) {
-  return (
-    <div className="reveal group relative rounded-2xl border border-peach/10 bg-card/30 p-6 backdrop-blur-sm transition hover:border-peach/30 hover:bg-card/50">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-px left-6 right-6 h-px"
-        style={{ background: "var(--gradient-divider)" }}
-      />
-      <span className="text-2xl" role="img" aria-hidden>
-        {icon}
-      </span>
-      <h3 className="mt-3 font-display text-xl text-ink">{title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{body}</p>
+      <Nav scrolled={scrolled} />
+      <HeroSection />
+      <MarqueeStrip />
+      <ManifestoSection />
+      <HowItWorksSection />
+      <FeaturesSection />
+      <QuoteSection />
+      <PricingSection />
+      <FAQSection />
+      <FinalCTASection />
+      <Footer />
     </div>
   );
 }
