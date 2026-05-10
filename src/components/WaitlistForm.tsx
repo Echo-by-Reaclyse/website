@@ -35,7 +35,7 @@ export function WaitlistForm({ variant = "hero" }: { variant?: "hero" | "footer"
       const res = await fetch(`${apiBase}/subscribe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: parsed.data, locale, source: "landing", hp }),
+        body: JSON.stringify({ email: parsed.data, locale, source: "landing", hp, consent: true }),
       });
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
