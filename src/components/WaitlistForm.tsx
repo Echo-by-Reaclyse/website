@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { z } from "zod";
 import { toast } from "sonner";
+import { Link } from "@tanstack/react-router";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const emailSchema = z.string().trim().toLowerCase().email("Invalid email address");
 
 export function WaitlistForm({ variant = "hero" }: { variant?: "hero" | "footer" }) {
   const [email, setEmail] = useState("");
   const [hp, setHp] = useState(""); // honeypot — must stay empty
+  const [consented, setConsented] = useState(false);
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
 
@@ -98,7 +101,7 @@ export function WaitlistForm({ variant = "hero" }: { variant?: "hero" | "footer"
         />
         <button
           type="submit"
-          disabled={loading}
+          disabled={loading || !consented}
           className="btn-ember shrink-0 rounded-full px-4 sm:px-5 py-2.5 text-sm tracking-wide disabled:opacity-60"
         >
           {loading ? (
@@ -116,9 +119,23 @@ export function WaitlistForm({ variant = "hero" }: { variant?: "hero" | "footer"
           )}
         </button>
       </div>
-      <p className={`mt-3 text-xs text-muted-foreground/55 ${variant === "footer" ? "text-center" : ""}`}>
-        No spam. Unsubscribe anytime.
-      </p>
+      <div className={`mt-3 flex items-start gap-2.5 ${variant === "footer" ? "justify-center" : ""}`}>
+        <Checkbox
+          id={`consent-${variant}`}
+          checked={consented}
+          onCheckedChange={(v) => setConsented(v === true)}
+          className="mt-0.5 border-muted-foreground/30 data-[state=checked]:border-ember data-[state=checked]:bg-ember"
+        />
+        <label
+          htmlFor={`consent-${variant}`}
+          className="cursor-pointer text-xs leading-snug text-muted-foreground/55"
+        >
+          I agree to receive updates from RÉACLYSE. Unsubscribe anytime.{" "}
+          <Link to="/privacy" className="underline underline-offset-2 hover:text-muted-foreground transition-colors">
+            Read our Privacy Policy.
+          </Link>
+        </label>
+      </div>
     </form>
   );
 }
