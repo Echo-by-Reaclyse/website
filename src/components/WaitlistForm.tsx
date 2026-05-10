@@ -6,11 +6,20 @@ const emailSchema = z.string().trim().toLowerCase().email("Invalid email address
 
 export function WaitlistForm({ variant = "hero" }: { variant?: "hero" | "footer" }) {
   const [email, setEmail] = useState("");
+  const [hp, setHp] = useState(""); // honeypot — must stay empty
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    // Client-side honeypot: if a bot filled the hidden field, silently pretend
+    // success without hitting the API.
+    if (hp) {
+      setDone(true);
+      return;
+    }
+
     const parsed = emailSchema.safeParse(email);
     if (!parsed.success) {
       toast.error(parsed.error.issues[0].message);
@@ -23,7 +32,7 @@ export function WaitlistForm({ variant = "hero" }: { variant?: "hero" | "footer"
       const res = await fetch(`${apiBase}/subscribe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: parsed.data, locale, source: "landing" }),
+        body: JSON.stringify({ email: parsed.data, locale, source: "landing", hp }),
       });
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
@@ -52,6 +61,24 @@ export function WaitlistForm({ variant = "hero" }: { variant?: "hero" | "footer"
 
   return (
     <form onSubmit={onSubmit} className="w-full">
+      {/*
+        Honeypot — visually hidden, never shown to real users.
+        Bots that auto-fill forms will populate this; we silently discard those.
+        CSS-hidden rather than display:none so bots can't trivially detect it.
+      */}
+      <div aria-hidden="true" style={{ position: "absolute", opacity: 0, pointerEvents: "none", height: 0, overflow: "hidden", tabIndex: -1 }}>
+        <label htmlFor={`website-${variant}`}>Website</label>
+        <input
+          id={`website-${variant}`}
+          type="text"
+          name="website"
+          autoComplete="off"
+          tabIndex={-1}
+          value={hp}
+          onChange={(e) => setHp(e.target.value)}
+        />
+      </div>
+
       {/* Pill: input + button as one unified element */}
       <div className="flex items-center gap-1.5 rounded-full border border-peach/20 bg-midnight/80 p-1.5 backdrop-blur-md transition-all duration-300 focus-within:border-ember/50 focus-within:shadow-[0_0_0_3px_rgba(191,96,64,0.10),0_0_48px_rgba(191,96,64,0.07)]">
         <label htmlFor={`email-${variant}`} className="sr-only">
