@@ -93,7 +93,7 @@
   --sidebar-border: var(--border);
   --sidebar-ring: var(--ring);
 
-  --gradient-paper:   radial-gradient(ellipse at top, #133158 0%, #0A1220 60%);
+  --gradient-paper:   radial-gradient(ellipse at top, #112A50 0%, #0A1220 55%);
   --gradient-ember:   linear-gradient(135deg, #BF6040 0%, #E07A4F 50%, #FFE4B8 100%);
   --gradient-rose:    linear-gradient(135deg, #BF6040, #D88560);
   --gradient-divider: linear-gradient(90deg, transparent 0%, rgba(255,228,184,0.35) 50%, transparent 100%);
@@ -104,8 +104,7 @@
 }
 
 /* ─────────────────────────────────────────────────────────────
-   LIGHT THEME  (matches iOS app light palette — warm parchment)
-   Applied via .light class OR system preference (no .dark class)
+   LIGHT THEME  (warm parchment)
 ───────────────────────────────────────────────────────────── */
 :root.light {
   --midnight:        #FFF6E9;
@@ -197,14 +196,18 @@
   html {
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth;
+    /* Prevent font size inflation on mobile Safari */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
     background-color: var(--background);
     background-image:
-      radial-gradient(ellipse 80% 50% at 20% 0%,  rgba(191,96,64,0.18) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 50% at 80% 30%, rgba(27,77,168,0.25) 0%, transparent 55%),
-      radial-gradient(ellipse 70% 60% at 50% 100%, rgba(255,228,184,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 88% 48% at 16% -2%,  rgba(191,96,64,0.24) 0%, transparent 65%),
+      radial-gradient(ellipse 52% 44% at 88% 26%,  rgba(27,77,168,0.32)  0%, transparent 58%),
+      radial-gradient(ellipse 65% 55% at 50% 106%, rgba(255,228,184,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 85% 50% at 50%  48%, rgba(14,50,114,0.14)  0%, transparent 70%),
       var(--gradient-paper);
     color: var(--color-foreground);
     font-family: var(--font-sans);
@@ -261,13 +264,66 @@
     background: radial-gradient(rgba(255,228,184,0.55), rgba(191,96,64,0.25) 50%, transparent 80%) !important;
   }
 
+  /* ── Ambient background orbs — fixed, very slow GPU-only drift ── */
+  @keyframes ambientA {
+    0%, 100% { transform: translate(0, 0)    scale(1);    }
+    33%       { transform: translate(4%, 9%)  scale(1.07); }
+    66%       { transform: translate(-3%, -5%) scale(0.96); }
+  }
+  @keyframes ambientB {
+    0%, 100% { transform: translate(0, 0)    scale(1);    }
+    40%       { transform: translate(-5%, 7%)  scale(1.06); }
+    70%       { transform: translate(3%, -9%) scale(0.95); }
+  }
+  @keyframes ambientC {
+    0%, 100% { transform: translate(0, 0)    scale(1); }
+    50%       { transform: translate(-7%, -11%) scale(1.09); }
+  }
+
+  .ambient-orb-a {
+    position: absolute;
+    width: min(760px, 120vw);
+    height: min(760px, 120vw);
+    top: -15%;
+    left: -12%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(191,96,64,0.18) 0%, transparent 70%);
+    filter: blur(50px);
+    animation: ambientA 32s ease-in-out infinite;
+    will-change: transform;
+  }
+  .ambient-orb-b {
+    position: absolute;
+    width: min(680px, 110vw);
+    height: min(680px, 110vw);
+    top: 28%;
+    right: -14%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(27,77,168,0.22) 0%, transparent 70%);
+    filter: blur(50px);
+    animation: ambientB 42s ease-in-out infinite;
+    will-change: transform;
+  }
+  .ambient-orb-c {
+    position: absolute;
+    width: min(560px, 100vw);
+    height: min(560px, 100vw);
+    bottom: 5%;
+    left: 18%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,228,184,0.07) 0%, transparent 70%);
+    filter: blur(60px);
+    animation: ambientC 50s ease-in-out infinite;
+    will-change: transform;
+  }
+
   /* ── Reveal: translate + opacity, expo-out ── */
   .reveal {
     opacity: 0;
     transform: translateY(24px);
     transition:
-      opacity   0.9s  cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.9s  cubic-bezier(0.22, 1, 0.36, 1);
+      opacity   0.85s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
     will-change: opacity, transform;
   }
   .reveal.is-visible {
@@ -282,13 +338,14 @@
 
   /* ── Nav ── */
   .nav-blur {
-    -webkit-backdrop-filter: blur(14px) saturate(140%);
-    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    backdrop-filter: blur(16px) saturate(150%);
     background: var(--midnight);
+    border-bottom: 1px solid rgba(255,228,184,0.06);
   }
   @supports (color: color-mix(in lab, red, red)) {
     .nav-blur {
-      background: color-mix(in oklab, var(--midnight) 70%, transparent);
+      background: color-mix(in oklab, var(--midnight) 72%, transparent);
     }
   }
 
@@ -303,8 +360,8 @@
     40%       { transform: translate(-20px, 16px) scale(1.04); }
     70%       { transform: translate(14px, -12px) scale(0.98); }
   }
-  .blob-float-1 { animation: blob-1 16s ease-in-out infinite; }
-  .blob-float-2 { animation: blob-2 20s ease-in-out infinite; }
+  .blob-float-1 { animation: blob-1 18s ease-in-out infinite; }
+  .blob-float-2 { animation: blob-2 22s ease-in-out infinite; }
 
   /* ── Wave scroll (used by Waveform component) ── */
   @keyframes waveScroll {
@@ -382,6 +439,15 @@
     to   { opacity: 1; transform: scale(1) translateY(0); }
   }
 
+  /* ── Question crossfade (AppMockup) — CSS-only, key-triggered ── */
+  @keyframes questionIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .question-in {
+    animation: questionIn 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
   /* ── Continuous hero utilities ── */
   @keyframes phoneFloat {
     0%, 100% { transform: translateY(0); }
@@ -429,7 +495,7 @@
   }
   .card-lift:hover { transform: translateY(-5px); }
 
-  /* ── FAQ accordion — CSS grid height trick (no JS animation) ── */
+  /* ── FAQ accordion — CSS grid height trick ── */
   .faq-body {
     display: grid;
     grid-template-rows: 0fr;
@@ -448,11 +514,11 @@
     .blob-float-1, .blob-float-2,
     .phone-float, .badge-dot,
     .record-ring, .quote-glow,
-    .scroll-cue-line {
+    .scroll-cue-line,
+    .ambient-orb-a, .ambient-orb-b, .ambient-orb-c {
       animation: none !important;
     }
-    .hero-word, .hero-fade, .hero-badge,
-    .nav-entrance {
+    .hero-word, .hero-fade, .hero-badge, .nav-entrance, .question-in {
       animation: none !important;
       opacity: 1 !important;
       transform: none !important;
@@ -471,5 +537,27 @@
     background: linear-gradient(135deg, #FFFAF0, #F1E4CC 55%, #FFFAF0) !important;
     border: 1px solid rgba(168,75,42,0.18) !important;
     box-shadow: 0 0 0 1px rgba(168,75,42,0.06), 0 24px 48px rgba(120,70,40,0.18), inset 0 1px rgba(255,255,255,0.6) !important;
+  }
+}
+
+/* ── Light-mode ambient orbs ── */
+:root.light .ambient-orb-a {
+  background: radial-gradient(circle, rgba(191,96,64,0.10) 0%, transparent 70%);
+}
+:root.light .ambient-orb-b {
+  background: radial-gradient(circle, rgba(216,133,96,0.10) 0%, transparent 70%);
+}
+:root.light .ambient-orb-c {
+  background: radial-gradient(circle, rgba(168,75,42,0.06) 0%, transparent 70%);
+}
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .ambient-orb-a {
+    background: radial-gradient(circle, rgba(191,96,64,0.10) 0%, transparent 70%);
+  }
+  :root:not(.dark) .ambient-orb-b {
+    background: radial-gradient(circle, rgba(216,133,96,0.10) 0%, transparent 70%);
+  }
+  :root:not(.dark) .ambient-orb-c {
+    background: radial-gradient(circle, rgba(168,75,42,0.06) 0%, transparent 70%);
   }
 }

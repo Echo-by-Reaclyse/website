@@ -72,7 +72,7 @@ export function WaitlistForm({ variant = "hero" }: { variant?: "hero" | "footer"
         <button
           type="submit"
           disabled={loading}
-          className="btn-ember shrink-0 rounded-full px-5 py-2.5 text-sm tracking-wide disabled:opacity-60"
+          className="btn-ember shrink-0 rounded-full px-4 sm:px-5 py-2.5 text-sm tracking-wide disabled:opacity-60"
         >
           {loading ? (
             <span className="flex items-center gap-2">
@@ -80,9 +80,12 @@ export function WaitlistForm({ variant = "hero" }: { variant?: "hero" | "footer"
               Joining…
             </span>
           ) : variant === "footer" ? (
-            "Join the waitlist →"
+            "Join waitlist →"
           ) : (
-            "Reserve your place →"
+            <>
+              <span className="hidden sm:inline">Reserve your place </span>
+              <span className="sm:hidden">Reserve </span>→
+            </>
           )}
         </button>
       </div>

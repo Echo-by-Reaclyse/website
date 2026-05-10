@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { Toaster } from "@/components/ui/sonner";
 import { WaitlistForm } from "@/components/WaitlistForm";
 import { Waveform } from "@/components/Waveform";
@@ -10,10 +9,7 @@ export const Route = createFileRoute("/")({
   component: Landing,
 });
 
-const EXPO = [0.22, 1, 0.36, 1] as const;
-
 // ── IntersectionObserver reveal ────────────────────────────────
-// Lightweight CSS-only scroll reveals — no JS animation overhead.
 function useReveal() {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -84,7 +80,7 @@ const FAQ_ITEMS = [
 ];
 
 // ── App Mockup ──────────────────────────────────────────────────
-// framer-motion used HERE ONLY — AnimatePresence for question crossfade.
+// CSS-only question crossfade — key change re-triggers the animation on mount.
 function AppMockup() {
   const [qIdx, setQIdx] = useState(0);
   const [recording, setRecording] = useState(true);
@@ -96,12 +92,13 @@ function AppMockup() {
 
   return (
     <div
+      className="w-[min(300px,calc(100vw-3rem))] sm:w-[340px]"
       style={{
-        filter: "drop-shadow(0 48px 72px rgba(0,0,0,0.7)) drop-shadow(0 0 40px rgba(191,96,64,0.18))",
+        filter: "drop-shadow(0 48px 72px rgba(0,0,0,0.65)) drop-shadow(0 0 40px rgba(191,96,64,0.16))",
       }}
     >
       <div
-        className="relative w-[300px] sm:w-[340px] overflow-hidden rounded-[44px]"
+        className="relative w-full overflow-hidden rounded-[44px]"
         style={{
           background: "linear-gradient(165deg, #111D33 0%, #0A1220 100%)",
           border: "1px solid rgba(255,228,184,0.11)",
@@ -147,23 +144,17 @@ function AppMockup() {
             </p>
           </div>
 
-          {/* Question — AnimatePresence crossfade */}
-          <div className="relative min-h-[88px] mb-5">
+          {/* Question — CSS question-in animation fires on key change */}
+          <div className="relative min-h-[88px] mb-5 overflow-hidden">
             <p className="mb-2 text-[10px] uppercase tracking-[0.18em]"
               style={{ color: "rgba(255,228,184,0.3)" }}>Today's question</p>
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={qIdx}
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -14 }}
-                transition={{ duration: 0.45, ease: EXPO }}
-                className="font-display text-[17px] leading-snug"
-                style={{ color: "rgba(255,246,233,0.92)" }}
-              >
-                {QUESTIONS[qIdx]}
-              </motion.p>
-            </AnimatePresence>
+            <p
+              key={qIdx}
+              className="question-in font-display text-[17px] leading-snug"
+              style={{ color: "rgba(255,246,233,0.92)" }}
+            >
+              {QUESTIONS[qIdx]}
+            </p>
           </div>
 
           {/* Waveform */}
@@ -193,7 +184,7 @@ function AppMockup() {
               </svg>
             </button>
 
-            {/* Record button — CSS ring animation, no framer-motion */}
+            {/* Record button — CSS ring animation */}
             <button
               onClick={() => setRecording(!recording)}
               className="relative active:scale-95 transition-transform duration-100"
@@ -267,19 +258,19 @@ const H1_LINE2 = ["voice", "again."];
 
 function HeroSection() {
   return (
-    <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pb-0 pt-28">
+    <section className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-6 pb-12 pt-24 sm:pb-0 sm:pt-28">
       {/* Background orbs — pure CSS blob animations */}
       <div aria-hidden
-        className="blob-float-1 pointer-events-none absolute left-[8%] top-[12%] h-[480px] w-[480px] rounded-full blur-3xl"
-        style={{ background: "radial-gradient(circle, rgba(191,96,64,0.32), transparent 70%)", opacity: 0.4, willChange: "transform" }}
+        className="blob-float-1 pointer-events-none absolute left-[8%] top-[12%] h-[520px] w-[520px] rounded-full blur-3xl"
+        style={{ background: "radial-gradient(circle, rgba(191,96,64,0.35), transparent 70%)", opacity: 0.38, willChange: "transform" }}
       />
       <div aria-hidden
-        className="blob-float-2 pointer-events-none absolute right-[4%] top-[32%] h-[400px] w-[400px] rounded-full blur-3xl"
-        style={{ background: "radial-gradient(circle, rgba(27,77,168,0.45), transparent 70%)", opacity: 0.32, willChange: "transform" }}
+        className="blob-float-2 pointer-events-none absolute right-[4%] top-[28%] h-[420px] w-[420px] rounded-full blur-3xl"
+        style={{ background: "radial-gradient(circle, rgba(27,77,168,0.5), transparent 70%)", opacity: 0.3, willChange: "transform" }}
       />
       <div aria-hidden
-        className="pointer-events-none absolute bottom-[10%] left-[30%] h-[320px] w-[320px] rounded-full blur-3xl"
-        style={{ background: "radial-gradient(circle, rgba(255,228,184,0.1), transparent 70%)", opacity: 0.45 }}
+        className="pointer-events-none absolute bottom-[8%] left-[28%] h-[360px] w-[360px] rounded-full blur-3xl"
+        style={{ background: "radial-gradient(circle, rgba(255,228,184,0.12), transparent 70%)", opacity: 0.4 }}
       />
 
       {/* Badge */}
@@ -292,7 +283,7 @@ function HeroSection() {
 
       {/* Headline — word by word via CSS animation-delay */}
       <h1 className="mb-8 text-center font-display leading-[0.9] tracking-tight"
-        style={{ fontSize: "clamp(3rem, 10.5vw, 7.25rem)" }}>
+        style={{ fontSize: "clamp(2.75rem, 10.5vw, 7.25rem)" }}>
         <span className="mb-[0.04em] block">
           {H1_LINE1.map((word, i) => (
             <span key={word} className="hero-word mr-[0.2em] text-ink"
@@ -330,7 +321,7 @@ function HeroSection() {
       </div>
 
       {/* Stats */}
-      <div className="hero-fade mt-12 flex gap-10" style={{ animationDelay: "1.12s" }}>
+      <div className="hero-fade mt-10 flex flex-wrap justify-center gap-5 sm:gap-10" style={{ animationDelay: "1.12s" }}>
         {[{ k: "2026", v: "Launch" }, { k: "iOS 17+", v: "Platform" }, { k: "9 countries", v: "Europe first" }].map(({ k, v }) => (
           <div key={k} className="text-center">
             <p className="font-display text-base text-ink sm:text-xl">{k}</p>
@@ -339,8 +330,8 @@ function HeroSection() {
         ))}
       </div>
 
-      {/* App mockup — CSS entrance fade + continuous float on separate layers */}
-      <div className="hero-fade mt-16 pb-20 sm:mt-20" style={{ animationDelay: "0.55s" }}>
+      {/* App mockup */}
+      <div className="hero-fade mt-14 pb-8 sm:mt-20 sm:pb-20" style={{ animationDelay: "0.55s" }}>
         <div className="phone-float">
           <AppMockup />
         </div>
@@ -357,15 +348,15 @@ function HeroSection() {
 // ── Manifesto section ──────────────────────────────────────────
 function ManifestoSection() {
   return (
-    <section className="relative mx-auto max-w-6xl px-6 py-28">
-      <div className="divider-gradient mb-16" />
+    <section className="relative mx-auto max-w-6xl px-6 py-16 sm:py-24 lg:py-28">
+      <div className="divider-gradient mb-14 sm:mb-16" />
       <h2 className="reveal font-display text-4xl text-ink sm:text-5xl">
         What ÉCHO <em className="italic text-gradient-ember">does.</em>
       </h2>
-      <div className="mt-14 grid gap-6 md:grid-cols-3">
+      <div className="mt-10 grid gap-5 sm:mt-14 sm:gap-6 md:grid-cols-3">
         {PILLARS.map((p, i) => (
           <div key={p.title}
-            className={`reveal reveal-delay-${i + 1} card-lift group relative overflow-hidden rounded-2xl border border-peach/10 bg-card/30 p-8 backdrop-blur-sm hover:border-peach/[0.28] hover:bg-card/50`}>
+            className={`reveal reveal-delay-${i + 1} card-lift group relative overflow-hidden rounded-2xl border border-peach/10 bg-card/30 p-6 sm:p-8 backdrop-blur-sm hover:border-peach/[0.28] hover:bg-card/50`}>
             <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px"
               style={{ background: "var(--gradient-divider)" }} />
             <span aria-hidden
@@ -373,7 +364,7 @@ function ManifestoSection() {
               style={{ color: "rgba(255,228,184,0.04)" }}>
               0{i + 1}
             </span>
-            <h3 className="font-display text-3xl text-ink">{p.title}</h3>
+            <h3 className="font-display text-2xl sm:text-3xl text-ink">{p.title}</h3>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{p.body}</p>
           </div>
         ))}
@@ -385,13 +376,13 @@ function ManifestoSection() {
 // ── How it works section ───────────────────────────────────────
 function HowItWorksSection() {
   return (
-    <section className="relative mx-auto max-w-6xl px-6 py-28">
-      <div className="divider-gradient mb-16" />
+    <section className="relative mx-auto max-w-6xl px-6 py-16 sm:py-24 lg:py-28">
+      <div className="divider-gradient mb-14 sm:mb-16" />
       <p className="reveal text-[11px] uppercase tracking-[0.2em] text-peach">How it works</p>
       <h2 className="reveal reveal-delay-1 mt-3 max-w-2xl font-display text-4xl text-ink sm:text-5xl">
         Three taps. <em className="italic text-gradient-ember">The rest is listening.</em>
       </h2>
-      <ol className="mt-16 grid gap-0 md:grid-cols-3">
+      <ol className="mt-12 grid gap-8 sm:mt-16 md:grid-cols-3 md:gap-0">
         {STEPS.map((step, i) => (
           <li key={step.n} className={`reveal reveal-delay-${i + 1} relative`}>
             {i < STEPS.length - 1 && (
@@ -415,16 +406,16 @@ function HowItWorksSection() {
 // ── Features section ───────────────────────────────────────────
 function FeaturesSection() {
   return (
-    <section className="relative mx-auto max-w-6xl px-6 py-28">
-      <div className="divider-gradient mb-16" />
+    <section className="relative mx-auto max-w-6xl px-6 py-16 sm:py-24 lg:py-28">
+      <div className="divider-gradient mb-14 sm:mb-16" />
       <p className="reveal text-[11px] uppercase tracking-[0.2em] text-peach">Features</p>
       <h2 className="reveal reveal-delay-1 mt-3 max-w-2xl font-display text-4xl text-ink sm:text-5xl">
         Built for privacy. <em className="italic text-gradient-ember">Designed for clarity.</em>
       </h2>
-      <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
         {FEATURES.map((feat, i) => (
           <div key={feat.title}
-            className={`reveal reveal-delay-${(i % 3) + 1} card-lift relative overflow-hidden rounded-2xl border border-peach/10 bg-card/25 p-7 backdrop-blur-sm hover:border-peach/[0.26] hover:bg-card/40`}>
+            className={`reveal reveal-delay-${(i % 3) + 1} card-lift relative overflow-hidden rounded-2xl border border-peach/10 bg-card/25 p-6 sm:p-7 backdrop-blur-sm hover:border-peach/[0.26] hover:bg-card/40`}>
             <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px"
               style={{ background: "var(--gradient-divider)" }} />
             <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-[10px] uppercase tracking-[0.18em] text-peach font-medium"
@@ -443,20 +434,20 @@ function FeaturesSection() {
 // ── Quote section ──────────────────────────────────────────────
 function QuoteSection() {
   return (
-    <section className="relative overflow-hidden px-6 py-36">
+    <section className="relative overflow-hidden px-6 py-20 sm:py-32 lg:py-36">
       <div aria-hidden
         className="quote-glow pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
-        style={{ background: "radial-gradient(circle, rgba(255,228,184,0.12), transparent 70%)" }}
+        style={{ background: "radial-gradient(circle, rgba(255,228,184,0.13), transparent 70%)" }}
       />
       <div className="relative mx-auto max-w-3xl text-center">
-        <h2 className="reveal font-display text-4xl text-ink sm:text-6xl">
+        <h2 className="reveal font-display text-3xl text-ink sm:text-5xl lg:text-6xl">
           You said this.
           <br />
           <em className="italic text-gradient-ember">
             Six weeks before you proved it right.
           </em>
         </h2>
-        <p className="reveal reveal-delay-2 mt-10 text-base text-muted-foreground sm:text-lg">
+        <p className="reveal reveal-delay-2 mt-8 sm:mt-10 text-base text-muted-foreground sm:text-lg">
           Not what the AI thinks. What <em>you</em> said.
         </p>
       </div>
@@ -467,25 +458,25 @@ function QuoteSection() {
 // ── Pricing section ────────────────────────────────────────────
 function PricingSection() {
   return (
-    <section className="relative mx-auto max-w-3xl px-6 py-28 text-center">
-      <div className="divider-gradient mb-16" />
+    <section className="relative mx-auto max-w-3xl px-6 py-16 sm:py-28 text-center">
+      <div className="divider-gradient mb-14 sm:mb-16" />
       <p className="reveal text-[11px] uppercase tracking-[0.2em] text-peach">Pricing</p>
       <h2 className="reveal reveal-delay-1 mt-3 font-display text-4xl text-ink sm:text-5xl">
         Free for the <em className="italic text-gradient-ember">first circle.</em>
       </h2>
-      <div className="reveal reveal-delay-2 mt-10 inline-block">
-        <div className="card-lift relative overflow-hidden rounded-3xl border border-peach/15 bg-card/30 p-10 backdrop-blur-sm hover:border-peach/[0.28]">
+      <div className="reveal reveal-delay-2 mt-10 inline-block w-full sm:w-auto">
+        <div className="card-lift relative overflow-hidden rounded-3xl border border-peach/15 bg-card/30 p-6 sm:p-10 backdrop-blur-sm hover:border-peach/[0.28]">
           <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px"
             style={{ background: "var(--gradient-divider)" }} />
-          <div className="flex items-baseline justify-center gap-3 font-display text-3xl sm:text-4xl">
+          <div className="flex flex-wrap items-baseline justify-center gap-x-3 gap-y-2 font-display text-2xl sm:text-3xl lg:text-4xl">
             <span>
               <span className="text-gradient-ember">€7.99</span>
-              <span className="ml-1 text-xl text-muted-foreground">/ month</span>
+              <span className="ml-1 text-lg sm:text-xl text-muted-foreground">/ month</span>
             </span>
-            <span className="text-muted-foreground">·</span>
+            <span className="text-muted-foreground hidden sm:inline">·</span>
             <span>
               <span className="text-gradient-ember">€69</span>
-              <span className="ml-1 text-xl text-muted-foreground">/ year</span>
+              <span className="ml-1 text-lg sm:text-xl text-muted-foreground">/ year</span>
             </span>
           </div>
           <p className="mt-5 mx-auto max-w-xs text-sm text-muted-foreground">
@@ -500,17 +491,17 @@ function PricingSection() {
   );
 }
 
-// ── FAQ section — CSS grid accordion, zero framer-motion ───────
+// ── FAQ section — CSS grid accordion, zero JS animation ───────
 function FAQSection() {
   const [open, setOpen] = useState<number | null>(null);
   return (
-    <section className="relative mx-auto max-w-3xl px-6 py-28">
-      <div className="divider-gradient mb-16" />
+    <section className="relative mx-auto max-w-3xl px-6 py-16 sm:py-28">
+      <div className="divider-gradient mb-14 sm:mb-16" />
       <p className="reveal text-[11px] uppercase tracking-[0.2em] text-peach">FAQ</p>
       <h2 className="reveal reveal-delay-1 mt-3 font-display text-4xl text-ink sm:text-5xl">
         Questions <em className="italic text-gradient-ember">answered.</em>
       </h2>
-      <dl className="mt-14 space-y-3">
+      <dl className="mt-12 sm:mt-14 space-y-3">
         {FAQ_ITEMS.map((item, i) => (
           <div key={i}
             className={`reveal rounded-2xl border backdrop-blur-sm transition-colors duration-200 ${
@@ -521,9 +512,9 @@ function FAQSection() {
               <button
                 onClick={() => setOpen(open === i ? null : i)}
                 aria-expanded={open === i}
-                className="flex w-full items-start justify-between gap-4 p-6 text-left"
+                className="flex w-full items-start justify-between gap-4 p-5 sm:p-6 text-left"
               >
-                <span className="font-display text-lg text-ink">{item.q}</span>
+                <span className="font-display text-base sm:text-lg text-ink">{item.q}</span>
                 <span aria-hidden
                   className="mt-1 shrink-0 text-peach text-xl leading-none transition-transform duration-200"
                   style={{ transform: open === i ? "rotate(45deg)" : "rotate(0deg)" }}>
@@ -531,10 +522,10 @@ function FAQSection() {
                 </span>
               </button>
             </dt>
-            {/* CSS grid height animation — no JS */}
+            {/* CSS grid height animation */}
             <div className="faq-body" data-open={open === i ? "true" : "false"}>
               <div>
-                <p className="px-6 pb-6 text-sm leading-relaxed text-muted-foreground">{item.a}</p>
+                <p className="px-5 pb-5 sm:px-6 sm:pb-6 text-sm leading-relaxed text-muted-foreground">{item.a}</p>
               </div>
             </div>
           </div>
@@ -547,9 +538,9 @@ function FAQSection() {
 // ── Final CTA section ──────────────────────────────────────────
 function FinalCTASection() {
   return (
-    <section className="relative mx-auto max-w-3xl px-6 py-28 text-center">
-      <div className="divider-gradient mb-16" />
-      <h2 className="reveal font-display text-4xl text-ink sm:text-5xl">
+    <section className="relative mx-auto max-w-3xl px-6 py-16 sm:py-28 text-center">
+      <div className="divider-gradient mb-14 sm:mb-16" />
+      <h2 className="reveal font-display text-3xl sm:text-4xl lg:text-5xl text-ink">
         The first voice you should trust
         <br />
         <em className="italic text-gradient-ember">is yours.</em>
@@ -565,18 +556,19 @@ function FinalCTASection() {
 function Nav({ scrolled }: { scrolled: boolean }) {
   return (
     <header className={`nav-entrance fixed inset-x-0 top-0 z-30 transition-all duration-300 ${scrolled ? "nav-blur" : "bg-transparent"}`}>
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 sm:px-6 py-4 sm:py-5">
         <div className="flex items-baseline gap-2">
-          <span className="font-display text-2xl tracking-tight text-ink">ÉCHO</span>
+          <span className="font-display text-xl sm:text-2xl tracking-tight text-ink">ÉCHO</span>
           <span className="hidden text-[11px] uppercase tracking-[0.2em] text-muted-foreground sm:inline">
             by Réaclyse
           </span>
         </div>
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-4 sm:gap-5">
           <ThemeToggle />
           <a href="#rejoindre"
-            className="hidden text-xs uppercase tracking-[0.2em] text-ink/60 transition-colors hover:text-peach sm:inline">
-            Join waitlist
+            className="text-xs uppercase tracking-[0.2em] text-ink/60 transition-colors hover:text-peach">
+            <span className="hidden sm:inline">Join waitlist</span>
+            <span className="sm:hidden">Join →</span>
           </a>
         </div>
       </div>
@@ -589,7 +581,7 @@ function Footer() {
   return (
     <footer className="relative">
       <div className="divider-gradient mx-auto max-w-6xl" />
-      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-4 px-6 py-10 text-xs text-muted-foreground sm:flex-row sm:items-center">
+      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-4 px-5 sm:px-6 py-8 sm:py-10 text-xs text-muted-foreground sm:flex-row sm:items-center">
         <div className="space-y-1">
           <p className="font-display text-sm text-ink">
             ÉCHO <span className="text-muted-foreground">— RÉACLYSE's journal for decisions.</span>
@@ -597,12 +589,12 @@ function Footer() {
           <p>© 2026 Réaclyse. Luxembourg.</p>
         </div>
         <nav aria-label="Footer navigation"
-          className="flex flex-wrap items-center gap-x-6 gap-y-2 uppercase tracking-[0.18em]">
+          className="flex flex-wrap items-center gap-x-5 sm:gap-x-6 gap-y-2 uppercase tracking-[0.18em]">
           <a href="https://reaclyse.com" target="_blank" rel="noreferrer noopener"
             className="transition-colors hover:text-peach">réaclyse.com</a>
           <a href="https://instagram.com/reaclyse" target="_blank" rel="noreferrer noopener"
             className="transition-colors hover:text-peach">Instagram</a>
-          <Link to="/privacy" className="transition-colors hover:text-peach">Privacy Policy</Link>
+          <Link to="/privacy" className="transition-colors hover:text-peach">Privacy</Link>
         </nav>
       </div>
     </footer>
@@ -640,6 +632,14 @@ function Landing() {
           }),
         }}
       />
+
+      {/* Ambient background — fixed, behind all content, very slow GPU-only drift */}
+      <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div className="ambient-orb-a" />
+        <div className="ambient-orb-b" />
+        <div className="ambient-orb-c" />
+      </div>
+
       <Toaster richColors position="top-center" />
       <Nav scrolled={scrolled} />
       <HeroSection />
