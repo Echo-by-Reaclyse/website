@@ -504,10 +504,11 @@ function FAQSection() {
       <dl className="mt-12 sm:mt-14 space-y-3">
         {FAQ_ITEMS.map((item, i) => (
           <div key={i}
-            className={`reveal rounded-2xl border backdrop-blur-sm transition-colors duration-200 ${
-              open === i ? "border-peach/[0.22]" : "border-peach/10"
-            }`}
-            style={{ background: "rgba(14,50,114,0.15)" }}>
+            className="reveal rounded-2xl border backdrop-blur-sm transition-colors duration-200"
+            style={{
+              background: "rgba(14,50,114,0.15)",
+              borderColor: open === i ? "rgba(255,228,184,0.22)" : "rgba(255,228,184,0.10)",
+            }}>
             <dt>
               <button
                 onClick={() => setOpen(open === i ? null : i)}
