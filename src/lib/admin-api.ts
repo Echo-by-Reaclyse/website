@@ -86,17 +86,38 @@ export const adminApi = {
   async login(email: string, password: string): Promise<AuthResponse> {
     const data = await apiFetch<AuthResponse>(
       "/auth/sign-in",
-      {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-      },
+      { method: "POST", body: JSON.stringify({ email, password }) },
       false,
     );
-
     if (data.user.role !== "admin") {
       throw new Error("Access denied. This dashboard is for admin users only.");
     }
+    setAuthState(data.accessToken, data.user.role);
+    return data;
+  },
 
+  async loginWithGoogle(idToken: string): Promise<AuthResponse> {
+    const data = await apiFetch<AuthResponse>(
+      "/auth/sign-in-google",
+      { method: "POST", body: JSON.stringify({ idToken }) },
+      false,
+    );
+    if (data.user.role !== "admin") {
+      throw new Error("Access denied. This dashboard is for admin users only.");
+    }
+    setAuthState(data.accessToken, data.user.role);
+    return data;
+  },
+
+  async loginWithApple(idToken: string, nonce: string, displayName?: string): Promise<AuthResponse> {
+    const data = await apiFetch<AuthResponse>(
+      "/auth/sign-in-apple",
+      { method: "POST", body: JSON.stringify({ idToken, nonce, displayName }) },
+      false,
+    );
+    if (data.user.role !== "admin") {
+      throw new Error("Access denied. This dashboard is for admin users only.");
+    }
     setAuthState(data.accessToken, data.user.role);
     return data;
   },
