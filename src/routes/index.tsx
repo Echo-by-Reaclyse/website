@@ -595,6 +595,8 @@ function Footer() {
             className="transition-colors hover:text-peach">réaclyse.com</a>
           <a href="https://instagram.com/reaclyse" target="_blank" rel="noreferrer noopener"
             className="transition-colors hover:text-peach">Instagram</a>
+          <Link to="/about" className="transition-colors hover:text-peach">About</Link>
+          <Link to="/support" className="transition-colors hover:text-peach">Support</Link>
           <Link to="/privacy" className="transition-colors hover:text-peach">Privacy</Link>
         </nav>
       </div>

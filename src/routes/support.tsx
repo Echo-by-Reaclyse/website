@@ -11,31 +11,63 @@ function Support() {
       <title>Help & Support — ÉCHO Voice Journal | Réaclyse</title>
       <meta
         name="description"
-        content="Get help with ÉCHO, the private voice journal for iPhone. Questions about your account, subscription, data, or the iOS launch? We respond within one business day."
+        content="Get help with ÉCHO, the private voice journal for iPhone. Questions about recordings, transcription, your subscription, data export, or your account? We respond within one business day."
       />
-      <link rel="canonical" href="https://echo.reaclyse.com/support" />
+      <link rel="canonical" href="https://echobyreaclyse.com/support" />
       <meta property="og:title" content="Help & Support — ÉCHO Voice Journal" />
       <meta
         property="og:description"
-        content="Get help with ÉCHO. Questions about your account, subscription, or the iOS launch? We respond within one business day."
+        content="Get help with ÉCHO. Questions about recordings, your account, or subscription? We respond within one business day."
       />
-      <meta property="og:url" content="https://echo.reaclyse.com/support" />
+      <meta property="og:url" content="https://echobyreaclyse.com/support" />
 
       <Section title="Getting started">
-        ÉCHO is not yet available — it launches on iOS in 2026. Join the waitlist on the home page
-        to be notified first and unlock early-access pricing. We'll send you everything you need
-        before launch day.
+        Download ÉCHO from the App Store and create an account. Once you're in, your first daily
+        question appears on the home tab. Tap the record button, speak your answer, and tap stop.
+        ÉCHO transcribes your words on-device and saves your entry — no internet required for that
+        step.
       </Section>
-      <Section title="Account & data">
-        Your voice data is encrypted and associated with your account only. You can request a full
-        export or permanent deletion of your data at any time by contacting us directly. We comply
-        fully with GDPR.
+
+      <Section title="Recording & transcription">
+        ÉCHO uses WhisperKit for on-device speech recognition, so your audio never leaves your
+        iPhone during transcription. If a transcript looks off, you can edit it directly in the
+        Journal tab by tapping the entry and choosing Edit. Transcription quality improves in quiet
+        environments with clear speech.
       </Section>
+
+      <Section title="Journal & archive">
+        All your past entries are in the Journal tab. You can search by keyword, filter by date
+        range, and tap any entry to read or play back its recording. Entries are stored locally and
+        optionally synced to your private iCloud account (enable in Settings → iCloud Sync).
+      </Section>
+
+      <Section title="Insights & persona">
+        The Insights tab shows emotional trends, recurring themes, and your evolving persona
+        profile — built from your own words over time. New insights appear after each recording
+        session. AI-generated patterns require an internet connection and can be disabled in
+        Settings.
+      </Section>
+
+      <Section title="Letters (time capsules)">
+        Letters let you seal a snapshot of your current voice and unlock it in the future for a
+        side-by-side comparison with who you are then. Create a letter in the Letters tab, set an
+        unlock date, and ÉCHO will surface it when the time comes.
+      </Section>
+
       <Section title="Subscriptions & billing">
-        ÉCHO will offer a monthly plan at €7.99 and an annual plan at €69. Founding members who
-        join the waitlist early will receive a special offer at launch. All billing is handled
-        through Apple's App Store — we never store your payment information.
+        ÉCHO offers a free tier and a PRO plan (monthly or annual). PRO unlocks unlimited archive
+        history, advanced insights, multiple daily reminders, and letter features. All billing is
+        handled through Apple's App Store — we never store your payment information. To manage or
+        cancel your subscription, go to Settings → Manage Subscription or visit your iPhone's
+        App Store subscription settings.
       </Section>
+
+      <Section title="Data export & deletion">
+        To export all your data, go to Settings → Export. To delete your account and all associated
+        data permanently, go to Settings → Delete Account. Deletions are irreversible. Your data
+        can also be deleted from iCloud via Settings → iCloud on your iPhone.
+      </Section>
+
       <Section title="Contact support">
         For any questions, email{" "}
         <a href="mailto:hello@reaclyse.com" className="text-ember transition hover:opacity-75">
