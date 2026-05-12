@@ -73,7 +73,7 @@ const FEATURES = [
 const FAQ_ITEMS = [
   { q: "What is ÉCHO?",               a: "ÉCHO is a private voice journal for iPhone. Every day, one question appears. You speak your answer — no typing, no blank pages. ÉCHO stores your recording and transcript encrypted on your device, then surfaces it weeks or months later so you can hear how your thinking has evolved." },
   { q: "When does ÉCHO launch?",      a: "ÉCHO launches on the iOS App Store in 2026, starting with European markets: France, Germany, Spain, Italy, Luxembourg, Belgium, the Netherlands, Austria, and Switzerland. Join the waitlist to be notified first and unlock early-access pricing." },
-  { q: "Is ÉCHO available on Android?", a: "ÉCHO is iOS-only at launch (iPhone, iOS 26+). Android support may come in a later phase. Join the waitlist and we'll let you know when your platform is supported." },
+  { q: "Is ÉCHO available on Android?", a: "ÉCHO is iOS-only at launch (iPhone, iOS 26). Android support may come in a later phase. Join the waitlist and we'll let you know when your platform is supported." },
   { q: "How is my voice data protected?", a: "Your voice recordings and transcripts are encrypted at rest and are never used to train external AI models. Transcription happens on your device using on-device speech recognition — your audio never leaves your iPhone for that step. We never sell or share your personal data." },
   { q: "How much does ÉCHO cost?",    a: "ÉCHO is free to download. A subscription unlocks unlimited journaling history, advanced pattern insights, and time capsule comparisons. Plans start at €7.99 per month or €69 per year. Waitlist members will receive a special founding-member offer at launch." },
   { q: "How does ÉCHO work?",         a: "Three steps: (1) Open the app — one question appears. (2) Tap record and speak for 30 seconds or 10 minutes. (3) ÉCHO transcribes, stores, and analyses your entry. Over time, it identifies emotional patterns and surfaces past entries when they're most relevant to what you're going through now." },
@@ -322,7 +322,7 @@ function HeroSection() {
 
       {/* Stats */}
       <div className="hero-fade mt-10 flex flex-wrap justify-center gap-5 sm:gap-10" style={{ animationDelay: "1.12s" }}>
-        {[{ k: "2026", v: "Launch" }, { k: "iOS 26+", v: "Platform" }, { k: "9 countries", v: "Europe first" }].map(({ k, v }) => (
+        {[{ k: "2026", v: "Launch" }, { k: "iOS 26", v: "Platform" }, { k: "9 countries", v: "Europe first" }].map(({ k, v }) => (
           <div key={k} className="text-center">
             <p className="font-display text-base text-ink sm:text-xl">{k}</p>
             <p className="mt-0.5 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">{v}</p>
