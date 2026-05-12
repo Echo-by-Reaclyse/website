@@ -141,8 +141,9 @@ export const adminApi = {
 
   // ── Categories ─────────────────────────────────────────────────────────────
 
-  getCategories(): Promise<AdminCategory[]> {
-    return apiFetch<AdminCategory[]>("/admin/categories");
+  async getCategories(): Promise<AdminCategory[]> {
+    const data = await apiFetch<{ categories: AdminCategory[] }>("/admin/categories");
+    return data.categories;
   },
 
   createCategory(data: CreateCategoryData): Promise<AdminCategory> {
@@ -165,15 +166,16 @@ export const adminApi = {
 
   reorderCategories(orders: ReorderItem[]): Promise<void> {
     return apiFetch<void>("/admin/categories/reorder", {
-      method: "PATCH",
+      method: "POST",
       body: JSON.stringify({ orders }),
     });
   },
 
   // ── Questions ──────────────────────────────────────────────────────────────
 
-  getQuestions(): Promise<AdminQuestion[]> {
-    return apiFetch<AdminQuestion[]>("/admin/questions");
+  async getQuestions(): Promise<AdminQuestion[]> {
+    const data = await apiFetch<{ questions: AdminQuestion[] }>("/admin/questions");
+    return data.questions;
   },
 
   createQuestion(data: CreateQuestionData): Promise<AdminQuestion> {
@@ -196,7 +198,7 @@ export const adminApi = {
 
   reorderQuestions(orders: ReorderItem[]): Promise<void> {
     return apiFetch<void>("/admin/questions/reorder", {
-      method: "PATCH",
+      method: "POST",
       body: JSON.stringify({ orders }),
     });
   },
