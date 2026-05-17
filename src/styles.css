@@ -211,6 +211,9 @@
   }
 
   body {
+    /* clip: prevents horizontal overflow without creating a scroll container
+       (overflow:hidden would break position:sticky) */
+    overflow-x: clip;
     background-color: var(--background);
     background-image:
       radial-gradient(ellipse 88% 48% at 16% -2%,  rgba(191,96,64,0.24) 0%, transparent 65%),

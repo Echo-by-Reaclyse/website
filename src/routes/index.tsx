@@ -566,6 +566,10 @@ function Nav({ scrolled }: { scrolled: boolean }) {
         </div>
         <div className="flex items-center gap-4 sm:gap-5">
           <ThemeToggle />
+          <Link to="/features"
+            className="hidden sm:inline text-xs uppercase tracking-[0.2em] text-ink/60 transition-colors hover:text-peach">
+            See it in action
+          </Link>
           <a href="#rejoindre"
             className="text-xs uppercase tracking-[0.2em] text-ink/60 transition-colors hover:text-peach">
             <span className="hidden sm:inline">Join waitlist</span>
