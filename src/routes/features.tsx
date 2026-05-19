@@ -630,6 +630,120 @@ function StorySection() {
   );
 }
 
+// ─── Features Hero Visualization ─────────────────────────────────────────────
+// Typewriter transcription card — no phone chrome, shows the core loop:
+// speak → transcribe → encrypted at rest.
+const TRANSCRIPT_TEXT = "What I keep avoiding is the conversation about whether I actually want this — not whether I'm capable, but whether it's what I want.";
+
+function FeaturesHeroViz() {
+  const C = C_DARK;
+  const WORDS = TRANSCRIPT_TEXT.split(" ");
+  const [count, setCount] = useState(0);
+  const [fading, setFading] = useState(false);
+
+  useEffect(() => {
+    if (!fading) {
+      if (count < WORDS.length) {
+        const t = setTimeout(() => setCount(c => c + 1), 68);
+        return () => clearTimeout(t);
+      } else {
+        const t = setTimeout(() => setFading(true), 3000);
+        return () => clearTimeout(t);
+      }
+    } else {
+      const t = setTimeout(() => { setFading(false); setCount(0); }, 480);
+      return () => clearTimeout(t);
+    }
+  }, [count, fading, WORDS.length]);
+
+  // Compact static waveform using the same WAVE_HEIGHTS data
+  const barSlice = WAVE_HEIGHTS.slice(0, 22);
+
+  return (
+    <div style={{ position: "relative", width: "min(580px, calc(100vw - 2.5rem))" }}>
+
+      {/* Ambient glow behind card */}
+      <div aria-hidden style={{ position: "absolute", bottom: -24, left: "50%", transform: "translateX(-50%)", width: "70%", height: 80, borderRadius: "50%", background: "radial-gradient(ellipse, rgba(191,96,64,0.28), transparent 70%)", filter: "blur(28px)", animation: "glowPulse 4s ease-in-out infinite", pointerEvents: "none" }} />
+
+      {/* Glass card */}
+      <div style={{
+        position: "relative",
+        borderRadius: 28,
+        overflow: "hidden",
+        padding: "28px 32px 24px",
+        background: "linear-gradient(165deg, rgba(14,24,48,0.97) 0%, rgba(6,10,18,0.99) 100%)",
+        border: "1px solid rgba(255,228,184,0.09)",
+        boxShadow: "0 48px 96px rgba(0,0,0,0.55), 0 0 80px rgba(191,96,64,0.06), inset 0 1px 0 rgba(255,246,233,0.06)",
+      }}>
+
+        {/* Top bar */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 22 }}>
+          <span style={{ fontFamily: C.serif, fontSize: 11, letterSpacing: "0.26em", color: "rgba(255,228,184,0.32)", textTransform: "uppercase" }}>ÉCHO</span>
+          <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "4px 10px", borderRadius: 999, background: "rgba(255,228,184,0.05)", border: "1px solid rgba(255,228,184,0.1)" }}>
+            <svg width="9" height="9" viewBox="0 0 9 9" fill="none" aria-hidden>
+              <circle cx="4.5" cy="4.5" r="4" stroke="rgba(255,228,184,0.45)" strokeWidth="0.8" />
+              <path d="M2.5 4.5L4 6L7 3" stroke="rgba(255,228,184,0.65)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span style={{ fontFamily: C.sans, fontSize: 9, color: "rgba(255,228,184,0.45)", textTransform: "uppercase", letterSpacing: "0.16em" }}>Saved</span>
+          </div>
+        </div>
+
+        {/* Question */}
+        <p style={{ fontFamily: C.sans, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.2em", color: "rgba(255,228,184,0.28)", marginBottom: 8 }}>Today's question</p>
+        <p style={{ fontFamily: C.serif, fontSize: "clamp(16px, 3.2vw, 20px)", color: "rgba(255,246,233,0.88)", lineHeight: 1.4, marginBottom: 22, whiteSpace: "pre-line" }}>
+          {QUESTIONS[0]}
+        </p>
+
+        {/* Divider */}
+        <div style={{ height: 1, background: "rgba(255,228,184,0.07)", marginBottom: 18 }} />
+
+        {/* Compact waveform + transcript label */}
+        <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 14 }}>
+          <p style={{ fontFamily: C.sans, fontSize: 9, textTransform: "uppercase", letterSpacing: "0.2em", color: "rgba(255,228,184,0.28)", flexShrink: 0 }}>On-device transcript</p>
+          <div style={{ display: "flex", alignItems: "center", gap: 2, height: 18 }}>
+            {barSlice.map((h, i) => (
+              <div key={i} style={{
+                width: 2, borderRadius: 1,
+                height: Math.max(3, Math.round(h * 0.62)),
+                background: `rgba(191,96,64,${0.32 + (i % 4) * 0.07})`,
+              }} />
+            ))}
+          </div>
+        </div>
+
+        {/* Typewriter transcript */}
+        <div style={{ minHeight: 80, marginBottom: 20 }}>
+          <p style={{ fontFamily: C.sans, fontSize: "clamp(13px, 2.4vw, 15px)", color: "rgba(255,246,233,0.82)", lineHeight: 1.7 }}>
+            {WORDS.map((word, i) => (
+              <span key={i} style={{
+                opacity: !fading && i < count ? 1 : 0,
+                transition: fading
+                  ? "opacity 0.42s ease"
+                  : i === count - 1 ? "opacity 0.18s ease" : "none",
+              }}>
+                {word}{" "}
+              </span>
+            ))}
+            {/* Blinking cursor */}
+            {!fading && count < WORDS.length && (
+              <span aria-hidden style={{ display: "inline-block", width: 2, height: "0.9em", background: C.ember, animation: "featBlink 0.85s ease-in-out infinite", verticalAlign: "text-bottom", marginLeft: 2 }} />
+            )}
+          </p>
+        </div>
+
+        {/* Privacy tags */}
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+          {["On-device", "Encrypted at rest", "Never shared"].map(tag => (
+            <span key={tag} style={{ fontFamily: C.sans, fontSize: 9, letterSpacing: "0.1em", color: "rgba(255,228,184,0.32)", background: "rgba(255,228,184,0.04)", border: "1px solid rgba(255,228,184,0.09)", borderRadius: 999, padding: "3px 10px" }}>
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── Hero ────────────────────────────────────────────────────────────────────
 function ShowcaseHero() {
   const { C, isDark } = useTheme();
@@ -668,11 +782,9 @@ function ShowcaseHero() {
         </div>
       </div>
 
-      {/* Floating phone */}
-      <div className="phone-float" style={{ marginTop: 56, position: "relative", zIndex: 5, animationDelay: "0.38s", animation: "heroFadeUp 0.95s cubic-bezier(0.22,1,0.36,1) 0.38s both, phoneFloat 4.8s ease-in-out 1.4s infinite" }}>
-        <IPhoneFrame>
-          <QuestionScreen />
-        </IPhoneFrame>
+      {/* Hero visualization — transcription card, distinct from the phone showcase below */}
+      <div style={{ marginTop: 56, position: "relative", zIndex: 5, animation: "heroFadeUp 0.95s cubic-bezier(0.22,1,0.36,1) 0.38s both" }}>
+        <FeaturesHeroViz />
       </div>
     </section>
   );
