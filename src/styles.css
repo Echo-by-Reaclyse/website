@@ -498,6 +498,19 @@
                    will-change: transform, opacity; }
   .quote-glow    { animation: glowPulse   6s    ease-in-out infinite; }
 
+  /* ── Hero orb visualization ── */
+  @keyframes expandRing {
+    0%   { transform: scale(1);   opacity: 0.65; }
+    70%  { opacity: 0.08; }
+    100% { transform: scale(2.8); opacity: 0; }
+  }
+  @keyframes orbBreathe {
+    0%, 100% { transform: scale(1);    box-shadow: 0 10px 40px rgba(191,96,64,0.55), 0 3px 12px rgba(0,0,0,0.45); }
+    50%       { transform: scale(1.06); box-shadow: 0 14px 56px rgba(191,96,64,0.72), 0 4px 16px rgba(0,0,0,0.5); }
+  }
+  .orb-ring    { animation: expandRing 3.4s ease-out infinite; will-change: transform, opacity; }
+  .orb-breathe { animation: orbBreathe 3.2s ease-in-out infinite; will-change: transform; }
+
   /* ── Card lift — spring-like overshoot via cubic-bezier ── */
   .card-lift {
     transition:
@@ -515,6 +528,32 @@
   }
   .faq-body[data-open="true"] { grid-template-rows: 1fr; }
   .faq-body > div { overflow: hidden; }
+
+  /* ── Features page animations ── */
+  @keyframes featFadeUp {
+    from { opacity: 0; transform: translateY(20px); filter: blur(5px); }
+    to   { opacity: 1; transform: translateY(0);    filter: blur(0);   }
+  }
+  @keyframes featWordIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes featBarPulse {
+    0%, 100% { transform: scaleY(0.25); opacity: 0.6; }
+    50%       { transform: scaleY(1);   opacity: 1;   }
+  }
+  @keyframes featBarFill {
+    from { width: 0; }
+    to   { width: var(--bar-target); }
+  }
+  @keyframes featBlink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.3; }
+  }
+  @keyframes featPulseScale {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.07); }
+  }
 
   /* ── Reduced motion ── */
   @media (prefers-reduced-motion: reduce) {
@@ -534,6 +573,14 @@
       animation: none !important;
       opacity: 1 !important;
       transform: none !important;
+    }
+    /* Features page — disable all CSS animations */
+    [style*="featFadeUp"], [style*="featWordIn"],
+    [style*="featBarPulse"], [style*="featBarFill"],
+    [style*="featBlink"], [style*="featPulseScale"] {
+      animation: none !important;
+      opacity: 1 !important;
+      width: var(--bar-target, 100%) !important;
     }
   }
 }

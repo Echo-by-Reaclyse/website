@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { WaitlistForm } from "@/components/WaitlistForm";
-import { Waveform } from "@/components/Waveform";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 export const Route = createFileRoute("/")({
@@ -79,158 +78,142 @@ const FAQ_ITEMS = [
   { q: "How does ÉCHO work?",         a: "Three steps: (1) Open the app — one question appears. (2) Tap record and speak for 30 seconds or 10 minutes. (3) ÉCHO transcribes, stores, and analyses your entry. Over time, it identifies emotional patterns and surfaces past entries when they're most relevant to what you're going through now." },
 ];
 
-// ── App Mockup ──────────────────────────────────────────────────
-// CSS-only question crossfade — key change re-triggers the animation on mount.
-function AppMockup() {
+// ── Hero Visualization ──────────────────────────────────────────
+// Listening-orb animation: no phone chrome — concentric rings + waveform.
+function HeroVisualization() {
   const [qIdx, setQIdx] = useState(0);
-  const [recording, setRecording] = useState(true);
+  const [qVisible, setQVisible] = useState(true);
+  const [elapsed, setElapsed] = useState(32);
 
   useEffect(() => {
-    const id = setInterval(() => setQIdx((q) => (q + 1) % QUESTIONS.length), 3800);
-    return () => clearInterval(id);
+    const cycle = setInterval(() => {
+      setQVisible(false);
+      setTimeout(() => { setQIdx(q => (q + 1) % QUESTIONS.length); setQVisible(true); }, 450);
+    }, 4500);
+    const timer = setInterval(() => setElapsed(e => e + 1), 1000);
+    return () => { clearInterval(cycle); clearInterval(timer); };
   }, []);
 
+  const mins = Math.floor(elapsed / 60);
+  const secs = (elapsed % 60).toString().padStart(2, "0");
+
+  // Sine-pattern bar heights for a natural audio-spectrum look
+  const N = 28;
+  const barH = Array.from({ length: N }, (_, i) => {
+    const t = (i / N) * Math.PI * 3.6;
+    return Math.max(5, Math.round(7 + Math.abs(Math.sin(t) * 22 + Math.sin(t * 1.8 + 0.6) * 10)));
+  });
+
   return (
-    <div
-      className="w-[min(300px,calc(100vw-3rem))] sm:w-[340px]"
-      style={{
-        filter: "drop-shadow(0 48px 72px rgba(0,0,0,0.65)) drop-shadow(0 0 40px rgba(191,96,64,0.16))",
-      }}
-    >
-      <div
-        className="relative w-full overflow-hidden rounded-[44px]"
-        style={{
-          background: "linear-gradient(165deg, #111D33 0%, #0A1220 100%)",
-          border: "1px solid rgba(255,228,184,0.11)",
-          boxShadow: "inset 0 1px 0 rgba(255,246,233,0.07), inset 0 -1px 0 rgba(0,0,0,0.3)",
-        }}
-      >
-        {/* Dynamic island */}
-        <div className="flex justify-center pt-4 pb-1">
-          <div className="h-[30px] w-24 rounded-full bg-[#060C15]" />
-        </div>
+    <div className="relative flex flex-col items-center"
+         style={{ width: "min(380px, calc(100vw - 2.5rem))" }}>
 
-        {/* Status bar */}
-        <div className="flex items-center justify-between px-8 pb-1 text-[11px]"
-          style={{ color: "rgba(255,246,233,0.45)" }}>
-          <span className="font-medium">9:41</span>
-          <div className="flex items-center gap-1">
-            <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor">
-              <rect x="0" y="4" width="3" height="8" rx="0.5" opacity="0.4"/>
-              <rect x="4.5" y="2.5" width="3" height="9.5" rx="0.5" opacity="0.7"/>
-              <rect x="9" y="0.5" width="3" height="11.5" rx="0.5"/>
-              <rect x="14" y="3" width="2" height="6" rx="0.5" opacity="0.3"/>
-            </svg>
-            <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor">
-              <path d="M8 3.5C10.2 3.5 12.2 4.4 13.6 5.9L15 4.5C13.2 2.7 10.7 1.5 8 1.5S2.8 2.7 1 4.5L2.4 5.9C3.8 4.4 5.8 3.5 8 3.5Z" opacity="0.5"/>
-              <path d="M8 6.5C9.5 6.5 10.8 7.1 11.8 8.1L13.2 6.7C11.8 5.3 9.9 4.5 8 4.5S4.2 5.3 2.8 6.7L4.2 8.1C5.2 7.1 6.5 6.5 8 6.5Z" opacity="0.75"/>
-              <circle cx="8" cy="10.5" r="1.5"/>
-            </svg>
-            <svg width="24" height="12" viewBox="0 0 24 12" fill="currentColor">
-              <rect x="0.5" y="0.5" width="20" height="11" rx="3" stroke="currentColor" strokeOpacity="0.35" fill="none"/>
-              <rect x="2" y="2" width="15" height="8" rx="1.5" opacity="0.9"/>
-              <path d="M22 4.5V7.5C22.8 7.2 23.5 6.6 23.5 6s-.7-1.2-1.5-1.5z" opacity="0.5"/>
-            </svg>
+      {/* Ambient glow beneath card */}
+      <div aria-hidden className="pointer-events-none absolute -bottom-10 left-1/2 -translate-x-1/2 rounded-full blur-3xl"
+           style={{
+             width: "90%", height: 100,
+             background: "radial-gradient(ellipse, rgba(191,96,64,0.3), transparent 70%)",
+             animation: "glowPulse 4s ease-in-out infinite",
+           }} />
+
+      {/* Glass card */}
+      <div className="relative w-full overflow-hidden rounded-[36px]"
+           style={{
+             padding: "30px 28px 24px",
+             background: "linear-gradient(165deg, rgba(14,24,48,0.96) 0%, rgba(6,10,18,0.99) 100%)",
+             border: "1px solid rgba(255,228,184,0.09)",
+             boxShadow: "0 48px 96px rgba(0,0,0,0.6), 0 0 80px rgba(191,96,64,0.07), inset 0 1px 0 rgba(255,246,233,0.06)",
+           }}>
+
+        {/* Top bar: ÉCHO wordmark + REC badge */}
+        <div className="mb-5 flex items-center justify-between">
+          <p className="font-display text-[10px] uppercase tracking-[0.28em]"
+             style={{ color: "rgba(255,228,184,0.32)" }}>ÉCHO</p>
+          <div className="flex items-center gap-1.5">
+            <div className="badge-dot rounded-full" style={{ width: 6, height: 6, background: "#BF6040" }} />
+            <span className="font-display text-[9px] uppercase tracking-[0.2em]"
+                  style={{ color: "rgba(191,96,64,0.85)" }}>REC</span>
           </div>
         </div>
 
-        {/* App content */}
-        <div className="px-7 pt-4 pb-6">
-          <div className="flex items-center justify-between mb-6">
-            <p className="font-display text-[11px] uppercase tracking-[0.22em]"
-              style={{ color: "rgba(255,228,184,0.38)" }}>ÉCHO</p>
-            <p className="text-[11px]" style={{ color: "rgba(255,228,184,0.28)" }}>
-              Saturday, 9 May
-            </p>
-          </div>
-
-          {/* Question — CSS question-in animation fires on key change */}
-          <div className="relative min-h-[88px] mb-5 overflow-hidden">
-            <p className="mb-2 text-[10px] uppercase tracking-[0.18em]"
-              style={{ color: "rgba(255,228,184,0.3)" }}>Today's question</p>
-            <p
-              key={qIdx}
-              className="question-in font-display text-[17px] leading-snug"
-              style={{ color: "rgba(255,246,233,0.92)" }}
-            >
-              {QUESTIONS[qIdx]}
-            </p>
-          </div>
-
-          {/* Waveform */}
-          <div className="h-[54px] rounded-2xl overflow-hidden"
-            style={{
-              background: "rgba(14,50,114,0.28)",
-              border: "1px solid rgba(255,228,184,0.07)",
-            }}>
-            {recording ? <Waveform /> : (
-              <div className="flex h-full items-center justify-center">
-                <p className="text-[10px] uppercase tracking-[0.2em]"
-                  style={{ color: "rgba(255,228,184,0.22)" }}>Tap to record</p>
-              </div>
-            )}
-          </div>
-
-          {/* Controls */}
-          <div className="mt-5 flex items-center justify-center gap-7">
-            <button
-              className="flex h-9 w-9 items-center justify-center rounded-full"
-              style={{ background: "rgba(255,228,184,0.06)" }}
-              onClick={() => setQIdx((q) => (q - 1 + QUESTIONS.length) % QUESTIONS.length)}
-              aria-label="Previous"
-            >
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M9 2L4 7l5 5" stroke="rgba(255,228,184,0.45)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
-
-            {/* Record button — CSS ring animation */}
-            <button
-              onClick={() => setRecording(!recording)}
-              className="relative active:scale-95 transition-transform duration-100"
-              aria-label={recording ? "Stop recording" : "Start recording"}
-            >
-              {recording && (
-                <span
-                  className="record-ring pointer-events-none absolute -inset-3 rounded-full"
-                  style={{ background: "rgba(191,96,64,0.18)" }}
-                />
-              )}
-              <span
-                className="relative flex items-center justify-center rounded-full"
-                style={{
-                  width: 52, height: 52,
-                  background: "linear-gradient(145deg, #D47040, #BF6040)",
-                  boxShadow: "0 8px 24px rgba(191,96,64,0.5)",
-                }}
-              >
-                {recording ? (
-                  <span className="rounded-sm bg-white/95" style={{ width: 14, height: 14 }} />
-                ) : (
-                  <span className="rounded-full bg-white/95" style={{ width: 18, height: 18 }} />
-                )}
-              </span>
-            </button>
-
-            <button
-              className="flex h-9 w-9 items-center justify-center rounded-full"
-              style={{ background: "rgba(255,228,184,0.06)" }}
-              onClick={() => setQIdx((q) => (q + 1) % QUESTIONS.length)}
-              aria-label="Next"
-            >
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M5 2l5 5-5 5" stroke="rgba(255,228,184,0.45)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
-          </div>
-
-          <p className="mt-3 text-center text-[11px]" style={{ color: "rgba(255,228,184,0.28)" }}>
-            {recording ? "0:32" : "—"}
+        {/* Cycling question */}
+        <div className="mb-6" style={{ minHeight: 62 }}>
+          <p className="font-display text-center leading-snug"
+             style={{
+               fontSize: "clamp(14px, 4.2vw, 17px)",
+               color: "rgba(255,246,233,0.88)",
+               opacity: qVisible ? 1 : 0,
+               transform: qVisible ? "translateY(0)" : "translateY(-8px)",
+               transition: "opacity 0.45s cubic-bezier(0.22,1,0.36,1), transform 0.45s cubic-bezier(0.22,1,0.36,1)",
+             }}>
+            {QUESTIONS[qIdx]}
           </p>
         </div>
 
-        <div className="flex justify-center pb-3 pt-1">
-          <div className="h-1 w-24 rounded-full" style={{ background: "rgba(255,246,233,0.16)" }} />
+        {/* Orb + expanding rings */}
+        <div className="relative flex items-center justify-center mb-4" style={{ height: 156 }}>
+
+          {/* Three staggered rings that expand outward and fade */}
+          {[0, 1, 2].map(i => (
+            <div key={i} aria-hidden className="orb-ring absolute rounded-full pointer-events-none"
+                 style={{
+                   width: 80, height: 80,
+                   border: "1px solid rgba(191,96,64,0.5)",
+                   animationDelay: `${i * 1.13}s`,
+                 }} />
+          ))}
+
+          {/* Soft diffuse glow */}
+          <div aria-hidden className="pointer-events-none absolute rounded-full blur-2xl"
+               style={{
+                 width: 130, height: 130,
+                 background: "radial-gradient(circle, rgba(191,96,64,0.25), transparent 70%)",
+                 animation: "glowPulse 3.2s ease-in-out infinite",
+               }} />
+
+          {/* Central orb */}
+          <div className="orb-breathe relative flex items-center justify-center rounded-full"
+               style={{
+                 width: 76, height: 76,
+                 background: "linear-gradient(145deg, #D97242 0%, #BF6040 55%, #9A3820 100%)",
+                 boxShadow: "0 10px 40px rgba(191,96,64,0.55), 0 3px 12px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.15)",
+               }}>
+            {/* Microphone icon */}
+            <svg width="20" height="25" viewBox="0 0 20 25" fill="none" aria-hidden>
+              <rect x="6" y="0" width="8" height="14" rx="4" fill="rgba(255,246,233,0.95)" />
+              <path d="M2 10c0 4.4 3.6 8 8 8s8-3.6 8-8"
+                    stroke="rgba(255,246,233,0.9)" strokeWidth="1.8" strokeLinecap="round" fill="none" />
+              <line x1="10" y1="18" x2="10" y2="23"
+                    stroke="rgba(255,246,233,0.85)" strokeWidth="1.8" strokeLinecap="round" />
+              <line x1="6" y1="23" x2="14" y2="23"
+                    stroke="rgba(255,246,233,0.85)" strokeWidth="1.8" strokeLinecap="round" />
+            </svg>
+          </div>
+        </div>
+
+        {/* Timer */}
+        <p className="mb-4 text-center font-display text-[26px]"
+           style={{ color: "rgba(255,246,233,0.88)", letterSpacing: "0.04em", fontVariantNumeric: "tabular-nums" }}>
+          {mins}:{secs}
+        </p>
+
+        {/* Waveform bars — varied sine-pattern heights, centered scale animation */}
+        <div className="flex items-center justify-center gap-[3px]" style={{ height: 40 }}>
+          {barH.map((h, i) => (
+            <div key={i} className="rounded-full"
+                 style={{
+                   width: 3,
+                   height: h,
+                   background: `rgba(191,96,64,${0.42 + (i % 5) * 0.09})`,
+                   animation: `featBarPulse ${0.60 + (i % 8) * 0.12}s ease-in-out infinite`,
+                   animationDelay: `${(i * 0.04).toFixed(3)}s`,
+                 }} />
+          ))}
+        </div>
+
+        {/* Home indicator */}
+        <div className="mt-5 flex justify-center">
+          <div className="rounded-full" style={{ width: 96, height: 4, background: "rgba(255,246,233,0.1)" }} />
         </div>
       </div>
     </div>
@@ -330,11 +313,9 @@ function HeroSection() {
         ))}
       </div>
 
-      {/* App mockup */}
+      {/* Hero visualization */}
       <div className="hero-fade mt-14 pb-8 sm:mt-20 sm:pb-20" style={{ animationDelay: "0.55s" }}>
-        <div className="phone-float">
-          <AppMockup />
-        </div>
+        <HeroVisualization />
       </div>
 
       {/* Scroll cue */}
