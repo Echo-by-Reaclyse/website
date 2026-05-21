@@ -3315,6 +3315,7 @@ function Footer() {
         >
           {[
             { label: "Privacy", to: "/privacy" as const },
+            { label: "GDPR", to: "/gdpr" as const },
             { label: "Support", to: "/support" as const },
           ].map(({ label, to }) => (
             <Link
