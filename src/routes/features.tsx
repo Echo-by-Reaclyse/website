@@ -57,7 +57,7 @@ const C_DARK = {
   ember:  "#BF6040",
   card:   "rgba(14,50,114,0.35)",
   border: "rgba(255,228,184,0.09)",
-  serif:  "Georgia, 'Times New Roman', serif",
+  serif:  "Fraunces, Georgia, 'Times New Roman', serif",
   sans:   "Inter, ui-sans-serif, system-ui, sans-serif",
   navBg:  "rgba(10,18,32,0.82)",
   shadow: "rgba(0,0,0,0.55)",
@@ -71,7 +71,7 @@ const C_LIGHT = {
   ember:  "#BF6040",
   card:   "rgba(191,96,64,0.07)",
   border: "rgba(26,15,5,0.1)",
-  serif:  "Georgia, 'Times New Roman', serif",
+  serif:  "Fraunces, Georgia, 'Times New Roman', serif",
   sans:   "Inter, ui-sans-serif, system-ui, sans-serif",
   navBg:  "rgba(255,246,233,0.88)",
   shadow: "rgba(0,0,0,0.18)",
@@ -792,19 +792,51 @@ function ShowcaseHero() {
 
 // ─── Privacy Section ─────────────────────────────────────────────────────────
 const PRIVACY = [
-  { icon: "▣", title: "On-device transcription", body: "WhisperKit runs entirely on your iPhone. Your audio never travels to any server, ever." },
-  { icon: "◆", title: "Encrypted at rest",       body: "Every entry encrypted with device-level keys. No one — not even Réaclyse — can read them." },
-  { icon: "⊗", title: "Zero data sharing",        body: "Your voice is never used to train AI. Never sold. Never monetised in any form." },
-  { icon: "☁", title: "iCloud sync on your terms",body: "CloudKit keeps your devices in sync using Apple's encrypted infrastructure. Your keys." },
+  { title: "On-device transcription", body: "WhisperKit runs entirely on your iPhone. Your audio never travels to any server, ever." },
+  { title: "Encrypted at rest",       body: "Every entry encrypted with device-level keys. No one — not even Réaclyse — can read them." },
+  { title: "Zero data sharing",       body: "Your voice is never used to train AI. Never sold. Never monetised in any form." },
+  { title: "iCloud sync on your terms", body: "CloudKit keeps your devices in sync using Apple's encrypted infrastructure. Your keys." },
+];
+
+const PRIVACY_ICONS = [
+  // Microphone with shield
+  <svg key="mic" width="24" height="24" viewBox="0 0 24 24" fill="none" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="9" y="2" width="6" height="11" rx="3" stroke="currentColor" />
+    <path d="M5 10a7 7 0 0014 0" stroke="currentColor" />
+    <line x1="12" y1="17" x2="12" y2="21" stroke="currentColor" />
+    <line x1="8" y1="21" x2="16" y2="21" stroke="currentColor" />
+  </svg>,
+  // Lock
+  <svg key="lock" width="24" height="24" viewBox="0 0 24 24" fill="none" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="5" y="11" width="14" height="11" rx="2" stroke="currentColor" />
+    <path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" />
+    <circle cx="12" cy="16" r="1.5" fill="currentColor" />
+  </svg>,
+  // Shield with X
+  <svg key="shield" width="24" height="24" viewBox="0 0 24 24" fill="none" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 2l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V5l7-3z" stroke="currentColor" />
+    <line x1="9.5" y1="9.5" x2="14.5" y2="14.5" stroke="currentColor" />
+    <line x1="14.5" y1="9.5" x2="9.5" y2="14.5" stroke="currentColor" />
+  </svg>,
+  // Cloud with lock
+  <svg key="cloud" width="24" height="24" viewBox="0 0 24 24" fill="none" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M18 10a6 6 0 00-11.9-1A4 4 0 105 17h13a3 3 0 000-7h-.1" stroke="currentColor" />
+    <rect x="10" y="16" width="4" height="3.5" rx="0.8" stroke="currentColor" strokeWidth="1.1" />
+    <path d="M10.8 16v-1a1.2 1.2 0 012.4 0v1" stroke="currentColor" strokeWidth="1.1" />
+  </svg>,
 ];
 
 function PrivacySection() {
   const { C, isDark } = useTheme();
   const { ref, visible } = useScrollReveal();
 
+  const iconColor = isDark ? "rgba(191,96,64,0.75)" : "rgba(168,75,42,0.7)";
+  const iconBg    = isDark ? "rgba(191,96,64,0.10)"  : "rgba(168,75,42,0.08)";
+  const iconBorder= isDark ? "rgba(191,96,64,0.18)"  : "rgba(168,75,42,0.14)";
+
   return (
     <section ref={ref as React.RefObject<HTMLDivElement>} style={{ position: "relative", overflow: "hidden", padding: "120px 24px 100px" }}>
-      <div aria-hidden style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 700, height: 700, borderRadius: "50%", background: isDark ? "radial-gradient(circle, rgba(27,77,168,0.18), transparent 65%)" : "radial-gradient(circle, rgba(191,96,64,0.1), transparent 65%)", filter: "blur(60px)", pointerEvents: "none" }} />
+      <div aria-hidden style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 700, height: 700, borderRadius: "50%", background: isDark ? "radial-gradient(circle, rgba(191,96,64,0.10), transparent 65%)" : "radial-gradient(circle, rgba(191,96,64,0.08), transparent 65%)", filter: "blur(60px)", pointerEvents: "none" }} />
       <div style={{ maxWidth: 920, margin: "0 auto", position: "relative" }}>
         <div className={`reveal${visible ? " is-visible" : ""}`} style={{ textAlign: "center", marginBottom: 68 }}>
           <p style={{ fontSize: 11, textTransform: "uppercase" as const, letterSpacing: "0.24em", color: C.ember, marginBottom: 14, fontFamily: C.sans }}>Privacy by design</p>
@@ -817,10 +849,16 @@ function PrivacySection() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
           {PRIVACY.map((p, i) => (
-            <div key={i} className={`reveal reveal-delay-${i + 1}${visible ? " is-visible" : ""}`} style={{ padding: "24px 22px", background: C.card, border: `1px solid ${C.border}`, borderRadius: 20, backdropFilter: "blur(8px)" }}>
-              <span style={{ fontSize: 26, display: "block", marginBottom: 14, color: isDark ? "rgba(255,228,184,0.55)" : "rgba(26,15,5,0.4)" }}>{p.icon}</span>
-              <h3 style={{ fontFamily: C.serif, fontSize: 17, color: C.cream, marginBottom: 10 }}>{p.title}</h3>
-              <p style={{ fontSize: 14, color: isDark ? "rgba(255,246,233,0.56)" : "rgba(26,15,5,0.55)", lineHeight: 1.62, fontFamily: C.sans }}>{p.body}</p>
+            <div key={i} className={`reveal reveal-delay-${i + 1}${visible ? " is-visible" : ""}`}
+              style={{ padding: "28px 24px", background: C.card, border: `1px solid ${C.border}`, borderRadius: 20, backdropFilter: "blur(8px)", transition: "border-color 0.25s ease, transform 0.28s cubic-bezier(0.34,1.56,0.64,1)", cursor: "default" }}
+              onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)"; (e.currentTarget as HTMLDivElement).style.borderColor = isDark ? "rgba(191,96,64,0.28)" : "rgba(168,75,42,0.22)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLDivElement).style.borderColor = C.border; }}
+            >
+              <div style={{ width: 44, height: 44, borderRadius: 12, background: iconBg, border: `1px solid ${iconBorder}`, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 18, color: iconColor }}>
+                {PRIVACY_ICONS[i]}
+              </div>
+              <h3 style={{ fontFamily: C.serif, fontSize: 17, color: C.cream, marginBottom: 10, letterSpacing: "-0.01em" }}>{p.title}</h3>
+              <p style={{ fontSize: 14, color: isDark ? "rgba(255,246,233,0.56)" : "rgba(26,15,5,0.55)", lineHeight: 1.65, fontFamily: C.sans }}>{p.body}</p>
             </div>
           ))}
         </div>
@@ -844,22 +882,41 @@ function MarqueeStrip() {
 }
 
 // ─── CTA ─────────────────────────────────────────────────────────────────────
+const TRUST_BADGES = [
+  { label: "On-device only" },
+  { label: "End-to-end encrypted" },
+  { label: "Zero data sharing" },
+];
+
 function ShowcaseCTA() {
   const { C, isDark } = useTheme();
   const { ref, visible } = useScrollReveal();
 
   return (
-    <section ref={ref as React.RefObject<HTMLDivElement>} id="waitlist" style={{ padding: "100px 24px 140px", textAlign: "center" }}>
-      <div className={`reveal${visible ? " is-visible" : ""}`}>
-        <h2 style={{ fontFamily: C.serif, fontSize: "clamp(2rem, 5vw, 3.4rem)", letterSpacing: "-0.02em", color: C.cream, lineHeight: 1.15, marginBottom: 14 }}>
+    <section ref={ref as React.RefObject<HTMLDivElement>} id="waitlist" style={{ padding: "100px 24px 120px", textAlign: "center", position: "relative", overflow: "hidden" }}>
+      {/* Ambient glow */}
+      <div aria-hidden style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 500, height: 500, borderRadius: "50%", background: "radial-gradient(circle, rgba(191,96,64,0.10), transparent 70%)", filter: "blur(60px)", pointerEvents: "none", animation: "glowPulse 5s ease-in-out infinite" }} />
+
+      <div className={`reveal${visible ? " is-visible" : ""}`} style={{ position: "relative" }}>
+        <p style={{ fontSize: 11, textTransform: "uppercase" as const, letterSpacing: "0.24em", color: C.ember, marginBottom: 20, fontFamily: C.sans }}>Ready?</p>
+        <h2 style={{ fontFamily: C.serif, fontSize: "clamp(2rem, 5vw, 3.8rem)", letterSpacing: "-0.025em", color: C.cream, lineHeight: 1.1, marginBottom: 16 }}>
           The first voice you should trust<br />
           <em style={{ color: C.ember, fontStyle: "italic" }}>is yours.</em>
         </h2>
-        <p style={{ fontSize: 16, color: isDark ? "rgba(255,246,233,0.56)" : "rgba(26,15,5,0.55)", marginBottom: 40, fontFamily: C.sans }}>
+        <p style={{ fontSize: 16, color: isDark ? "rgba(255,246,233,0.55)" : "rgba(26,15,5,0.52)", marginBottom: 44, fontFamily: C.sans }}>
           Join the waitlist. Founding-member pricing at launch.
         </p>
-        <div style={{ maxWidth: 420, margin: "0 auto" }}>
+        <div style={{ maxWidth: 420, margin: "0 auto 36px" }}>
           <WaitlistForm variant="footer" />
+        </div>
+        {/* Trust badges */}
+        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: 10 }}>
+          {TRUST_BADGES.map((b) => (
+            <span key={b.label} style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "5px 14px", borderRadius: 999, border: `1px solid ${isDark ? "rgba(191,96,64,0.18)" : "rgba(168,75,42,0.16)"}`, background: isDark ? "rgba(191,96,64,0.05)" : "rgba(168,75,42,0.05)", fontSize: 11, letterSpacing: "0.1em", color: isDark ? "rgba(255,228,184,0.5)" : "rgba(26,15,5,0.45)", fontFamily: C.sans, textTransform: "uppercase" as const }}>
+              <span style={{ width: 5, height: 5, borderRadius: "50%", background: C.ember, opacity: 0.7, flexShrink: 0 }} />
+              {b.label}
+            </span>
+          ))}
         </div>
       </div>
     </section>
@@ -934,11 +991,30 @@ function ShowcasePage() {
         <PrivacySection />
         <ShowcaseCTA />
 
-        <div style={{ borderTop: `1px solid ${C.border}`, padding: "24px", textAlign: "center" }}>
-          <Link to="/" style={{ fontSize: 12, textTransform: "uppercase" as const, letterSpacing: "0.2em", color: isDark ? "rgba(255,246,233,0.35)" : "rgba(26,15,5,0.35)", textDecoration: "none", fontFamily: C.sans }}>
-            ← Back to ÉCHO
-          </Link>
-        </div>
+        {/* Footer */}
+        <footer style={{ borderTop: `1px solid ${C.border}`, padding: "40px 24px 32px" }}>
+          <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 20 }}>
+            <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
+              <span style={{ fontFamily: C.serif, fontSize: 18, letterSpacing: "-0.01em", color: C.cream }}>ÉCHO</span>
+              <span style={{ fontSize: 11, textTransform: "uppercase" as const, letterSpacing: "0.18em", color: isDark ? "rgba(255,246,233,0.3)" : "rgba(26,15,5,0.35)", fontFamily: C.sans }}>by Réaclyse</span>
+            </div>
+            <nav style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "12px 24px" }}>
+              {[
+                { label: "← Home", to: "/" as const },
+                { label: "Privacy",  to: "/privacy" as const },
+                { label: "Support",  to: "/support" as const },
+                { label: "About",    to: "/about" as const },
+              ].map(({ label, to }) => (
+                <Link key={to} to={to} style={{ fontSize: 12, textTransform: "uppercase" as const, letterSpacing: "0.18em", color: isDark ? "rgba(255,246,233,0.38)" : "rgba(26,15,5,0.38)", textDecoration: "none", fontFamily: C.sans, transition: "color 0.2s" }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = C.ember; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = isDark ? "rgba(255,246,233,0.38)" : "rgba(26,15,5,0.38)"; }}>
+                  {label}
+                </Link>
+              ))}
+            </nav>
+            <p style={{ fontSize: 11, color: isDark ? "rgba(255,246,233,0.22)" : "rgba(26,15,5,0.25)", fontFamily: C.sans }}>© 2026 Réaclyse</p>
+          </div>
+        </footer>
       </div>
     </ThemeCtx.Provider>
   );

@@ -361,6 +361,22 @@
     }
   }
 
+  /* ── Hero wave lines (SVG background) ── */
+  @keyframes wave-drift-a {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-18px); }
+  }
+  @keyframes wave-drift-b {
+    0%, 100% { transform: translateY(0px); }
+    45%       { transform: translateY(13px); }
+    80%       { transform: translateY(-7px); }
+  }
+  @keyframes wave-drift-c {
+    0%, 100% { transform: translateY(0px); }
+    35%       { transform: translateY(-11px); }
+    70%       { transform: translateY(9px); }
+  }
+
   /* ── Floating hero blobs ── */
   @keyframes blob-1 {
     0%, 100% { transform: translate(0px,   0px)  scale(1);    }
@@ -618,5 +634,119 @@
   }
   :root:not(.dark) .ambient-orb-c {
     background: radial-gradient(circle, rgba(168,75,42,0.06) 0%, transparent 70%);
+  }
+}
+
+/* ── Pillar cards ── */
+.pillar-number {
+  transition: color 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pillar-card:hover .pillar-number {
+  color: rgba(255, 228, 184, 0.07);
+  transform: translateY(-6px) scale(1.04);
+}
+
+/* ── Feature bento grid ── */
+.feature-bento {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+@media (min-width: 640px) {
+  .feature-bento {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.125rem;
+  }
+}
+@media (min-width: 1024px) {
+  .feature-bento {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(160px, auto);
+    gap: 1.25rem;
+  }
+}
+
+.feature-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 228, 184, 0.09);
+  background: rgba(14, 50, 114, 0.18);
+  padding: 1.5rem;
+  backdrop-filter: blur(8px);
+  transition:
+    border-color 0.28s ease,
+    background-color 0.28s ease,
+    transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.feature-card:hover {
+  border-color: rgba(255, 228, 184, 0.20);
+  background: rgba(14, 50, 114, 0.28);
+  transform: translateY(-4px);
+}
+@media (min-width: 1024px) {
+  .feature-card--large {
+    grid-column: span 2;
+    grid-row: span 2;
+    padding: 2.5rem;
+  }
+  .feature-card--tall {
+    grid-column: span 1;
+    grid-row: span 2;
+    padding: 2rem;
+  }
+}
+
+.feature-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 26px;
+  min-width: 36px;
+  padding: 0 8px;
+  border-radius: 6px;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(255, 228, 184, 0.65);
+  font-weight: 500;
+  background: rgba(191, 96, 64, 0.10);
+  border: 1px solid rgba(191, 96, 64, 0.18);
+  font-family: var(--font-sans);
+}
+
+/* ── Light mode feature card ── */
+:root.light .feature-card {
+  background: rgba(255, 250, 240, 0.55);
+  border-color: rgba(26, 20, 16, 0.08);
+}
+:root.light .feature-card:hover {
+  background: rgba(255, 250, 240, 0.75);
+  border-color: rgba(168, 75, 42, 0.20);
+}
+:root.light .feature-badge {
+  color: rgba(168, 75, 42, 0.75);
+  background: rgba(168, 75, 42, 0.08);
+  border-color: rgba(168, 75, 42, 0.15);
+}
+:root.light .pillar-card:hover .pillar-number {
+  color: rgba(26, 20, 16, 0.06);
+}
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .feature-card {
+    background: rgba(255, 250, 240, 0.55);
+    border-color: rgba(26, 20, 16, 0.08);
+  }
+  :root:not(.dark) .feature-card:hover {
+    background: rgba(255, 250, 240, 0.75);
+    border-color: rgba(168, 75, 42, 0.20);
+  }
+  :root:not(.dark) .feature-badge {
+    color: rgba(168, 75, 42, 0.75);
+    background: rgba(168, 75, 42, 0.08);
+    border-color: rgba(168, 75, 42, 0.15);
+  }
+  :root:not(.dark) .pillar-card:hover .pillar-number {
+    color: rgba(26, 20, 16, 0.06);
   }
 }
