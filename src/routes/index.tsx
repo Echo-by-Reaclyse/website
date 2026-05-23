@@ -24,8 +24,8 @@ const C_DARK = {
   ember: "#BF6040",
   card: "rgba(14,50,114,0.35)",
   border: "rgba(255,228,184,0.09)",
-  serif: "Fraunces, Georgia, 'Times New Roman', serif",
-  sans: "Inter, ui-sans-serif, system-ui, sans-serif",
+  serif: "'Instrument Serif', Georgia, 'Times New Roman', serif",
+  sans: "Urbanist, ui-sans-serif, system-ui, sans-serif",
   navBg: "rgba(10,18,32,0.82)",
 };
 const C_LIGHT = {
@@ -36,8 +36,8 @@ const C_LIGHT = {
   ember: "#BF6040",
   card: "rgba(191,96,64,0.07)",
   border: "rgba(26,15,5,0.1)",
-  serif: "Fraunces, Georgia, 'Times New Roman', serif",
-  sans: "Inter, ui-sans-serif, system-ui, sans-serif",
+  serif: "'Instrument Serif', Georgia, 'Times New Roman', serif",
+  sans: "Urbanist, ui-sans-serif, system-ui, sans-serif",
   navBg: "rgba(255,246,233,0.88)",
 };
 type ThemeColors = typeof C_DARK;
