@@ -20,6 +20,24 @@ function About() {
         content="ÉCHO is a private voice journal for iPhone built by Réaclyse in Luxembourg. Privacy-first journaling for reflective adults."
       />
       <meta property="og:url" content="https://echobyreaclyse.com/about" />
+      <meta property="og:image" content="https://echobyreaclyse.com/og-image.png" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="About ÉCHO — Private Voice Journal | Réaclyse" />
+      <meta name="twitter:description" content="ÉCHO is a private voice journal for iPhone built by Réaclyse in Luxembourg. Privacy-first journaling for reflective adults." />
+      <meta name="twitter:image" content="https://echobyreaclyse.com/og-image.png" />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://echobyreaclyse.com/" },
+              { "@type": "ListItem", position: 2, name: "About", item: "https://echobyreaclyse.com/about" },
+            ],
+          }),
+        }}
+      />
 
       <Section title="What is ÉCHO?">
         ÉCHO is a private voice journal for iPhone. Every day, one question appears. You speak.

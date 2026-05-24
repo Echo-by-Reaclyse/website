@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /admin
 
-Sitemap: https://echo.reaclyse.com/sitemap.xml
+Sitemap: https://echobyreaclyse.com/sitemap.xml

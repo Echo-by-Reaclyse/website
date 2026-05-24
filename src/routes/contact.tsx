@@ -13,13 +13,13 @@ function Contact() {
         name="description"
         content="Contact Réaclyse about ÉCHO, the private voice journal for iPhone. General enquiries, press, partnerships, or GDPR data requests — hello@reaclyse.com."
       />
-      <link rel="canonical" href="https://echo.reaclyse.com/contact" />
+      <link rel="canonical" href="https://echobyreaclyse.com/contact" />
       <meta property="og:title" content="Contact Réaclyse — ÉCHO Voice Journal" />
       <meta
         property="og:description"
         content="General enquiries, press, partnerships, or data requests — hello@reaclyse.com."
       />
-      <meta property="og:url" content="https://echo.reaclyse.com/contact" />
+      <meta property="og:url" content="https://echobyreaclyse.com/contact" />
 
       <Section title="General enquiries">
         For questions about ÉCHO, partnerships, or press:{" "}

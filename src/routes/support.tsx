@@ -20,6 +20,24 @@ function Support() {
         content="Get help with ÉCHO. Questions about recordings, your account, or subscription? We respond within one business day."
       />
       <meta property="og:url" content="https://echobyreaclyse.com/support" />
+      <meta property="og:image" content="https://echobyreaclyse.com/og-image.png" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="Help & Support — ÉCHO Voice Journal" />
+      <meta name="twitter:description" content="Get help with ÉCHO. Questions about recordings, your account, or subscription? We respond within one business day." />
+      <meta name="twitter:image" content="https://echobyreaclyse.com/og-image.png" />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://echobyreaclyse.com/" },
+              { "@type": "ListItem", position: 2, name: "Support", item: "https://echobyreaclyse.com/support" },
+            ],
+          }),
+        }}
+      />
 
       <Section title="Getting started">
         Download ÉCHO from the App Store and create an account. Once you're in, your first daily
