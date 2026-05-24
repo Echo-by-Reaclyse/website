@@ -47,6 +47,113 @@ const CHAPTER_TEXT = [
 type ScreenType = "question" | "recording" | "transcript" | "journal" | "insights" | "letters";
 const CHAPTER_SCREENS: ScreenType[] = ["question", "recording", "transcript", "journal", "insights", "letters"];
 
+// ─── Feature Side Cards ───────────────────────────────────────────────────────
+
+const FEATURE_CARDS: {
+  accent: string; bg: string; border: string;
+  tag: string; title: string; text: string;
+  icon: JSX.Element;
+}[] = [
+  {
+    accent: "#BF6040",
+    bg: "rgba(191,96,64,0.10)",
+    border: "rgba(191,96,64,0.22)",
+    tag: "Daily rotation",
+    title: "200+ questions",
+    text: "Written for honest self-reflection — not productivity or habit-tracking.",
+    icon: (
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 3C7.58 3 4 6.36 4 10.5c0 1.56.5 3.02 1.37 4.22L4 21l5.18-1.81A8.1 8.1 0 0012 19.5c4.42 0 8-3.36 8-7.5S16.42 3 12 3z"/>
+        <path d="M10.3 9.3a2 2 0 113.5 1.3C13.2 11.2 12 12 12 13v.5"/>
+        <circle cx="12" cy="15.5" r=".8" fill="currentColor" stroke="none"/>
+      </svg>
+    ),
+  },
+  {
+    accent: "#4F83C9",
+    bg: "rgba(79,131,201,0.10)",
+    border: "rgba(79,131,201,0.22)",
+    tag: "Airplane mode",
+    title: "Fully offline",
+    text: "Everything runs on your device. No server, no internet needed to record.",
+    icon: (
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="1" y1="1" x2="23" y2="23"/>
+        <path d="M16.72 11.06A10.94 10.94 0 0119 12.55"/>
+        <path d="M5 12.55a10.94 10.94 0 015.17-2.39"/>
+        <path d="M10.71 5.05A16 16 0 0122.56 9"/>
+        <path d="M1.42 9a15.91 15.91 0 014.7-2.88"/>
+        <path d="M8.53 16.11a6 6 0 016.95 0"/>
+        <circle cx="12" cy="20" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+    ),
+  },
+  {
+    accent: "#8B7ED8",
+    bg: "rgba(139,126,216,0.10)",
+    border: "rgba(139,126,216,0.22)",
+    tag: "On-device AI",
+    title: "WhisperKit",
+    text: "Apple's neural engine transcribes your voice without ever leaving your iPhone.",
+    icon: (
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="9" y="2" width="6" height="11" rx="3"/>
+        <path d="M5 10a7 7 0 0014 0"/>
+        <line x1="12" y1="17" x2="12" y2="21"/>
+        <line x1="8" y1="21" x2="16" y2="21"/>
+      </svg>
+    ),
+  },
+  {
+    accent: "#BF6040",
+    bg: "rgba(191,96,64,0.10)",
+    border: "rgba(191,96,64,0.22)",
+    tag: "Full history",
+    title: "Search everything",
+    text: "Instant full-text search across every entry. Find any thought in seconds.",
+    icon: (
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="11" cy="11" r="7"/>
+        <line x1="16.5" y1="16.5" x2="21" y2="21"/>
+      </svg>
+    ),
+  },
+  {
+    accent: "#C4954A",
+    bg: "rgba(196,149,74,0.10)",
+    border: "rgba(196,149,74,0.22)",
+    tag: "8 dimensions",
+    title: "Echo profile",
+    text: "A longitudinal persona built from your words — no surveys, no self-assessment.",
+    icon: (
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+        <circle cx="12" cy="12" r="9"/>
+        <circle cx="12" cy="12" r="5"/>
+        <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+        <line x1="12" y1="3" x2="12" y2="7"/>
+        <line x1="12" y1="17" x2="12" y2="21"/>
+        <line x1="3" y1="12" x2="7" y2="12"/>
+        <line x1="17" y1="12" x2="21" y2="12"/>
+      </svg>
+    ),
+  },
+  {
+    accent: "#4F83C9",
+    bg: "rgba(79,131,201,0.10)",
+    border: "rgba(79,131,201,0.22)",
+    tag: "Auto-unlock",
+    title: "Time capsule",
+    text: "Your words sealed in time, returned when the moment is right. A mirror across months.",
+    icon: (
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M5 22h14M5 2h14"/>
+        <path d="M17 22v-4.17a2 2 0 00-.59-1.42L12 12l-4.41 4.41A2 2 0 007 17.83V22"/>
+        <path d="M7 2v4.17a2 2 0 00.59 1.42L12 12l4.41-4.41A2 2 0 0017 6.17V2"/>
+      </svg>
+    ),
+  },
+];
+
 // ─── Theme ─────────────────────────────────────────────────────────────────
 
 const C_DARK = {
@@ -542,15 +649,6 @@ function StorySection() {
   const ct = CHAPTER_TEXT[displayed];
   const screen = CHAPTER_SCREENS[displayed];
 
-  const sideCards = [
-    [{ icon: "◆", text: "200+ thoughtfully written questions" }],
-    [{ icon: "⊙", text: "Fully offline — works in airplane mode" }],
-    [{ icon: "▣", text: "WhisperKit: Apple-native on-device transcription" }],
-    [{ icon: "⌕", text: "Full-text search across your entire history" }],
-    [{ icon: "◈", text: "8-dimensional longitudinal persona profile" }],
-    [{ icon: "◷", text: "Auto time-lock — opens when the moment is right" }],
-  ];
-
   return (
     <div ref={containerRef} style={{ height: `${N * 100}vh` }}>
       <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -610,13 +708,64 @@ function StorySection() {
                 </div>
               </div>
 
-              {/* Side card */}
-              {sideCards[displayed].map((card, i) => (
-                <div key={i} style={{ padding: "16px 18px", background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, ...staggerStyle(1 + i, phase, reduced) }}>
-                  <span style={{ fontSize: 22, display: "block", marginBottom: 10, color: isDark ? "rgba(255,228,184,0.6)" : "rgba(26,15,5,0.5)" }}>{card.icon}</span>
-                  <p style={{ fontSize: 13, color: isDark ? "rgba(255,246,233,0.6)" : "rgba(26,15,5,0.6)", lineHeight: 1.55, fontFamily: C.sans }}>{card.text}</p>
-                </div>
-              ))}
+              {/* Side card — redesigned */}
+              {(() => {
+                const fc = FEATURE_CARDS[displayed];
+                if (!fc) return null;
+                return (
+                  <div style={{
+                    padding: "22px 24px",
+                    background: isDark
+                      ? `linear-gradient(145deg, ${fc.bg}, rgba(14,50,114,0.22))`
+                      : `linear-gradient(145deg, ${fc.bg}, rgba(255,255,255,0.55))`,
+                    border: `1px solid ${fc.border}`,
+                    borderRadius: 20,
+                    boxShadow: isDark
+                      ? `0 14px 44px -14px ${fc.accent}44, inset 0 1px 0 rgba(255,255,255,0.05)`
+                      : `0 8px 28px -10px ${fc.accent}28`,
+                    ...staggerStyle(1, phase, reduced),
+                  }}>
+                    {/* Icon + tag row */}
+                    <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 18 }}>
+                      <div style={{
+                        width: 46, height: 46, borderRadius: 13,
+                        background: fc.bg,
+                        border: `1px solid ${fc.border}`,
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        color: fc.accent,
+                        boxShadow: isDark ? `0 4px 18px -4px ${fc.accent}66` : "none",
+                        flexShrink: 0,
+                      }}>
+                        {fc.icon}
+                      </div>
+                      <span style={{
+                        fontSize: 9, letterSpacing: "0.15em", textTransform: "uppercase" as const,
+                        color: fc.accent, fontFamily: C.sans,
+                        background: isDark ? "rgba(0,0,0,0.28)" : "rgba(255,255,255,0.75)",
+                        border: `1px solid ${fc.border}`,
+                        borderRadius: 999, padding: "4px 11px", marginTop: 3, flexShrink: 0,
+                      }}>
+                        {fc.tag}
+                      </span>
+                    </div>
+                    {/* Title */}
+                    <h3 style={{
+                      fontFamily: C.serif, fontSize: 20, color: C.cream,
+                      marginBottom: 8, letterSpacing: "-0.02em", lineHeight: 1.15,
+                    }}>
+                      {fc.title}
+                    </h3>
+                    {/* Description */}
+                    <p style={{
+                      fontSize: 13.5,
+                      color: isDark ? "rgba(255,246,233,0.56)" : "rgba(26,15,5,0.54)",
+                      lineHeight: 1.62, fontFamily: C.sans,
+                    }}>
+                      {fc.text}
+                    </p>
+                  </div>
+                );
+              })()}
 
               {/* Scroll hint */}
               <p style={{ fontSize: 11, color: isDark ? "rgba(255,228,184,0.25)" : "rgba(26,15,5,0.3)", textTransform: "uppercase", letterSpacing: "0.18em", fontFamily: C.sans, ...staggerStyle(2, phase, reduced) }}>

@@ -1695,14 +1695,14 @@ function Card1Content() {
       backdropFilter: "blur(14px)",
     }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
-        <span style={{ fontFamily: "Fraunces, serif", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase" as const, color: "rgba(255,228,184,0.32)" }}>ÉCHO</span>
+        <span style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase" as const, color: "rgba(255,228,184,0.32)" }}>ÉCHO</span>
         <div style={{ display: "flex", alignItems: "center", gap: 5, padding: "3px 9px", borderRadius: 999, background: "rgba(255,228,184,0.05)", border: "1px solid rgba(255,228,184,0.09)" }}>
           <svg width={8} height={8} viewBox="0 0 10 10" fill="none" aria-hidden><circle cx="5" cy="5" r="4.5" stroke="rgba(255,228,184,0.45)" strokeWidth="0.8" /><path d="M3 5l1.5 1.5L7.5 3" stroke="rgba(255,228,184,0.65)" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round" /></svg>
           <span style={{ fontSize: 8, color: "rgba(255,228,184,0.38)", letterSpacing: "0.12em", fontFamily: "Inter, sans-serif" }}>Saved</span>
         </div>
       </div>
       <p style={{ fontSize: 8, textTransform: "uppercase" as const, letterSpacing: "0.22em", color: "rgba(255,228,184,0.28)", marginBottom: 9, fontFamily: "Inter, sans-serif" }}>Today's question</p>
-      <p style={{ fontFamily: "Fraunces, serif", fontSize: 16.5, color: "rgba(255,246,233,0.91)", lineHeight: 1.4, marginBottom: 16, fontStyle: "italic" }}>
+      <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 16.5, color: "rgba(255,246,233,0.91)", lineHeight: 1.4, marginBottom: 16, fontStyle: "italic" }}>
         What are you avoiding telling yourself?
       </p>
       <div style={{ padding: "11px 13px", borderRadius: 12, background: "rgba(255,228,184,0.04)", border: "1px solid rgba(255,228,184,0.07)", marginBottom: 16 }}>
@@ -1734,14 +1734,14 @@ function Card2Content() {
     }}>
       <div style={{ marginBottom: 14 }}>
         <p style={{ fontSize: 8, textTransform: "uppercase" as const, letterSpacing: "0.22em", color: "rgba(107,143,199,0.75)", marginBottom: 8, fontFamily: "Inter, sans-serif" }}>8 months ago, you wrote</p>
-        <p style={{ fontFamily: "Fraunces, serif", fontSize: 13.5, color: "rgba(255,246,233,0.72)", lineHeight: 1.58, fontStyle: "italic" }}>
+        <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 13.5, color: "rgba(255,246,233,0.72)", lineHeight: 1.58, fontStyle: "italic" }}>
           "I don't know if I'm brave enough to leave..."
         </p>
       </div>
       <div style={{ height: 1, background: "linear-gradient(90deg, rgba(191,96,64,0.28), transparent)", margin: "0 0 14px" }} />
       <div style={{ marginBottom: 14 }}>
         <p style={{ fontSize: 8, textTransform: "uppercase" as const, letterSpacing: "0.22em", color: "rgba(191,96,64,0.72)", marginBottom: 8, fontFamily: "Inter, sans-serif" }}>Today, you know</p>
-        <p style={{ fontFamily: "Fraunces, serif", fontSize: 16, color: "rgba(255,246,233,0.94)", letterSpacing: "-0.01em" }}>You were. You did.</p>
+        <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 16, color: "rgba(255,246,233,0.94)", letterSpacing: "-0.01em" }}>You were. You did.</p>
       </div>
       <div style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "4px 10px", borderRadius: 999, background: "rgba(191,96,64,0.1)", border: "1px solid rgba(191,96,64,0.22)" }}>
         <svg width={7} height={8} viewBox="0 0 8 9" fill="none" aria-hidden><path d="M4 0.5L0.5 2.2V5.5c0 1.8 1.5 3.2 3.5 3.5C6 8.7 7.5 7.3 7.5 5.5V2.2L4 0.5z" fill="rgba(191,96,64,0.25)" stroke="rgba(191,96,64,0.65)" strokeWidth="0.7" /></svg>
@@ -1850,7 +1850,7 @@ function HeroVisual({ bg, scrollYProgress }: { bg: string; scrollYProgress: Moti
     <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
 
       {/* Decorative É — faint editorial texture */}
-      <motion.div aria-hidden style={{ opacity: bgO, position: "absolute", top: "0%", right: "-4%", fontFamily: "Fraunces, serif", fontSize: "clamp(240px, 28vw, 420px)", lineHeight: 1, fontStyle: "italic", userSelect: "none", pointerEvents: "none", color: "rgba(191,96,64,0.028)", letterSpacing: "-0.05em" }}>
+      <motion.div aria-hidden style={{ opacity: bgO, position: "absolute", top: "0%", right: "-4%", fontFamily: "'Instrument Serif', Georgia, serif", fontSize: "clamp(240px, 28vw, 420px)", lineHeight: 1, fontStyle: "italic", userSelect: "none", pointerEvents: "none", color: "rgba(191,96,64,0.028)", letterSpacing: "-0.05em" }}>
         É
       </motion.div>
 
@@ -1880,7 +1880,7 @@ function HeroVisual({ bg, scrollYProgress }: { bg: string; scrollYProgress: Moti
                   <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#BF6040", animation: "featBlink 1.1s ease-in-out infinite" }} />
                   <span style={{ fontSize: 8, textTransform: "uppercase" as const, letterSpacing: "0.2em", color: "rgba(191,96,64,0.8)", fontFamily: "Inter, sans-serif" }}>Rec</span>
                 </div>
-                <span style={{ fontFamily: "Fraunces, serif", fontSize: 11, color: "rgba(255,246,233,0.45)", letterSpacing: "0.04em" }}>{mins}:{secs}</span>
+                <span style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 11, color: "rgba(255,246,233,0.45)", letterSpacing: "0.04em" }}>{mins}:{secs}</span>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 1.5, height: 22, marginBottom: 9 }}>
                 {WAVE_HEIGHTS.slice(0, 20).map((h, i) => (
