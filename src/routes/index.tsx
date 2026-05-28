@@ -2347,8 +2347,8 @@ function StorySection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const N = CHAPTER_TEXT.length;
 
-  // headline(40) + gap(16) + phone(630)
-  const MOBILE_CONTENT_H = 686;
+  const scaleWrapperRef = useRef<HTMLDivElement>(null);
+  const mobileContentHRef = useRef(750);
   const [mobileScale, setMobileScale] = useState(1);
 
   const [displayed, setDisplayed] = useState(0);
@@ -2426,19 +2426,23 @@ function StorySection() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [N, applyChapterChange]);
 
-  // Compute scale so the phone + headline + dots fit between nav and bottom of viewport.
-  // Nav is ~46px tall (no viewport-fit=cover, so page starts below OS status bar).
-  // 56px top clearance + 16px bottom padding = 72px reserved.
+  // Compute scale so the phone + headline fit between nav and viewport bottom.
+  // Measures actual DOM height (handles headline wrapping on narrow screens).
+  // Reserves extra for the iOS Safari bottom toolbar that may overlay the viewport.
   useEffect(() => {
     if (!isMobile) return;
     const update = () => {
-      const avail = window.innerHeight - 72;
-      setMobileScale(Math.min(1, avail / MOBILE_CONTENT_H));
+      const wrapper = scaleWrapperRef.current;
+      const naturalH = wrapper ? wrapper.scrollHeight : mobileContentHRef.current;
+      if (wrapper && wrapper.scrollHeight > 0) mobileContentHRef.current = naturalH;
+      // 56px top (nav) + 50px iOS Safari toolbar buffer
+      const avail = window.innerHeight - 106;
+      setMobileScale(Math.min(1, avail / naturalH));
     };
-    update();
+    requestAnimationFrame(update);
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
-  }, [isMobile, MOBILE_CONTENT_H]);
+  }, [isMobile]);
 
   const ct = CHAPTER_TEXT[displayed];
   const screen = CHAPTER_SCREENS[displayed];
@@ -2455,7 +2459,7 @@ function StorySection() {
           alignItems: isMobile ? "flex-start" : "center",
           justifyContent: "center",
           paddingTop: isMobile ? 56 : 0,
-          paddingBottom: isMobile ? 16 : 0,
+          paddingBottom: 0,
           // Pre-promote to compositing layer so there is no dynamic "sticky
           // promotion" event in iOS Safari — that event is what creates the
           // 1px seam artifact.
@@ -2608,6 +2612,7 @@ function StorySection() {
           >
             {/* Scale wrapper — on mobile, shrinks to fit viewport height */}
             <div
+              ref={scaleWrapperRef}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -2617,7 +2622,7 @@ function StorySection() {
                   transform: `scale(${mobileScale})`,
                   transformOrigin: "top center",
                   // Pull following content up so layout height = visual height
-                  marginBottom: MOBILE_CONTENT_H * (mobileScale - 1),
+                  marginBottom: mobileContentHRef.current * (mobileScale - 1),
                 } : {}),
               }}
             >
