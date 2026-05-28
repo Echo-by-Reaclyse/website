@@ -12,11 +12,8 @@ export function InnerPage({ title, subtitle, children }: InnerPageProps) {
     <div className="min-h-screen">
       <header className="fixed inset-x-0 top-0 z-30 nav-blur">
         <div className="mx-auto flex max-w-2xl items-center justify-between px-4 py-4 sm:px-6">
-          <Link
-            to="/"
-            className="font-display text-xl tracking-tight text-ink transition hover:text-ember"
-          >
-            ÉCHO
+          <Link to="/" className="transition hover:opacity-80">
+            <img src="/logo-name.svg" alt="ÉCHO" className="h-5 w-auto" />
           </Link>
           <ThemeToggle />
         </div>

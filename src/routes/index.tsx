@@ -7,7 +7,7 @@ import {
   createContext,
   useContext,
 } from "react";
-import { motion, useScroll, useTransform, useAnimation, type MotionValue } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform, useAnimation, type MotionValue } from "framer-motion";
 import { Toaster } from "@/components/ui/sonner";
 import { WaitlistForm } from "@/components/WaitlistForm";
 
@@ -184,12 +184,65 @@ const CHAPTER_SCREENS: ScreenType[] = [
 ];
 
 const SIDE_CARDS = [
-  { icon: "◆", text: "200+ thoughtfully written questions" },
-  { icon: "⊙", text: "Fully offline — works in airplane mode" },
-  { icon: "▣", text: "WhisperKit: Apple-native on-device transcription" },
-  { icon: "⌕", text: "Full-text search across your entire history" },
-  { icon: "◈", text: "8-dimensional longitudinal persona profile" },
-  { icon: "◷", text: "Auto time-lock — opens when the moment is right" },
+  {
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+      </svg>
+    ),
+    text: "200+ thoughtfully written questions",
+  },
+  {
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13"/>
+        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </svg>
+    ),
+    text: "Fully offline — works in airplane mode",
+  },
+  {
+    icon: (
+      <svg className="echo-waveform" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+        <line x1="2"  y1="11" x2="2"  y2="13"/>
+        <line x1="6"  y1="8"  x2="6"  y2="16"/>
+        <line x1="10" y1="4"  x2="10" y2="20"/>
+        <line x1="14" y1="3"  x2="14" y2="21"/>
+        <line x1="18" y1="7"  x2="18" y2="17"/>
+        <line x1="22" y1="10" x2="22" y2="14"/>
+      </svg>
+    ),
+    text: "WhisperKit: Apple-native on-device transcription",
+  },
+  {
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="11" cy="11" r="8"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+    ),
+    text: "Full-text search across your entire history",
+  },
+  {
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+        <polyline points="2 17 12 22 22 17"/>
+        <polyline points="2 12 12 17 22 12"/>
+      </svg>
+    ),
+    text: "8-dimensional longitudinal persona profile",
+  },
+  {
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 16 14"/>
+      </svg>
+    ),
+    text: "Auto time-lock — opens when the moment is right",
+  },
 ];
 
 const PRIVACY = [
@@ -1542,17 +1595,12 @@ function Nav({
           justifyContent: "space-between",
         }}
       >
-        <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
-          <span
-            style={{
-              fontFamily: C.serif,
-              fontSize: 22,
-              letterSpacing: "-0.01em",
-              color: C.cream,
-            }}
-          >
-            ÉCHO
-          </span>
+        <div style={{ display: "flex", alignItems: "flex-end", gap: 10 }}>
+          <img
+            src="/logo-name.svg"
+            alt="ÉCHO"
+            style={{ height: 22, width: "auto", opacity: 0.92 }}
+          />
           <span
             style={{
               fontSize: 11,
@@ -1560,6 +1608,7 @@ function Nav({
               letterSpacing: "0.18em",
               color: C.muted,
               fontFamily: C.sans,
+              paddingBottom: 2,
             }}
           >
             by Réaclyse
@@ -1741,7 +1790,7 @@ function Card2Content() {
       <div style={{ height: 1, background: "linear-gradient(90deg, rgba(191,96,64,0.28), transparent)", margin: "0 0 14px" }} />
       <div style={{ marginBottom: 14 }}>
         <p style={{ fontSize: 8, textTransform: "uppercase" as const, letterSpacing: "0.22em", color: "rgba(191,96,64,0.72)", marginBottom: 8, fontFamily: "Inter, sans-serif" }}>Today, you know</p>
-        <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 16, color: "rgba(255,246,233,0.94)", letterSpacing: "-0.01em" }}>You were. You did.</p>
+        <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 16, color: "rgba(255,246,233,0.94)", letterSpacing: "0" }}>You were. You did.</p>
       </div>
       <div style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "4px 10px", borderRadius: 999, background: "rgba(191,96,64,0.1)", border: "1px solid rgba(191,96,64,0.22)" }}>
         <svg width={7} height={8} viewBox="0 0 8 9" fill="none" aria-hidden><path d="M4 0.5L0.5 2.2V5.5c0 1.8 1.5 3.2 3.5 3.5C6 8.7 7.5 7.3 7.5 5.5V2.2L4 0.5z" fill="rgba(191,96,64,0.25)" stroke="rgba(191,96,64,0.65)" strokeWidth="0.7" /></svg>
@@ -1997,7 +2046,7 @@ function HeroSection() {
           </div>
 
           {/* Headline */}
-          <h1 style={{ fontFamily: C.serif, fontSize: "clamp(3.2rem, 6.5vw, 5.6rem)", letterSpacing: "-0.03em", lineHeight: 0.94, marginBottom: 28 }}>
+          <h1 style={{ fontFamily: C.serif, fontSize: "clamp(3.2rem, 6.5vw, 5.6rem)", letterSpacing: "0", lineHeight: 0.94, marginBottom: 28 }}>
             <span className="block" style={{ overflow: "hidden" }}>
               {"The journal".split(" ").map((word, i) => (
                 <span key={word} className="hero-word" style={{ color: C.cream, display: "inline-block", marginRight: "0.22em", animationDelay: `${0.14 + i * 0.08}s` }}>{word}</span>
@@ -2024,7 +2073,7 @@ function HeroSection() {
           <div className="hero-fade" style={{ display: "flex", flexWrap: "wrap", gap: "12px 36px", marginTop: 36, animationDelay: "0.88s" }}>
             {[{ k: "2026", v: "Launch" }, { k: "iOS 18+", v: "Platform" }, { k: "9 countries", v: "Europe first" }].map(({ k, v }) => (
               <div key={k}>
-                <p style={{ fontFamily: C.serif, fontSize: 18, color: C.cream, letterSpacing: "-0.01em" }}>{k}</p>
+                <p style={{ fontFamily: C.serif, fontSize: 18, color: C.cream, letterSpacing: "0" }}>{k}</p>
                 <p style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.18em", color: C.muted, fontFamily: C.sans, marginTop: 2 }}>{v}</p>
               </div>
             ))}
@@ -2112,7 +2161,7 @@ function ManifestoSection() {
           style={{
             fontFamily: C.serif,
             fontSize: "clamp(2.4rem, 6vw, 4rem)",
-            letterSpacing: "-0.025em",
+            letterSpacing: "0",
             color: C.cream,
             lineHeight: 1.08,
             marginBottom: 24,
@@ -2379,7 +2428,7 @@ function StorySection() {
                 fontSize: "clamp(1.9rem, 3.2vw, 3rem)",
                 color: C.cream,
                 lineHeight: 1.08,
-                letterSpacing: "-0.025em",
+                letterSpacing: "0",
                 marginBottom: 18,
                 whiteSpace: "pre-line",
                 ...staggerStyle(1, phase),
@@ -2525,30 +2574,45 @@ function StorySection() {
                 ...staggerStyle(1, phase),
               }}
             >
-              <span
-                style={{
-                  fontSize: 22,
-                  display: "block",
-                  marginBottom: 10,
-                  color: isDark
-                    ? "rgba(255,228,184,0.6)"
-                    : "rgba(26,15,5,0.5)",
-                }}
-              >
-                {SIDE_CARDS[displayed].icon}
-              </span>
-              <p
-                style={{
-                  fontSize: 13,
-                  color: isDark
-                    ? "rgba(255,246,233,0.6)"
-                    : "rgba(26,15,5,0.6)",
-                  lineHeight: 1.55,
-                  fontFamily: C.sans,
-                }}
-              >
-                {SIDE_CARDS[displayed].text}
-              </p>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={`icon-${displayed}`}
+                  initial={{ opacity: 0, scale: 0.55, y: -8 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.6, y: 8 }}
+                  transition={{ type: "spring", stiffness: 480, damping: 22 }}
+                  style={{
+                    display: "inline-flex",
+                    marginBottom: 14,
+                    color: isDark ? "rgba(255,228,184,0.65)" : "rgba(26,15,5,0.5)",
+                  }}
+                >
+                  <motion.div
+                    animate={{ y: [0, -2.5, 0] }}
+                    transition={{ duration: 3, ease: "easeInOut", repeat: Infinity, delay: 0.5 }}
+                  >
+                    {SIDE_CARDS[displayed].icon}
+                  </motion.div>
+                </motion.div>
+              </AnimatePresence>
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={`text-${displayed}`}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.22, ease: "easeOut", delay: 0.05 }}
+                  style={{
+                    fontSize: 13,
+                    color: isDark ? "rgba(255,246,233,0.6)" : "rgba(26,15,5,0.6)",
+                    lineHeight: 1.55,
+                    fontFamily: C.sans,
+                    margin: 0,
+                  }}
+                >
+                  {SIDE_CARDS[displayed].text}
+                </motion.p>
+              </AnimatePresence>
             </div>
 
             {/* Scroll hint */}
@@ -2660,7 +2724,7 @@ function PrivacySection() {
             style={{
               fontFamily: C.serif,
               fontSize: "clamp(2.4rem, 6vw, 4rem)",
-              letterSpacing: "-0.025em",
+              letterSpacing: "0",
               color: C.cream,
               lineHeight: 1.08,
               marginBottom: 18,
@@ -2735,7 +2799,7 @@ function PrivacySection() {
                   fontSize: 17,
                   color: C.cream,
                   marginBottom: 10,
-                  letterSpacing: "-0.01em",
+                  letterSpacing: "0",
                 }}
               >
                 {p.title}
@@ -2796,7 +2860,7 @@ function PricingSection() {
           style={{
             fontFamily: C.serif,
             fontSize: "clamp(2.2rem, 5.5vw, 3.8rem)",
-            letterSpacing: "-0.025em",
+            letterSpacing: "0",
             color: C.cream,
             lineHeight: 1.08,
           }}
@@ -2998,7 +3062,7 @@ function FAQSection() {
         style={{
           fontFamily: C.serif,
           fontSize: "clamp(2.2rem, 5.5vw, 3.6rem)",
-          letterSpacing: "-0.025em",
+          letterSpacing: "0",
           color: C.cream,
           lineHeight: 1.08,
           marginBottom: 52,
@@ -3172,7 +3236,7 @@ function WaitlistSection() {
           style={{
             fontFamily: C.serif,
             fontSize: "clamp(2.2rem, 5.5vw, 4rem)",
-            letterSpacing: "-0.025em",
+            letterSpacing: "0",
             color: C.cream,
             lineHeight: 1.08,
             marginBottom: 20,
@@ -3278,18 +3342,13 @@ function Footer() {
         }}
       >
         <div
-          style={{ display: "flex", alignItems: "baseline", gap: 8 }}
+          style={{ display: "flex", alignItems: "flex-end", gap: 10 }}
         >
-          <span
-            style={{
-              fontFamily: C.serif,
-              fontSize: 20,
-              letterSpacing: "-0.01em",
-              color: C.cream,
-            }}
-          >
-            ÉCHO
-          </span>
+          <img
+            src="/logo-name.svg"
+            alt="ÉCHO"
+            style={{ height: 20, width: "auto", opacity: isDark ? 0.88 : 0.75 }}
+          />
           <span
             style={{
               fontSize: 10,
@@ -3299,6 +3358,7 @@ function Footer() {
                 ? "rgba(255,246,233,0.3)"
                 : "rgba(26,15,5,0.35)",
               fontFamily: C.sans,
+              paddingBottom: 2,
             }}
           >
             by Réaclyse
