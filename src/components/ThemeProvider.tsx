@@ -29,13 +29,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
     const apply = (t: Theme) => {
       root.classList.remove("light", "dark");
-      if (t === "system") {
-        const sys: ResolvedTheme = mq.matches ? "dark" : "light";
-        setResolvedTheme(sys);
-      } else {
-        root.classList.add(t);
-        setResolvedTheme(t);
-      }
+      const resolved: ResolvedTheme = t === "system" ? (mq.matches ? "dark" : "light") : t;
+      root.classList.add(resolved);
+      setResolvedTheme(resolved);
     };
 
     apply(theme);

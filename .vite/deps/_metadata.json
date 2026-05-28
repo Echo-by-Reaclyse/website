@@ -1,0 +1,73 @@
+{
+  "hash": "c51c8fd6",
+  "configHash": "68f3fdfe",
+  "lockfileHash": "d11e9197",
+  "browserHash": "993299f8",
+  "optimized": {
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "65ea8055",
+      "needsInterop": true
+    },
+    "@tanstack/react-router": {
+      "src": "../../node_modules/@tanstack/react-router/dist/esm/index.dev.js",
+      "file": "@tanstack_react-router.js",
+      "fileHash": "f4a63491",
+      "needsInterop": false
+    },
+    "@tanstack/react-query": {
+      "src": "../../node_modules/@tanstack/react-query/build/modern/index.js",
+      "file": "@tanstack_react-query.js",
+      "fileHash": "3359a9f4",
+      "needsInterop": false
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "3d52902f",
+      "needsInterop": true
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "f9c9f36c",
+      "needsInterop": true
+    },
+    "lucide-react": {
+      "src": "../../node_modules/lucide-react/dist/esm/lucide-react.js",
+      "file": "lucide-react.js",
+      "fileHash": "8557c794",
+      "needsInterop": false
+    },
+    "sonner": {
+      "src": "../../node_modules/sonner/dist/index.mjs",
+      "file": "sonner.js",
+      "fileHash": "f364d760",
+      "needsInterop": false
+    },
+    "react-hook-form": {
+      "src": "../../node_modules/react-hook-form/dist/index.esm.mjs",
+      "file": "react-hook-form.js",
+      "fileHash": "a87d68a2",
+      "needsInterop": false
+    },
+    "framer-motion": {
+      "src": "../../node_modules/framer-motion/dist/es/index.mjs",
+      "file": "framer-motion.js",
+      "fileHash": "fb4132ea",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-QF7BFSNE": {
+      "file": "chunk-QF7BFSNE.js"
+    },
+    "chunk-KLSCGPUG": {
+      "file": "chunk-KLSCGPUG.js"
+    },
+    "chunk-RMEQSXQ2": {
+      "file": "chunk-RMEQSXQ2.js"
+    }
+  }
+}

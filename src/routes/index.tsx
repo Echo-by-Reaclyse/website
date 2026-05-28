@@ -10,6 +10,9 @@ import {
 import { motion, AnimatePresence, useScroll, useTransform, useAnimation, type MotionValue } from "framer-motion";
 import { Toaster } from "@/components/ui/sonner";
 import { WaitlistForm } from "@/components/WaitlistForm";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { useTheme as useGlobalTheme } from "@/components/ThemeProvider";
+import { ThemeToggle as SharedThemeToggle } from "@/components/ThemeToggle";
 
 export const Route = createFileRoute("/")({
   component: Landing,
@@ -45,7 +48,7 @@ const ThemeCtx = createContext<{ C: ThemeColors; isDark: boolean }>({
   C: C_DARK,
   isDark: true,
 });
-const useTheme = () => useContext(ThemeCtx);
+const useLandingTheme = () => useContext(ThemeCtx);
 
 // ── Animation config ───────────────────────────────────────────
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -311,9 +314,7 @@ function StatusBar() {
     <div
       style={{
         paddingTop: 56,
-        paddingLeft: 22,
-        paddingRight: 22,
-        paddingBottom: 2,
+        paddingBottom: 4,
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -616,7 +617,7 @@ function QuestionScreen() {
   }, []);
 
   return (
-    <div style={{ height: "100%", padding: "0 20px", background: C.bg }}>
+    <div style={{ height: "100%", padding: "0 20px 28px", background: C.bg, display: "flex", flexDirection: "column" }}>
       <StatusBar />
       <div
         style={{
@@ -654,7 +655,7 @@ function QuestionScreen() {
       >
         Today's question
       </p>
-      <div style={{ minHeight: 76, marginBottom: 20 }}>
+      <div style={{ flex: 1, minHeight: 76, marginBottom: 20 }}>
         <p
           style={{
             fontFamily: C.serif,
@@ -772,7 +773,7 @@ function RecordingScreen() {
   const secs = (t % 60).toString().padStart(2, "0");
 
   return (
-    <div style={{ height: "100%", padding: "0 20px", background: C.bg }}>
+    <div style={{ height: "100%", padding: "0 20px 28px", background: C.bg, display: "flex", flexDirection: "column" }}>
       <StatusBar />
       <div
         style={{
@@ -840,6 +841,7 @@ function RecordingScreen() {
           What are you avoiding telling yourself?
         </p>
       </div>
+      <div style={{ flex: 1 }} />
       <div
         style={{
           background: C.card,
@@ -917,7 +919,7 @@ function TranscriptScreen() {
   const words = transcript.split(" ");
 
   return (
-    <div style={{ height: "100%", padding: "0 20px", background: C.bg }}>
+    <div style={{ height: "100%", padding: "0 20px 28px", background: C.bg }}>
       <StatusBar />
       <div
         style={{
@@ -1044,7 +1046,7 @@ function TranscriptScreen() {
 function JournalScreen() {
   const C = C_PHONE;
   return (
-    <div style={{ height: "100%", padding: "0 20px", background: C.bg }}>
+    <div style={{ height: "100%", padding: "0 20px 28px", background: C.bg }}>
       <StatusBar />
       <div
         style={{
@@ -1145,7 +1147,7 @@ function JournalScreen() {
 function InsightsScreen() {
   const C = C_PHONE;
   return (
-    <div style={{ height: "100%", padding: "0 20px", background: C.bg }}>
+    <div style={{ height: "100%", padding: "0 20px 28px", background: C.bg }}>
       <StatusBar />
       <div style={{ marginBottom: 14 }}>
         <p
@@ -1554,15 +1556,11 @@ function staggerStyle(
 }
 
 // ── Nav ────────────────────────────────────────────────────────
-function Nav({
-  isDark,
-  onToggle,
-}: {
-  isDark: boolean;
-  onToggle: () => void;
-}) {
-  const { C } = useTheme();
+function Nav() {
+  const { C, isDark } = useLandingTheme();
+  const isMobile = useIsMobile();
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 12);
@@ -1570,6 +1568,13 @@ function Nav({
     window.addEventListener("scroll", fn, { passive: true });
     return () => window.removeEventListener("scroll", fn);
   }, []);
+
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setMenuOpen(false);
+  };
+
+  const navBgActive = scrolled || menuOpen;
 
   return (
     <header
@@ -1579,44 +1584,74 @@ function Nav({
         inset: "0 0 auto 0",
         zIndex: 50,
         transition: "all 0.3s",
-        backdropFilter: scrolled ? "blur(18px) saturate(150%)" : "none",
-        WebkitBackdropFilter: scrolled ? "blur(18px) saturate(150%)" : "none",
-        background: scrolled ? C.navBg : "transparent",
-        borderBottom: scrolled ? `1px solid ${C.border}` : "1px solid transparent",
+        backdropFilter: navBgActive ? "blur(18px) saturate(150%)" : "none",
+        WebkitBackdropFilter: navBgActive ? "blur(18px) saturate(150%)" : "none",
+        background: navBgActive ? C.navBg : "transparent",
+        borderBottom: navBgActive ? `1px solid ${C.border}` : "1px solid transparent",
       }}
     >
       <div
         style={{
           maxWidth: 1100,
           margin: "0 auto",
-          padding: "16px 24px",
+          padding: isMobile ? "12px 20px" : "16px 24px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
         }}
       >
-        <div style={{ display: "flex", alignItems: "flex-end", gap: 10 }}>
-          <img
-            src="/logo-name.svg"
-            alt="ÉCHO"
-            style={{ height: 22, width: "auto", opacity: 0.92 }}
-          />
-          <span
+        {/* Logo */}
+        <div style={{ display: "flex", alignItems: "flex-end", gap: 10, position: "relative" }}>
+          {/* Full wordmark — fades out on mobile when scrolled */}
+          <div
             style={{
-              fontSize: 11,
-              textTransform: "uppercase",
-              letterSpacing: "0.18em",
-              color: C.muted,
-              fontFamily: C.sans,
-              paddingBottom: 2,
+              display: "flex",
+              alignItems: "flex-end",
+              gap: 10,
+              opacity: isMobile && scrolled ? 0 : 1,
+              transition: "opacity 0.25s",
+              pointerEvents: isMobile && scrolled ? "none" : "auto",
             }}
           >
-            by Réaclyse
-          </span>
+            <img
+              src="/logo-name.svg"
+              alt="ÉCHO"
+              style={{ height: 22, width: "auto", opacity: 0.92 }}
+            />
+            <span
+              style={{
+                fontSize: 11,
+                textTransform: "uppercase",
+                letterSpacing: "0.18em",
+                color: C.muted,
+                fontFamily: C.sans,
+                paddingBottom: 2,
+              }}
+            >
+              by Réaclyse
+            </span>
+          </div>
+          {/* Icon-only — fades in on mobile when scrolled */}
+          <div
+            className="sm:hidden"
+            style={{
+              position: "absolute",
+              left: 0,
+              top: "50%",
+              transform: "translateY(-50%)",
+              opacity: scrolled ? 0.85 : 0,
+              transition: "opacity 0.25s",
+              pointerEvents: scrolled ? "auto" : "none",
+            }}
+          >
+            <img src="/logo.svg" alt="ÉCHO" style={{ height: 18, width: "auto" }} />
+          </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
+
+        {/* Desktop nav — hidden on mobile */}
+        <div className="hidden sm:flex" style={{ alignItems: "center", gap: 22 }}>
           <button
-            onClick={() => document.getElementById("story")?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() => scrollTo("story")}
             style={{
               fontSize: 11,
               textTransform: "uppercase",
@@ -1635,7 +1670,7 @@ function Nav({
             How it works
           </button>
           <button
-            onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() => scrollTo("waitlist")}
             style={{
               fontSize: 11,
               textTransform: "uppercase",
@@ -1653,49 +1688,119 @@ function Nav({
           >
             Waitlist
           </button>
-          {/* Theme toggle */}
+          <SharedThemeToggle />
+        </div>
+
+        {/* Mobile hamburger — hidden on desktop */}
+        <button
+          className="flex sm:hidden"
+          onClick={() => setMenuOpen((v) => !v)}
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            color: C.muted,
+            padding: "2px",
+            flexShrink: 0,
+          }}
+        >
+          {menuOpen ? (
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <line x1="1" y1="1" x2="13" y2="13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              <line x1="13" y1="1" x2="1" y2="13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+          ) : (
+            <svg width="16" height="10" viewBox="0 0 16 10" fill="none">
+              <line x1="0" y1="1" x2="16" y2="1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              <line x1="0" y1="5" x2="16" y2="5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              <line x1="0" y1="9" x2="16" y2="9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+          )}
+        </button>
+      </div>
+
+      {/* Mobile dropdown */}
+      {menuOpen && (
+        <div
+          className="sm:hidden"
+          style={{
+            padding: "4px 24px 16px",
+            borderTop: `1px solid ${C.border}`,
+          }}
+        >
           <button
-            onClick={onToggle}
-            aria-label={
-              isDark ? "Switch to light mode" : "Switch to dark mode"
-            }
+            onClick={() => scrollTo("story")}
             style={{
-              width: 44,
-              height: 24,
-              borderRadius: 12,
-              border: `1px solid ${C.border}`,
-              background: isDark
-                ? "rgba(255,228,184,0.08)"
-                : "rgba(26,15,5,0.1)",
+              display: "block",
+              width: "100%",
+              textAlign: "left",
+              fontSize: 12,
+              textTransform: "uppercase",
+              letterSpacing: "0.2em",
+              color: C.muted,
+              background: "none",
+              border: "none",
+              borderBottom: `1px solid ${C.border}`,
               cursor: "pointer",
-              position: "relative",
-              transition: "background 0.25s ease",
-              flexShrink: 0,
-              padding: 0,
+              fontFamily: C.sans,
+              padding: "14px 0",
             }}
           >
-            <div
-              style={{
-                position: "absolute",
-                top: 4,
-                left: isDark ? 4 : 20,
-                width: 14,
-                height: 14,
-                borderRadius: "50%",
-                background: C.ember,
-                transition: "left 0.25s cubic-bezier(0.22,1,0.36,1)",
-              }}
-            />
+            How it works
           </button>
+          <button
+            onClick={() => scrollTo("waitlist")}
+            style={{
+              display: "block",
+              width: "100%",
+              textAlign: "left",
+              fontSize: 12,
+              textTransform: "uppercase",
+              letterSpacing: "0.2em",
+              color: C.muted,
+              background: "none",
+              border: "none",
+              borderBottom: `1px solid ${C.border}`,
+              cursor: "pointer",
+              fontFamily: C.sans,
+              padding: "14px 0",
+            }}
+          >
+            Waitlist
+          </button>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "14px 0",
+            }}
+          >
+            <span
+              style={{
+                fontSize: 12,
+                textTransform: "uppercase",
+                letterSpacing: "0.2em",
+                color: C.muted,
+                fontFamily: C.sans,
+              }}
+            >
+              Theme
+            </span>
+            <SharedThemeToggle />
+          </div>
         </div>
-      </div>
+      )}
     </header>
   );
 }
 
 // ── MarqueeStrip ───────────────────────────────────────────────
 function MarqueeStrip({ reversed }: { reversed?: boolean }) {
-  const { C, isDark } = useTheme();
+  const { C, isDark } = useLandingTheme();
   const items = [
     "ONE QUESTION",
     "YOUR VOICE",
@@ -1994,7 +2099,7 @@ function HeroVisualMobile() {
 
 // ── HeroSection ────────────────────────────────────────────────
 function HeroSection() {
-  const { C, isDark } = useTheme();
+  const { C, isDark } = useLandingTheme();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -2035,7 +2140,7 @@ function HeroSection() {
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
-        }} className="max-lg:items-center max-lg:text-center max-lg:!px-6 max-lg:!w-full max-lg:max-w-lg max-lg:mx-auto">
+        }} className="max-lg:items-center max-lg:text-center max-lg:!px-6 max-lg:!w-full max-lg:max-w-lg max-lg:mx-auto max-lg:!pt-[72px]">
 
           {/* Badge */}
           <div className="hero-badge" style={{ marginBottom: 32 }}>
@@ -2109,7 +2214,7 @@ function HeroSection() {
 
 // ── ManifestoSection ───────────────────────────────────────────
 function ManifestoSection() {
-  const { C, isDark } = useTheme();
+  const { C, isDark } = useLandingTheme();
 
   return (
     <section
@@ -2237,9 +2342,14 @@ function ManifestoSection() {
 
 // ── StorySection ───────────────────────────────────────────────
 function StorySection() {
-  const { C, isDark } = useTheme();
+  const { C, isDark } = useLandingTheme();
+  const isMobile = useIsMobile();
   const containerRef = useRef<HTMLDivElement>(null);
   const N = CHAPTER_TEXT.length;
+
+  // headline(40) + gap(16) + phone(630)
+  const MOBILE_CONTENT_H = 686;
+  const [mobileScale, setMobileScale] = useState(1);
 
   const [displayed, setDisplayed] = useState(0);
   const [phase, setPhase] = useState<PanelPhase>("visible");
@@ -2291,6 +2401,8 @@ function StorySection() {
     }, 180);
   }, []);
 
+  // Single scroll handler for all screen sizes — reads container height
+  // dynamically so it works for both mobile (N×50vh) and desktop (N×100vh).
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -2314,20 +2426,40 @@ function StorySection() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [N, applyChapterChange]);
 
+  // Compute scale so the phone + headline + dots fit between nav and bottom of viewport.
+  // Nav is ~46px tall (no viewport-fit=cover, so page starts below OS status bar).
+  // 56px top clearance + 16px bottom padding = 72px reserved.
+  useEffect(() => {
+    if (!isMobile) return;
+    const update = () => {
+      const avail = window.innerHeight - 72;
+      setMobileScale(Math.min(1, avail / MOBILE_CONTENT_H));
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, [isMobile, MOBILE_CONTENT_H]);
+
   const ct = CHAPTER_TEXT[displayed];
   const screen = CHAPTER_SCREENS[displayed];
 
   return (
-    <div ref={containerRef} style={{ height: `${N * 100}vh` }}>
+    <div ref={containerRef} style={{ position: "relative", height: isMobile ? `${N * 50}vh` : `${N * 100}vh` }}>
       <div
         style={{
           position: "sticky",
           top: 0,
-          height: "100vh",
-          overflow: "hidden",
+          height: "100dvh",
+          overflow: "clip",
           display: "flex",
-          alignItems: "center",
+          alignItems: isMobile ? "flex-start" : "center",
           justifyContent: "center",
+          paddingTop: isMobile ? 56 : 0,
+          paddingBottom: isMobile ? 16 : 0,
+          // Pre-promote to compositing layer so there is no dynamic "sticky
+          // promotion" event in iOS Safari — that event is what creates the
+          // 1px seam artifact.
+          willChange: "transform",
         }}
       >
         {/* Ambient color */}
@@ -2342,8 +2474,9 @@ function StorySection() {
           }}
         />
 
-        {/* Progress bar */}
+        {/* Progress bar — desktop only */}
         <div
+          className="hidden sm:block"
           style={{
             position: "absolute",
             top: 0,
@@ -2407,7 +2540,7 @@ function StorySection() {
           className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] items-center gap-8 lg:gap-14 w-full max-w-[1100px] px-6 lg:px-10"
           style={{ minWidth: 0 }}
         >
-          {/* Left panel */}
+          {/* Left panel — desktop only */}
           <div className="hidden lg:block" style={{ overflow: "hidden" }}>
             <p
               style={{
@@ -2464,47 +2597,64 @@ function StorySection() {
             </p>
           </div>
 
-          {/* Center: iPhone */}
+          {/* Center: iPhone + mobile text */}
           <div
             style={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              gap: 16,
+              gap: 0,
             }}
           >
-            <div className="block lg:hidden text-center">
-              <p
-                style={{
-                  fontSize: 10,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.22em",
-                  color: C.ember,
-                  marginBottom: 6,
-                  fontFamily: C.sans,
-                }}
-              >
-                {ct.eyebrow}
-              </p>
-              <p
-                style={{
-                  fontFamily: C.serif,
-                  fontSize: "clamp(1.4rem, 5vw, 2rem)",
-                  color: C.cream,
-                  lineHeight: 1.15,
-                  letterSpacing: "-0.02em",
-                  whiteSpace: "pre-line",
-                }}
-              >
-                {ct.headline}
-              </p>
+            {/* Scale wrapper — on mobile, shrinks to fit viewport height */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 16,
+                ...(isMobile && mobileScale < 1 ? {
+                  transform: `scale(${mobileScale})`,
+                  transformOrigin: "top center",
+                  // Pull following content up so layout height = visual height
+                  marginBottom: MOBILE_CONTENT_H * (mobileScale - 1),
+                } : {}),
+              }}
+            >
+              {/* Mobile headline — hidden on desktop */}
+              <div className="block lg:hidden text-center">
+                <p
+                  style={{
+                    fontSize: 10,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.22em",
+                    color: C.ember,
+                    marginBottom: 6,
+                    fontFamily: C.sans,
+                  }}
+                >
+                  {ct.eyebrow}
+                </p>
+                <p
+                  style={{
+                    fontFamily: C.serif,
+                    fontSize: "clamp(1.4rem, 5vw, 2rem)",
+                    color: C.cream,
+                    lineHeight: 1.15,
+                    letterSpacing: "0",
+                    whiteSpace: "pre-line",
+                  }}
+                >
+                  {ct.headline}
+                </p>
+              </div>
+              <IPhoneFrame>
+                <PhoneScreen screen={screen} />
+              </IPhoneFrame>
             </div>
-            <IPhoneFrame>
-              <PhoneScreen screen={screen} />
-            </IPhoneFrame>
           </div>
 
-          {/* Right panel */}
+          {/* Right panel — desktop only */}
           <div
             className="hidden lg:flex flex-col gap-5"
             style={{ overflow: "hidden" }}
@@ -2567,7 +2717,7 @@ function StorySection() {
             {/* Side card */}
             <div
               style={{
-                padding: "16px 18px",
+                padding: "22px 22px",
                 background: C.card,
                 border: `1px solid ${C.border}`,
                 borderRadius: 14,
@@ -2663,7 +2813,7 @@ const PRIVACY_ICONS = [
 ];
 
 function PrivacySection() {
-  const { C, isDark } = useTheme();
+  const { C, isDark } = useLandingTheme();
 
   const iconColor = isDark ? "rgba(191,96,64,0.8)" : "rgba(168,75,42,0.75)";
   const iconBg = isDark ? "rgba(191,96,64,0.10)" : "rgba(168,75,42,0.08)";
@@ -2824,7 +2974,7 @@ function PrivacySection() {
 
 // ── PricingSection ─────────────────────────────────────────────
 function PricingSection() {
-  const { C, isDark } = useTheme();
+  const { C, isDark } = useLandingTheme();
 
   return (
     <section
@@ -2879,13 +3029,12 @@ function PricingSection() {
         viewport={VP}
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(2, 1fr)",
           gap: 20,
           maxWidth: 820,
           margin: "0 auto",
           alignItems: "stretch",
         }}
-        className="max-sm:grid-cols-1"
+        className="grid-cols-1 sm:grid-cols-2"
       >
         {/* Begin — free tier */}
         <motion.div
@@ -3025,7 +3174,7 @@ function PricingSection() {
 
 // ── FAQSection ─────────────────────────────────────────────────
 function FAQSection() {
-  const { C, isDark } = useTheme();
+  const { C, isDark } = useLandingTheme();
   const [open, setOpen] = useState<number | null>(null);
 
   return (
@@ -3180,7 +3329,7 @@ function FAQSection() {
 
 // ── WaitlistSection ────────────────────────────────────────────
 function WaitlistSection() {
-  const { C, isDark } = useTheme();
+  const { C, isDark } = useLandingTheme();
 
   return (
     <section
@@ -3321,7 +3470,7 @@ function WaitlistSection() {
 
 // ── Footer ─────────────────────────────────────────────────────
 function Footer() {
-  const { C, isDark } = useTheme();
+  const { C, isDark } = useLandingTheme();
 
   return (
     <footer
@@ -3422,16 +3571,9 @@ function Footer() {
 
 // ── Landing (root) ─────────────────────────────────────────────
 function Landing() {
-  const [isDark, setIsDark] = useState(() =>
-    typeof window !== "undefined"
-      ? window.matchMedia("(prefers-color-scheme: dark)").matches
-      : true
-  );
+  const { resolvedTheme } = useGlobalTheme();
+  const isDark = resolvedTheme === "dark";
   const C = isDark ? C_DARK : C_LIGHT;
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", isDark);
-  }, [isDark]);
 
   return (
     <ThemeCtx.Provider value={{ C, isDark }}>
@@ -3491,7 +3633,7 @@ function Landing() {
         </div>
 
         <Toaster richColors position="top-center" />
-        <Nav isDark={isDark} onToggle={() => setIsDark((d) => !d)} />
+        <Nav />
         <HeroSection />
         <MarqueeStrip />
         <ManifestoSection />

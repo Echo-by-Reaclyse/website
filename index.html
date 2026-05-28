@@ -8,8 +8,10 @@
     <script>
       (function () {
         var t = localStorage.getItem("echo-theme");
-        if (t === "light") document.documentElement.classList.add("light");
-        else if (t === "dark") document.documentElement.classList.add("dark");
+        var resolved = t === "light" ? "light"
+          : t === "dark" ? "dark"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.classList.add(resolved);
       })();
     </script>
 
