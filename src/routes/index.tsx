@@ -131,60 +131,56 @@ const WAVEFORM_BG = Array.from(
   (_, i) => Math.abs(Math.sin(i * 0.43) * 55 + Math.cos(i * 0.91 + 0.8) * 30 + Math.sin(i * 1.85) * 16) + 8
 );
 
-const CHAPTER_TEXT = [
-  {
+type TabId = "home" | "archive" | "mirror" | "letters" | "profile";
+
+const TAB_INFO: Record<TabId, { eyebrow: string; headline: string; body: string; detail: string }> = {
+  home: {
     eyebrow: "01 — The Question",
     headline: "Every day,\none question.",
     body: "No blank page. No pressure to perform. One question, crafted for honest reflection. Tap. Speak. Done.",
     detail: "Rotates from 200+ questions written for self-reflection.",
   },
-  {
-    eyebrow: "02 — You Speak",
-    headline: "Speak freely.\nNo typing.",
-    body: "30 seconds or 10 minutes. Your voice captures what your fingers can't — raw and unfiltered.",
-    detail: "Works completely offline. Nothing leaves your device.",
-  },
-  {
-    eyebrow: "03 — It Transcribes",
-    headline: "Your words,\nback to you.",
-    body: "WhisperKit processes your voice entirely on-device. No server. No human. No one listening.",
-    detail: "Encrypted at rest. Never used for training. Never shared.",
-  },
-  {
-    eyebrow: "04 — The Journal",
+  archive: {
+    eyebrow: "04 — The Archive",
     headline: "Every word\nyou've ever said.",
     body: "Search, browse, revisit. Your complete history of reflections — private, encrypted, yours.",
     detail: "Up to 30 days free. Unlimited history with subscription.",
   },
-  {
+  mirror: {
     eyebrow: "05 — Patterns Emerge",
     headline: "See yourself\nclearly.",
-    body: "Over weeks, ÉCHO builds a picture of your emotional patterns, recurring themes, and growth arc — all in your own words.",
+    body: "Over weeks, ÉCHO builds a picture of your emotional patterns, recurring themes, and growth arc.",
     detail: "8-point persona profile updated with every entry.",
   },
-  {
+  letters: {
     eyebrow: "06 — Time Capsule",
     headline: "Six months later,\nsame question.",
     body: "ÉCHO seals your words and returns them when enough time has passed. Compare who you were to who you are now.",
     detail: "Letters unlock automatically. No gamification. Just truth.",
   },
-];
+  profile: {
+    eyebrow: "07 — Privacy First",
+    headline: "Private\nby design.",
+    body: "On-device transcription. Encrypted at rest. No tracking. No advertising identifiers. Ever.",
+    detail: "GDPR compliant. iCloud sync optional. Your data is yours.",
+  },
+};
 
-type ScreenType =
-  | "question"
-  | "recording"
-  | "transcript"
-  | "journal"
-  | "insights"
-  | "letters";
-const CHAPTER_SCREENS: ScreenType[] = [
-  "question",
-  "recording",
-  "transcript",
-  "journal",
-  "insights",
-  "letters",
-];
+const TAB_RIGHT_BULLETS: Record<TabId, string[]> = {
+  home:    ["200+ reflection questions", "Works completely offline", "No typing required"],
+  archive: ["Encrypted at rest", "Calendar + feed view", "Full-text search"],
+  mirror:  ["8-point persona profile", "Emotional arc over time", "Thought connections map"],
+  letters: ["Auto-unlock by chosen date", "Side-by-side comparison", "No gamification"],
+  profile: ["iCloud sync optional", "No ad identifiers", "GDPR compliant"],
+};
+
+const TAB_AMBIENT: Record<TabId, { dark: string; light: string }> = {
+  home:    { dark: "rgba(27,77,168,0.16)",   light: "rgba(191,96,64,0.08)" },
+  archive: { dark: "rgba(191,96,64,0.14)",   light: "rgba(191,96,64,0.12)" },
+  mirror:  { dark: "rgba(14,50,114,0.14)",   light: "rgba(191,96,64,0.06)" },
+  letters: { dark: "rgba(27,77,168,0.13)",   light: "rgba(27,77,168,0.06)" },
+  profile: { dark: "rgba(107,143,199,0.15)", light: "rgba(107,143,199,0.09)" },
+};
 
 const SIDE_CARDS = [
   {
@@ -597,936 +593,695 @@ function IPhoneFrame({ children }: { children: React.ReactNode }) {
   );
 }
 
-// ── Phone Screens ──────────────────────────────────────────────
-const C_PHONE = C_DARK;
-
-function QuestionScreen() {
-  const C = C_PHONE;
-  const [qi, setQi] = useState(0);
-  const [vis, setVis] = useState(true);
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setVis(false);
-      setTimeout(() => {
-        setQi((q) => (q + 1) % QUESTIONS.length);
-        setVis(true);
-      }, 380);
-    }, 4000);
-    return () => clearInterval(id);
-  }, []);
-
-  return (
-    <div style={{ height: "100%", padding: "0 20px 28px", background: C.bg, display: "flex", flexDirection: "column" }}>
-      <StatusBar />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: 18,
-          padding: "0 4px",
-        }}
-      >
-        <span
-          style={{
-            fontFamily: C.serif,
-            fontSize: 11,
-            letterSpacing: "0.18em",
-            color: C.peach,
-            textTransform: "uppercase",
-          }}
-        >
-          ÉCHO
-        </span>
-        <span style={{ fontSize: 10, color: C.muted, fontFamily: C.sans }}>
-          Saturday, 9 May
-        </span>
-      </div>
-      <p
-        style={{
-          fontSize: 9,
-          textTransform: "uppercase",
-          letterSpacing: "0.22em",
-          color: C.muted,
-          marginBottom: 10,
-          fontFamily: C.sans,
-        }}
-      >
-        Today's question
-      </p>
-      <div style={{ flex: 1, minHeight: 76, marginBottom: 20 }}>
-        <p
-          style={{
-            fontFamily: C.serif,
-            fontSize: 17,
-            color: C.cream,
-            lineHeight: 1.45,
-            whiteSpace: "pre-line",
-            opacity: vis ? 1 : 0,
-            transform: vis ? "translateY(0)" : "translateY(-6px)",
-            transition: "opacity 0.38s ease, transform 0.38s ease",
-          }}
-        >
-          {QUESTIONS[qi]}
-        </p>
-      </div>
-      <div
-        style={{
-          background: C.card,
-          border: `1px solid ${C.border}`,
-          borderRadius: 14,
-          height: 56,
-          marginBottom: 18,
-          overflow: "hidden",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <WaveBars active={false} />
-      </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: 26,
-        }}
-      >
-        <div
-          style={{
-            width: 34,
-            height: 34,
-            borderRadius: "50%",
-            background: "rgba(255,228,184,0.07)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <svg width={10} height={10} viewBox="0 0 10 10" fill="none">
-            <path
-              d="M7 2L2 5l5 3"
-              stroke="rgba(255,228,184,0.45)"
-              strokeWidth="1.3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div>
-        <div
-          style={{
-            width: 50,
-            height: 50,
-            borderRadius: "50%",
-            background: "linear-gradient(145deg,#D47040,#BF6040)",
-            boxShadow: "0 8px 20px rgba(191,96,64,0.45)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              width: 17,
-              height: 17,
-              borderRadius: "50%",
-              background: "rgba(255,246,233,0.95)",
-            }}
-          />
-        </div>
-        <div
-          style={{
-            width: 34,
-            height: 34,
-            borderRadius: "50%",
-            background: "rgba(255,228,184,0.07)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <svg width={10} height={10} viewBox="0 0 10 10" fill="none">
-            <path
-              d="M3 2l5 3-5 3"
-              stroke="rgba(255,228,184,0.45)"
-              strokeWidth="1.3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function RecordingScreen() {
-  const C = C_PHONE;
-  const [t, setT] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => setT((x) => x + 1), 1000);
-    return () => clearInterval(id);
-  }, []);
-  const mins = Math.floor(t / 60);
-  const secs = (t % 60).toString().padStart(2, "0");
-
-  return (
-    <div style={{ height: "100%", padding: "0 20px 28px", background: C.bg, display: "flex", flexDirection: "column" }}>
-      <StatusBar />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: 12,
-        }}
-      >
-        <span
-          style={{
-            fontFamily: C.serif,
-            fontSize: 11,
-            letterSpacing: "0.18em",
-            color: C.peach,
-            textTransform: "uppercase",
-          }}
-        >
-          ÉCHO
-        </span>
-        <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-          <div
-            style={{
-              width: 6,
-              height: 6,
-              borderRadius: "50%",
-              background: C.ember,
-              animation: "featBlink 1.1s ease-in-out infinite",
-            }}
-          />
-          <span style={{ fontSize: 10, color: C.ember, fontFamily: C.sans }}>
-            Recording
-          </span>
-        </div>
-      </div>
-      <div
-        style={{
-          marginBottom: 14,
-          padding: "10px 13px",
-          background: C.card,
-          borderRadius: 12,
-          border: `1px solid ${C.border}`,
-        }}
-      >
-        <p
-          style={{
-            fontSize: 9,
-            textTransform: "uppercase",
-            letterSpacing: "0.15em",
-            color: C.muted,
-            marginBottom: 4,
-            fontFamily: C.sans,
-          }}
-        >
-          Today's question
-        </p>
-        <p
-          style={{
-            fontFamily: C.serif,
-            fontSize: 13,
-            color: C.cream,
-            lineHeight: 1.4,
-          }}
-        >
-          What are you avoiding telling yourself?
-        </p>
-      </div>
-      <div style={{ flex: 1 }} />
-      <div
-        style={{
-          background: C.card,
-          border: "1px solid rgba(191,96,64,0.3)",
-          borderRadius: 14,
-          height: 68,
-          marginBottom: 10,
-          overflow: "hidden",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          boxShadow: "0 0 20px rgba(191,96,64,0.08) inset",
-        }}
-      >
-        <WaveBars active />
-      </div>
-      <p
-        style={{
-          textAlign: "center",
-          fontFamily: C.serif,
-          fontSize: 20,
-          color: C.cream,
-          marginBottom: 16,
-        }}
-      >
-        {mins}:{secs}
-      </p>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <div
-          style={{
-            position: "relative",
-            animation: "featPulseScale 2.2s ease-in-out infinite",
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              inset: -10,
-              borderRadius: "50%",
-              background: "rgba(191,96,64,0.18)",
-            }}
-          />
-          <div
-            style={{
-              width: 56,
-              height: 56,
-              borderRadius: "50%",
-              background: "linear-gradient(145deg,#D47040,#BF6040)",
-              boxShadow: "0 8px 24px rgba(191,96,64,0.5)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              position: "relative",
-            }}
-          >
-            <div
-              style={{
-                width: 18,
-                height: 18,
-                borderRadius: 4,
-                background: "rgba(255,246,233,0.95)",
-              }}
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function TranscriptScreen() {
-  const C = C_PHONE;
-  const transcript =
-    "What I keep avoiding is the conversation about whether I actually want this. Not whether I'm capable — I know I am. But whether it's what I want.";
-  const words = transcript.split(" ");
-
-  return (
-    <div style={{ height: "100%", padding: "0 20px 28px", background: C.bg }}>
-      <StatusBar />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: 14,
-        }}
-      >
-        <span
-          style={{
-            fontFamily: C.serif,
-            fontSize: 11,
-            letterSpacing: "0.18em",
-            color: C.peach,
-            textTransform: "uppercase",
-          }}
-        >
-          ÉCHO
-        </span>
-        <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-          <svg width={10} height={10} viewBox="0 0 10 10" fill="none">
-            <circle
-              cx="5"
-              cy="5"
-              r="4.5"
-              stroke="rgba(255,228,184,0.45)"
-            />
-            <path
-              d="M3 5l1.5 1.5L7 3.5"
-              stroke="rgba(255,228,184,0.45)"
-              strokeWidth="1.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <span style={{ fontSize: 10, color: C.muted, fontFamily: C.sans }}>
-            Saved
-          </span>
-        </div>
-      </div>
-      <div
-        style={{
-          background: C.card,
-          border: `1px solid ${C.border}`,
-          borderRadius: 14,
-          padding: "13px 15px",
-          marginBottom: 12,
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginBottom: 9,
-          }}
-        >
-          <p style={{ fontSize: 10, color: C.peach, fontFamily: C.sans }}>
-            9 May 2026
-          </p>
-          <p style={{ fontSize: 10, color: C.muted, fontFamily: C.sans }}>
-            0:47
-          </p>
-        </div>
-        <div
-          style={{
-            fontSize: 12,
-            color: C.cream,
-            lineHeight: 1.6,
-            fontFamily: C.sans,
-          }}
-        >
-          {words.map((word, i) => (
-            <span
-              key={i}
-              style={{
-                display: "inline",
-                opacity: 0,
-                animation: `featWordIn 0.25s ease both`,
-                animationDelay: `${0.35 + i * 0.022}s`,
-              }}
-            >
-              {word}{" "}
-            </span>
-          ))}
-        </div>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 7,
-          padding: "7px 11px",
-          background: "rgba(27,77,168,0.18)",
-          borderRadius: 10,
-          border: "1px solid rgba(27,77,168,0.3)",
-        }}
-      >
-        <svg width={11} height={13} viewBox="0 0 11 13" fill="none">
-          <path
-            d="M5.5 0L0 2.7V7c0 3 2.4 5.8 5.5 6.3C8.6 12.8 11 10 11 7V2.7L5.5 0z"
-            fill="rgba(255,228,184,0.12)"
-            stroke="rgba(255,228,184,0.45)"
-            strokeWidth="0.7"
-          />
-          <path
-            d="M3.5 6.5l1.4 1.4L8 4.5"
-            stroke="rgba(255,228,184,0.65)"
-            strokeWidth="1.1"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-        <span
-          style={{ fontSize: 9, color: C.muted, fontFamily: C.sans }}
-        >
-          On-device · Encrypted at rest · Never shared
-        </span>
-      </div>
-    </div>
-  );
-}
-
-function JournalScreen() {
-  const C = C_PHONE;
-  return (
-    <div style={{ height: "100%", padding: "0 20px 28px", background: C.bg }}>
-      <StatusBar />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: 14,
-        }}
-      >
-        <p style={{ fontFamily: C.serif, fontSize: 19, color: C.cream }}>
-          Journal
-        </p>
-        <div
-          style={{
-            width: 30,
-            height: 30,
-            borderRadius: 9,
-            background: "rgba(255,228,184,0.07)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <svg width={13} height={13} viewBox="0 0 13 13" fill="none">
-            <circle
-              cx="5.5"
-              cy="5.5"
-              r="4"
-              stroke="rgba(255,228,184,0.5)"
-              strokeWidth="1.1"
-            />
-            <path
-              d="M8.5 8.5L11 11"
-              stroke="rgba(255,228,184,0.5)"
-              strokeWidth="1.4"
-              strokeLinecap="round"
-            />
-          </svg>
-        </div>
-      </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
-        {JOURNAL_ENTRIES.map((entry, i) => (
-          <div
-            key={i}
-            style={{
-              background: i === 0 ? "rgba(191,96,64,0.1)" : C.card,
-              border: `1px solid ${i === 0 ? "rgba(191,96,64,0.28)" : C.border}`,
-              borderRadius: 12,
-              padding: "9px 13px",
-              opacity: 0,
-              animation: `featFadeUp 0.38s cubic-bezier(0.22,1,0.36,1) both`,
-              animationDelay: `${0.35 + i * 0.08}s`,
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: 3,
-              }}
-            >
-              <p
-                style={{
-                  fontSize: 9,
-                  color: i === 0 ? C.ember : C.muted,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.1em",
-                  fontFamily: C.sans,
-                }}
-              >
-                {entry.date}
-              </p>
-              <p style={{ fontSize: 9, color: C.muted, fontFamily: C.sans }}>
-                {entry.duration}
-              </p>
-            </div>
-            <p
-              style={{
-                fontSize: 11,
-                color: C.cream,
-                lineHeight: 1.5,
-                fontFamily: C.sans,
-                overflow: "hidden",
-                display: "-webkit-box",
-                WebkitLineClamp: 2,
-                WebkitBoxOrient: "vertical",
-              }}
-            >
-              {entry.preview}
-            </p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function InsightsScreen() {
-  const C = C_PHONE;
-  return (
-    <div style={{ height: "100%", padding: "0 20px 28px", background: C.bg }}>
-      <StatusBar />
-      <div style={{ marginBottom: 14 }}>
-        <p
-          style={{
-            fontFamily: C.serif,
-            fontSize: 19,
-            color: C.cream,
-            marginBottom: 3,
-          }}
-        >
-          Insights
-        </p>
-        <p
-          style={{
-            fontSize: 9,
-            color: C.muted,
-            textTransform: "uppercase",
-            letterSpacing: "0.16em",
-            fontFamily: C.sans,
-          }}
-        >
-          Week 12 · 47 entries
-        </p>
-      </div>
-      <div
-        style={{
-          background: C.card,
-          border: `1px solid ${C.border}`,
-          borderRadius: 14,
-          padding: "13px 15px",
-          marginBottom: 12,
-        }}
-      >
-        <p
-          style={{
-            fontSize: 9,
-            textTransform: "uppercase",
-            letterSpacing: "0.2em",
-            color: C.peach,
-            marginBottom: 13,
-            fontFamily: C.sans,
-          }}
-        >
-          Your echo profile
-        </p>
-        {INSIGHTS_TRAITS.map((trait, i) => (
-          <div
-            key={i}
-            style={{ marginBottom: i < INSIGHTS_TRAITS.length - 1 ? 11 : 0 }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: 4,
-              }}
-            >
-              <p
-                style={{ fontSize: 10, color: C.cream, fontFamily: C.sans }}
-              >
-                {trait.label}
-              </p>
-              <p
-                style={{
-                  fontSize: 10,
-                  color: trait.color,
-                  fontFamily: C.sans,
-                }}
-              >
-                {Math.round(trait.value * 100)}%
-              </p>
-            </div>
-            <div
-              style={{
-                height: 3.5,
-                borderRadius: 2,
-                background: "rgba(255,228,184,0.09)",
-                overflow: "hidden",
-              }}
-            >
-              <div
-                style={
-                  {
-                    height: "100%",
-                    borderRadius: 2,
-                    background: `linear-gradient(90deg, ${trait.color}, ${trait.color}99)`,
-                    ["--bar-target" as string]: `${trait.value * 100}%`,
-                    animation: `featBarFill 0.75s cubic-bezier(0.22,1,0.36,1) both`,
-                    animationDelay: `${0.35 + i * 0.14 + 0.25}s`,
-                  } as React.CSSProperties
-                }
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-      <div
-        style={{
-          background: "rgba(191,96,64,0.09)",
-          border: "1px solid rgba(191,96,64,0.22)",
-          borderRadius: 12,
-          padding: "11px 13px",
-          opacity: 0,
-          animation: `featFadeUp 0.5s cubic-bezier(0.22,1,0.36,1) both`,
-          animationDelay: "1.2s",
-        }}
-      >
-        <p
-          style={{
-            fontSize: 9,
-            color: C.ember,
-            marginBottom: 4,
-            textTransform: "uppercase",
-            letterSpacing: "0.14em",
-            fontFamily: C.sans,
-          }}
-        >
-          Recurring theme
-        </p>
-        <p
-          style={{
-            fontSize: 11,
-            color: C.cream,
-            lineHeight: 1.5,
-            fontFamily: C.sans,
-          }}
-        >
-          "Avoidance of vulnerability" appears in 8 of your last 12 entries.
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function LettersScreen() {
-  const C = C_PHONE;
-  return (
-    <div style={{ height: "100%", padding: "0 20px", background: C.bg }}>
-      <StatusBar />
-      <div style={{ marginBottom: 16 }}>
-        <p
-          style={{
-            fontFamily: C.serif,
-            fontSize: 19,
-            color: C.cream,
-            marginBottom: 3,
-          }}
-        >
-          Letters
-        </p>
-        <p
-          style={{
-            fontSize: 9,
-            color: C.muted,
-            textTransform: "uppercase",
-            letterSpacing: "0.16em",
-            fontFamily: C.sans,
-          }}
-        >
-          Time capsules
-        </p>
-      </div>
-      <div
-        style={{
-          background: C.card,
-          border: `1px solid ${C.border}`,
-          borderRadius: 18,
-          padding: "18px 16px",
-          marginBottom: 12,
-          textAlign: "center",
-          opacity: 0,
-          animation: "featFadeUp 0.55s cubic-bezier(0.22,1,0.36,1) both",
-          animationDelay: "0.35s",
-        }}
-      >
-        <svg
-          width={46}
-          height={34}
-          viewBox="0 0 46 34"
-          fill="none"
-          style={{ display: "block", margin: "0 auto 10px" }}
-        >
-          <rect
-            x="1"
-            y="1"
-            width="44"
-            height="32"
-            rx="5"
-            stroke="rgba(255,228,184,0.28)"
-            strokeWidth="1.4"
-            fill="rgba(14,50,114,0.45)"
-          />
-          <path
-            d="M1 6l22 15L45 6"
-            stroke="rgba(255,228,184,0.42)"
-            strokeWidth="1.3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            fill="none"
-          />
-          <path
-            d="M1 27L15 17"
-            stroke="rgba(255,228,184,0.18)"
-            strokeWidth="0.9"
-            strokeLinecap="round"
-          />
-          <path
-            d="M45 27L31 17"
-            stroke="rgba(255,228,184,0.18)"
-            strokeWidth="0.9"
-            strokeLinecap="round"
-          />
-        </svg>
-        <p
-          style={{
-            fontFamily: C.serif,
-            fontSize: 14,
-            color: C.cream,
-            marginBottom: 4,
-          }}
-        >
-          November → May
-        </p>
-        <p
-          style={{
-            fontSize: 10,
-            color: C.muted,
-            marginBottom: 14,
-            fontFamily: C.sans,
-          }}
-        >
-          6 months apart
-        </p>
-        <div
-          style={{
-            background: "rgba(191,96,64,0.14)",
-            border: "1px solid rgba(191,96,64,0.28)",
-            borderRadius: 9,
-            padding: "7px 12px",
-          }}
-        >
-          <p style={{ fontSize: 11, color: C.ember, fontFamily: C.sans }}>
-            Unlocked · Read your evolution →
-          </p>
-        </div>
-      </div>
-      <div
-        style={{
-          background: "rgba(27,77,168,0.15)",
-          border: "1px solid rgba(27,77,168,0.28)",
-          borderRadius: 12,
-          padding: "11px 14px",
-          opacity: 0,
-          animation: "featFadeUp 0.55s cubic-bezier(0.22,1,0.36,1) both",
-          animationDelay: "0.65s",
-        }}
-      >
-        <p
-          style={{
-            fontSize: 9,
-            color: "rgba(107,143,199,0.9)",
-            textTransform: "uppercase",
-            letterSpacing: "0.16em",
-            marginBottom: 6,
-            fontFamily: C.sans,
-          }}
-        >
-          6 months ago, you wrote
-        </p>
-        <p
-          style={{
-            fontSize: 11,
-            color: C.cream,
-            lineHeight: 1.6,
-            fontStyle: "italic",
-            fontFamily: C.sans,
-          }}
-        >
-          "I don't know if I'm brave enough to leave..."
-        </p>
-        <div
-          style={{
-            height: 1,
-            background: C.border,
-            margin: "9px 0",
-          }}
-        />
-        <p
-          style={{
-            fontSize: 9,
-            color: C.ember,
-            textTransform: "uppercase",
-            letterSpacing: "0.14em",
-            marginBottom: 4,
-            fontFamily: C.sans,
-          }}
-        >
-          Today, you know
-        </p>
-        <p
-          style={{
-            fontSize: 11,
-            color: C.cream,
-            lineHeight: 1.5,
-            fontFamily: C.sans,
-          }}
-        >
-          You were. You did.
-        </p>
-      </div>
-    </div>
-  );
-}
-
-// ── PhoneScreen state machine ──────────────────────────────────
+// ── Phone Tab Screens ─────────────────────────────────────────
+type HomeState = "idle" | "recording" | "processing" | "result";
 type PanelPhase = "visible" | "exiting" | "entering";
 
-function PhoneScreen({ screen }: { screen: ScreenType }) {
-  const [displayed, setDisplayed] = useState<ScreenType>(screen);
+const TAB_DEFS: { id: TabId; label: string; icon: React.ReactNode }[] = [
+  {
+    id: "home",
+    label: "Home",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{ width: 20, height: 20 }}>
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+        <polyline points="9 22 9 12 15 12 15 22" />
+      </svg>
+    ),
+  },
+  {
+    id: "archive",
+    label: "Archive",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{ width: 20, height: 20 }}>
+        <path d="M2 3h20l-2 14H4L2 3z" />
+        <path d="M9 3v4" />
+        <path d="M15 3v4" />
+        <path d="M4 17h16a2 2 0 010 4H4a2 2 0 010-4z" />
+      </svg>
+    ),
+  },
+  {
+    id: "mirror",
+    label: "Mirror",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{ width: 20, height: 20 }}>
+        <circle cx="12" cy="12" r="5" />
+        <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+      </svg>
+    ),
+  },
+  {
+    id: "letters",
+    label: "Letters",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{ width: 20, height: 20 }}>
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+        <polyline points="22,6 12,13 2,6" />
+      </svg>
+    ),
+  },
+  {
+    id: "profile",
+    label: "Profile",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{ width: 20, height: 20 }}>
+        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>
+    ),
+  },
+];
+
+function PhoneTabBar({
+  activeTab,
+  onTabChange,
+}: {
+  activeTab: TabId;
+  onTabChange: (tab: TabId) => void;
+}) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        borderTop: "0.5px solid rgba(255,255,255,0.10)",
+        background: "rgba(10,18,32,0.95)",
+        backdropFilter: "blur(10px)",
+        flexShrink: 0,
+      }}
+    >
+      {TAB_DEFS.map(({ id, label, icon }) => {
+        const active = id === activeTab;
+        return (
+          <button
+            key={id}
+            onClick={() => onTabChange(id)}
+            style={{
+              flex: 1,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 3,
+              padding: "8px 2px 10px",
+              border: "none",
+              background: "none",
+              cursor: "pointer",
+              color: active ? "#BF6040" : "rgba(255,246,233,0.38)",
+              transition: "color 0.2s ease",
+              WebkitTapHighlightColor: "transparent",
+              userSelect: "none",
+            }}
+          >
+            <div style={{ opacity: active ? 1 : 0.7, transition: "opacity 0.2s" }}>{icon}</div>
+            <span
+              style={{
+                fontSize: 9,
+                fontFamily: "Urbanist, sans-serif",
+                fontWeight: active ? 600 : 400,
+                letterSpacing: "0.03em",
+                lineHeight: 1,
+                transition: "font-weight 0.2s",
+              }}
+            >
+              {label}
+            </span>
+            {active && (
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  width: 4,
+                  height: 2,
+                  borderRadius: 1,
+                  background: "#BF6040",
+                }}
+              />
+            )}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function HomeTabScreen({
+  homeState,
+  setHomeState,
+  recordingSeconds,
+}: {
+  homeState: HomeState;
+  setHomeState: (s: HomeState) => void;
+  recordingSeconds: number;
+}) {
+  const [savedMoods, setSavedMoods] = useState<Set<string>>(new Set());
+  const [justSaved, setJustSaved] = useState(false);
+  const WAVEFORM_BARS = 24;
+  const question = QUESTIONS[0];
+
+  const formatTime = (s: number) =>
+    `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+
+  const handleSave = () => {
+    setJustSaved(true);
+    setTimeout(() => {
+      setJustSaved(false);
+      setSavedMoods(new Set());
+      setHomeState("idle");
+    }, 1200);
+  };
+
+  return (
+    <div
+      style={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        background: "#0A1220",
+        overflow: "hidden",
+      }}
+    >
+      {/* Scrollable content */}
+      <div style={{ flex: 1, overflowY: "auto", padding: "50px 16px 16px", display: "flex", flexDirection: "column", gap: 12, scrollbarWidth: "none" }}>
+
+        {homeState === "idle" && (
+          <>
+            {/* Greeting + streak */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 4 }}>
+              <p style={{ fontSize: 12, color: "rgba(255,246,233,0.5)", fontFamily: "Urbanist, sans-serif" }}>Good evening</p>
+              <div style={{ display: "flex", alignItems: "center", gap: 4, background: "rgba(191,96,64,0.15)", borderRadius: 12, padding: "3px 8px" }}>
+                <span style={{ fontSize: 11 }}>🔥</span>
+                <span style={{ fontSize: 11, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>4 days</span>
+              </div>
+            </div>
+
+            {/* Question card */}
+            <div style={{ background: "rgba(14,22,44,0.8)", borderRadius: 16, padding: "16px", border: "1px solid rgba(255,228,184,0.07)" }}>
+              <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 8 }}>Today's question</p>
+              <p style={{ fontSize: 16, color: "rgba(255,246,233,0.92)", fontFamily: "'Instrument Serif', Georgia, serif", lineHeight: 1.3, fontStyle: "italic", whiteSpace: "pre-line" }}>
+                {question}
+              </p>
+              <div style={{ marginTop: 10, display: "inline-flex", alignItems: "center", background: "rgba(191,96,64,0.12)", borderRadius: 8, padding: "3px 8px", gap: 4 }}>
+                <span style={{ fontSize: 10, color: "rgba(255,228,184,0.6)", fontFamily: "Urbanist, sans-serif" }}>Identity</span>
+              </div>
+            </div>
+
+            {/* Record button */}
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, paddingTop: 8 }}>
+              <div style={{ position: "relative" }}>
+                <div
+                  className="mic-glow-ring"
+                  style={{ position: "absolute", inset: -6, borderRadius: "50%", background: "rgba(191,96,64,0.3)", animation: "micGlow 2s ease-in-out infinite" }}
+                />
+                <button
+                  onClick={() => setHomeState("recording")}
+                  style={{ width: 64, height: 64, borderRadius: "50%", background: "linear-gradient(145deg,#D47040,#BF6040)", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 8px 24px rgba(191,96,64,0.4)", WebkitTapHighlightColor: "transparent", position: "relative", zIndex: 1 }}
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" style={{ width: 26, height: 26 }}>
+                    <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z" />
+                    <path d="M19 10v2a7 7 0 01-14 0v-2" />
+                    <line x1="12" y1="19" x2="12" y2="23" />
+                    <line x1="8" y1="23" x2="16" y2="23" />
+                  </svg>
+                </button>
+              </div>
+              <p style={{ fontSize: 11, color: "rgba(255,246,233,0.45)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.08em" }}>Tap to begin</p>
+            </div>
+          </>
+        )}
+
+        {homeState === "recording" && (
+          <>
+            <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 4 }}>
+              <div className="rec-dot" style={{ width: 7, height: 7, borderRadius: "50%", background: "#FF3B30", animation: "recDot 1s ease-in-out infinite" }} />
+              <span style={{ fontSize: 11, color: "rgba(255,246,233,0.6)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.1em", textTransform: "uppercase" }}>Recording</span>
+              <span style={{ marginLeft: "auto", fontSize: 13, color: "rgba(255,246,233,0.85)", fontFamily: "monospace", letterSpacing: "0.05em" }}>{formatTime(recordingSeconds)}</span>
+            </div>
+
+            {/* Waveform */}
+            <div style={{ background: "rgba(14,22,44,0.8)", borderRadius: 14, padding: "14px 10px", border: "1px solid rgba(255,228,184,0.06)", display: "flex", alignItems: "flex-end", justifyContent: "center", gap: 3, height: 80 }}>
+              {Array.from({ length: WAVEFORM_BARS }, (_, i) => {
+                const maxH = 0.3 + Math.abs(Math.sin(i * 0.68 + 0.5) * 0.5 + Math.cos(i * 1.31) * 0.25);
+                const dur = (0.45 + (i % 5) * 0.08).toFixed(2);
+                const delay = (i * 0.025).toFixed(2);
+                return (
+                  <div
+                    key={i}
+                    className="waveform-bar"
+                    style={{
+                      width: 4,
+                      height: "52px",
+                      background: `rgba(191,96,64,${0.5 + maxH * 0.5})`,
+                      borderRadius: 2,
+                      transformOrigin: "bottom",
+                      ["--bar-max" as string]: maxH.toFixed(2),
+                      animation: `barDance ${dur}s ${delay}s ease-in-out infinite alternate`,
+                    }}
+                  />
+                );
+              })}
+            </div>
+
+            {/* Stop button */}
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, paddingTop: 4 }}>
+              <button
+                onClick={() => setHomeState("processing")}
+                style={{ width: 56, height: 56, borderRadius: "50%", background: "rgba(255,59,48,0.15)", border: "2px solid rgba(255,59,48,0.5)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", WebkitTapHighlightColor: "transparent" }}
+              >
+                <div style={{ width: 18, height: 18, borderRadius: 3, background: "#FF3B30" }} />
+              </button>
+              <p style={{ fontSize: 11, color: "rgba(255,246,233,0.4)", fontFamily: "Urbanist, sans-serif" }}>Tap to stop</p>
+            </div>
+          </>
+        )}
+
+        {homeState === "processing" && (
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 16, paddingTop: 24 }}>
+            <div style={{ display: "flex", gap: 8 }}>
+              {[0, 1, 2].map(i => (
+                <div
+                  key={i}
+                  style={{
+                    width: 8,
+                    height: 8,
+                    borderRadius: "50%",
+                    background: "#BF6040",
+                    animation: `dotBounce 1.1s ${(i * 0.18).toFixed(2)}s ease-in-out infinite`,
+                  }}
+                />
+              ))}
+            </div>
+            <p style={{ fontSize: 13, color: "rgba(255,246,233,0.5)", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic", textAlign: "center" }}>
+              Reading between<br />the lines…
+            </p>
+          </div>
+        )}
+
+        {homeState === "result" && (
+          <>
+            <p style={{ fontSize: 10, color: "rgba(255,246,233,0.4)", fontFamily: "Urbanist, sans-serif", marginTop: 4, fontStyle: "italic", lineHeight: 1.4 }}>
+              "{question}"
+            </p>
+            <div style={{ background: "rgba(191,96,64,0.08)", borderRadius: 14, padding: "12px 14px", border: "1px solid rgba(191,96,64,0.18)" }}>
+              <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 8 }}>Echo reflects</p>
+              <p style={{ fontSize: 13, color: "rgba(255,246,233,0.88)", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic", lineHeight: 1.55 }}>
+                "You already know the answer. You're asking because you want permission to act on it."
+              </p>
+            </div>
+            <div>
+              <p style={{ fontSize: 9, color: "rgba(255,246,233,0.4)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 8 }}>How do you feel?</p>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                {["Reflective", "Curious", "Unsettled", "Brave"].map(mood => {
+                  const active = savedMoods.has(mood);
+                  return (
+                    <button
+                      key={mood}
+                      onClick={() => setSavedMoods(prev => {
+                        const s = new Set(prev);
+                        s.has(mood) ? s.delete(mood) : s.add(mood);
+                        return s;
+                      })}
+                      style={{
+                        padding: "5px 10px",
+                        borderRadius: 20,
+                        fontSize: 11,
+                        fontFamily: "Urbanist, sans-serif",
+                        border: `1px solid ${active ? "#BF6040" : "rgba(255,228,184,0.18)"}`,
+                        background: active ? "rgba(191,96,64,0.2)" : "transparent",
+                        color: active ? "#BF6040" : "rgba(255,246,233,0.6)",
+                        cursor: "pointer",
+                        WebkitTapHighlightColor: "transparent",
+                        transition: "all 0.18s ease",
+                      }}
+                    >
+                      {mood}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+            <button
+              onClick={handleSave}
+              style={{
+                width: "100%",
+                padding: "12px",
+                borderRadius: 12,
+                background: justSaved ? "rgba(52,199,89,0.2)" : "linear-gradient(145deg,#D47040,#BF6040)",
+                border: justSaved ? "1px solid rgba(52,199,89,0.4)" : "none",
+                color: justSaved ? "#34C759" : "white",
+                fontSize: 13,
+                fontFamily: "Urbanist, sans-serif",
+                fontWeight: 600,
+                cursor: "pointer",
+                WebkitTapHighlightColor: "transparent",
+                transition: "all 0.3s ease",
+              }}
+            >
+              {justSaved ? "✓ Saved" : "Save entry"}
+            </button>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function ArchiveTabScreen() {
+  const [view, setView] = useState<"list" | "detail">("list");
+  const [selectedIdx, setSelectedIdx] = useState(0);
   const [phase, setPhase] = useState<PanelPhase>("visible");
   const phaseRef = useRef<PanelPhase>("visible");
-  const pendingRef = useRef<ScreenType | null>(null);
 
-  const applyChange = useCallback((next: ScreenType) => {
+  const navigate = useCallback((newView: "list" | "detail", idx?: number) => {
     phaseRef.current = "exiting";
     setPhase("exiting");
     setTimeout(() => {
-      setDisplayed(next);
+      if (idx !== undefined) setSelectedIdx(idx);
+      setView(newView);
       phaseRef.current = "entering";
       setPhase("entering");
-      requestAnimationFrame(() =>
-        requestAnimationFrame(() => {
-          phaseRef.current = "visible";
-          setPhase("visible");
-          if (pendingRef.current !== null) {
-            const q = pendingRef.current;
-            pendingRef.current = null;
-            applyChange(q);
-          }
-        })
-      );
-    }, 200);
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        phaseRef.current = "visible";
+        setPhase("visible");
+      }));
+    }, 180);
   }, []);
 
-  useEffect(() => {
-    if (screen === displayed && phaseRef.current === "visible") return;
-    if (phaseRef.current !== "visible") {
-      pendingRef.current = screen;
-      return;
-    }
-    applyChange(screen);
-  }, [screen, displayed, applyChange]);
+  const entry = JOURNAL_ENTRIES[selectedIdx];
+  const ENTRY_MOODS = [["Reflective", "Curious"], ["Present", "Thoughtful"], ["Unsettled", "Honest"]];
+  const moods = ENTRY_MOODS[selectedIdx % ENTRY_MOODS.length];
 
   const wrapStyle: React.CSSProperties = {
     position: "absolute",
     inset: 0,
     opacity: phase === "visible" ? 1 : 0,
-    transform: `scale(${phase === "visible" ? 1 : phase === "entering" ? 0.96 : 1.02})`,
-    transition:
-      phase === "visible"
-        ? "opacity 0.42s cubic-bezier(0.22,1,0.36,1), transform 0.42s cubic-bezier(0.22,1,0.36,1)"
-        : phase === "entering"
-          ? "none"
-          : "opacity 0.18s ease-in, transform 0.18s ease-in",
+    transform: `scale(${phase === "visible" ? 1 : phase === "entering" ? 0.97 : 1.01})`,
+    transition: phase === "visible"
+      ? "opacity 0.38s cubic-bezier(0.22,1,0.36,1), transform 0.38s cubic-bezier(0.22,1,0.36,1)"
+      : phase === "entering" ? "none" : "opacity 0.15s ease-in, transform 0.15s ease-in",
   };
 
   return (
-    <div style={{ position: "absolute", inset: 0, ...wrapStyle }}>
-      {displayed === "question" && <QuestionScreen />}
-      {displayed === "recording" && <RecordingScreen />}
-      {displayed === "transcript" && <TranscriptScreen />}
-      {displayed === "journal" && <JournalScreen />}
-      {displayed === "insights" && <InsightsScreen />}
-      {displayed === "letters" && <LettersScreen />}
+    <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "#0A1220", overflow: "hidden", position: "relative" }}>
+      <div style={wrapStyle}>
+        {view === "list" ? (
+          <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+            <div style={{ padding: "50px 16px 10px" }}>
+              <p style={{ fontSize: 17, color: "rgba(255,246,233,0.92)", fontFamily: "'Instrument Serif', Georgia, serif", fontWeight: 400, marginBottom: 2 }}>The Archive</p>
+              <p style={{ fontSize: 10, color: "rgba(255,246,233,0.4)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.06em" }}>Everything you've said</p>
+              <div style={{ marginTop: 10, display: "flex", alignItems: "center", background: "rgba(255,246,233,0.06)", borderRadius: 10, padding: "7px 10px", gap: 7 }}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,246,233,0.3)" strokeWidth="2" style={{ width: 14, height: 14, flexShrink: 0 }}>
+                  <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
+                </svg>
+                <span style={{ fontSize: 11, color: "rgba(255,246,233,0.3)", fontFamily: "Urbanist, sans-serif" }}>Search your reflections</span>
+              </div>
+            </div>
+            <div style={{ flex: 1, overflowY: "auto", padding: "0 12px 12px", scrollbarWidth: "none", display: "flex", flexDirection: "column", gap: 8 }}>
+              {JOURNAL_ENTRIES.slice(0, 4).map((e, i) => (
+                <button
+                  key={i}
+                  onClick={() => navigate("detail", i)}
+                  style={{ width: "100%", textAlign: "left", background: "rgba(14,22,44,0.7)", borderRadius: 12, padding: "11px 12px", border: "1px solid rgba(255,228,184,0.07)", cursor: "pointer", WebkitTapHighlightColor: "transparent", transition: "border-color 0.18s ease" }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 5 }}>
+                    <span style={{ fontSize: 11, color: "rgba(255,246,233,0.7)", fontFamily: "Urbanist, sans-serif", fontWeight: 500 }}>{e.date}</span>
+                    <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,246,233,0.3)" strokeWidth="2" style={{ width: 10, height: 10 }}>
+                        <polygon points="5 3 19 12 5 21 5 3" />
+                      </svg>
+                      <span style={{ fontSize: 10, color: "rgba(255,246,233,0.35)", fontFamily: "Urbanist, sans-serif" }}>{e.duration}</span>
+                    </div>
+                  </div>
+                  <p style={{ fontSize: 11, color: "rgba(255,246,233,0.5)", fontFamily: "Urbanist, sans-serif", lineHeight: 1.5, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>
+                    {e.preview}
+                  </p>
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+            <div style={{ padding: "12px 16px 10px", display: "flex", alignItems: "center", gap: 8, borderBottom: "0.5px solid rgba(255,228,184,0.07)" }}>
+              <button onClick={() => navigate("list")} style={{ display: "flex", alignItems: "center", gap: 4, background: "none", border: "none", color: "#BF6040", cursor: "pointer", fontSize: 12, fontFamily: "Urbanist, sans-serif", padding: 0, WebkitTapHighlightColor: "transparent" }}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ width: 14, height: 14 }}>
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+                Back
+              </button>
+            </div>
+            <div style={{ flex: 1, overflowY: "auto", padding: "14px 16px 14px", scrollbarWidth: "none", display: "flex", flexDirection: "column", gap: 12 }}>
+              <div>
+                <p style={{ fontSize: 14, color: "rgba(255,246,233,0.85)", fontFamily: "'Instrument Serif', Georgia, serif" }}>{entry.date}</p>
+                <div style={{ display: "flex", gap: 5, marginTop: 6 }}>
+                  {moods.map(m => (
+                    <span key={m} style={{ fontSize: 10, padding: "3px 8px", borderRadius: 20, background: "rgba(191,96,64,0.15)", color: "#BF6040", fontFamily: "Urbanist, sans-serif" }}>{m}</span>
+                  ))}
+                  <span style={{ fontSize: 10, padding: "3px 8px", borderRadius: 20, background: "rgba(255,246,233,0.07)", color: "rgba(255,246,233,0.4)", fontFamily: "Urbanist, sans-serif" }}>{entry.duration}</span>
+                </div>
+              </div>
+              <p style={{ fontSize: 12, color: "rgba(255,246,233,0.7)", fontFamily: "Urbanist, sans-serif", lineHeight: 1.65 }}>
+                {entry.preview.replace("...", ". It was the kind of morning where every thought felt louder than usual.")}
+              </p>
+              <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 10px", background: "rgba(14,50,114,0.2)", borderRadius: 8, border: "1px solid rgba(27,77,168,0.2)" }}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="rgba(107,143,199,0.7)" strokeWidth="1.5" style={{ width: 12, height: 12, flexShrink: 0 }}>
+                  <path d="M12 2l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V5l7-3z" />
+                </svg>
+                <span style={{ fontSize: 9, color: "rgba(107,143,199,0.7)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.06em" }}>Recorded on device · Encrypted</span>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
 
-// ── StorySection stagger helper ────────────────────────────────
+function MirrorTabScreen({ mirrorKey }: { mirrorKey: number }) {
+  const TRAITS = [
+    { label: "Analytical", pct: 78, color: "#BF6040" },
+    { label: "Emotionally aware", pct: 65, color: "#6B8FC7" },
+    { label: "Future-oriented", pct: 52, color: "#BF6040" },
+    { label: "Self-critical", pct: 44, color: "#8FA8D4" },
+    { label: "Growth-seeking", pct: 71, color: "#BF6040" },
+  ];
+
+  return (
+    <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "#0A1220", overflow: "hidden" }}>
+      <div style={{ padding: "50px 16px 8px" }}>
+        <p style={{ fontSize: 17, color: "rgba(255,246,233,0.92)", fontFamily: "'Instrument Serif', Georgia, serif", fontWeight: 400, marginBottom: 2 }}>The Mirror</p>
+        <p style={{ fontSize: 10, color: "rgba(255,246,233,0.4)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.06em" }}>Your patterns, in your words</p>
+      </div>
+      <div style={{ flex: 1, overflowY: "auto", padding: "0 16px 16px", scrollbarWidth: "none", display: "flex", flexDirection: "column", gap: 12 }}>
+        <div style={{ background: "rgba(14,22,44,0.8)", borderRadius: 14, padding: "14px", border: "1px solid rgba(255,228,184,0.07)" }}>
+          <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 14 }}>Echo Profile</p>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {TRAITS.map(({ label, pct, color }, i) => (
+              <div key={`${mirrorKey}-${label}`}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
+                  <span style={{ fontSize: 11, color: "rgba(255,246,233,0.7)", fontFamily: "Urbanist, sans-serif" }}>{label}</span>
+                  <span style={{ fontSize: 11, color, fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>{pct}%</span>
+                </div>
+                <div style={{ height: 4, background: "rgba(255,255,255,0.07)", borderRadius: 2, overflow: "hidden" }}>
+                  <div
+                    className="trait-bar-fill"
+                    style={{
+                      height: "100%",
+                      background: `linear-gradient(90deg, ${color}, ${color}99)`,
+                      borderRadius: 2,
+                      ["--trait-target" as string]: `${pct}%`,
+                      animation: `traitFill 0.8s ${(i * 0.12).toFixed(2)}s cubic-bezier(0.22,1,0.36,1) both`,
+                    }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div style={{ background: "rgba(191,96,64,0.07)", borderRadius: 12, padding: "12px 14px", border: "1px solid rgba(191,96,64,0.15)" }}>
+          <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 6 }}>Recurring theme</p>
+          <p style={{ fontSize: 12, color: "rgba(255,246,233,0.75)", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic", lineHeight: 1.55 }}>
+            "You return to the question of what you actually want — not what others expect."
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function LettersTabScreen() {
+  return (
+    <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "#0A1220", overflow: "hidden" }}>
+      <div style={{ padding: "50px 16px 8px" }}>
+        <p style={{ fontSize: 17, color: "rgba(255,246,233,0.92)", fontFamily: "'Instrument Serif', Georgia, serif", fontWeight: 400, marginBottom: 2 }}>Letters</p>
+        <p style={{ fontSize: 10, color: "rgba(255,246,233,0.4)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.06em" }}>Messages to your future self</p>
+      </div>
+      <div style={{ flex: 1, overflowY: "auto", padding: "0 14px 14px", scrollbarWidth: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+        {/* Unlocked letter */}
+        <div style={{ background: "rgba(14,22,44,0.9)", borderRadius: 14, padding: "14px", border: "1px solid rgba(191,96,64,0.25)", boxShadow: "0 0 20px rgba(191,96,64,0.08)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 10 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(191,96,64,0.15)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="#BF6040" strokeWidth="1.5" style={{ width: 16, height: 16 }}>
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+              </div>
+              <div>
+                <p style={{ fontSize: 12, color: "rgba(255,246,233,0.85)", fontFamily: "Urbanist, sans-serif", fontWeight: 500 }}>November → May</p>
+                <p style={{ fontSize: 10, color: "rgba(255,246,233,0.4)", fontFamily: "Urbanist, sans-serif" }}>6 months apart</p>
+              </div>
+            </div>
+            <div style={{ background: "rgba(191,96,64,0.15)", borderRadius: 20, padding: "3px 8px", border: "1px solid rgba(191,96,64,0.3)" }}>
+              <span style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>Unlocked</span>
+            </div>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 10px", background: "rgba(191,96,64,0.06)", borderRadius: 8, cursor: "pointer" }}>
+            <span style={{ fontSize: 11, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 500, flex: 1 }}>Read your evolution →</span>
+          </div>
+          <div style={{ marginTop: 10, display: "flex", flexDirection: "column", gap: 8, borderTop: "0.5px solid rgba(255,228,184,0.07)", paddingTop: 10 }}>
+            <div>
+              <p style={{ fontSize: 8, color: "rgba(255,246,233,0.35)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 3 }}>6 months ago, you wrote</p>
+              <p style={{ fontSize: 11, color: "rgba(255,246,233,0.6)", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic" }}>"I don't know if I'm brave enough to leave…"</p>
+            </div>
+            <div>
+              <p style={{ fontSize: 8, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 3 }}>Today, you know</p>
+              <p style={{ fontSize: 11, color: "rgba(255,246,233,0.85)", fontFamily: "'Instrument Serif', Georgia, serif" }}>You were. You did.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Sealed letter */}
+        <div
+          className="env-float-card"
+          style={{ background: "rgba(14,22,44,0.7)", borderRadius: 14, padding: "14px", border: "1px solid rgba(255,228,184,0.07)", animation: "envFloat 3.5s ease-in-out infinite" }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(255,246,233,0.05)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,246,233,0.3)" strokeWidth="1.5" style={{ width: 16, height: 16 }}>
+                <rect x="5" y="11" width="14" height="11" rx="2" />
+                <path d="M8 11V7a4 4 0 018 0v4" />
+                <circle cx="12" cy="16" r="1.5" fill="rgba(255,246,233,0.3)" stroke="none" />
+              </svg>
+            </div>
+            <div style={{ flex: 1 }}>
+              <p style={{ fontSize: 12, color: "rgba(255,246,233,0.6)", fontFamily: "Urbanist, sans-serif", fontWeight: 500 }}>May → November</p>
+              <p style={{ fontSize: 10, color: "rgba(255,246,233,0.3)", fontFamily: "Urbanist, sans-serif" }}>Opens in 23 days</p>
+            </div>
+            <div style={{ background: "rgba(255,255,255,0.05)", borderRadius: 20, padding: "3px 8px" }}>
+              <span style={{ fontSize: 9, color: "rgba(255,246,233,0.3)", fontFamily: "Urbanist, sans-serif" }}>Sealed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProfileTabScreen() {
+  const SETTINGS_ROWS = [
+    { icon: "🔔", label: "Daily Reminder", value: "8:00 AM" },
+    { icon: "🌙", label: "Appearance", value: "Dark" },
+    { icon: "🔒", label: "Privacy & Data", value: "" },
+    { icon: "❓", label: "Help & Support", value: "" },
+  ];
+  return (
+    <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "#0A1220", overflow: "hidden" }}>
+      <div style={{ padding: "50px 16px 8px" }}>
+        <p style={{ fontSize: 17, color: "rgba(255,246,233,0.92)", fontFamily: "'Instrument Serif', Georgia, serif", fontWeight: 400 }}>Profile</p>
+      </div>
+      <div style={{ flex: 1, overflowY: "auto", padding: "0 16px 16px", scrollbarWidth: "none", display: "flex", flexDirection: "column", gap: 12 }}>
+        {/* Avatar row */}
+        <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px", background: "rgba(14,22,44,0.7)", borderRadius: 14, border: "1px solid rgba(255,228,184,0.07)" }}>
+          <div style={{ width: 44, height: 44, borderRadius: "50%", background: "linear-gradient(145deg,#D47040,#BF6040)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ fontSize: 16, color: "white", fontFamily: "Urbanist, sans-serif", fontWeight: 700 }}>V</span>
+          </div>
+          <div style={{ flex: 1 }}>
+            <p style={{ fontSize: 14, color: "rgba(255,246,233,0.9)", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>Victor M.</p>
+            <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 3 }}>
+              <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#34C759" }} />
+              <span style={{ fontSize: 10, color: "#34C759", fontFamily: "Urbanist, sans-serif" }}>Pro · Active</span>
+            </div>
+          </div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,246,233,0.2)" strokeWidth="1.5" style={{ width: 16, height: 16 }}>
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </div>
+
+        {/* iCloud sync status */}
+        <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 10px", background: "rgba(14,50,114,0.18)", borderRadius: 8, border: "1px solid rgba(27,77,168,0.2)" }}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(107,143,199,0.6)" strokeWidth="1.5" style={{ width: 12, height: 12, flexShrink: 0 }}>
+            <path d="M18 10a6 6 0 00-11.9-1A4 4 0 105 17h13a3 3 0 000-7h-.1" />
+          </svg>
+          <span style={{ fontSize: 10, color: "rgba(107,143,199,0.65)", fontFamily: "Urbanist, sans-serif" }}>iCloud sync · Last synced 2 min ago</span>
+        </div>
+
+        {/* Settings rows */}
+        <div style={{ background: "rgba(14,22,44,0.7)", borderRadius: 14, border: "1px solid rgba(255,228,184,0.07)", overflow: "hidden" }}>
+          {SETTINGS_ROWS.map(({ icon, label, value }, i) => (
+            <div
+              key={label}
+              style={{ display: "flex", alignItems: "center", gap: 10, padding: "12px 14px", borderBottom: i < SETTINGS_ROWS.length - 1 ? "0.5px solid rgba(255,228,184,0.06)" : "none", cursor: "pointer" }}
+            >
+              <span style={{ fontSize: 14 }}>{icon}</span>
+              <span style={{ flex: 1, fontSize: 12, color: "rgba(255,246,233,0.75)", fontFamily: "Urbanist, sans-serif" }}>{label}</span>
+              {value && <span style={{ fontSize: 11, color: "rgba(255,246,233,0.35)", fontFamily: "Urbanist, sans-serif" }}>{value}</span>}
+              <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,246,233,0.2)" strokeWidth="1.5" style={{ width: 14, height: 14 }}>
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function GhostHintCursor({ hasInteracted, phoneRef }: { hasInteracted: boolean; phoneRef: React.RefObject<HTMLDivElement | null> }) {
+  const [state, setState] = useState<"waiting" | "moving" | "tapping" | "gone">("waiting");
+
+  useEffect(() => {
+    if (hasInteracted) { setState("gone"); return; }
+    const t1 = setTimeout(() => setState("moving"), 2000);
+    const t2 = setTimeout(() => setState("tapping"), 2600);
+    const t3 = setTimeout(() => setState("gone"), 3400);
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+  }, [hasInteracted]);
+
+  if (state === "gone" || state === "waiting") return null;
+
+  return (
+    <div
+      aria-hidden
+      style={{
+        position: "absolute",
+        bottom: 72,
+        left: "50%",
+        transform: `translateX(-50%) scale(${state === "tapping" ? 0.85 : 1})`,
+        zIndex: 30,
+        pointerEvents: "none",
+        transition: "transform 0.15s ease, opacity 0.3s ease",
+        opacity: state === "moving" ? 1 : 0.7,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 4,
+      }}
+    >
+      {state === "tapping" && (
+        <div style={{ position: "absolute", width: 36, height: 36, borderRadius: "50%", border: "2px solid rgba(191,96,64,0.5)", animation: "tapRipple 0.5s ease-out forwards" }} />
+      )}
+      <svg viewBox="0 0 32 40" fill="none" style={{ width: 28, height: 35, filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.4))" }}>
+        <path d="M8 2C8 1.4 8.4 1 9 1h14c.6 0 1 .4 1 1v20l-3 3-4-2-4 2-3-2-2 1V2z" fill="white" stroke="rgba(0,0,0,0.15)" strokeWidth="1" />
+        <path d="M16 6v10M12 10l4 6 4-6" stroke="rgba(0,0,0,0.2)" strokeWidth="1.2" strokeLinecap="round" />
+        <path d="M9 22l3-2 4 2 4-2 3 2v6c0 3-2 7-7 8-5-1-7-5-7-8v-6z" fill="white" stroke="rgba(0,0,0,0.1)" strokeWidth="1" />
+      </svg>
+      <span style={{ fontSize: 10, color: "rgba(255,246,233,0.7)", fontFamily: "Urbanist, sans-serif", background: "rgba(0,0,0,0.4)", padding: "2px 8px", borderRadius: 10, whiteSpace: "nowrap", backdropFilter: "blur(4px)" }}>
+        Tap to explore
+      </span>
+    </div>
+  );
+}
+
+// ── Panel stagger helper ───────────────────────────────────────
 function staggerStyle(
   index: number,
   phase: PanelPhase
@@ -1801,36 +1556,96 @@ function Nav() {
 // ── MarqueeStrip ───────────────────────────────────────────────
 function MarqueeStrip({ reversed }: { reversed?: boolean }) {
   const { C, isDark } = useLandingTheme();
-  const items = [
-    "ONE QUESTION",
-    "YOUR VOICE",
-    "ON-DEVICE",
-    "ENCRYPTED",
-    "PRIVATE",
-    "OFFLINE-FIRST",
-    "YOUR WORDS",
+  const BASE = [
+    "ONE QUESTION", "YOUR VOICE", "ON-DEVICE",
+    "ENCRYPTED", "PRIVATE", "OFFLINE-FIRST", "YOUR WORDS",
   ];
-  const track = items.map((i) => `${i}  ·  `).join("");
+  // Reversed strip shows items in opposite order so both strips look like they're flowing together
+  const ITEMS = reversed ? [...BASE].reverse() : BASE;
+
+  const firstSetRef = useRef<HTMLDivElement>(null);
+  const [px, setPx] = useState(0);
+  const [smooth, setSmooth] = useState(false);
+
+  const getItemW = useCallback(() => {
+    const el = firstSetRef.current;
+    return el ? el.offsetWidth / ITEMS.length : 0;
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const getSetW = useCallback(() => firstSetRef.current?.offsetWidth ?? 0, []);
+
+  // Step one item forward every tick
+  useEffect(() => {
+    const id = setInterval(() => {
+      const itemW = getItemW();
+      if (itemW === 0) return;
+      setSmooth(true);
+      setPx(p => p + itemW);
+    }, 2500);
+    return () => clearInterval(id);
+  }, [getItemW]);
+
+  // After each transition completes, silently reset position using modulo
+  // (3 copies of items means the visual is identical at px and px % setW)
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setSmooth(false);
+      const setW = getSetW();
+      if (setW > 0) setPx(p => p % setW);
+    }, 540);
+    return () => clearTimeout(t);
+  }, [px, getSetW]);
+
+  const textColor = isDark ? "rgba(255,228,184,0.48)" : "rgba(26,15,5,0.42)";
+
+  const itemStyle: React.CSSProperties = {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 20,
+    padding: "0 20px",
+    fontSize: 11,
+    textTransform: "uppercase",
+    letterSpacing: "0.22em",
+    fontFamily: C.sans,
+    color: textColor,
+    whiteSpace: "nowrap",
+    flexShrink: 0,
+    userSelect: "none",
+  };
+
+  const dot = <span style={{ opacity: 0.25, fontSize: 9 }}>·</span>;
+
+  const renderSet = (prefix: string) =>
+    ITEMS.map((item, i) => (
+      <span key={`${prefix}-${i}`} style={itemStyle}>
+        {item}{dot}
+      </span>
+    ));
+
   return (
     <div
-      className="overflow-hidden border-y py-4"
       style={{
-        borderColor: isDark ? "rgba(255,228,184,0.08)" : "rgba(26,15,5,0.1)",
+        borderTop:    `1px solid ${isDark ? "rgba(255,228,184,0.07)" : "rgba(26,15,5,0.08)"}`,
+        borderBottom: `1px solid ${isDark ? "rgba(255,228,184,0.07)" : "rgba(26,15,5,0.08)"}`,
+        padding: "16px 0",
+        overflow: "hidden",
+        // Fade the edges so items dissolve in/out rather than hard-clip
+        maskImage: "linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%)",
+        WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%)",
       }}
     >
       <div
-        className="marquee-track font-display text-[10px] uppercase tracking-[0.24em] whitespace-nowrap"
         style={{
-          color: isDark
-            ? "rgba(255,228,184,0.26)"
-            : "rgba(26,15,5,0.28)",
-          animationDirection: reversed ? "reverse" : "normal",
+          display: "flex",
+          transform: `translateX(-${px}px)`,
+          transition: smooth ? "transform 0.52s cubic-bezier(0.4, 0, 0.2, 1)" : "none",
+          willChange: "transform",
         }}
       >
-        {track}
-        {track}
-        {track}
-        {track}
+        {/* Three copies so the loop never shows a gap */}
+        <div ref={firstSetRef} style={{ display: "flex", flexShrink: 0 }}>{renderSet("a")}</div>
+        <div style={{ display: "flex", flexShrink: 0 }}>{renderSet("b")}</div>
+        <div style={{ display: "flex", flexShrink: 0 }}>{renderSet("c")}</div>
       </div>
     </div>
   );
@@ -1900,6 +1715,274 @@ function Card2Content() {
       <div style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "4px 10px", borderRadius: 999, background: "rgba(191,96,64,0.1)", border: "1px solid rgba(191,96,64,0.22)" }}>
         <svg width={7} height={8} viewBox="0 0 8 9" fill="none" aria-hidden><path d="M4 0.5L0.5 2.2V5.5c0 1.8 1.5 3.2 3.5 3.5C6 8.7 7.5 7.3 7.5 5.5V2.2L4 0.5z" fill="rgba(191,96,64,0.25)" stroke="rgba(191,96,64,0.65)" strokeWidth="0.7" /></svg>
         <span style={{ fontSize: 8, color: "rgba(191,96,64,0.82)", letterSpacing: "0.14em", textTransform: "uppercase" as const, fontFamily: "Inter, sans-serif" }}>Unlocked · 6 months</span>
+      </div>
+    </div>
+  );
+}
+
+function Card3Content() {
+  const TRAITS = [
+    { label: "Emotional range", pct: 82, color: "#BF6040" },
+    { label: "Growth trajectory", pct: 71, color: "#BF6040" },
+    { label: "Avoidance patterns", pct: 45, color: "#6B8FC7" },
+  ];
+  return (
+    <div style={{ padding: "20px 22px", borderRadius: 24, background: "linear-gradient(165deg, rgba(16,26,52,0.97) 0%, rgba(6,10,18,0.99) 100%)", border: "1px solid rgba(107,143,199,0.14)", boxShadow: "0 44px 80px rgba(0,0,0,0.58), inset 0 1px 0 rgba(255,246,233,0.06)", backdropFilter: "blur(12px)" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+        <span style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase" as const, color: "rgba(255,228,184,0.32)" }}>ÉCHO</span>
+        <span style={{ fontSize: 8, letterSpacing: "0.18em", textTransform: "uppercase" as const, color: "rgba(107,143,199,0.65)", fontFamily: "Inter, sans-serif" }}>The Mirror</span>
+      </div>
+      <p style={{ fontSize: 8, textTransform: "uppercase" as const, letterSpacing: "0.22em", color: "rgba(255,228,184,0.28)", marginBottom: 12, fontFamily: "Inter, sans-serif" }}>Echo profile</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        {TRAITS.map(({ label, pct, color }) => (
+          <div key={label}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+              <span style={{ fontSize: 10, color: "rgba(255,246,233,0.6)", fontFamily: "Inter, sans-serif" }}>{label}</span>
+              <span style={{ fontSize: 10, color, fontFamily: "Inter, sans-serif", fontWeight: 600 }}>{pct}%</span>
+            </div>
+            <div style={{ height: 3, background: "rgba(255,255,255,0.07)", borderRadius: 2, overflow: "hidden" }}>
+              <div style={{ width: `${pct}%`, height: "100%", background: `linear-gradient(90deg, ${color}, ${color}88)`, borderRadius: 2 }} />
+            </div>
+          </div>
+        ))}
+      </div>
+      <p style={{ marginTop: 14, fontSize: 11, color: "rgba(255,246,233,0.55)", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic", lineHeight: 1.55 }}>
+        "You return to the question of what you actually want."
+      </p>
+    </div>
+  );
+}
+
+function Card4Content() {
+  return (
+    <div style={{ padding: "20px 22px", borderRadius: 24, background: "linear-gradient(165deg, rgba(16,26,52,0.97) 0%, rgba(6,10,18,0.99) 100%)", border: "1px solid rgba(191,96,64,0.18)", boxShadow: "0 44px 80px rgba(0,0,0,0.58), 0 0 40px rgba(191,96,64,0.07), inset 0 1px 0 rgba(255,246,233,0.06)", backdropFilter: "blur(12px)" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+        <span style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase" as const, color: "rgba(255,228,184,0.32)" }}>ÉCHO</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+          <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#FF3B30", animation: "recDot 1s ease-in-out infinite" }} />
+          <span style={{ fontSize: 8, color: "rgba(255,246,233,0.4)", letterSpacing: "0.12em", fontFamily: "Inter, sans-serif" }}>0:38</span>
+        </div>
+      </div>
+      <p style={{ fontSize: 8, textTransform: "uppercase" as const, letterSpacing: "0.22em", color: "rgba(255,228,184,0.28)", marginBottom: 8, fontFamily: "Inter, sans-serif" }}>Today's question</p>
+      <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 15, color: "rgba(255,246,233,0.88)", lineHeight: 1.4, marginBottom: 14, fontStyle: "italic" }}>
+        What decision are you delaying?
+      </p>
+      <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", gap: 2.5, height: 44, padding: "0 4px" }}>
+        {WAVE_HEIGHTS.slice(0, 28).map((h, i) => {
+          const maxH = Math.max(4, Math.round(h * 0.72));
+          return (
+            <div
+              key={i}
+              style={{
+                width: 3, height: maxH, borderRadius: 1.5, transformOrigin: "bottom",
+                background: `rgba(191,96,64,${0.4 + (i % 3) * 0.15})`,
+                animation: `barDance ${(0.5 + (i % 5) * 0.07).toFixed(2)}s ${(i * 0.022).toFixed(2)}s ease-in-out infinite alternate`,
+              }}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ── Swipeable card stack (mobile hero) ─────────────────────────
+
+type SwipeCardId = 0 | 1 | 2 | 3;
+
+const STACK_OFFSETS = [
+  { y: 0,  x: 0,   scale: 1,    rotate: -1.0, zIndex: 4 },
+  { y: 14, x: 12,  scale: 0.95, rotate: 5.0,  zIndex: 3 },
+  { y: 24, x: -10, scale: 0.90, rotate: -3.5, zIndex: 2 },
+  { y: 32, x: 7,   scale: 0.86, rotate: 2.8,  zIndex: 1 },
+] as const;
+
+const CARD_CONTENT: Record<SwipeCardId, React.ReactNode> = {
+  0: <Card1Content />,
+  1: <Card2Content />,
+  2: <Card3Content />,
+  3: <Card4Content />,
+};
+
+function StackCard({
+  cardId,
+  stackIndex,
+  isTop,
+  isExiting,
+  exitDir,
+  showHint,
+  onStartSwipe,
+}: {
+  cardId: SwipeCardId;
+  stackIndex: number;
+  isTop: boolean;
+  isExiting: boolean;
+  exitDir: number;
+  showHint: boolean;
+  onStartSwipe: (dir: number) => void;
+}) {
+  const controls = useAnimation();
+  const capped = Math.min(stackIndex, STACK_OFFSETS.length - 1);
+  const { y, x: xOffset, scale, rotate: defaultRotate, zIndex } = STACK_OFFSETS[capped];
+  const prevIndexRef = useRef(stackIndex);
+  const startXRef = useRef(0);
+  const currentDxRef = useRef(0);
+  const isDragging = useRef(false);
+  const hintTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Position / exit animation
+  useEffect(() => {
+    if (isExiting) {
+      controls.start({
+        x: exitDir * 680,
+        rotate: exitDir * 24,
+        opacity: 0,
+        transition: { duration: 0.32, ease: [0.22, 1, 0.36, 1] },
+      });
+      return;
+    }
+    const wasTop = prevIndexRef.current === 0;
+    const nowBottom = stackIndex === STACK_OFFSETS.length - 1;
+    prevIndexRef.current = stackIndex;
+
+    if (wasTop && nowBottom) {
+      controls.set({ x: xOffset, y, scale, rotate: defaultRotate, opacity: 0 });
+      controls.start({ opacity: 1, transition: { duration: 0.22, delay: 0.06 } });
+    } else {
+      controls.start({
+        x: xOffset, y, scale, rotate: defaultRotate, opacity: 1,
+        transition: { type: "spring" as const, stiffness: 310, damping: 28, restDelta: 0.001 },
+      });
+    }
+  }, [isExiting, stackIndex]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Hint wiggle + idle float when card is the undisturbed top card
+  useEffect(() => {
+    if (!isTop || !showHint) return;
+    hintTimerRef.current = setTimeout(async () => {
+      // Slow, smooth nudge left→right — readable as "you can drag me"
+      await controls.start({
+        x: [xOffset, xOffset - 10, xOffset + 13, xOffset],
+        rotate: [defaultRotate, defaultRotate - 2, defaultRotate + 2.8, defaultRotate],
+        transition: { duration: 2.0, ease: [0.45, 0, 0.55, 1], times: [0, 0.32, 0.68, 1] },
+      });
+      // Gentle idle breathe
+      controls.start({
+        y: [y, y - 6, y],
+        transition: { duration: 3.8, ease: "easeInOut", repeat: Infinity, repeatType: "mirror" as const },
+      });
+    }, 1800);
+    return () => {
+      if (hintTimerRef.current) clearTimeout(hintTimerRef.current);
+      controls.stop();
+    };
+  }, [isTop, showHint]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handlePointerDown = useCallback((e: React.PointerEvent) => {
+    if (!isTop || isExiting) return;
+    controls.stop();
+    startXRef.current = e.clientX;
+    currentDxRef.current = 0;
+    isDragging.current = true;
+    (e.currentTarget as Element).setPointerCapture(e.pointerId);
+  }, [isTop, isExiting, controls]);
+
+  const handlePointerMove = useCallback((e: React.PointerEvent) => {
+    if (!isDragging.current) return;
+    const dx = e.clientX - startXRef.current;
+    currentDxRef.current = dx;
+    controls.set({ x: xOffset + dx, rotate: dx / 8, y });
+  }, [xOffset, y]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handlePointerUp = useCallback(() => {
+    if (!isDragging.current) return;
+    isDragging.current = false;
+    const dx = currentDxRef.current;
+    if (Math.abs(dx) > 72) {
+      onStartSwipe(dx > 0 ? 1 : -1);
+    } else {
+      controls.start({
+        x: xOffset, y, rotate: defaultRotate,
+        transition: { type: "spring" as const, stiffness: 480, damping: 36 },
+      });
+    }
+  }, [xOffset, y, defaultRotate, onStartSwipe]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  return (
+    <motion.div
+      animate={controls}
+      initial={{ x: xOffset, y, scale, rotate: defaultRotate, opacity: 1 }}
+      style={{
+        position: "absolute", top: 0, left: 0, right: 0,
+        zIndex,
+        cursor: isTop ? "grab" : "default",
+        touchAction: "none",
+        userSelect: "none",
+        WebkitUserSelect: "none",
+      }}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
+    >
+      {CARD_CONTENT[cardId]}
+    </motion.div>
+  );
+}
+
+function SwipeableCardStack() {
+  const [order, setOrder] = useState<SwipeCardId[]>([0, 1, 2, 3]);
+  const [exitingId, setExitingId] = useState<SwipeCardId | null>(null);
+  const exitDirRef = useRef(1);
+  const busy = useRef(false);
+  const [hasInteractedWithCards, setHasInteractedWithCards] = useState(false);
+
+  const handleStartSwipe = useCallback((dir: number) => {
+    if (busy.current) return;
+    busy.current = true;
+    exitDirRef.current = dir;
+    setExitingId(order[0]);
+    setHasInteractedWithCards(true);
+    setTimeout(() => {
+      setOrder(([first, ...rest]) => [...rest, first] as SwipeCardId[]);
+      setExitingId(null);
+      busy.current = false;
+    }, 380);
+  }, [order]);
+
+  return (
+    <div style={{ position: "relative", width: "100%", maxWidth: 340, margin: "0 auto" }}>
+      <div style={{ position: "relative", height: 300 }}>
+        {order.map((cardId, stackIndex) => (
+          <StackCard
+            key={cardId}
+            cardId={cardId}
+            stackIndex={stackIndex}
+            isTop={stackIndex === 0}
+            isExiting={exitingId === cardId}
+            exitDir={exitDirRef.current}
+            showHint={stackIndex === 0 && !hasInteractedWithCards}
+            onStartSwipe={handleStartSwipe}
+          />
+        ))}
+      </div>
+      {/* Hint */}
+      <div
+        style={{
+          display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+          marginTop: 16,
+          opacity: hasInteractedWithCards ? 0 : 0.55,
+          transition: "opacity 0.6s ease",
+          pointerEvents: "none",
+        }}
+      >
+        <svg viewBox="0 0 20 10" fill="none" style={{ width: 20 }}>
+          <path d="M1 5h7M5 2l-4 3 4 3" stroke="rgba(255,246,233,0.7)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M19 5h-7M15 2l4 3-4 3" stroke="rgba(255,246,233,0.7)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+        <span style={{ fontSize: 10, color: "rgba(255,246,233,0.6)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.12em" }}>
+          swipe to explore
+        </span>
       </div>
     </div>
   );
@@ -2067,34 +2150,9 @@ function HeroVisual({ bg, scrollYProgress }: { bg: string; scrollYProgress: Moti
   );
 }
 
-// ── HeroVisualMobile — compact stacked cards for small screens ─
+// ── HeroVisualMobile — swipeable card stack for small screens ──
 function HeroVisualMobile() {
-  return (
-    <div style={{ position: "relative", width: "100%", maxWidth: 340, margin: "0 auto", height: 290 }}>
-      {/* Card 2 peeking behind — ghost */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 0.48, y: 0 }}
-        transition={{ duration: 1.0, delay: 0.95, ease: [0.22, 1, 0.36, 1] }}
-        style={{ position: "absolute", top: 0, left: 10, right: -10, zIndex: 1 }}
-      >
-        <FloatCard floatY={[0, -12, 0]} floatRotate={[3, 1.8, 3]} duration={7.5} delay={1.0}>
-          <Card2Content />
-        </FloatCard>
-      </motion.div>
-      {/* Card 1 on top — primary */}
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 22 }}
-        transition={{ duration: 1.1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        style={{ position: "absolute", top: 0, left: 0, right: 0, zIndex: 10 }}
-      >
-        <FloatCard floatY={[0, -15, 0]} floatRotate={[-1.5, -3.0, -1.5]} duration={6} delay={0.7}>
-          <Card1Content />
-        </FloatCard>
-      </motion.div>
-    </div>
-  );
+  return <SwipeableCardStack />;
 }
 
 // ── HeroSection ────────────────────────────────────────────────
@@ -2340,450 +2398,258 @@ function ManifestoSection() {
   );
 }
 
-// ── StorySection ───────────────────────────────────────────────
-function StorySection() {
+// ── InteractivePhoneSection ─────────────────────────────────────
+function InteractivePhoneSection() {
   const { C, isDark } = useLandingTheme();
   const isMobile = useIsMobile();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const N = CHAPTER_TEXT.length;
 
-  const scaleWrapperRef = useRef<HTMLDivElement>(null);
-  const mobileContentHRef = useRef(750);
-  const [mobileScale, setMobileScale] = useState(1);
+  // Tab state
+  const [activeTab, setActiveTab] = useState<TabId>("home");
+  const [hasInteracted, setHasInteracted] = useState(false);
 
-  const [displayed, setDisplayed] = useState(0);
+  // Left/right panel transition
   const [phase, setPhase] = useState<PanelPhase>("visible");
   const phaseRef = useRef<PanelPhase>("visible");
-  const pendingRef = useRef<number | null>(null);
-  const chapterRef = useRef(0);
+  const pendingTabRef = useRef<TabId | null>(null);
 
-  const ambientColors = isDark
-    ? [
-        "rgba(27,77,168,0.16)",
-        "rgba(191,96,64,0.14)",
-        "rgba(14,50,114,0.14)",
-        "rgba(27,77,168,0.13)",
-        "rgba(191,96,64,0.12)",
-        "rgba(107,143,199,0.15)",
-      ]
-    : [
-        "rgba(191,96,64,0.08)",
-        "rgba(191,96,64,0.12)",
-        "rgba(191,96,64,0.06)",
-        "rgba(27,77,168,0.06)",
-        "rgba(191,96,64,0.10)",
-        "rgba(107,143,199,0.09)",
-      ];
+  // Home tab state
+  const [homeState, setHomeState] = useState<HomeState>("idle");
+  const [recordingSeconds, setRecordingSeconds] = useState(0);
 
-  const applyChapterChange = useCallback((next: number) => {
+  // Mirror tab key (re-triggers bar animation)
+  const [mirrorKey, setMirrorKey] = useState(0);
+
+  const phoneRef = useRef<HTMLDivElement>(null);
+
+  // Recording timer
+  useEffect(() => {
+    if (homeState !== "recording") { setRecordingSeconds(0); return; }
+    const id = setInterval(() => setRecordingSeconds(s => s + 1), 1000);
+    return () => clearInterval(id);
+  }, [homeState]);
+
+  // Auto-advance processing → result
+  useEffect(() => {
+    if (homeState !== "processing") return;
+    const t = setTimeout(() => setHomeState("result"), 2500);
+    return () => clearTimeout(t);
+  }, [homeState]);
+
+  // Reset homeState when leaving home tab
+  useEffect(() => {
+    if (activeTab !== "home") {
+      setHomeState("idle");
+      setRecordingSeconds(0);
+    }
+  }, [activeTab]);
+
+  const applyTabChange = useCallback((tab: TabId) => {
     phaseRef.current = "exiting";
     setPhase("exiting");
     setTimeout(() => {
-      setDisplayed(next);
+      setActiveTab(tab);
+      if (tab === "mirror") setMirrorKey(k => k + 1);
       phaseRef.current = "entering";
       setPhase("entering");
       requestAnimationFrame(() =>
         requestAnimationFrame(() => {
           phaseRef.current = "visible";
           setPhase("visible");
-          if (
-            pendingRef.current !== null &&
-            pendingRef.current !== next
-          ) {
-            const queued = pendingRef.current;
-            pendingRef.current = null;
-            applyChapterChange(queued);
+          if (pendingTabRef.current !== null && pendingTabRef.current !== tab) {
+            const q = pendingTabRef.current;
+            pendingTabRef.current = null;
+            applyTabChange(q);
           } else {
-            pendingRef.current = null;
+            pendingTabRef.current = null;
           }
         })
       );
     }, 180);
   }, []);
 
-  // Single scroll handler for all screen sizes — reads container height
-  // dynamically so it works for both mobile (N×50vh) and desktop (N×100vh).
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const onScroll = () => {
-      const rect = el.getBoundingClientRect();
-      const scrollable = el.offsetHeight - window.innerHeight;
-      if (scrollable <= 0) return;
-      const progress = Math.max(0, Math.min(0.9999, -rect.top / scrollable));
-      const c = Math.min(N - 1, Math.floor(progress * N));
-      if (c !== chapterRef.current) {
-        chapterRef.current = c;
-        if (phaseRef.current !== "visible") {
-          pendingRef.current = c;
-          return;
-        }
-        applyChapterChange(c);
-      }
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [N, applyChapterChange]);
+  const handleTabChange = useCallback((tab: TabId) => {
+    if (tab === activeTab) return;
+    setHasInteracted(true);
+    if (phaseRef.current !== "visible") {
+      pendingTabRef.current = tab;
+      return;
+    }
+    applyTabChange(tab);
+  }, [activeTab, applyTabChange]);
 
-  // Compute scale so the phone + headline fit between nav and viewport bottom.
-  // Measures actual DOM height (handles headline wrapping on narrow screens).
-  // Reserves extra for the iOS Safari bottom toolbar that may overlay the viewport.
-  useEffect(() => {
-    if (!isMobile) return;
-    const update = () => {
-      const wrapper = scaleWrapperRef.current;
-      const naturalH = wrapper ? wrapper.scrollHeight : mobileContentHRef.current;
-      if (wrapper && wrapper.scrollHeight > 0) mobileContentHRef.current = naturalH;
-      // 56px top (nav) + 50px iOS Safari toolbar buffer
-      const avail = window.innerHeight - 106;
-      setMobileScale(Math.min(1, avail / naturalH));
-    };
-    requestAnimationFrame(update);
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, [isMobile]);
+  const ambientColor = TAB_AMBIENT[activeTab][isDark ? "dark" : "light"];
+  const tabInfo = TAB_INFO[activeTab];
 
-  const ct = CHAPTER_TEXT[displayed];
-  const screen = CHAPTER_SCREENS[displayed];
-
-  return (
-    <div ref={containerRef} style={{ position: "relative", height: isMobile ? `${N * 50}vh` : `${N * 100}vh` }}>
-      <div
-        style={{
-          position: "sticky",
-          top: 0,
-          height: "100dvh",
-          overflow: "clip",
-          display: "flex",
-          alignItems: isMobile ? "flex-start" : "center",
-          justifyContent: "center",
-          paddingTop: isMobile ? 56 : 0,
-          paddingBottom: 0,
-          // Pre-promote to compositing layer so there is no dynamic "sticky
-          // promotion" event in iOS Safari — that event is what creates the
-          // 1px seam artifact.
-          willChange: "transform",
-        }}
-      >
-        {/* Ambient color */}
+  // Phone inner content
+  const phoneContent = (
+    <div style={{ position: "absolute", inset: "0 0 22px 0", display: "flex", flexDirection: "column", overflow: "hidden", borderRadius: 42 }}>
+      {/* Screen content */}
+      <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>
+        {activeTab === "home" && (
+          <HomeTabScreen
+            homeState={homeState}
+            setHomeState={setHomeState}
+            recordingSeconds={recordingSeconds}
+          />
+        )}
+        {activeTab === "archive" && <ArchiveTabScreen />}
+        {activeTab === "mirror" && <MirrorTabScreen mirrorKey={mirrorKey} />}
+        {activeTab === "letters" && <LettersTabScreen />}
+        {activeTab === "profile" && <ProfileTabScreen />}
+        {/* Interactive overlay — fades out on first tab tap */}
         <div
-          aria-hidden
           style={{
             position: "absolute",
             inset: 0,
-            pointerEvents: "none",
-            background: ambientColors[displayed],
-            transition: "background 0.7s ease-in-out",
-          }}
-        />
-
-        {/* Progress bar — desktop only */}
-        <div
-          className="hidden sm:block"
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            height: 2,
-            background: isDark
-              ? "rgba(255,228,184,0.08)"
-              : "rgba(26,15,5,0.08)",
-            zIndex: 20,
-          }}
-        >
-          <div
-            style={{
-              height: "100%",
-              background: C.ember,
-              borderRadius: 1,
-              width: `${((displayed + 1) / N) * 100}%`,
-              transition: "width 0.4s ease-out",
-            }}
-          />
-        </div>
-
-        {/* Dots */}
-        <div
-          style={{
-            position: "absolute",
-            right: 24,
-            top: "50%",
-            transform: "translateY(-50%)",
+            borderRadius: 42,
+            background: "rgba(6,10,22,0.62)",
+            backdropFilter: "blur(3px)",
+            WebkitBackdropFilter: "blur(3px)",
             display: "flex",
             flexDirection: "column",
-            gap: 10,
-            zIndex: 20,
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 14,
+            zIndex: 10,
+            opacity: hasInteracted ? 0 : 1,
+            pointerEvents: hasInteracted ? "none" : "auto",
+            transition: "opacity 0.45s cubic-bezier(0.22,1,0.36,1)",
           }}
         >
-          {CHAPTER_TEXT.map((_, i) => (
-            <div
-              key={i}
-              style={{
-                width: 7,
-                height: 7,
-                borderRadius: "50%",
-                transform: `scale(${i === displayed ? 1.5 : 1})`,
-                opacity: i === displayed ? 1 : 0.3,
-                background:
-                  i === displayed
-                    ? C.ember
-                    : isDark
-                      ? "rgba(255,228,184,0.4)"
-                      : "rgba(26,15,5,0.25)",
-                transition:
-                  "transform 0.28s ease, opacity 0.28s ease, background 0.28s ease",
-              }}
-            />
-          ))}
+          {/* Ripple rings + icon */}
+          <div style={{ position: "relative", width: 72, height: 72, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ position: "absolute", inset: -16, borderRadius: "50%", border: "1.5px solid rgba(191,96,64,0.35)", animation: "tapRipple 2s 0s ease-out infinite" }} />
+            <div style={{ position: "absolute", inset: -6, borderRadius: "50%", border: "1.5px solid rgba(191,96,64,0.5)", animation: "tapRipple 2s 0.7s ease-out infinite" }} />
+            <div style={{ width: 72, height: 72, borderRadius: "50%", background: "radial-gradient(circle, rgba(191,96,64,0.22) 0%, rgba(191,96,64,0.06) 70%)", border: "1.5px solid rgba(191,96,64,0.55)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 0 32px rgba(191,96,64,0.2)" }}>
+              <svg viewBox="0 0 28 34" fill="none" style={{ width: 28, height: 34 }}>
+                <path d="M10 2C10 1 10.9 0 12 0s2 .9 2 2v12.5a3.5 3.5 0 017 0V18c0 5.5-4 10-9 10S3 23.5 3 18v-2a2 2 0 014 0v2" stroke="#BF6040" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M7 16v-5a2 2 0 014 0v5M14 14.5V9a2 2 0 014 0v6" stroke="#BF6040" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <div style={{ textAlign: "center", display: "flex", flexDirection: "column", gap: 5 }}>
+            <p style={{ fontSize: 15, color: "rgba(255,246,233,0.95)", fontFamily: "Urbanist, sans-serif", fontWeight: 600, letterSpacing: "0.01em" }}>Explore the app</p>
+            <p style={{ fontSize: 11, color: "rgba(255,246,233,0.5)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.04em" }}>Tap any tab to navigate</p>
+          </div>
+        </div>
+      </div>
+      {/* Tab bar */}
+      <PhoneTabBar activeTab={activeTab} onTabChange={handleTabChange} />
+    </div>
+  );
+
+  // Mobile layout
+  if (isMobile) {
+    return (
+      <div
+        id="interactive-phone"
+        style={{
+          position: "relative",
+          minHeight: "100dvh",
+          display: "flex",
+          alignItems: "flex-start",
+          justifyContent: "center",
+          paddingTop: 56,
+          paddingBottom: 140,
+          overflow: "clip",
+        }}
+      >
+        {/* Ambient */}
+        <div aria-hidden style={{ position: "absolute", inset: 0, background: ambientColor, transition: "background 0.7s ease-in-out", pointerEvents: "none" }} />
+
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
+          {/* Chapter label above phone */}
+          <div style={{ textAlign: "center" }}>
+            <p style={{ fontSize: 10, color: C.ember, fontFamily: C.sans, letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: 4 }}>
+              {tabInfo.eyebrow}
+            </p>
+            <p style={{ fontSize: "clamp(1.4rem, 5vw, 1.8rem)", color: C.cream, fontFamily: C.serif, lineHeight: 1.15, whiteSpace: "pre-line" }}>
+              {tabInfo.headline}
+            </p>
+          </div>
+          {/* Phone with glow ring */}
+          <div ref={phoneRef} style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
+            <div style={{ borderRadius: 52, animation: hasInteracted ? "none" : "phoneGlow 2.2s ease-in-out infinite", transition: "animation 0.5s" }}>
+              <IPhoneFrame>{phoneContent}</IPhoneFrame>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Desktop layout
+  return (
+    <div
+      id="interactive-phone"
+      style={{
+        position: "relative",
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "80px 24px",
+        overflow: "hidden",
+      }}
+    >
+      {/* Ambient */}
+      <div aria-hidden style={{ position: "absolute", inset: 0, background: ambientColor, transition: "background 0.7s ease-in-out", pointerEvents: "none" }} />
+
+      {/* Progress bar */}
+      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: isDark ? "rgba(255,228,184,0.08)" : "rgba(26,15,5,0.08)", zIndex: 20 }}>
+        <div style={{ height: "100%", background: C.ember, borderRadius: 1, width: `${((Object.keys(TAB_INFO).indexOf(activeTab) + 1) / Object.keys(TAB_INFO).length) * 100}%`, transition: "width 0.4s ease-out" }} />
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] items-center gap-8 lg:gap-14 w-full max-w-[1100px] px-6 lg:px-10" style={{ minWidth: 0, position: "relative", zIndex: 1 }}>
+        {/* Left panel */}
+        <div className="hidden lg:block" style={{ overflow: "hidden" }}>
+          <p style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.24em", color: C.ember, marginBottom: 16, fontFamily: C.sans, ...staggerStyle(0, phase) }}>
+            {tabInfo.eyebrow}
+          </p>
+          <h2 style={{ fontFamily: C.serif, fontSize: "clamp(1.9rem, 3.2vw, 3rem)", color: C.cream, lineHeight: 1.08, marginBottom: 18, whiteSpace: "pre-line", ...staggerStyle(1, phase) }}>
+            {tabInfo.headline}
+          </h2>
+          <p style={{ fontSize: 16, color: isDark ? "rgba(255,246,233,0.68)" : "rgba(26,15,5,0.65)", lineHeight: 1.7, marginBottom: 14, maxWidth: 360, ...staggerStyle(2, phase) }}>
+            {tabInfo.body}
+          </p>
+          <p style={{ fontSize: 13, color: isDark ? "rgba(255,228,184,0.42)" : "rgba(26,15,5,0.4)", lineHeight: 1.6, ...staggerStyle(3, phase) }}>
+            {tabInfo.detail}
+          </p>
         </div>
 
-        {/* Grid */}
-        <div
-          className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] items-center gap-8 lg:gap-14 w-full max-w-[1100px] px-6 lg:px-10"
-          style={{ minWidth: 0 }}
-        >
-          {/* Left panel — desktop only */}
-          <div className="hidden lg:block" style={{ overflow: "hidden" }}>
-            <p
-              style={{
-                fontSize: 11,
-                textTransform: "uppercase",
-                letterSpacing: "0.24em",
-                color: C.ember,
-                marginBottom: 16,
-                fontFamily: C.sans,
-                ...staggerStyle(0, phase),
-              }}
-            >
-              {ct.eyebrow}
-            </p>
-            <h2
-              style={{
-                fontFamily: C.serif,
-                fontSize: "clamp(1.9rem, 3.2vw, 3rem)",
-                color: C.cream,
-                lineHeight: 1.08,
-                letterSpacing: "0",
-                marginBottom: 18,
-                whiteSpace: "pre-line",
-                ...staggerStyle(1, phase),
-              }}
-            >
-              {ct.headline}
-            </h2>
-            <p
-              style={{
-                fontSize: 16,
-                color: isDark
-                  ? "rgba(255,246,233,0.68)"
-                  : "rgba(26,15,5,0.65)",
-                lineHeight: 1.7,
-                marginBottom: 14,
-                maxWidth: 360,
-                ...staggerStyle(2, phase),
-              }}
-            >
-              {ct.body}
-            </p>
-            <p
-              style={{
-                fontSize: 13,
-                color: isDark
-                  ? "rgba(255,228,184,0.42)"
-                  : "rgba(26,15,5,0.4)",
-                lineHeight: 1.6,
-                ...staggerStyle(3, phase),
-              }}
-            >
-              {ct.detail}
-            </p>
+        {/* Center: phone with glow ring */}
+        <div ref={phoneRef} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
+          <div style={{ borderRadius: 52, animation: hasInteracted ? "none" : "phoneGlow 2.2s ease-in-out infinite" }}>
+            <IPhoneFrame>{phoneContent}</IPhoneFrame>
           </div>
+          {!hasInteracted && (
+            <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 14px", borderRadius: 20, background: "rgba(191,96,64,0.12)", border: "1px solid rgba(191,96,64,0.28)", animation: "tapBadgePulse 2s ease-in-out infinite" }}>
+              <svg viewBox="0 0 20 24" fill="none" style={{ width: 13, height: 15 }}>
+                <path d="M8 1.5C8 0.7 8.7 0 9.5 0S11 0.7 11 1.5V10a2.5 2.5 0 015 0v3c0 4-3 7-7 7S2 17 2 13v-1.5a1.5 1.5 0 013 0V13" stroke="#BF6040" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+              </svg>
+              <span style={{ fontSize: 11, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 500, letterSpacing: "0.04em" }}>Tap to explore</span>
+            </div>
+          )}
+        </div>
 
-          {/* Center: iPhone + mobile text */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: 0,
-            }}
-          >
-            {/* Scale wrapper — on mobile, shrinks to fit viewport height */}
-            <div
-              ref={scaleWrapperRef}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: 16,
-                ...(isMobile && mobileScale < 1 ? {
-                  transform: `scale(${mobileScale})`,
-                  transformOrigin: "top center",
-                  // Pull following content up so layout height = visual height
-                  marginBottom: mobileContentHRef.current * (mobileScale - 1),
-                } : {}),
-              }}
-            >
-              {/* Mobile headline — hidden on desktop */}
-              <div className="block lg:hidden text-center">
-                <p
-                  style={{
-                    fontSize: 10,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.22em",
-                    color: C.ember,
-                    marginBottom: 6,
-                    fontFamily: C.sans,
-                  }}
-                >
-                  {ct.eyebrow}
-                </p>
-                <p
-                  style={{
-                    fontFamily: C.serif,
-                    fontSize: "clamp(1.4rem, 5vw, 2rem)",
-                    color: C.cream,
-                    lineHeight: 1.15,
-                    letterSpacing: "0",
-                    whiteSpace: "pre-line",
-                  }}
-                >
-                  {ct.headline}
-                </p>
-              </div>
-              <IPhoneFrame>
-                <PhoneScreen screen={screen} />
-              </IPhoneFrame>
+        {/* Right panel */}
+        <div className="hidden lg:flex flex-col gap-5" style={{ overflow: "hidden" }}>
+          <div style={staggerStyle(0, phase)}>
+            <p style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: isDark ? "rgba(255,228,184,0.3)" : "rgba(26,15,5,0.35)", fontFamily: C.sans, marginBottom: 12 }}>
+              Key features
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {TAB_RIGHT_BULLETS[activeTab].map((bullet, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <div style={{ width: 5, height: 5, borderRadius: "50%", background: C.ember, flexShrink: 0 }} />
+                  <p style={{ fontSize: 14, color: C.cream, fontFamily: C.sans, lineHeight: 1.4 }}>{bullet}</p>
+                </div>
+              ))}
             </div>
           </div>
-
-          {/* Right panel — desktop only */}
-          <div
-            className="hidden lg:flex flex-col gap-5"
-            style={{ overflow: "hidden" }}
-          >
-            {/* Feature meter */}
-            <div style={staggerStyle(0, phase)}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  marginBottom: 8,
-                }}
-              >
-                <p
-                  style={{
-                    fontSize: 11,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.18em",
-                    color: isDark
-                      ? "rgba(255,228,184,0.3)"
-                      : "rgba(26,15,5,0.35)",
-                    fontFamily: C.sans,
-                  }}
-                >
-                  Feature
-                </p>
-                <p
-                  style={{
-                    fontSize: 11,
-                    color: isDark
-                      ? "rgba(255,228,184,0.3)"
-                      : "rgba(26,15,5,0.35)",
-                    fontFamily: C.sans,
-                  }}
-                >
-                  {displayed + 1} / {N}
-                </p>
-              </div>
-              <div
-                style={{
-                  height: 2,
-                  background: isDark
-                    ? "rgba(255,228,184,0.09)"
-                    : "rgba(26,15,5,0.09)",
-                  borderRadius: 1,
-                }}
-              >
-                <div
-                  style={{
-                    height: "100%",
-                    background: C.ember,
-                    borderRadius: 1,
-                    width: `${((displayed + 1) / N) * 100}%`,
-                    transition: "width 0.38s ease-out",
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* Side card */}
-            <div
-              style={{
-                padding: "22px 22px",
-                background: C.card,
-                border: `1px solid ${C.border}`,
-                borderRadius: 14,
-                ...staggerStyle(1, phase),
-              }}
-            >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={`icon-${displayed}`}
-                  initial={{ opacity: 0, scale: 0.55, y: -8 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.6, y: 8 }}
-                  transition={{ type: "spring", stiffness: 480, damping: 22 }}
-                  style={{
-                    display: "inline-flex",
-                    marginBottom: 14,
-                    color: isDark ? "rgba(255,228,184,0.65)" : "rgba(26,15,5,0.5)",
-                  }}
-                >
-                  <motion.div
-                    animate={{ y: [0, -2.5, 0] }}
-                    transition={{ duration: 3, ease: "easeInOut", repeat: Infinity, delay: 0.5 }}
-                  >
-                    {SIDE_CARDS[displayed].icon}
-                  </motion.div>
-                </motion.div>
-              </AnimatePresence>
-              <AnimatePresence mode="wait">
-                <motion.p
-                  key={`text-${displayed}`}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.22, ease: "easeOut", delay: 0.05 }}
-                  style={{
-                    fontSize: 13,
-                    color: isDark ? "rgba(255,246,233,0.6)" : "rgba(26,15,5,0.6)",
-                    lineHeight: 1.55,
-                    fontFamily: C.sans,
-                    margin: 0,
-                  }}
-                >
-                  {SIDE_CARDS[displayed].text}
-                </motion.p>
-              </AnimatePresence>
-            </div>
-
-            {/* Scroll hint */}
-            <p
-              style={{
-                fontSize: 11,
-                color: isDark
-                  ? "rgba(255,228,184,0.25)"
-                  : "rgba(26,15,5,0.3)",
-                textTransform: "uppercase",
-                letterSpacing: "0.18em",
-                fontFamily: C.sans,
-                ...staggerStyle(2, phase),
-              }}
-            >
-              ↓ Keep scrolling
+          <div style={{ marginTop: 8, padding: "12px 14px", background: isDark ? "rgba(14,22,44,0.6)" : "rgba(191,96,64,0.04)", borderRadius: 12, border: `1px solid ${isDark ? "rgba(255,228,184,0.07)" : "rgba(191,96,64,0.12)"}`, ...staggerStyle(1, phase) }}>
+            <p style={{ fontSize: 12, color: isDark ? "rgba(255,246,233,0.55)" : "rgba(26,15,5,0.5)", fontFamily: C.sans, lineHeight: 1.6, fontStyle: "italic" }}>
+              "Private by design — nothing leaves your device without your permission."
             </p>
           </div>
         </div>
@@ -3643,7 +3509,7 @@ function Landing() {
         <MarqueeStrip />
         <ManifestoSection />
         <div id="story">
-          <StorySection />
+          <InteractivePhoneSection />
         </div>
         <MarqueeStrip reversed />
         <PrivacySection />
