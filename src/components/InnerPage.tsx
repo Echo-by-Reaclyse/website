@@ -16,7 +16,7 @@ export function InnerPage({ title, subtitle, children }: InnerPageProps) {
           style={{ maxWidth: 1100 }}
         >
           <Link to="/" className="flex items-end gap-2.5 transition hover:opacity-80">
-            <img src="/logo-name.svg" alt="ÉCHO" style={{ height: 22, width: "auto", opacity: 0.92 }} />
+            <img src="/logo-main.svg" alt="ÉCHO" style={{ height: 22, width: "auto", opacity: 0.92 }} />
             <span className="hidden pb-0.5 font-sans text-[11px] uppercase tracking-[0.18em] text-muted-foreground sm:block">
               by Réaclyse
             </span>

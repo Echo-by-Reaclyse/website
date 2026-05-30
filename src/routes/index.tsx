@@ -8,6 +8,7 @@ import {
   useContext,
 } from "react";
 import { motion, AnimatePresence, useScroll, useTransform, useAnimation, type MotionValue } from "framer-motion";
+import { Pointer } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
 import { WaitlistForm } from "@/components/WaitlistForm";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -175,11 +176,11 @@ const TAB_RIGHT_BULLETS: Record<TabId, string[]> = {
 };
 
 const TAB_AMBIENT: Record<TabId, { dark: string; light: string }> = {
-  home:    { dark: "rgba(27,77,168,0.16)",   light: "rgba(191,96,64,0.08)" },
-  archive: { dark: "rgba(191,96,64,0.14)",   light: "rgba(191,96,64,0.12)" },
-  mirror:  { dark: "rgba(14,50,114,0.14)",   light: "rgba(191,96,64,0.06)" },
-  letters: { dark: "rgba(27,77,168,0.13)",   light: "rgba(27,77,168,0.06)" },
-  profile: { dark: "rgba(107,143,199,0.15)", light: "rgba(107,143,199,0.09)" },
+  home:    { dark: "rgba(191,96,64,0.10)",  light: "rgba(191,96,64,0.07)" },
+  archive: { dark: "rgba(191,96,64,0.10)",  light: "rgba(191,96,64,0.07)" },
+  mirror:  { dark: "rgba(191,96,64,0.10)",  light: "rgba(191,96,64,0.06)" },
+  letters: { dark: "rgba(191,96,64,0.10)",  light: "rgba(191,96,64,0.06)" },
+  profile: { dark: "rgba(191,96,64,0.10)",  light: "rgba(191,96,64,0.06)" },
 };
 
 const SIDE_CARDS = [
@@ -490,7 +491,7 @@ function IPhoneFrame({ children }: { children: React.ReactNode }) {
             right: si,
             bottom: si,
             borderRadius: sbr,
-            background: "#0A1220",
+            background: "#F0EBE3",
             overflow: "hidden",
           }}
         >
@@ -535,7 +536,7 @@ function IPhoneFrame({ children }: { children: React.ReactNode }) {
               width: 110,
               height: 5,
               borderRadius: 3,
-              background: "rgba(255,255,255,0.2)",
+              background: "rgba(0,0,0,0.28)",
               zIndex: 20,
             }}
           />
@@ -602,31 +603,31 @@ const TAB_DEFS: { id: TabId; label: string; icon: React.ReactNode }[] = [
     id: "home",
     label: "Home",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{ width: 20, height: 20 }}>
-        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-        <polyline points="9 22 9 12 15 12 15 22" />
+      <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: 20, height: 20 }}>
+        <circle cx="12" cy="12" r="10" />
+        <circle cx="12" cy="12" r="3" fill="white" />
       </svg>
     ),
   },
   {
     id: "archive",
-    label: "Archive",
+    label: "The Archive",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{ width: 20, height: 20 }}>
-        <path d="M2 3h20l-2 14H4L2 3z" />
-        <path d="M9 3v4" />
-        <path d="M15 3v4" />
-        <path d="M4 17h16a2 2 0 010 4H4a2 2 0 010-4z" />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ width: 20, height: 20 }}>
+        <rect x="2" y="4" width="20" height="3" rx="1" fill="currentColor" stroke="none" />
+        <rect x="2" y="10" width="20" height="3" rx="1" fill="currentColor" stroke="none" />
+        <rect x="2" y="16" width="20" height="3" rx="1" fill="currentColor" stroke="none" />
       </svg>
     ),
   },
   {
     id: "mirror",
-    label: "Mirror",
+    label: "The Mirror",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{ width: 20, height: 20 }}>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" style={{ width: 20, height: 20 }}>
+        <circle cx="12" cy="12" r="9" />
         <circle cx="12" cy="12" r="5" />
-        <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+        <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none" />
       </svg>
     ),
   },
@@ -634,9 +635,9 @@ const TAB_DEFS: { id: TabId; label: string; icon: React.ReactNode }[] = [
     id: "letters",
     label: "Letters",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{ width: 20, height: 20 }}>
-        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-        <polyline points="22,6 12,13 2,6" />
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ width: 20, height: 20 }}>
+        <rect x="2" y="5" width="20" height="14" rx="2" />
+        <polyline points="2,7 12,14 22,7" />
       </svg>
     ),
   },
@@ -644,9 +645,9 @@ const TAB_DEFS: { id: TabId; label: string; icon: React.ReactNode }[] = [
     id: "profile",
     label: "Profile",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{ width: 20, height: 20 }}>
-        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+      <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: 20, height: 20 }}>
         <circle cx="12" cy="7" r="4" />
+        <path d="M4 21c0-4.418 3.582-8 8-8s8 3.582 8 8H4z" />
       </svg>
     ),
   },
@@ -663,10 +664,11 @@ function PhoneTabBar({
     <div
       style={{
         display: "flex",
-        borderTop: "0.5px solid rgba(255,255,255,0.10)",
-        background: "rgba(10,18,32,0.95)",
+        borderTop: "0.5px solid rgba(0,0,0,0.08)",
+        background: "rgba(247,242,235,0.97)",
         backdropFilter: "blur(10px)",
         flexShrink: 0,
+        padding: "4px 10px 2px",
       }}
     >
       {TAB_DEFS.map(({ id, label, icon }) => {
@@ -681,42 +683,33 @@ function PhoneTabBar({
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              gap: 3,
-              padding: "8px 2px 10px",
+              gap: 2,
+              padding: "5px 2px 4px",
               border: "none",
-              background: "none",
+              background: active ? "rgba(191,96,64,0.12)" : "none",
+              borderRadius: active ? 12 : 0,
               cursor: "pointer",
-              color: active ? "#BF6040" : "rgba(255,246,233,0.38)",
-              transition: "color 0.2s ease",
+              color: active ? "#BF6040" : "#1A1A1A",
+              transition: "color 0.2s ease, background 0.2s ease",
               WebkitTapHighlightColor: "transparent",
               userSelect: "none",
+              margin: "0 1px 3px",
             }}
           >
-            <div style={{ opacity: active ? 1 : 0.7, transition: "opacity 0.2s" }}>{icon}</div>
+            <div>{icon}</div>
             <span
               style={{
-                fontSize: 9,
+                fontSize: 8,
                 fontFamily: "Urbanist, sans-serif",
                 fontWeight: active ? 600 : 400,
-                letterSpacing: "0.03em",
+                letterSpacing: "0.01em",
                 lineHeight: 1,
                 transition: "font-weight 0.2s",
+                whiteSpace: "nowrap",
               }}
             >
               {label}
             </span>
-            {active && (
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  width: 4,
-                  height: 2,
-                  borderRadius: 1,
-                  background: "#BF6040",
-                }}
-              />
-            )}
           </button>
         );
       })}
@@ -736,7 +729,7 @@ function HomeTabScreen({
   const [savedMoods, setSavedMoods] = useState<Set<string>>(new Set());
   const [justSaved, setJustSaved] = useState(false);
   const WAVEFORM_BARS = 24;
-  const question = QUESTIONS[0];
+  const question = "What brings out your creative side?";
 
   const formatTime = (s: number) =>
     `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
@@ -756,47 +749,48 @@ function HomeTabScreen({
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        background: "#0A1220",
+        background: "#F0EBE3",
         overflow: "hidden",
       }}
     >
-      {/* Scrollable content */}
-      <div style={{ flex: 1, overflowY: "auto", padding: "50px 16px 16px", display: "flex", flexDirection: "column", gap: 12, scrollbarWidth: "none" }}>
+      <div style={{ flex: 1, overflowY: "auto", padding: "54px 14px 12px", display: "flex", flexDirection: "column", gap: 10, scrollbarWidth: "none" }}>
 
         {homeState === "idle" && (
           <>
-            {/* Greeting + streak */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 4 }}>
-              <p style={{ fontSize: 12, color: "rgba(255,246,233,0.5)", fontFamily: "Urbanist, sans-serif" }}>Good evening</p>
-              <div style={{ display: "flex", alignItems: "center", gap: 4, background: "rgba(191,96,64,0.15)", borderRadius: 12, padding: "3px 8px" }}>
-                <span style={{ fontSize: 11 }}>🔥</span>
-                <span style={{ fontSize: 11, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>4 days</span>
-              </div>
-            </div>
+            {/* Greeting */}
+            <p style={{ fontSize: 13, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif", marginTop: 2 }}>Good morning, Reflector.</p>
 
             {/* Question card */}
-            <div style={{ background: "rgba(14,22,44,0.8)", borderRadius: 16, padding: "16px", border: "1px solid rgba(255,228,184,0.07)" }}>
-              <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 8 }}>Today's question</p>
-              <p style={{ fontSize: 16, color: "rgba(255,246,233,0.92)", fontFamily: "'Instrument Serif', Georgia, serif", lineHeight: 1.3, fontStyle: "italic", whiteSpace: "pre-line" }}>
+            <div style={{ background: "#FFFFFF", borderRadius: 16, padding: "14px", boxShadow: "0 1px 4px rgba(0,0,0,0.08)" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600 }}>Today's Question</p>
+                <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
+                  <span style={{ fontSize: 9, color: "#BF6040" }}>⚡</span>
+                  <span style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>Fear</span>
+                </div>
+              </div>
+              <p style={{ fontSize: 15, color: "#1A1A1A", fontFamily: "'Instrument Serif', Georgia, serif", lineHeight: 1.3, fontStyle: "italic", marginBottom: 10 }}>
                 {question}
               </p>
-              <div style={{ marginTop: 10, display: "inline-flex", alignItems: "center", background: "rgba(191,96,64,0.12)", borderRadius: 8, padding: "3px 8px", gap: 4 }}>
-                <span style={{ fontSize: 10, color: "rgba(255,228,184,0.6)", fontFamily: "Urbanist, sans-serif" }}>Identity</span>
+              <div style={{ display: "flex", alignItems: "center", gap: 3, marginBottom: 8 }}>
+                <span style={{ fontSize: 10, color: "#1A1A1A" }}>⚡</span>
+                <span style={{ fontSize: 10, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif" }}>Fear</span>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                <span style={{ fontSize: 10, color: "#BF6040" }}>↺</span>
+                <span style={{ fontSize: 10, color: "#BF6040", fontFamily: "Urbanist, sans-serif" }}>Get another question</span>
               </div>
             </div>
 
             {/* Record button */}
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, paddingTop: 8 }}>
-              <div style={{ position: "relative" }}>
-                <div
-                  className="mic-glow-ring"
-                  style={{ position: "absolute", inset: -6, borderRadius: "50%", background: "rgba(191,96,64,0.3)", animation: "micGlow 2s ease-in-out infinite" }}
-                />
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, paddingTop: 4 }}>
+              <div style={{ position: "relative", width: 90, height: 90, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "rgba(191,96,64,0.12)" }} />
                 <button
                   onClick={() => setHomeState("recording")}
-                  style={{ width: 64, height: 64, borderRadius: "50%", background: "linear-gradient(145deg,#D47040,#BF6040)", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 8px 24px rgba(191,96,64,0.4)", WebkitTapHighlightColor: "transparent", position: "relative", zIndex: 1 }}
+                  style={{ width: 62, height: 62, borderRadius: "50%", background: "#BF6040", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 16px rgba(191,96,64,0.35)", WebkitTapHighlightColor: "transparent", position: "relative", zIndex: 1 }}
                 >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" style={{ width: 26, height: 26 }}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" style={{ width: 24, height: 24 }}>
                     <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z" />
                     <path d="M19 10v2a7 7 0 01-14 0v-2" />
                     <line x1="12" y1="19" x2="12" y2="23" />
@@ -804,58 +798,133 @@ function HomeTabScreen({
                   </svg>
                 </button>
               </div>
-              <p style={{ fontSize: 11, color: "rgba(255,246,233,0.45)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.08em" }}>Tap to begin</p>
+              <p style={{ fontSize: 12, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif" }}>Begin</p>
+              <div style={{ display: "flex", alignItems: "center", gap: 4, background: "rgba(191,96,64,0.10)", borderRadius: 20, padding: "4px 10px" }}>
+                <span style={{ fontSize: 11 }}>🔥</span>
+                <span style={{ fontSize: 11, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>0 day record</span>
+              </div>
+              <p style={{ fontSize: 10, color: "rgba(0,0,0,0.4)", fontFamily: "Urbanist, sans-serif", textDecoration: "underline", textDecorationColor: "rgba(0,0,0,0.25)" }}>Can't speak right now? Write instead.</p>
+              <div style={{ border: "1px solid rgba(0,0,0,0.15)", borderRadius: 20, padding: "7px 18px" }}>
+                <p style={{ fontSize: 12, color: "#BF6040", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic" }}>Or just speak freely.</p>
+              </div>
+            </div>
+
+            {/* The Mirror preview card */}
+            <div style={{ background: "#FFFFFF", borderRadius: 16, padding: "14px", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
+              <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600, marginBottom: 10 }}>The Mirror</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                {["You've reflected on having money 1 times", "You've reflected on scares didn't 1 times", "You've reflected on family happy. 1 times"].map((line, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 6 }}>
+                    <span style={{ fontSize: 6, color: "#BF6040", marginTop: 4, flexShrink: 0 }}>●</span>
+                    <span style={{ fontSize: 11, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif", lineHeight: 1.4 }}>{line}</span>
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginTop: 12, display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "0.5px solid rgba(0,0,0,0.07)", paddingTop: 10 }}>
+                <span style={{ fontSize: 12, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 500 }}>Look closer</span>
+                <span style={{ fontSize: 14, color: "#BF6040" }}>→</span>
+              </div>
             </div>
           </>
         )}
 
         {homeState === "recording" && (
           <>
-            <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 4 }}>
-              <div className="rec-dot" style={{ width: 7, height: 7, borderRadius: "50%", background: "#FF3B30", animation: "recDot 1s ease-in-out infinite" }} />
-              <span style={{ fontSize: 11, color: "rgba(255,246,233,0.6)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.1em", textTransform: "uppercase" }}>Recording</span>
-              <span style={{ marginLeft: "auto", fontSize: 13, color: "rgba(255,246,233,0.85)", fontFamily: "monospace", letterSpacing: "0.05em" }}>{formatTime(recordingSeconds)}</span>
+            <p style={{ fontSize: 13, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif", marginTop: 2 }}>Good morning, Reflector.</p>
+
+            {/* Question card — stays visible during recording */}
+            <div style={{ background: "#FFFFFF", borderRadius: 16, padding: "14px", boxShadow: "0 1px 4px rgba(0,0,0,0.08)" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600 }}>Today's Question</p>
+              </div>
+              <p style={{ fontSize: 14, color: "#1A1A1A", fontFamily: "'Instrument Serif', Georgia, serif", lineHeight: 1.3, fontStyle: "italic", marginBottom: 8 }}>
+                {question}
+              </p>
+              <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
+                <span style={{ fontSize: 10 }}>⚡</span>
+                <span style={{ fontSize: 10, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif" }}>Fear</span>
+              </div>
             </div>
 
-            {/* Waveform */}
-            <div style={{ background: "rgba(14,22,44,0.8)", borderRadius: 14, padding: "14px 10px", border: "1px solid rgba(255,228,184,0.06)", display: "flex", alignItems: "flex-end", justifyContent: "center", gap: 3, height: 80 }}>
-              {Array.from({ length: WAVEFORM_BARS }, (_, i) => {
-                const maxH = 0.3 + Math.abs(Math.sin(i * 0.68 + 0.5) * 0.5 + Math.cos(i * 1.31) * 0.25);
-                const dur = (0.45 + (i % 5) * 0.08).toFixed(2);
-                const delay = (i * 0.025).toFixed(2);
-                return (
-                  <div
-                    key={i}
-                    className="waveform-bar"
-                    style={{
-                      width: 4,
-                      height: "52px",
-                      background: `rgba(191,96,64,${0.5 + maxH * 0.5})`,
-                      borderRadius: 2,
-                      transformOrigin: "bottom",
-                      ["--bar-max" as string]: maxH.toFixed(2),
-                      animation: `barDance ${dur}s ${delay}s ease-in-out infinite alternate`,
-                    }}
-                  />
-                );
-              })}
+            {/* Waveform card with recording indicator */}
+            <div style={{ background: "#FFFFFF", borderRadius: 16, padding: "12px 14px 14px", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
+              {/* Recording row */}
+              <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 12 }}>
+                <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#BF6040", animation: "recDot 1s ease-in-out infinite", flexShrink: 0 }} />
+                <span style={{ fontSize: 11, color: "#555", fontFamily: "Urbanist, sans-serif" }}>Recording...</span>
+                <span style={{ marginLeft: "auto", fontSize: 13, color: "#1A1A1A", fontFamily: "monospace", letterSpacing: "0.05em" }}>{formatTime(recordingSeconds)}</span>
+              </div>
+              {/* Waveform bars — hardcoded speech envelope, VU-meter animation */}
+              <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", height: 64, gap: 1 }}>
+                {(() => {
+                  // Realistic speech amplitude: 3 phrases separated by pauses
+                  // Each value = peak height (0–1) for that bar column
+                  const AMP = [
+                    // Phrase 1 — short word
+                    0.12, 0.38, 0.72, 0.90, 0.82, 0.52, 0.24,
+                    // Pause
+                    0.05, 0.06,
+                    // Phrase 2 — longer phrase, two syllable peaks
+                    0.18, 0.52, 0.88, 0.98, 0.90, 0.82, 0.96, 0.88, 0.68, 0.45, 0.25, 0.11,
+                    // Pause
+                    0.05, 0.06, 0.05,
+                    // Phrase 3 — medium phrase, trailing off
+                    0.14, 0.44, 0.78, 0.95, 0.90, 0.75, 0.88, 0.94, 0.78, 0.52, 0.28, 0.12,
+                    // Trailing silence
+                    0.06, 0.05,
+                  ]; // 7+2+12+3+12+2 = 38
+                  return AMP.map((amp, i) => {
+                    const isSpeech = amp > 0.12;
+                    const maxH = amp;
+                    const minH = isSpeech ? Math.max(0.03, amp * 0.05) : amp * 0.80;
+                    // Each speech bar has an independent pseudo-random phase offset
+                    const phaseDelay = isSpeech
+                      ? (Math.abs(Math.sin(i * 13.7 + 2.4)) * 0.65).toFixed(2)
+                      : (Math.abs(Math.sin(i * 4.1)) * 0.5).toFixed(2);
+                    const dur = isSpeech
+                      ? (0.52 + (i % 6) * 0.055).toFixed(2)   // 0.52–0.80 s
+                      : (4.5 + (i % 3) * 0.4).toFixed(2);      // 4.5–5.3 s
+                    const anim = isSpeech ? "barMeter" : "barDance";
+                    const timing = isSpeech ? "cubic-bezier(0.25,0,0.15,1)" : "ease-in-out";
+                    return (
+                      <div key={i} style={{ flex: 1, height: "100%", display: "flex", alignItems: "flex-end" }}>
+                        <div
+                          style={{
+                            width: "100%",
+                            height: `${Math.max(3, Math.round(maxH * 64))}px`,
+                            background: isSpeech ? "#BF6040" : "rgba(191,96,64,0.38)",
+                            borderRadius: 3,
+                            transformOrigin: "bottom",
+                            ["--bar-max" as string]: maxH.toFixed(3),
+                            ["--bar-min" as string]: minH.toFixed(3),
+                            animation: `${anim} ${dur}s ${phaseDelay}s ${timing} infinite`,
+                          }}
+                        />
+                      </div>
+                    );
+                  });
+                })()}
+              </div>
             </div>
 
             {/* Stop button */}
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, paddingTop: 4 }}>
-              <button
-                onClick={() => setHomeState("processing")}
-                style={{ width: 56, height: 56, borderRadius: "50%", background: "rgba(255,59,48,0.15)", border: "2px solid rgba(255,59,48,0.5)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", WebkitTapHighlightColor: "transparent" }}
-              >
-                <div style={{ width: 18, height: 18, borderRadius: 3, background: "#FF3B30" }} />
-              </button>
-              <p style={{ fontSize: 11, color: "rgba(255,246,233,0.4)", fontFamily: "Urbanist, sans-serif" }}>Tap to stop</p>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, paddingTop: 2 }}>
+              <div style={{ position: "relative", width: 90, height: 90, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "rgba(191,96,64,0.10)" }} />
+                <button
+                  onClick={() => setHomeState("processing")}
+                  style={{ width: 62, height: 62, borderRadius: "50%", background: "#BF6040", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 16px rgba(191,96,64,0.35)", WebkitTapHighlightColor: "transparent", position: "relative", zIndex: 1 }}
+                >
+                  <div style={{ width: 20, height: 20, borderRadius: 4, background: "white" }} />
+                </button>
+              </div>
+              <p style={{ fontSize: 12, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif" }}>Tap to stop</p>
             </div>
           </>
         )}
 
         {homeState === "processing" && (
-          <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 16, paddingTop: 24 }}>
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 16, paddingTop: 40 }}>
             <div style={{ display: "flex", gap: 8 }}>
               {[0, 1, 2].map(i => (
                 <div
@@ -870,7 +939,7 @@ function HomeTabScreen({
                 />
               ))}
             </div>
-            <p style={{ fontSize: 13, color: "rgba(255,246,233,0.5)", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic", textAlign: "center" }}>
+            <p style={{ fontSize: 13, color: "rgba(0,0,0,0.45)", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic", textAlign: "center" }}>
               Reading between<br />the lines…
             </p>
           </div>
@@ -878,17 +947,18 @@ function HomeTabScreen({
 
         {homeState === "result" && (
           <>
-            <p style={{ fontSize: 10, color: "rgba(255,246,233,0.4)", fontFamily: "Urbanist, sans-serif", marginTop: 4, fontStyle: "italic", lineHeight: 1.4 }}>
+            <p style={{ fontSize: 13, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif", marginTop: 2 }}>Good morning, Reflector.</p>
+            <p style={{ fontSize: 10, color: "rgba(0,0,0,0.4)", fontFamily: "Urbanist, sans-serif", fontStyle: "italic", lineHeight: 1.4 }}>
               "{question}"
             </p>
-            <div style={{ background: "rgba(191,96,64,0.08)", borderRadius: 14, padding: "12px 14px", border: "1px solid rgba(191,96,64,0.18)" }}>
+            <div style={{ background: "#FFFFFF", borderRadius: 14, padding: "12px 14px", boxShadow: "0 1px 4px rgba(0,0,0,0.06)", border: "1px solid rgba(191,96,64,0.15)" }}>
               <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 8 }}>Echo reflects</p>
-              <p style={{ fontSize: 13, color: "rgba(255,246,233,0.88)", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic", lineHeight: 1.55 }}>
+              <p style={{ fontSize: 13, color: "#1A1A1A", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic", lineHeight: 1.55 }}>
                 "You already know the answer. You're asking because you want permission to act on it."
               </p>
             </div>
             <div>
-              <p style={{ fontSize: 9, color: "rgba(255,246,233,0.4)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 8 }}>How do you feel?</p>
+              <p style={{ fontSize: 9, color: "rgba(0,0,0,0.4)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 8 }}>How do you feel?</p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                 {["Reflective", "Curious", "Unsettled", "Brave"].map(mood => {
                   const active = savedMoods.has(mood);
@@ -905,9 +975,9 @@ function HomeTabScreen({
                         borderRadius: 20,
                         fontSize: 11,
                         fontFamily: "Urbanist, sans-serif",
-                        border: `1px solid ${active ? "#BF6040" : "rgba(255,228,184,0.18)"}`,
-                        background: active ? "rgba(191,96,64,0.2)" : "transparent",
-                        color: active ? "#BF6040" : "rgba(255,246,233,0.6)",
+                        border: `1px solid ${active ? "#BF6040" : "rgba(0,0,0,0.15)"}`,
+                        background: active ? "rgba(191,96,64,0.12)" : "transparent",
+                        color: active ? "#BF6040" : "rgba(0,0,0,0.5)",
                         cursor: "pointer",
                         WebkitTapHighlightColor: "transparent",
                         transition: "all 0.18s ease",
@@ -925,7 +995,7 @@ function HomeTabScreen({
                 width: "100%",
                 padding: "12px",
                 borderRadius: 12,
-                background: justSaved ? "rgba(52,199,89,0.2)" : "linear-gradient(145deg,#D47040,#BF6040)",
+                background: justSaved ? "rgba(52,199,89,0.15)" : "#BF6040",
                 border: justSaved ? "1px solid rgba(52,199,89,0.4)" : "none",
                 color: justSaved ? "#34C759" : "white",
                 fontSize: 13,
@@ -946,290 +1016,497 @@ function HomeTabScreen({
 }
 
 function ArchiveTabScreen() {
-  const [view, setView] = useState<"list" | "detail">("list");
-  const [selectedIdx, setSelectedIdx] = useState(0);
-  const [phase, setPhase] = useState<PanelPhase>("visible");
-  const phaseRef = useRef<PanelPhase>("visible");
+  const [calView, setCalView] = useState<"calendar" | "feed">("calendar");
 
-  const navigate = useCallback((newView: "list" | "detail", idx?: number) => {
-    phaseRef.current = "exiting";
-    setPhase("exiting");
-    setTimeout(() => {
-      if (idx !== undefined) setSelectedIdx(idx);
-      setView(newView);
-      phaseRef.current = "entering";
-      setPhase("entering");
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        phaseRef.current = "visible";
-        setPhase("visible");
-      }));
-    }, 180);
-  }, []);
+  // May 2026 calendar data
+  // May 1 = Friday (day index 5 in Sun-start week)
+  const MAY_START_DOW = 5; // 0=Sun, 5=Fri
+  const MAY_DAYS = 31;
+  const RECORDED_DAYS = new Set([28]);
+  const TAPABLE_DAYS = new Set([24, 25, 26, 27, 29]);
+  const TODAY = 30;
 
-  const entry = JOURNAL_ENTRIES[selectedIdx];
-  const ENTRY_MOODS = [["Reflective", "Curious"], ["Present", "Thoughtful"], ["Unsettled", "Honest"]];
-  const moods = ENTRY_MOODS[selectedIdx % ENTRY_MOODS.length];
-
-  const wrapStyle: React.CSSProperties = {
-    position: "absolute",
-    inset: 0,
-    opacity: phase === "visible" ? 1 : 0,
-    transform: `scale(${phase === "visible" ? 1 : phase === "entering" ? 0.97 : 1.01})`,
-    transition: phase === "visible"
-      ? "opacity 0.38s cubic-bezier(0.22,1,0.36,1), transform 0.38s cubic-bezier(0.22,1,0.36,1)"
-      : phase === "entering" ? "none" : "opacity 0.15s ease-in, transform 0.15s ease-in",
-  };
+  const cells: (number | null)[] = [
+    ...Array(MAY_START_DOW).fill(null),
+    ...Array.from({ length: MAY_DAYS }, (_, i) => i + 1),
+  ];
+  // pad to multiple of 7
+  while (cells.length % 7 !== 0) cells.push(null);
 
   return (
-    <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "#0A1220", overflow: "hidden", position: "relative" }}>
-      <div style={wrapStyle}>
-        {view === "list" ? (
-          <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-            <div style={{ padding: "50px 16px 10px" }}>
-              <p style={{ fontSize: 17, color: "rgba(255,246,233,0.92)", fontFamily: "'Instrument Serif', Georgia, serif", fontWeight: 400, marginBottom: 2 }}>The Archive</p>
-              <p style={{ fontSize: 10, color: "rgba(255,246,233,0.4)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.06em" }}>Everything you've said</p>
-              <div style={{ marginTop: 10, display: "flex", alignItems: "center", background: "rgba(255,246,233,0.06)", borderRadius: 10, padding: "7px 10px", gap: 7 }}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,246,233,0.3)" strokeWidth="2" style={{ width: 14, height: 14, flexShrink: 0 }}>
-                  <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
-                </svg>
-                <span style={{ fontSize: 11, color: "rgba(255,246,233,0.3)", fontFamily: "Urbanist, sans-serif" }}>Search your reflections</span>
-              </div>
-            </div>
-            <div style={{ flex: 1, overflowY: "auto", padding: "0 12px 12px", scrollbarWidth: "none", display: "flex", flexDirection: "column", gap: 8 }}>
-              {JOURNAL_ENTRIES.slice(0, 4).map((e, i) => (
-                <button
-                  key={i}
-                  onClick={() => navigate("detail", i)}
-                  style={{ width: "100%", textAlign: "left", background: "rgba(14,22,44,0.7)", borderRadius: 12, padding: "11px 12px", border: "1px solid rgba(255,228,184,0.07)", cursor: "pointer", WebkitTapHighlightColor: "transparent", transition: "border-color 0.18s ease" }}
-                >
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 5 }}>
-                    <span style={{ fontSize: 11, color: "rgba(255,246,233,0.7)", fontFamily: "Urbanist, sans-serif", fontWeight: 500 }}>{e.date}</span>
-                    <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,246,233,0.3)" strokeWidth="2" style={{ width: 10, height: 10 }}>
+    <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "#F0EBE3", overflow: "hidden" }}>
+      <div style={{ flex: 1, overflowY: "auto", padding: "44px 14px 12px", scrollbarWidth: "none", display: "flex", flexDirection: "column", gap: 12 }}>
+
+        {/* Title */}
+        <div style={{ marginTop: 2 }}>
+          <p style={{ fontSize: 22, color: "#1A1A1A", fontFamily: "'Instrument Serif', Georgia, serif", fontWeight: 400, marginBottom: 2 }}>The Archive</p>
+          <p style={{ fontSize: 12, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif" }}>Everything you've said.</p>
+        </div>
+
+        {/* Calendar/Feed toggle */}
+        <div style={{ background: "rgba(0,0,0,0.07)", borderRadius: 20, padding: 3, display: "flex" }}>
+          {(["calendar", "feed"] as const).map(v => (
+            <button
+              key={v}
+              onClick={() => setCalView(v)}
+              style={{
+                flex: 1,
+                padding: "6px 0",
+                border: "none",
+                borderRadius: 17,
+                background: calView === v ? "#FFFFFF" : "transparent",
+                color: calView === v ? "#1A1A1A" : "rgba(0,0,0,0.45)",
+                fontSize: 12,
+                fontFamily: "Urbanist, sans-serif",
+                fontWeight: calView === v ? 600 : 400,
+                cursor: "pointer",
+                WebkitTapHighlightColor: "transparent",
+                boxShadow: calView === v ? "0 1px 4px rgba(0,0,0,0.12)" : "none",
+                transition: "all 0.18s ease",
+                textTransform: "capitalize",
+              }}
+            >
+              {v.charAt(0).toUpperCase() + v.slice(1)}
+            </button>
+          ))}
+        </div>
+
+        {/* Feed view */}
+        {calView === "feed" && (
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {JOURNAL_ENTRIES.map((entry, i) => {
+              const TAGS = [["Reflective", "Curious"], ["Present", "Honest"], ["Unsettled", "Brave"], ["Thoughtful", "Curious"], ["Peaceful"]];
+              const tags = TAGS[i % TAGS.length];
+              return (
+                <div key={i} style={{ background: "#FFFFFF", borderRadius: 16, padding: "14px", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                    <span style={{ fontSize: 12, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>{entry.date}</span>
+                    <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.35)" strokeWidth="2" style={{ width: 11, height: 11 }}>
                         <polygon points="5 3 19 12 5 21 5 3" />
                       </svg>
-                      <span style={{ fontSize: 10, color: "rgba(255,246,233,0.35)", fontFamily: "Urbanist, sans-serif" }}>{e.duration}</span>
+                      <span style={{ fontSize: 10, color: "rgba(0,0,0,0.4)", fontFamily: "Urbanist, sans-serif" }}>{entry.duration}</span>
                     </div>
                   </div>
-                  <p style={{ fontSize: 11, color: "rgba(255,246,233,0.5)", fontFamily: "Urbanist, sans-serif", lineHeight: 1.5, overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>
-                    {e.preview}
+                  <p style={{ fontSize: 11, color: "rgba(0,0,0,0.6)", fontFamily: "Urbanist, sans-serif", lineHeight: 1.55, marginBottom: 10, display: "-webkit-box" as "block", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as "vertical", overflow: "hidden" }}>
+                    {entry.preview}
                   </p>
-                </button>
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-            <div style={{ padding: "12px 16px 10px", display: "flex", alignItems: "center", gap: 8, borderBottom: "0.5px solid rgba(255,228,184,0.07)" }}>
-              <button onClick={() => navigate("list")} style={{ display: "flex", alignItems: "center", gap: 4, background: "none", border: "none", color: "#BF6040", cursor: "pointer", fontSize: 12, fontFamily: "Urbanist, sans-serif", padding: 0, WebkitTapHighlightColor: "transparent" }}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ width: 14, height: 14 }}>
-                  <polyline points="15 18 9 12 15 6" />
-                </svg>
-                Back
-              </button>
-            </div>
-            <div style={{ flex: 1, overflowY: "auto", padding: "14px 16px 14px", scrollbarWidth: "none", display: "flex", flexDirection: "column", gap: 12 }}>
-              <div>
-                <p style={{ fontSize: 14, color: "rgba(255,246,233,0.85)", fontFamily: "'Instrument Serif', Georgia, serif" }}>{entry.date}</p>
-                <div style={{ display: "flex", gap: 5, marginTop: 6 }}>
-                  {moods.map(m => (
-                    <span key={m} style={{ fontSize: 10, padding: "3px 8px", borderRadius: 20, background: "rgba(191,96,64,0.15)", color: "#BF6040", fontFamily: "Urbanist, sans-serif" }}>{m}</span>
-                  ))}
-                  <span style={{ fontSize: 10, padding: "3px 8px", borderRadius: 20, background: "rgba(255,246,233,0.07)", color: "rgba(255,246,233,0.4)", fontFamily: "Urbanist, sans-serif" }}>{entry.duration}</span>
+                  <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
+                    {tags.map(tag => (
+                      <span key={tag} style={{ fontSize: 10, padding: "3px 8px", borderRadius: 20, background: "rgba(191,96,64,0.10)", color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 500 }}>{tag}</span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <p style={{ fontSize: 12, color: "rgba(255,246,233,0.7)", fontFamily: "Urbanist, sans-serif", lineHeight: 1.65 }}>
-                {entry.preview.replace("...", ". It was the kind of morning where every thought felt louder than usual.")}
-              </p>
-              <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 10px", background: "rgba(14,50,114,0.2)", borderRadius: 8, border: "1px solid rgba(27,77,168,0.2)" }}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="rgba(107,143,199,0.7)" strokeWidth="1.5" style={{ width: 12, height: 12, flexShrink: 0 }}>
-                  <path d="M12 2l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V5l7-3z" />
-                </svg>
-                <span style={{ fontSize: 9, color: "rgba(107,143,199,0.7)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.06em" }}>Recorded on device · Encrypted</span>
-              </div>
-            </div>
+              );
+            })}
           </div>
         )}
+
+        {/* Calendar card */}
+        {calView === "calendar" && <div style={{ background: "#FFFFFF", borderRadius: 16, padding: "14px 12px", boxShadow: "0 1px 4px rgba(0,0,0,0.07)" }}>
+          {/* Month nav */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+            <button style={{ background: "none", border: "none", cursor: "pointer", color: "#BF6040", fontSize: 16, padding: "0 4px", WebkitTapHighlightColor: "transparent" }}>‹</button>
+            <p style={{ fontSize: 14, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>May 2026</p>
+            <button style={{ background: "none", border: "none", cursor: "pointer", color: "#BF6040", fontSize: 16, padding: "0 4px", WebkitTapHighlightColor: "transparent" }}>›</button>
+          </div>
+
+          {/* Day headers */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", marginBottom: 6 }}>
+            {["S","M","T","W","T","F","S"].map((d, i) => (
+              <div key={i} style={{ textAlign: "center", fontSize: 10, color: "rgba(0,0,0,0.35)", fontFamily: "Urbanist, sans-serif", fontWeight: 500, padding: "2px 0" }}>{d}</div>
+            ))}
+          </div>
+
+          {/* Day cells */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "4px 0" }}>
+            {cells.map((day, idx) => {
+              if (!day) return <div key={idx} />;
+              const recorded = RECORDED_DAYS.has(day);
+              const tapable = TAPABLE_DAYS.has(day);
+              const isToday = day === TODAY;
+              return (
+                <div
+                  key={idx}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: 28,
+                  }}
+                >
+                  <div
+                    style={{
+                      width: 26,
+                      height: 26,
+                      borderRadius: "50%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      position: "relative",
+                      background: recorded ? "#BF6040" : "transparent",
+                      border: tapable
+                        ? "1.5px dashed rgba(191,96,64,0.55)"
+                        : isToday
+                        ? "1.5px solid #BF6040"
+                        : "none",
+                    }}
+                  >
+                    <span style={{
+                      fontSize: 11,
+                      fontFamily: "Urbanist, sans-serif",
+                      fontWeight: isToday || recorded ? 600 : 400,
+                      color: recorded ? "#FFFFFF" : isToday ? "#BF6040" : "#1A1A1A",
+                    }}>{day}</span>
+                    {tapable && (
+                      <span style={{ position: "absolute", fontSize: 8, color: "rgba(191,96,64,0.55)", bottom: -1, right: -1, lineHeight: 1 }}>+</span>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Legend */}
+          <div style={{ display: "flex", gap: 14, marginTop: 10, justifyContent: "center" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+              <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#BF6040" }} />
+              <span style={{ fontSize: 10, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif" }}>Recorded</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+              <div style={{ width: 8, height: 8, borderRadius: "50%", border: "1.5px dashed rgba(191,96,64,0.55)" }} />
+              <span style={{ fontSize: 10, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif" }}>Tap to fill</span>
+            </div>
+          </div>
+        </div>}
+
+        {/* Streak stats — calendar view only */}
+        {calView === "calendar" && (
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+            {[
+              { icon: "🔥", value: "0", label: "Current streak" },
+              { icon: "🏆", value: "1", label: "Longest streak" },
+            ].map(({ icon, value, label }) => (
+              <div key={label} style={{ background: "#FFFFFF", borderRadius: 14, padding: "14px 12px", boxShadow: "0 1px 4px rgba(0,0,0,0.07)", display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+                <span style={{ fontSize: 18 }}>{icon}</span>
+                <span style={{ fontSize: 22, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif", fontWeight: 700, lineHeight: 1 }}>{value}</span>
+                <span style={{ fontSize: 10, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif", textAlign: "center" }}>{label}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
       </div>
     </div>
   );
 }
 
 function MirrorTabScreen({ mirrorKey }: { mirrorKey: number }) {
-  const TRAITS = [
-    { label: "Analytical", pct: 78, color: "#BF6040" },
-    { label: "Emotionally aware", pct: 65, color: "#6B8FC7" },
-    { label: "Future-oriented", pct: 52, color: "#BF6040" },
-    { label: "Self-critical", pct: 44, color: "#8FA8D4" },
-    { label: "Growth-seeking", pct: 71, color: "#BF6040" },
+  const WAVEFORM_BARS = 46;
+  const WORDS = [
+    { word: "Happy", count: 2, max: 2 },
+    { word: "Family", count: 2, max: 2 },
+    { word: "Success", count: 1, max: 2 },
+    { word: "Super", count: 1, max: 2 },
+    { word: "Successful", count: 1, max: 2 },
+    { word: "Scares", count: 1, max: 2 },
   ];
 
   return (
-    <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "#0A1220", overflow: "hidden" }}>
-      <div style={{ padding: "50px 16px 8px" }}>
-        <p style={{ fontSize: 17, color: "rgba(255,246,233,0.92)", fontFamily: "'Instrument Serif', Georgia, serif", fontWeight: 400, marginBottom: 2 }}>The Mirror</p>
-        <p style={{ fontSize: 10, color: "rgba(255,246,233,0.4)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.06em" }}>Your patterns, in your words</p>
+    <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "#F0EBE3", overflow: "hidden" }}>
+      {/* Mirror waveform — multi-harmonic shape, slow traveling wave */}
+      <div style={{ flexShrink: 0, padding: "52px 8px 10px", display: "flex", alignItems: "flex-end", justifyContent: "space-between", height: 108, background: "#F0EBE3" }}>
+        {Array.from({ length: WAVEFORM_BARS }, (_, i) => {
+          const pos = i / (WAVEFORM_BARS - 1);
+          // Multi-harmonic envelope → looks like real recorded audio, not a plain sine
+          const h =
+            0.44 +
+            0.28 * Math.sin(pos * Math.PI * 2.0) +
+            0.16 * Math.sin(pos * Math.PI * 5.2 + 0.9) +
+            0.09 * Math.sin(pos * Math.PI * 9.1 + 1.7) +
+            0.05 * Math.cos(pos * Math.PI * 13.4 + 2.3);
+          const maxH = Math.max(0.18, Math.min(0.95, h));
+          // Floor stays visible — wave never collapses to nothing
+          const minH = 0.12 + maxH * 0.08;
+          // All bars identical period → seamless traveling wave
+          const T = 3.2;
+          const delay = (pos * T).toFixed(3);
+          return (
+            <div
+              key={`${mirrorKey}-${i}`}
+              style={{
+                flex: 1,
+                height: "100%",
+                display: "flex",
+                alignItems: "flex-end",
+                paddingLeft: i > 0 ? 1 : 0,
+              }}
+            >
+              <div
+                style={{
+                  width: "100%",
+                  height: `${Math.round(maxH * 46)}px`,
+                  background: "#BF6040",
+                  borderRadius: 2,
+                  transformOrigin: "bottom",
+                  ["--bar-max" as string]: maxH.toFixed(3),
+                  ["--bar-min" as string]: minH.toFixed(3),
+                  animation: `barDance ${T}s ${delay}s ease-in-out infinite`,
+                  animationFillMode: "backwards",
+                }}
+              />
+            </div>
+          );
+        })}
       </div>
-      <div style={{ flex: 1, overflowY: "auto", padding: "0 16px 16px", scrollbarWidth: "none", display: "flex", flexDirection: "column", gap: 12 }}>
-        <div style={{ background: "rgba(14,22,44,0.8)", borderRadius: 14, padding: "14px", border: "1px solid rgba(255,228,184,0.07)" }}>
-          <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 14 }}>Echo Profile</p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            {TRAITS.map(({ label, pct, color }, i) => (
-              <div key={`${mirrorKey}-${label}`}>
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
-                  <span style={{ fontSize: 11, color: "rgba(255,246,233,0.7)", fontFamily: "Urbanist, sans-serif" }}>{label}</span>
-                  <span style={{ fontSize: 11, color, fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>{pct}%</span>
+
+      <div style={{ flex: 1, overflowY: "auto", padding: "0 14px 12px", scrollbarWidth: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+
+        {/* Stats grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+          {[
+            { value: "3", label: "Total entries" },
+            { value: "Thursday", label: "Most active day" },
+          ].map(({ value, label }) => (
+            <div key={label} style={{ background: "#FFFFFF", borderRadius: 14, padding: "12px", boxShadow: "0 1px 4px rgba(0,0,0,0.07)", display: "flex", flexDirection: "column", gap: 2 }}>
+              <span style={{ fontSize: 18, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif", fontWeight: 700, lineHeight: 1.2 }}>{value}</span>
+              <span style={{ fontSize: 10, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif" }}>{label}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Most used words */}
+        <div style={{ background: "#FFFFFF", borderRadius: 16, padding: "14px", boxShadow: "0 1px 4px rgba(0,0,0,0.07)" }}>
+          <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600, marginBottom: 12 }}>Your Most Used Words</p>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {WORDS.map(({ word, count, max }) => (
+              <div key={word}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                    <span style={{ fontSize: 12, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif", fontWeight: 500 }}>{word}</span>
+                    <span style={{ fontSize: 10, color: "rgba(0,0,0,0.3)", fontFamily: "Urbanist, sans-serif" }}>—</span>
+                  </div>
+                  <span style={{ fontSize: 11, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif" }}>{count}</span>
                 </div>
-                <div style={{ height: 4, background: "rgba(255,255,255,0.07)", borderRadius: 2, overflow: "hidden" }}>
-                  <div
-                    className="trait-bar-fill"
-                    style={{
-                      height: "100%",
-                      background: `linear-gradient(90deg, ${color}, ${color}99)`,
-                      borderRadius: 2,
-                      ["--trait-target" as string]: `${pct}%`,
-                      animation: `traitFill 0.8s ${(i * 0.12).toFixed(2)}s cubic-bezier(0.22,1,0.36,1) both`,
-                    }}
-                  />
+                <div style={{ height: 5, background: "rgba(0,0,0,0.07)", borderRadius: 3, overflow: "hidden" }}>
+                  <div style={{ height: "100%", width: `${(count / max) * 100}%`, background: "#BF6040", borderRadius: 3 }} />
                 </div>
               </div>
             ))}
           </div>
         </div>
-        <div style={{ background: "rgba(191,96,64,0.07)", borderRadius: 12, padding: "12px 14px", border: "1px solid rgba(191,96,64,0.15)" }}>
-          <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 6 }}>Recurring theme</p>
-          <p style={{ fontSize: 12, color: "rgba(255,246,233,0.75)", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic", lineHeight: 1.55 }}>
-            "You return to the question of what you actually want — not what others expect."
-          </p>
+
+        {/* Emotional landscape */}
+        <div style={{ background: "#FFFFFF", borderRadius: 16, padding: "14px", boxShadow: "0 1px 4px rgba(0,0,0,0.07)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 10 }}>
+            <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600 }}>Emotional Landscape</p>
+            <span style={{ fontSize: 10, color: "rgba(0,0,0,0.35)", fontFamily: "Urbanist, sans-serif" }}>1 weeks</span>
+          </div>
+          <div style={{ height: 1, background: "rgba(0,0,0,0.1)", borderRadius: 1, margin: "16px 0 8px" }} />
         </div>
+
+        {/* Thought connections */}
+        <div style={{ background: "#FFFFFF", borderRadius: 16, padding: "14px", boxShadow: "0 1px 4px rgba(0,0,0,0.07)", display: "flex", gap: 12, alignItems: "flex-start" }}>
+          <svg viewBox="0 0 40 40" fill="none" style={{ width: 36, height: 36, flexShrink: 0 }}>
+            <circle cx="20" cy="20" r="4" fill="#BF6040" opacity="0.9" />
+            <circle cx="8" cy="12" r="3" fill="#BF6040" opacity="0.5" />
+            <circle cx="32" cy="10" r="3" fill="#BF6040" opacity="0.5" />
+            <circle cx="10" cy="30" r="3" fill="#BF6040" opacity="0.5" />
+            <circle cx="30" cy="30" r="2.5" fill="#BF6040" opacity="0.4" />
+            <line x1="20" y1="20" x2="8" y2="12" stroke="#BF6040" strokeWidth="1" opacity="0.4" />
+            <line x1="20" y1="20" x2="32" y2="10" stroke="#BF6040" strokeWidth="1" opacity="0.4" />
+            <line x1="20" y1="20" x2="10" y2="30" stroke="#BF6040" strokeWidth="1" opacity="0.4" />
+            <line x1="20" y1="20" x2="30" y2="30" stroke="#BF6040" strokeWidth="1" opacity="0.3" />
+            <line x1="8" y1="12" x2="10" y2="30" stroke="#BF6040" strokeWidth="0.8" opacity="0.25" />
+          </svg>
+          <div>
+            <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600, marginBottom: 4 }}>Thought Connections</p>
+            <p style={{ fontSize: 16, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 700, lineHeight: 1 }}>3 <span style={{ fontSize: 12, fontWeight: 400, color: "#1A1A1A" }}>connections</span></p>
+            <p style={{ fontSize: 10, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif", lineHeight: 1.4, marginTop: 4 }}>Your memories are linked across themes, moods, and people.</p>
+          </div>
+        </div>
+
       </div>
     </div>
   );
 }
 
 function LettersTabScreen() {
+  const PROMPTS = [
+    "Where do I see myself in a year?",
+    "What's weighing on me right now?",
+    "What would I tell my past self?",
+  ];
+
   return (
-    <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "#0A1220", overflow: "hidden" }}>
-      <div style={{ padding: "50px 16px 8px" }}>
-        <p style={{ fontSize: 17, color: "rgba(255,246,233,0.92)", fontFamily: "'Instrument Serif', Georgia, serif", fontWeight: 400, marginBottom: 2 }}>Letters</p>
-        <p style={{ fontSize: 10, color: "rgba(255,246,233,0.4)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.06em" }}>Messages to your future self</p>
-      </div>
-      <div style={{ flex: 1, overflowY: "auto", padding: "0 14px 14px", scrollbarWidth: "none", display: "flex", flexDirection: "column", gap: 10 }}>
-        {/* Unlocked letter */}
-        <div style={{ background: "rgba(14,22,44,0.9)", borderRadius: 14, padding: "14px", border: "1px solid rgba(191,96,64,0.25)", boxShadow: "0 0 20px rgba(191,96,64,0.08)" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 10 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(191,96,64,0.15)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="#BF6040" strokeWidth="1.5" style={{ width: 16, height: 16 }}>
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                  <polyline points="22,6 12,13 2,6" />
-                </svg>
+    <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "#F0EBE3", overflow: "hidden" }}>
+      <div style={{ flex: 1, overflowY: "auto", padding: "44px 16px 12px", scrollbarWidth: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+
+        {/* Title */}
+        <div style={{ marginTop: 2 }}>
+          <p style={{ fontSize: 22, color: "#1A1A1A", fontFamily: "'Instrument Serif', Georgia, serif", fontWeight: 400, marginBottom: 2 }}>Letters</p>
+          <p style={{ fontSize: 12, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif" }}>Messages to your future self</p>
+        </div>
+
+        {/* Envelope illustration */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", paddingTop: 8, paddingBottom: 4 }}>
+          <div style={{ position: "relative", width: 110, height: 110, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            {/* Outer circle */}
+            <div style={{ position: "absolute", width: 110, height: 110, borderRadius: "50%", background: "rgba(191,96,64,0.08)" }} />
+            {/* Middle circle */}
+            <div style={{ position: "absolute", width: 82, height: 82, borderRadius: "50%", background: "rgba(191,96,64,0.10)" }} />
+            {/* Envelope */}
+            <div style={{ position: "relative", width: 54, height: 40, zIndex: 1 }}>
+              <svg viewBox="0 0 54 40" fill="none" style={{ width: 54, height: 40 }}>
+                <rect x="1" y="1" width="52" height="38" rx="4" fill="white" stroke="rgba(191,96,64,0.2)" strokeWidth="1" />
+                <polyline points="1,5 27,22 53,5" stroke="rgba(191,96,64,0.25)" strokeWidth="1.2" fill="none" />
+                <line x1="1" y1="39" x2="20" y2="22" stroke="rgba(191,96,64,0.15)" strokeWidth="1" />
+                <line x1="53" y1="39" x2="34" y2="22" stroke="rgba(191,96,64,0.15)" strokeWidth="1" />
+              </svg>
+              {/* Seal */}
+              <div style={{ position: "absolute", bottom: -8, left: "50%", transform: "translateX(-50%)", width: 18, height: 18, borderRadius: "50%", background: "#BF6040", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ fontSize: 9, color: "white", fontFamily: "Urbanist, sans-serif", fontWeight: 700 }}>R</span>
               </div>
-              <div>
-                <p style={{ fontSize: 12, color: "rgba(255,246,233,0.85)", fontFamily: "Urbanist, sans-serif", fontWeight: 500 }}>November → May</p>
-                <p style={{ fontSize: 10, color: "rgba(255,246,233,0.4)", fontFamily: "Urbanist, sans-serif" }}>6 months apart</p>
-              </div>
-            </div>
-            <div style={{ background: "rgba(191,96,64,0.15)", borderRadius: 20, padding: "3px 8px", border: "1px solid rgba(191,96,64,0.3)" }}>
-              <span style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>Unlocked</span>
-            </div>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 10px", background: "rgba(191,96,64,0.06)", borderRadius: 8, cursor: "pointer" }}>
-            <span style={{ fontSize: 11, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 500, flex: 1 }}>Read your evolution →</span>
-          </div>
-          <div style={{ marginTop: 10, display: "flex", flexDirection: "column", gap: 8, borderTop: "0.5px solid rgba(255,228,184,0.07)", paddingTop: 10 }}>
-            <div>
-              <p style={{ fontSize: 8, color: "rgba(255,246,233,0.35)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 3 }}>6 months ago, you wrote</p>
-              <p style={{ fontSize: 11, color: "rgba(255,246,233,0.6)", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic" }}>"I don't know if I'm brave enough to leave…"</p>
-            </div>
-            <div>
-              <p style={{ fontSize: 8, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 3 }}>Today, you know</p>
-              <p style={{ fontSize: 11, color: "rgba(255,246,233,0.85)", fontFamily: "'Instrument Serif', Georgia, serif" }}>You were. You did.</p>
             </div>
           </div>
         </div>
 
-        {/* Sealed letter */}
-        <div
-          className="env-float-card"
-          style={{ background: "rgba(14,22,44,0.7)", borderRadius: 14, padding: "14px", border: "1px solid rgba(255,228,184,0.07)", animation: "envFloat 3.5s ease-in-out infinite" }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(255,246,233,0.05)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,246,233,0.3)" strokeWidth="1.5" style={{ width: 16, height: 16 }}>
-                <rect x="5" y="11" width="14" height="11" rx="2" />
-                <path d="M8 11V7a4 4 0 018 0v4" />
-                <circle cx="12" cy="16" r="1.5" fill="rgba(255,246,233,0.3)" stroke="none" />
-              </svg>
-            </div>
-            <div style={{ flex: 1 }}>
-              <p style={{ fontSize: 12, color: "rgba(255,246,233,0.6)", fontFamily: "Urbanist, sans-serif", fontWeight: 500 }}>May → November</p>
-              <p style={{ fontSize: 10, color: "rgba(255,246,233,0.3)", fontFamily: "Urbanist, sans-serif" }}>Opens in 23 days</p>
-            </div>
-            <div style={{ background: "rgba(255,255,255,0.05)", borderRadius: 20, padding: "3px 8px" }}>
-              <span style={{ fontSize: 9, color: "rgba(255,246,233,0.3)", fontFamily: "Urbanist, sans-serif" }}>Sealed</span>
-            </div>
-          </div>
+        {/* Empty state text */}
+        <div style={{ textAlign: "center", paddingTop: 4 }}>
+          <p style={{ fontSize: 18, color: "#1A1A1A", fontFamily: "'Instrument Serif', Georgia, serif", fontWeight: 400, marginBottom: 6 }}>No letters yet.</p>
+          <p style={{ fontSize: 12, color: "rgba(0,0,0,0.5)", fontFamily: "Urbanist, sans-serif", lineHeight: 1.5, maxWidth: 220, margin: "0 auto" }}>The words you say today become wisdom tomorrow.</p>
         </div>
+
+        {/* Prompts */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 8, paddingTop: 4 }}>
+          <p style={{ fontSize: 10, color: "rgba(0,0,0,0.35)", fontFamily: "Urbanist, sans-serif", textAlign: "center" }}>start with a question</p>
+          {PROMPTS.map(prompt => (
+            <div
+              key={prompt}
+              style={{ background: "#FFFFFF", borderRadius: 20, padding: "10px 16px", boxShadow: "0 1px 3px rgba(0,0,0,0.07)", textAlign: "center", cursor: "pointer" }}
+            >
+              <p style={{ fontSize: 12, color: "#1A1A1A", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic" }}>{prompt}</p>
+            </div>
+          ))}
+        </div>
+
+      </div>
+
+      {/* CTA button pinned at bottom */}
+      <div style={{ padding: "0 16px 10px", flexShrink: 0 }}>
+        <button style={{ width: "100%", padding: "13px", borderRadius: 14, background: "#BF6040", border: "none", color: "white", fontSize: 14, fontFamily: "Urbanist, sans-serif", fontWeight: 600, cursor: "pointer", WebkitTapHighlightColor: "transparent", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" style={{ width: 16, height: 16 }}>
+            <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z" />
+            <path d="M19 10v2a7 7 0 01-14 0v-2" />
+          </svg>
+          Write your first letter
+        </button>
       </div>
     </div>
   );
 }
 
 function ProfileTabScreen() {
-  const SETTINGS_ROWS = [
-    { icon: "🔔", label: "Daily Reminder", value: "8:00 AM" },
-    { icon: "🌙", label: "Appearance", value: "Dark" },
-    { icon: "🔒", label: "Privacy & Data", value: "" },
-    { icon: "❓", label: "Help & Support", value: "" },
+  const PREF_ROWS = [
+    { icon: "🔔", label: "Notifications", sub: "Manage your alerts" },
+    { icon: "⏰", label: "Reminder time", sub: "09:00" },
+    { icon: "✉️", label: "Letter arrival time", sub: "" },
   ];
+
   return (
-    <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "#0A1220", overflow: "hidden" }}>
-      <div style={{ padding: "50px 16px 8px" }}>
-        <p style={{ fontSize: 17, color: "rgba(255,246,233,0.92)", fontFamily: "'Instrument Serif', Georgia, serif", fontWeight: 400 }}>Profile</p>
-      </div>
-      <div style={{ flex: 1, overflowY: "auto", padding: "0 16px 16px", scrollbarWidth: "none", display: "flex", flexDirection: "column", gap: 12 }}>
-        {/* Avatar row */}
-        <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px", background: "rgba(14,22,44,0.7)", borderRadius: 14, border: "1px solid rgba(255,228,184,0.07)" }}>
-          <div style={{ width: 44, height: 44, borderRadius: "50%", background: "linear-gradient(145deg,#D47040,#BF6040)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <span style={{ fontSize: 16, color: "white", fontFamily: "Urbanist, sans-serif", fontWeight: 700 }}>V</span>
+    <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "#F0EBE3", overflow: "hidden" }}>
+      <div style={{ flex: 1, overflowY: "auto", padding: "44px 14px 12px", scrollbarWidth: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+
+        {/* User card */}
+        <div style={{ background: "#FFFFFF", borderRadius: 16, padding: "12px 14px", boxShadow: "0 1px 4px rgba(0,0,0,0.07)", display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ width: 44, height: 44, borderRadius: "50%", background: "rgba(191,96,64,0.12)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ fontSize: 18, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 700 }}>R</span>
           </div>
           <div style={{ flex: 1 }}>
-            <p style={{ fontSize: 14, color: "rgba(255,246,233,0.9)", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>Victor M.</p>
-            <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 3 }}>
-              <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#34C759" }} />
-              <span style={{ fontSize: 10, color: "#34C759", fontFamily: "Urbanist, sans-serif" }}>Pro · Active</span>
+            <p style={{ fontSize: 14, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif", fontWeight: 600, marginBottom: 1 }}>Reflector</p>
+            <p style={{ fontSize: 10, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif", marginBottom: 2 }}>vmihail2@icloud.com</p>
+            <span style={{ fontSize: 10, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>PRO Member</span>
+          </div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.3)" strokeWidth="1.5" style={{ width: 16, height: 16 }}>
+            <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+            <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+          </svg>
+        </div>
+
+        {/* Your reflection journey */}
+        <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600, marginTop: 2 }}>Your Reflection Journey</p>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
+          {[
+            { icon: "🔥", value: "0 days", label: "record" },
+            { icon: "💬", value: "3", label: "entries" },
+            { icon: "✉️", value: "0", label: "letters" },
+          ].map(({ icon, value, label }) => (
+            <div key={label} style={{ background: "#FFFFFF", borderRadius: 12, padding: "10px 6px", boxShadow: "0 1px 3px rgba(0,0,0,0.06)", display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
+              <span style={{ fontSize: 14 }}>{icon}</span>
+              <span style={{ fontSize: 11, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif", fontWeight: 700, textAlign: "center", lineHeight: 1.2 }}>{value}</span>
+              <span style={{ fontSize: 9, color: "rgba(0,0,0,0.4)", fontFamily: "Urbanist, sans-serif" }}>{label}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* ÉCHO PRO subscription card */}
+        <div style={{ background: "#FFFFFF", borderRadius: 16, padding: "12px 14px", boxShadow: "0 1px 4px rgba(0,0,0,0.07)" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+            <div style={{ width: 36, height: 36, borderRadius: "50%", border: "1.5px solid #BF6040", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <span style={{ fontSize: 13, color: "#BF6040", fontFamily: "'Instrument Serif', serif", fontStyle: "italic", fontWeight: 400 }}>É</span>
+            </div>
+            <div style={{ flex: 1 }}>
+              <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 600 }}>ÉCHO PRO</p>
+              <p style={{ fontSize: 12, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>Active subscription</p>
+              <p style={{ fontSize: 10, color: "rgba(0,0,0,0.4)", fontFamily: "Urbanist, sans-serif" }}>Renews May 30, 2026</p>
+            </div>
+            <div style={{ background: "rgba(0,0,0,0.06)", borderRadius: 20, padding: "3px 8px", display: "flex", alignItems: "center", gap: 4 }}>
+              <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#7B7B7B" }} />
+              <span style={{ fontSize: 9, color: "#555", fontFamily: "Urbanist, sans-serif" }}>Active</span>
             </div>
           </div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,246,233,0.2)" strokeWidth="1.5" style={{ width: 16, height: 16 }}>
-            <polyline points="9 18 15 12 9 6" />
-          </svg>
+          <div style={{ borderTop: "0.5px solid rgba(0,0,0,0.07)", paddingTop: 10, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <span style={{ fontSize: 14 }}>💳</span>
+              <span style={{ fontSize: 12, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif" }}>Manage Subscription</span>
+            </div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.3)" strokeWidth="1.5" style={{ width: 14, height: 14 }}>
+              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+          </div>
+        </div>
+        <p style={{ fontSize: 11, color: "rgba(0,0,0,0.4)", fontFamily: "Urbanist, sans-serif", textAlign: "center" }}>↺ Restore Purchases</p>
+
+        {/* iCloud Sync */}
+        <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600 }}>iCloud Sync</p>
+        <div style={{ background: "#FFFFFF", borderRadius: 14, padding: "12px 14px", boxShadow: "0 1px 3px rgba(0,0,0,0.06)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <span style={{ fontSize: 13, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif" }}>Sync to iCloud</span>
+          {/* Toggle on */}
+          <div style={{ width: 38, height: 22, borderRadius: 11, background: "#BF6040", position: "relative", flexShrink: 0 }}>
+            <div style={{ position: "absolute", right: 2, top: 2, width: 18, height: 18, borderRadius: "50%", background: "white", boxShadow: "0 1px 3px rgba(0,0,0,0.2)" }} />
+          </div>
         </div>
 
-        {/* iCloud sync status */}
-        <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 10px", background: "rgba(14,50,114,0.18)", borderRadius: 8, border: "1px solid rgba(27,77,168,0.2)" }}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(107,143,199,0.6)" strokeWidth="1.5" style={{ width: 12, height: 12, flexShrink: 0 }}>
-            <path d="M18 10a6 6 0 00-11.9-1A4 4 0 105 17h13a3 3 0 000-7h-.1" />
-          </svg>
-          <span style={{ fontSize: 10, color: "rgba(107,143,199,0.65)", fontFamily: "Urbanist, sans-serif" }}>iCloud sync · Last synced 2 min ago</span>
-        </div>
-
-        {/* Settings rows */}
-        <div style={{ background: "rgba(14,22,44,0.7)", borderRadius: 14, border: "1px solid rgba(255,228,184,0.07)", overflow: "hidden" }}>
-          {SETTINGS_ROWS.map(({ icon, label, value }, i) => (
+        {/* Preferences */}
+        <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600 }}>Preferences</p>
+        <div style={{ background: "#FFFFFF", borderRadius: 14, boxShadow: "0 1px 3px rgba(0,0,0,0.06)", overflow: "hidden" }}>
+          {PREF_ROWS.map(({ icon, label, sub }, i) => (
             <div
               key={label}
-              style={{ display: "flex", alignItems: "center", gap: 10, padding: "12px 14px", borderBottom: i < SETTINGS_ROWS.length - 1 ? "0.5px solid rgba(255,228,184,0.06)" : "none", cursor: "pointer" }}
+              style={{ display: "flex", alignItems: "center", gap: 10, padding: "11px 14px", borderBottom: i < PREF_ROWS.length - 1 ? "0.5px solid rgba(0,0,0,0.06)" : "none", cursor: "pointer" }}
             >
               <span style={{ fontSize: 14 }}>{icon}</span>
-              <span style={{ flex: 1, fontSize: 12, color: "rgba(255,246,233,0.75)", fontFamily: "Urbanist, sans-serif" }}>{label}</span>
-              {value && <span style={{ fontSize: 11, color: "rgba(255,246,233,0.35)", fontFamily: "Urbanist, sans-serif" }}>{value}</span>}
-              <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,246,233,0.2)" strokeWidth="1.5" style={{ width: 14, height: 14 }}>
+              <div style={{ flex: 1 }}>
+                <p style={{ fontSize: 12, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif" }}>{label}</p>
+                {sub && <p style={{ fontSize: 10, color: "rgba(0,0,0,0.4)", fontFamily: "Urbanist, sans-serif" }}>{sub}</p>}
+              </div>
+              <svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.25)" strokeWidth="1.5" style={{ width: 14, height: 14 }}>
                 <polyline points="9 18 15 12 9 6" />
               </svg>
             </div>
           ))}
         </div>
+
       </div>
     </div>
   );
@@ -1369,7 +1646,7 @@ function Nav() {
             }}
           >
             <img
-              src="/logo-name.svg"
+              src="/logo-main.svg"
               alt="ÉCHO"
               style={{ height: 22, width: "auto", opacity: 0.92 }}
             />
@@ -1399,7 +1676,7 @@ function Nav() {
               pointerEvents: scrolled ? "auto" : "none",
             }}
           >
-            <img src="/logo.svg" alt="ÉCHO" style={{ height: 18, width: "auto" }} />
+            <img src="/logo.svg" alt="ÉCHO" style={{ height: 24, width: "auto" }} />
           </div>
         </div>
 
@@ -1754,33 +2031,54 @@ function Card3Content() {
 }
 
 function Card4Content() {
+  const [secs, setSecs] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setSecs(s => s + 1), 1000);
+    return () => clearInterval(id);
+  }, []);
+  const timer = `${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, "0")}`;
+
+  // Varied durations per bar for organic feel — primes & irrationals avoid phase sync
+  const BAR_DURS = [1.8, 2.3, 1.5, 2.1, 1.6, 2.4, 1.9, 1.4, 2.2, 1.7,
+                   2.0, 1.5, 2.3, 1.8, 1.6, 2.1, 1.4, 2.4, 1.9, 2.0,
+                   1.7, 1.5, 2.2, 1.8, 2.3, 1.6, 1.9, 2.1];
+
   return (
     <div style={{ padding: "20px 22px", borderRadius: 24, background: "linear-gradient(165deg, rgba(16,26,52,0.97) 0%, rgba(6,10,18,0.99) 100%)", border: "1px solid rgba(191,96,64,0.18)", boxShadow: "0 44px 80px rgba(0,0,0,0.58), 0 0 40px rgba(191,96,64,0.07), inset 0 1px 0 rgba(255,246,233,0.06)", backdropFilter: "blur(12px)" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
         <span style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase" as const, color: "rgba(255,228,184,0.32)" }}>ÉCHO</span>
         <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
           <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#FF3B30", animation: "recDot 1s ease-in-out infinite" }} />
-          <span style={{ fontSize: 8, color: "rgba(255,246,233,0.4)", letterSpacing: "0.12em", fontFamily: "Inter, sans-serif" }}>0:38</span>
+          <span style={{ fontSize: 8, color: "rgba(255,246,233,0.4)", letterSpacing: "0.12em", fontFamily: "Inter, sans-serif" }}>REC</span>
         </div>
       </div>
       <p style={{ fontSize: 8, textTransform: "uppercase" as const, letterSpacing: "0.22em", color: "rgba(255,228,184,0.28)", marginBottom: 8, fontFamily: "Inter, sans-serif" }}>Today's question</p>
       <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 15, color: "rgba(255,246,233,0.88)", lineHeight: 1.4, marginBottom: 14, fontStyle: "italic" }}>
         What decision are you delaying?
       </p>
+      {/* Waveform */}
       <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", gap: 2.5, height: 44, padding: "0 4px" }}>
         {WAVE_HEIGHTS.slice(0, 28).map((h, i) => {
-          const maxH = Math.max(4, Math.round(h * 0.72));
+          const maxScale = Math.max(0.25, Math.min(1, h * 0.055));
           return (
             <div
               key={i}
               style={{
-                width: 3, height: maxH, borderRadius: 1.5, transformOrigin: "bottom",
-                background: `rgba(191,96,64,${0.4 + (i % 3) * 0.15})`,
-                animation: `barDance ${(0.5 + (i % 5) * 0.07).toFixed(2)}s ${(i * 0.022).toFixed(2)}s ease-in-out infinite alternate`,
+                width: 3,
+                height: Math.max(4, Math.round(h * 0.72)),
+                borderRadius: 1.5,
+                transformOrigin: "bottom",
+                background: `rgba(191,96,64,${0.35 + maxScale * 0.5})`,
+                ["--bar-max" as string]: maxScale.toFixed(2),
+                animation: `barDance ${BAR_DURS[i]}s ${(i * 0.06).toFixed(2)}s ease-in-out infinite alternate`,
               }}
             />
           );
         })}
+      </div>
+      {/* Timer */}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, marginTop: 8 }}>
+        <span style={{ fontSize: 11, color: "rgba(255,246,233,0.45)", fontFamily: "monospace", letterSpacing: "0.08em" }}>{timer}</span>
       </div>
     </div>
   );
@@ -2210,7 +2508,7 @@ function HeroSection() {
 
           {/* Headline */}
           <h1 style={{ fontFamily: C.serif, fontSize: "clamp(3.2rem, 6.5vw, 5.6rem)", letterSpacing: "0", lineHeight: 0.94, marginBottom: 28 }}>
-            <span className="block" style={{ overflow: "hidden" }}>
+            <span className="block" style={{ overflow: "hidden", paddingBottom: "0.12em" }}>
               {"The journal".split(" ").map((word, i) => (
                 <span key={word} className="hero-word" style={{ color: C.cream, display: "inline-block", marginRight: "0.22em", animationDelay: `${0.14 + i * 0.08}s` }}>{word}</span>
               ))}
@@ -2482,60 +2780,62 @@ function InteractivePhoneSection() {
 
   // Phone inner content
   const phoneContent = (
-    <div style={{ position: "absolute", inset: "0 0 22px 0", display: "flex", flexDirection: "column", overflow: "hidden", borderRadius: 42 }}>
-      {/* Screen content */}
-      <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>
-        {activeTab === "home" && (
-          <HomeTabScreen
-            homeState={homeState}
-            setHomeState={setHomeState}
-            recordingSeconds={recordingSeconds}
-          />
-        )}
-        {activeTab === "archive" && <ArchiveTabScreen />}
-        {activeTab === "mirror" && <MirrorTabScreen mirrorKey={mirrorKey} />}
-        {activeTab === "letters" && <LettersTabScreen />}
-        {activeTab === "profile" && <ProfileTabScreen />}
-        {/* Interactive overlay — fades out on first tab tap */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            borderRadius: 42,
-            background: "rgba(6,10,22,0.62)",
-            backdropFilter: "blur(3px)",
-            WebkitBackdropFilter: "blur(3px)",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 14,
-            zIndex: 10,
-            opacity: hasInteracted ? 0 : 1,
-            pointerEvents: hasInteracted ? "none" : "auto",
-            transition: "opacity 0.45s cubic-bezier(0.22,1,0.36,1)",
-          }}
-        >
-          {/* Ripple rings + icon */}
-          <div style={{ position: "relative", width: 72, height: 72, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <div style={{ position: "absolute", inset: -16, borderRadius: "50%", border: "1.5px solid rgba(191,96,64,0.35)", animation: "tapRipple 2s 0s ease-out infinite" }} />
-            <div style={{ position: "absolute", inset: -6, borderRadius: "50%", border: "1.5px solid rgba(191,96,64,0.5)", animation: "tapRipple 2s 0.7s ease-out infinite" }} />
-            <div style={{ width: 72, height: 72, borderRadius: "50%", background: "radial-gradient(circle, rgba(191,96,64,0.22) 0%, rgba(191,96,64,0.06) 70%)", border: "1.5px solid rgba(191,96,64,0.55)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 0 32px rgba(191,96,64,0.2)" }}>
-              <svg viewBox="0 0 28 34" fill="none" style={{ width: 28, height: 34 }}>
-                <path d="M10 2C10 1 10.9 0 12 0s2 .9 2 2v12.5a3.5 3.5 0 017 0V18c0 5.5-4 10-9 10S3 23.5 3 18v-2a2 2 0 014 0v2" stroke="#BF6040" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M7 16v-5a2 2 0 014 0v5M14 14.5V9a2 2 0 014 0v6" stroke="#BF6040" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
-          </div>
-          <div style={{ textAlign: "center", display: "flex", flexDirection: "column", gap: 5 }}>
-            <p style={{ fontSize: 15, color: "rgba(255,246,233,0.95)", fontFamily: "Urbanist, sans-serif", fontWeight: 600, letterSpacing: "0.01em" }}>Explore the app</p>
-            <p style={{ fontSize: 11, color: "rgba(255,246,233,0.5)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.04em" }}>Tap any tab to navigate</p>
+    <>
+      {/* Screen + tab bar (stops above home indicator) */}
+      <div style={{ position: "absolute", inset: "0 0 22px 0", display: "flex", flexDirection: "column", overflow: "hidden", borderRadius: 42 }}>
+        {/* Screen content */}
+        <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>
+          {activeTab === "home" && (
+            <HomeTabScreen
+              homeState={homeState}
+              setHomeState={setHomeState}
+              recordingSeconds={recordingSeconds}
+            />
+          )}
+          {activeTab === "archive" && <ArchiveTabScreen />}
+          {activeTab === "mirror" && <MirrorTabScreen mirrorKey={mirrorKey} />}
+          {activeTab === "letters" && <LettersTabScreen />}
+          {activeTab === "profile" && <ProfileTabScreen />}
+        </div>
+        {/* Tab bar */}
+        <PhoneTabBar activeTab={activeTab} onTabChange={handleTabChange} />
+      </div>
+      {/* Interactive overlay — covers full phone screen (inset:0 = full area incl. home indicator) */}
+      <div
+        onClick={() => setHasInteracted(true)}
+        style={{
+          position: "absolute",
+          inset: 0,
+          borderRadius: 42,
+          background: "rgba(6,10,22,0.62)",
+          backdropFilter: "blur(3px)",
+          WebkitBackdropFilter: "blur(3px)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 14,
+          zIndex: 10,
+          cursor: "pointer",
+          opacity: hasInteracted ? 0 : 1,
+          pointerEvents: hasInteracted ? "none" : "auto",
+          transition: "opacity 0.45s cubic-bezier(0.22,1,0.36,1)",
+        }}
+      >
+        {/* Ripple rings + tap icon */}
+        <div style={{ position: "relative", width: 72, height: 72, display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div style={{ position: "absolute", inset: -16, borderRadius: "50%", border: "1.5px solid rgba(191,96,64,0.35)", animation: "tapRipple 2s 0s ease-out infinite" }} />
+          <div style={{ position: "absolute", inset: -6, borderRadius: "50%", border: "1.5px solid rgba(191,96,64,0.5)", animation: "tapRipple 2s 0.7s ease-out infinite" }} />
+          <div style={{ width: 72, height: 72, borderRadius: "50%", background: "radial-gradient(circle, rgba(191,96,64,0.22) 0%, rgba(191,96,64,0.06) 70%)", border: "1.5px solid rgba(191,96,64,0.55)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 0 32px rgba(191,96,64,0.2)" }}>
+            <Pointer size={26} color="#BF6040" strokeWidth={1.6} />
           </div>
         </div>
+        <div style={{ textAlign: "center", display: "flex", flexDirection: "column", gap: 5 }}>
+          <p style={{ fontSize: 15, color: "rgba(255,246,233,0.95)", fontFamily: "Urbanist, sans-serif", fontWeight: 600, letterSpacing: "0.01em" }}>Tap anywhere to start</p>
+          <p style={{ fontSize: 11, color: "rgba(255,246,233,0.5)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.04em" }}>Then tap any tab to switch screens</p>
+        </div>
       </div>
-      {/* Tab bar */}
-      <PhoneTabBar activeTab={activeTab} onTabChange={handleTabChange} />
-    </div>
+    </>
   );
 
   // Mobile layout
@@ -2624,9 +2924,7 @@ function InteractivePhoneSection() {
           </div>
           {!hasInteracted && (
             <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 14px", borderRadius: 20, background: "rgba(191,96,64,0.12)", border: "1px solid rgba(191,96,64,0.28)", animation: "tapBadgePulse 2s ease-in-out infinite" }}>
-              <svg viewBox="0 0 20 24" fill="none" style={{ width: 13, height: 15 }}>
-                <path d="M8 1.5C8 0.7 8.7 0 9.5 0S11 0.7 11 1.5V10a2.5 2.5 0 015 0v3c0 4-3 7-7 7S2 17 2 13v-1.5a1.5 1.5 0 013 0V13" stroke="#BF6040" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-              </svg>
+              <Pointer size={13} color="#BF6040" strokeWidth={1.8} />
               <span style={{ fontSize: 11, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 500, letterSpacing: "0.04em" }}>Tap to explore</span>
             </div>
           )}
@@ -3365,7 +3663,7 @@ function Footer() {
           style={{ display: "flex", alignItems: "flex-end", gap: 10 }}
         >
           <img
-            src="/logo-name.svg"
+            src="/logo-main.svg"
             alt="ÉCHO"
             style={{ height: 20, width: "auto", opacity: isDark ? 0.88 : 0.75 }}
           />

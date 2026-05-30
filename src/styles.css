@@ -572,9 +572,17 @@
   }
 
   /* ── Interactive phone prototype animations ── */
+  /* Smooth sine — Mirror traveling wave */
   @keyframes barDance {
-    0%, 100% { transform: scaleY(0.2); }
-    50%       { transform: scaleY(var(--bar-max, 1)); }
+    0%   { transform: scaleY(var(--bar-min, 0.1)); }
+    50%  { transform: scaleY(var(--bar-max, 1)); }
+    100% { transform: scaleY(var(--bar-min, 0.1)); }
+  }
+  /* Fast-attack slow-decay — live recording VU meter */
+  @keyframes barMeter {
+    0%   { transform: scaleY(var(--bar-min, 0.05)); }
+    18%  { transform: scaleY(var(--bar-max, 1)); }
+    100% { transform: scaleY(var(--bar-min, 0.05)); }
   }
   @keyframes micGlow {
     0%, 100% { transform: scale(1);   opacity: 0.35; }
