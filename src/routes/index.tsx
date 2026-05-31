@@ -8,7 +8,7 @@ import {
   useContext,
 } from "react";
 import { motion, AnimatePresence, useScroll, useTransform, useAnimation, type MotionValue } from "framer-motion";
-import { Pointer } from "lucide-react";
+import { Pointer, Smartphone, ShieldCheck, EyeOff, Cloud } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
 import { WaitlistForm } from "@/components/WaitlistForm";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -247,43 +247,47 @@ const SIDE_CARDS = [
 
 const PRIVACY = [
   {
-    title: "On-device transcription",
-    body: "WhisperKit runs entirely on your iPhone. Your audio never travels to any server, ever.",
+    title: "Your voice never leaves your iPhone",
+    body: "Everything is transcribed directly on your device. Your audio is never sent to any server — not ours, not anyone else's.",
   },
   {
-    title: "Encrypted at rest",
-    body: "Every entry encrypted with device-level keys. No one — not even Réaclyse — can read them.",
+    title: "Locked before it's stored",
+    body: "Every entry is encrypted the moment it's saved. Not even we can read what you've written.",
   },
   {
-    title: "Zero data sharing",
-    body: "Your voice is never used to train AI. Never sold. Never monetised in any form.",
+    title: "Never shared. Never sold.",
+    body: "Your words aren't used to train AI, handed to third parties, or monetised in any way. They belong to you.",
   },
   {
-    title: "iCloud sync on your terms",
-    body: "CloudKit keeps your devices in sync using Apple's encrypted infrastructure. Your keys.",
+    title: "Sync on your terms",
+    body: "Want your journal across all your Apple devices? It stays encrypted the whole way. You can turn it off at any time.",
   },
 ];
 
 const FAQ_ITEMS = [
   {
     q: "What is ÉCHO?",
-    a: "ÉCHO is a private voice journal for iPhone. Every day, one question appears. You speak your answer — no typing, no blank pages. ÉCHO stores your recording and transcript encrypted on your device, then surfaces it weeks or months later so you can hear how your thinking has evolved.",
+    a: "ÉCHO is a private voice journal for iPhone. Every day, one thoughtful question appears. You speak your answer — no typing, no blank page. Over time, ÉCHO surfaces what you said weeks or months ago so you can hear how your thinking has shifted.",
   },
   {
     q: "When does ÉCHO launch?",
-    a: "ÉCHO launches on the iOS App Store in 2026, starting with European markets: France, Germany, Spain, Italy, Luxembourg, Belgium, the Netherlands, Austria, and Switzerland. Join the waitlist to be notified first and unlock early-access pricing.",
+    a: "ÉCHO launches on the iOS App Store in 2026, starting with European markets: France, Germany, Spain, Italy, Luxembourg, Belgium, the Netherlands, Austria, and Switzerland. Join the waitlist to be first in line and unlock early-access pricing.",
   },
   {
-    q: "How is my voice data protected?",
-    a: "Your voice recordings and transcripts are encrypted at rest and never used to train external AI models. Transcription happens on your device using WhisperKit — your audio never leaves your iPhone for that step. We never sell or share your personal data.",
+    q: "Is my voice data private?",
+    a: "Completely. Your voice is converted to text directly on your iPhone — nothing is ever sent to a server. Your entries are encrypted before they're stored, so nobody can read them, including us. We never sell your data or use it to train AI.",
   },
   {
     q: "How much does ÉCHO cost?",
-    a: "ÉCHO is free to download. A subscription unlocks unlimited journaling history, advanced pattern insights, and time capsule comparisons. Plans start at €7.99 per month or €69 per year. Waitlist members will receive a founding-member offer at launch.",
+    a: "ÉCHO is free to download and use every day. A subscription unlocks your full journal history, deeper personal insights, and unlimited time capsules. Plans start at €7.99 / month or €69 / year. Waitlist members get a founding-member offer at launch.",
+  },
+  {
+    q: "Do I need to write anything?",
+    a: "Not a word. ÉCHO is built for voice. You tap, speak your answer, and you're done — usually in under a minute. The app handles everything else: transcription, storage, and surfacing your past reflections at the right moment.",
   },
   {
     q: "Is ÉCHO available on Android?",
-    a: "ÉCHO is iOS-only at launch (iPhone, iOS 18+). Android support may come in a later phase. Join the waitlist and we'll let you know when your platform is supported.",
+    a: "ÉCHO is iPhone-only at launch. Android support may follow in a later phase — join the waitlist and we'll let you know as soon as your platform is supported.",
   },
 ];
 
@@ -1415,16 +1419,18 @@ function ProfileTabScreen() {
 
   return (
     <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "#F0EBE3", overflow: "hidden" }}>
-      <div style={{ flex: 1, overflowY: "auto", padding: "44px 14px 12px", scrollbarWidth: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+      <div style={{ flex: 1, overflowY: "auto", padding: "60px 14px 12px", scrollbarWidth: "none", display: "flex", flexDirection: "column", gap: 10 }}>
 
         {/* User card */}
         <div style={{ background: "#FFFFFF", borderRadius: 16, padding: "12px 14px", boxShadow: "0 1px 4px rgba(0,0,0,0.07)", display: "flex", alignItems: "center", gap: 12 }}>
-          <div style={{ width: 44, height: 44, borderRadius: "50%", background: "rgba(191,96,64,0.12)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <span style={{ fontSize: 18, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 700 }}>R</span>
-          </div>
+          <img
+            src="/user-avatar.jpeg"
+            alt="Avatar"
+            style={{ width: 44, height: 44, borderRadius: "50%", objectFit: "cover", objectPosition: "center top", flexShrink: 0 }}
+          />
           <div style={{ flex: 1 }}>
-            <p style={{ fontSize: 14, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif", fontWeight: 600, marginBottom: 1 }}>Reflector</p>
-            <p style={{ fontSize: 10, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif", marginBottom: 2 }}>vmihail2@icloud.com</p>
+            <p style={{ fontSize: 14, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif", fontWeight: 600, marginBottom: 1 }}>Jordan L.</p>
+            <p style={{ fontSize: 10, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif", marginBottom: 2 }}>jordan.l@icloud.com</p>
             <span style={{ fontSize: 10, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>PRO Member</span>
           </div>
           <svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.3)" strokeWidth="1.5" style={{ width: 16, height: 16 }}>
@@ -1452,17 +1458,15 @@ function ProfileTabScreen() {
         {/* ÉCHO PRO subscription card */}
         <div style={{ background: "#FFFFFF", borderRadius: 16, padding: "12px 14px", boxShadow: "0 1px 4px rgba(0,0,0,0.07)" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
-            <div style={{ width: 36, height: 36, borderRadius: "50%", border: "1.5px solid #BF6040", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <span style={{ fontSize: 13, color: "#BF6040", fontFamily: "'Instrument Serif', serif", fontStyle: "italic", fontWeight: 400 }}>É</span>
-            </div>
+            <img src="/logo.svg" alt="ÉCHO" style={{ width: 32, height: 32, objectFit: "contain" }} />
             <div style={{ flex: 1 }}>
               <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 600 }}>ÉCHO PRO</p>
               <p style={{ fontSize: 12, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>Active subscription</p>
               <p style={{ fontSize: 10, color: "rgba(0,0,0,0.4)", fontFamily: "Urbanist, sans-serif" }}>Renews May 30, 2026</p>
             </div>
-            <div style={{ background: "rgba(0,0,0,0.06)", borderRadius: 20, padding: "3px 8px", display: "flex", alignItems: "center", gap: 4 }}>
-              <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#7B7B7B" }} />
-              <span style={{ fontSize: 9, color: "#555", fontFamily: "Urbanist, sans-serif" }}>Active</span>
+            <div style={{ background: "rgba(52,199,89,0.12)", borderRadius: 20, padding: "3px 8px", display: "flex", alignItems: "center", gap: 4 }}>
+              <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#34C759" }} />
+              <span style={{ fontSize: 9, color: "#1E9940", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>Active</span>
             </div>
           </div>
           <div style={{ borderTop: "0.5px solid rgba(0,0,0,0.07)", paddingTop: 10, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -2154,22 +2158,35 @@ function StackCard({
     }
   }, [isExiting, stackIndex]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Hint wiggle + idle float when card is the undisturbed top card
+  // Hint wiggle — strong repeating swipe nudge so it's obvious the card slides
   useEffect(() => {
     if (!isTop || !showHint) return;
-    hintTimerRef.current = setTimeout(async () => {
-      // Slow, smooth nudge left→right — readable as "you can drag me"
-      await controls.start({
-        x: [xOffset, xOffset - 10, xOffset + 13, xOffset],
-        rotate: [defaultRotate, defaultRotate - 2, defaultRotate + 2.8, defaultRotate],
-        transition: { duration: 2.0, ease: [0.45, 0, 0.55, 1], times: [0, 0.32, 0.68, 1] },
-      });
-      // Gentle idle breathe
+    hintTimerRef.current = setTimeout(() => {
+      // L-R, L-R (fast) then L-R (slower), back to rest — repeating
       controls.start({
-        y: [y, y - 6, y],
-        transition: { duration: 3.8, ease: "easeInOut", repeat: Infinity, repeatType: "mirror" as const },
+        x: [
+          xOffset,
+          xOffset - 30, xOffset + 32,
+          xOffset - 26, xOffset + 28,
+          xOffset - 16, xOffset + 18,
+          xOffset,
+        ],
+        rotate: [
+          defaultRotate,
+          defaultRotate - 5, defaultRotate + 6,
+          defaultRotate - 4, defaultRotate + 5,
+          defaultRotate - 2.5, defaultRotate + 3,
+          defaultRotate,
+        ],
+        transition: {
+          duration: 2.4,
+          ease: "easeInOut",
+          times: [0, 0.10, 0.23, 0.36, 0.50, 0.66, 0.82, 1],
+          repeat: Infinity,
+          repeatDelay: 2.0,
+        },
       });
-    }, 1800);
+    }, 900);
     return () => {
       if (hintTimerRef.current) clearTimeout(hintTimerRef.current);
       controls.stop();
@@ -2267,18 +2284,18 @@ function SwipeableCardStack() {
       {/* Hint */}
       <div
         style={{
-          display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-          marginTop: 16,
-          opacity: hasInteractedWithCards ? 0 : 0.55,
+          display: "flex", alignItems: "center", justifyContent: "center", gap: 10,
+          marginTop: 20,
+          opacity: hasInteractedWithCards ? 0 : 1,
           transition: "opacity 0.6s ease",
           pointerEvents: "none",
         }}
       >
-        <svg viewBox="0 0 20 10" fill="none" style={{ width: 20 }}>
-          <path d="M1 5h7M5 2l-4 3 4 3" stroke="rgba(255,246,233,0.7)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M19 5h-7M15 2l4 3-4 3" stroke="rgba(255,246,233,0.7)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+        <svg viewBox="0 0 28 14" fill="none" style={{ width: 28 }}>
+          <path d="M1 7h10M7 3l-6 4 6 4" stroke="#BF6040" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M27 7H17M21 3l6 4-6 4" stroke="#BF6040" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
-        <span style={{ fontSize: 10, color: "rgba(255,246,233,0.6)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.12em" }}>
+        <span style={{ fontSize: 12, color: "rgba(255,246,233,0.85)", fontFamily: "Urbanist, sans-serif", fontWeight: 500, letterSpacing: "0.1em" }}>
           swipe to explore
         </span>
       </div>
@@ -2958,27 +2975,10 @@ function InteractivePhoneSection() {
 
 // ── PrivacySection ─────────────────────────────────────────────
 const PRIVACY_ICONS = [
-  <svg key="mic" viewBox="0 0 24 24" fill="none">
-    <rect x="9" y="2" width="6" height="11" rx="3" stroke="currentColor" strokeWidth="1.4" fill="none" />
-    <path d="M5 10a7 7 0 0014 0" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" fill="none" />
-    <line x1="12" y1="17" x2="12" y2="21" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-    <line x1="8" y1="21" x2="16" y2="21" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-  </svg>,
-  <svg key="lock" viewBox="0 0 24 24" fill="none">
-    <rect x="5" y="11" width="14" height="11" rx="2" stroke="currentColor" strokeWidth="1.4" fill="none" />
-    <path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" strokeWidth="1.4" fill="none" />
-    <circle cx="12" cy="16" r="1.5" fill="currentColor" />
-  </svg>,
-  <svg key="shield" viewBox="0 0 24 24" fill="none">
-    <path d="M12 2l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V5l7-3z" stroke="currentColor" strokeWidth="1.4" fill="none" />
-    <line x1="9.5" y1="9.5" x2="14.5" y2="14.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-    <line x1="14.5" y1="9.5" x2="9.5" y2="14.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-  </svg>,
-  <svg key="cloud" viewBox="0 0 24 24" fill="none">
-    <path d="M18 10a6 6 0 00-11.9-1A4 4 0 105 17h13a3 3 0 000-7h-.1" stroke="currentColor" strokeWidth="1.4" fill="none" />
-    <rect x="10" y="16" width="4" height="3.5" rx="0.8" stroke="currentColor" strokeWidth="1.1" fill="none" />
-    <path d="M10.8 16v-1a1.2 1.2 0 012.4 0v1" stroke="currentColor" strokeWidth="1.1" fill="none" />
-  </svg>,
+  <Smartphone key="smartphone" size={22} strokeWidth={1.5} />,
+  <ShieldCheck key="shield" size={22} strokeWidth={1.5} />,
+  <EyeOff key="eye" size={22} strokeWidth={1.5} />,
+  <Cloud key="cloud" size={22} strokeWidth={1.5} />,
 ];
 
 function PrivacySection() {
