@@ -3748,6 +3748,7 @@ function Footer() {
         >
           {[
             { label: "Blog", to: "/blog" as const },
+            { label: "Contact", to: "/contact" as const },
             { label: "Privacy", to: "/privacy" as const },
             { label: "GDPR", to: "/gdpr" as const },
             { label: "Support", to: "/support" as const },

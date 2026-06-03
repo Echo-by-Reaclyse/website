@@ -101,6 +101,10 @@ function Support() {
         <a href="mailto:hello@reaclyse.com" className="text-ember transition hover:opacity-75">
           hello@reaclyse.com
         </a>
+        {" "}or visit our{" "}
+        <Link to="/contact" className="text-ember transition hover:opacity-75">
+          contact page
+        </Link>
         . We aim to respond within one business day. Please include your iOS version and ÉCHO
         app version (Settings → About) when reporting a bug — it helps us diagnose faster.
       </Section>
