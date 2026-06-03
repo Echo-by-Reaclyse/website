@@ -1,5 +1,6 @@
+import { useEffect } from "react";
 import { QueryClient } from "@tanstack/react-query";
-import { Link, Outlet, createRootRouteWithContext } from "@tanstack/react-router";
+import { Link, Outlet, createRootRouteWithContext, useRouterState } from "@tanstack/react-router";
 
 function NotFoundComponent() {
   return (
@@ -23,7 +24,22 @@ function NotFoundComponent() {
   );
 }
 
+function MetaPixelPageView() {
+  const { location } = useRouterState();
+  useEffect(() => {
+    if (typeof window.fbq === "function") {
+      window.fbq("track", "PageView");
+    }
+  }, [location.pathname]);
+  return null;
+}
+
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  component: () => <Outlet />,
+  component: () => (
+    <>
+      <MetaPixelPageView />
+      <Outlet />
+    </>
+  ),
   notFoundComponent: NotFoundComponent,
 });

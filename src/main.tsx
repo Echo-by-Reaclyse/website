@@ -1,6 +1,7 @@
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ReactDOM from "react-dom/client";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { routeTree } from "./routeTree.gen";
 import { ThemeProvider } from "./components/ThemeProvider";
 import "./styles.css";
@@ -24,6 +25,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <ThemeProvider>
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      <SpeedInsights />
     </QueryClientProvider>
   </ThemeProvider>
 );

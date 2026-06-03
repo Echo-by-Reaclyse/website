@@ -733,7 +733,7 @@ function HomeTabScreen({
   const [savedMoods, setSavedMoods] = useState<Set<string>>(new Set());
   const [justSaved, setJustSaved] = useState(false);
   const WAVEFORM_BARS = 24;
-  const question = "What brings out your creative side?";
+  const question = "What's been sitting with you today?";
 
   const formatTime = (s: number) =>
     `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
@@ -2549,7 +2549,7 @@ function HeroSection() {
 
           {/* Stats */}
           <div className="hero-fade" style={{ display: "flex", flexWrap: "wrap", gap: "12px 36px", marginTop: 36, animationDelay: "0.88s" }}>
-            {[{ k: "2026", v: "Launch" }, { k: "iOS 18+", v: "Platform" }, { k: "9 countries", v: "Europe first" }].map(({ k, v }) => (
+            {[{ k: "2026", v: "Launch" }, { k: "iOS 18+", v: "Platform" }, { k: "Global", v: "Europe first" }].map(({ k, v }) => (
               <div key={k}>
                 <p style={{ fontFamily: C.serif, fontSize: 18, color: C.cream, letterSpacing: "0" }}>{k}</p>
                 <p style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.18em", color: C.muted, fontFamily: C.sans, marginTop: 2 }}>{v}</p>
@@ -3297,12 +3297,16 @@ function PricingSection() {
             </span>
           </div>
 
+          <div style={{ marginBottom: 4 }}>
+            <span style={{ fontSize: 12, color: C.muted, fontFamily: C.sans, textDecoration: "line-through", opacity: 0.6 }}>€11.99 / mo</span>
+            <span style={{ marginLeft: 8, fontSize: 10, textTransform: "uppercase", letterSpacing: "0.16em", color: C.ember, fontFamily: C.sans, fontWeight: 700 }}>Founding price</span>
+          </div>
           <div style={{ marginBottom: 6 }}>
             <span style={{ fontFamily: C.serif, fontSize: "clamp(2.4rem, 5vw, 3.2rem)", color: C.ember, letterSpacing: "-0.02em" }}>€7.99</span>
             <span style={{ fontSize: 15, color: C.muted, fontFamily: C.sans, marginLeft: 6 }}>/ mo</span>
           </div>
           <p style={{ fontSize: 12, color: C.muted, fontFamily: C.sans, marginBottom: 32 }}>
-            or €69 / year · 7-day free trial · Founding price for waitlist
+            or €69 / year · 7-day free trial · Early adopters only
           </p>
 
           <ul style={{ display: "flex", flexDirection: "column", gap: 12, flex: 1, marginBottom: 32 }}>
