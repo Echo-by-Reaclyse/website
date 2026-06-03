@@ -271,131 +271,60 @@ function About() {
       <TeamSection />
 
       <Section title="What is ÉCHO?">
-        ÉCHO is a private voice journal for iPhone. Every day, one question appears. You speak.
-        ÉCHO stores your answer — encrypted, private, yours alone. Weeks later, it surfaces what
-        you said before the doubt set in. It's evidence-based self-reflection, without the blank
-        page.
+        ÉCHO is a private voice journal for iPhone. Every day, one question appears — you speak,
+        and ÉCHO stores your answer, encrypted and yours alone. Weeks later, it surfaces what you
+        said before the doubt set in.
       </Section>
 
       <Section title="Why voice?">
-        We think faster than we type. Speaking reveals what we actually believe — not a polished
-        version of it. ÉCHO captures that first, honest voice: the one that knows before the mind
-        starts to argue. Voice journaling removes the friction that stops most people from
-        journaling consistently.
+        We think faster than we type. Speaking reveals what we actually believe, not a polished
+        version of it — ÉCHO captures that first, honest voice before the mind starts to argue.
       </Section>
 
       <Section title="How it works">
-        Each day ÉCHO presents a single reflection question — drawn from a curated set designed to
-        surface clarity rather than just feelings. You record a voice answer, ÉCHO transcribes it
-        on-device using WhisperKit, and stores it locally. Over time, the Insights tab builds a
-        persona profile from your own words: your reasoning style, recurring themes, emotional
-        patterns, and how your perspective shifts across months.
+        Each day brings a single reflection question. You record a voice answer; ÉCHO transcribes
+        it on-device using WhisperKit and stores it locally. Over time, the Insights tab builds an
+        8-part persona profile from your own words.
       </Section>
 
       <Section title="Privacy-first">
-        ÉCHO is built on the principle that your inner voice belongs only to you. Transcription
-        runs on-device using WhisperKit — your audio never leaves your iPhone for that step.
-        Recordings and transcripts are encrypted at rest. We never use your data to train external
-        AI models, and we never share it with third parties. AI-generated insights are opt-in and
-        can be disabled at any time.
+        Transcription runs entirely on your iPhone — your audio never leaves your device. Every
+        entry is encrypted at rest, AI insights are opt-in, and your data is never shared or used
+        to train external models.
       </Section>
 
       <Section title="Time capsules">
         The Letters feature lets you seal a snapshot of your current voice and thoughts, then
-        unlock it on a future date for a side-by-side comparison with who you've become. It's a
-        long-form mirror — months or years in the making.
+        unlock it on a future date for a side-by-side comparison with who you've become.
       </Section>
 
       <Section title="Who built it?">
         ÉCHO is a product of Réaclyse, a studio based in Luxembourg focused on tools for
-        reflection, decision-making, and emotional clarity. We build for people who want to
-        understand themselves better over time — not just track moods in the moment. Questions?{" "}
+        reflection, decision-making, and emotional clarity. Questions?{" "}
         <a href="mailto:hello@reaclyse.com" className="text-ember transition hover:opacity-75">
           hello@reaclyse.com
         </a>
       </Section>
 
       <Section title="The science of voice">
-        Verbal externalization — speaking thoughts out loud — activates different neural pathways
-        than writing. When you articulate something aloud, the brain is forced to construct meaning
-        rather than simply retrieve a pre-packaged version of it. The process of forming the
-        sentence is itself an act of sense-making. This is why the same thought, when spoken, often
-        comes out differently than it does on paper: the spoken version hasn't been edited yet.
-
-        Talk therapy has decades of evidence for processing emotions through speech. The mechanism
-        isn't primarily about receiving advice — it's about the act of speaking itself. Studies on
-        therapeutic disclosure show consistent improvements in psychological wellbeing when people
-        articulate difficult experiences to a receptive listener (or, it turns out, to a recording
-        device). Voice journaling applies the same mechanism to self-directed reflection, removing
-        the need for a second person while preserving the core dynamic.
-
-        The acoustic record of how you said something carries emotional data that written words
-        lose entirely. Pace, hesitation, the length of a pause before a word — these paraverbal
-        signals are as informative as the words themselves. When you play back a recording from six
-        months ago, you hear not just what you said, but how certain you were when you said it.
-        That's information written transcripts can't recover.
+        Verbal externalization activates different neural pathways than writing — forming a spoken
+        sentence is itself an act of sense-making, which is why spoken thoughts often come out
+        differently than written ones. The paraverbal record (pace, hesitation, pauses) carries
+        emotional data that transcripts alone can't recover.
       </Section>
 
       <Section title="Why one question, not a blank page">
-        Cognitive load is the hidden reason most journaling habits fail. A blank page requires you
-        to decide what's worth reflecting on before you can reflect — a meta-decision that
-        consumes the attention you needed for the reflection itself. Most people stall at this
-        stage, not because they have nothing to say, but because the decision of where to start is
-        too open. A single, specific question removes that decision entirely and lets you go
-        straight to the answer.
-
-        The best therapy questions work the same way: they constrain the space just enough that the
-        answer has somewhere to go. Open questions like "how are you feeling?" can be deflected
-        easily. Specific questions — "what did you avoid thinking about today?" — are harder to
-        sidestep. ÉCHO's questions are written to be slightly uncomfortable, concrete, and
-        answerable in under a minute. They're designed to surface clarity rather than just
-        feelings.
-
-        The result is a record that's consistently more honest than open-ended journaling, because
-        the question does the work of directing your attention. Over months, those directed answers
-        accumulate into a picture of your baseline — what you return to when different questions
-        point at the same underlying concerns.
+        A blank page forces a meta-decision — what's worth reflecting on — before reflection can
+        even begin. One specific, slightly uncomfortable question removes that friction entirely
+        and directs attention straight to an honest answer.
       </Section>
 
       <Section title="Launching in Europe first">
-        The European Union has the strictest privacy standards in the world, and building for GDPR
-        from day one is harder than retrofitting compliance before a launch. But it means the
-        privacy architecture is structural, not cosmetic. On-device transcription, opt-in AI
-        insights, explicit data controls, real deletion — these aren't features we added to pass
-        a legal review; they're the foundation the product was designed around. That foundation
-        is more expensive to build. It's also the right way to build a product that holds your
-        inner voice.
-
-        The nine launch markets — France, Germany, Spain, Italy, Luxembourg, Belgium, the
-        Netherlands, Austria, and Switzerland — share a cultural orientation toward privacy and
-        interiority that aligns with what ÉCHO is doing. These are societies with strong traditions
-        of private life, scepticism about surveillance capitalism, and genuine demand for tools that
-        don't treat personal data as an asset to be monetised. That's the audience ÉCHO is built
-        for.
-
-        Luxembourg as home base is a deliberate choice. Proximity to EU institutions and the
-        European Court of Justice means we're operating in the jurisdiction that sets the standards
-        we're building to. The legal framework for data protection here is robust, well-interpreted,
-        and enforced. We'd rather build inside the strictest framework from the start than expand
-        into it later.
-      </Section>
-
-      <Section title="What's coming">
-        iPad support is in active development. The larger screen unlocks genuinely new ways to
-        review your history — side-by-side comparisons, fuller timelines, richer persona visualisations
-        — and the journal experience on iPad should feel qualitatively different from iPhone, not
-        just scaled up. No ship date yet, but it's the next major platform addition.
-
-        Widget support will bring daily questions directly to the home screen and Lock Screen,
-        removing one more step between you and the habit. The ideal state is that the question is
-        waiting for you before you've even opened the app. Android is in planning — no firm date,
-        and we won't rush it. An Android version built badly is worse than no Android version.
-
-        The roadmap is driven by the insight layer first. Everything that helps you understand
-        yourself better over time — deeper persona analysis, richer thought-graph connections,
-        more sophisticated evolution comparisons — takes priority over surface-level features.
-        The goal is a product that becomes more valuable the longer you use it, not one that
-        front-loads novelty and then plateaus.
+        Building for GDPR from day one makes privacy structural, not cosmetic. The nine launch
+        markets — France, Germany, Spain, Italy, Luxembourg, Belgium, the Netherlands, Austria,
+        and Switzerland — share a cultural orientation toward privacy that aligns with what ÉCHO
+        is doing. Luxembourg as home base puts us inside the jurisdiction that sets the standards
+        we build to.
       </Section>
     </InnerPage>
   );

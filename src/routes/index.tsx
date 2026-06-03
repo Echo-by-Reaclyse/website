@@ -1613,11 +1613,54 @@ function Nav() {
   const navBgActive = scrolled || menuOpen;
 
   return (
+    <>
+    {/* What's coming announcement bar */}
+    <div
+      style={{
+        position: "fixed",
+        inset: "0 0 auto 0",
+        zIndex: 51,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 6,
+        padding: "7px 16px",
+        background: isDark ? "rgba(191,96,64,0.13)" : "rgba(191,96,64,0.10)",
+        borderBottom: `1px solid rgba(191,96,64,0.18)`,
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+      }}
+    >
+      <span style={{
+        fontFamily: C.sans,
+        fontSize: 11,
+        letterSpacing: "0.06em",
+        color: C.ember,
+        fontWeight: 600,
+        textTransform: "uppercase",
+      }}>
+        Coming soon
+      </span>
+      <span style={{ color: isDark ? "rgba(255,246,233,0.2)" : "rgba(26,15,5,0.2)", fontSize: 10 }}>·</span>
+      {["iPad", "Lock Screen Widgets", "Android"].map((item, i, arr) => (
+        <span key={item} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <span style={{
+            fontFamily: C.sans,
+            fontSize: 11,
+            letterSpacing: "0.03em",
+            color: C.muted,
+          }}>{item}</span>
+          {i < arr.length - 1 && (
+            <span style={{ color: isDark ? "rgba(255,246,233,0.2)" : "rgba(26,15,5,0.2)", fontSize: 10 }}>·</span>
+          )}
+        </span>
+      ))}
+    </div>
     <header
       className="nav-entrance"
       style={{
         position: "fixed",
-        inset: "0 0 auto 0",
+        inset: "33px 0 auto 0",
         zIndex: 50,
         transition: "all 0.3s",
         backdropFilter: navBgActive ? "blur(18px) saturate(150%)" : "none",
@@ -1865,6 +1908,7 @@ function Nav() {
         </div>
       )}
     </header>
+    </>
   );
 }
 
@@ -2540,14 +2584,14 @@ function HeroSection() {
       >
         <div style={{
           width: "min(680px, 100%)",
-          paddingTop: 130,
+          paddingTop: 163,
           paddingBottom: 90,
           paddingLeft: "max(48px, min(10vw, 260px))",
           paddingRight: "max(40px, min(8vw, 200px))",
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
-        }} className="max-lg:items-center max-lg:text-center max-lg:!px-6 max-lg:!w-full max-lg:max-w-lg max-lg:mx-auto max-lg:!pt-[72px]">
+        }} className="max-lg:items-center max-lg:text-center max-lg:!px-6 max-lg:!w-full max-lg:max-w-lg max-lg:mx-auto max-lg:!pt-[105px]">
 
           {/* Badge */}
           <div className="hero-badge" style={{ marginBottom: 32 }}>
