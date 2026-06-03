@@ -24,6 +24,7 @@ const TEAM: TeamMember[] = [
     initials: "RS",
     photo: "/team-roksana.jpg",
     linkedin: "https://www.linkedin.com/in/roksana-skubis-b663101b2/",
+    instagram: "https://www.instagram.com/roksanaskubis/",
   },
   {
     name: "Victor Mihaita",
@@ -31,7 +32,6 @@ const TEAM: TeamMember[] = [
     initials: "VM",
     photo: "/team-victor.jpg",
     linkedin: "https://www.linkedin.com/in/vmihai12/",
-    instagram: "#instagram-victor",
   },
 ];
 
