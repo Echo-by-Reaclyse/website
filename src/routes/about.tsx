@@ -319,13 +319,6 @@ function About() {
         and directs attention straight to an honest answer.
       </Section>
 
-      <Section title="Launching in Europe first">
-        Building for GDPR from day one makes privacy structural, not cosmetic. The nine launch
-        markets — France, Germany, Spain, Italy, Luxembourg, Belgium, the Netherlands, Austria,
-        and Switzerland — share a cultural orientation toward privacy that aligns with what ÉCHO
-        is doing. Luxembourg as home base puts us inside the jurisdiction that sets the standards
-        we build to.
-      </Section>
     </InnerPage>
   );
 }
