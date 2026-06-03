@@ -2505,11 +2505,11 @@ function HeroSection() {
         className="relative z-10 w-full lg:w-auto lg:flex-none"
       >
         <div style={{
-          width: "min(580px, 100%)",
+          width: "min(680px, 100%)",
           paddingTop: 130,
           paddingBottom: 90,
-          paddingLeft: "max(40px, min(6vw, 96px))",
-          paddingRight: "max(40px, min(4vw, 60px))",
+          paddingLeft: "max(48px, min(7vw, 180px))",
+          paddingRight: "max(32px, min(4vw, 64px))",
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
@@ -2564,8 +2564,8 @@ function HeroSection() {
         </div>
       </motion.div>
 
-      {/* Desktop right panel — fills from 580px mark to right screen edge */}
-      <div className="hidden lg:block" style={{ position: "absolute", top: 0, bottom: 0, right: 0, left: "min(580px, 50%)", zIndex: 5 }}>
+      {/* Desktop right panel — fills from 680px mark to right screen edge */}
+      <div className="hidden lg:block" style={{ position: "absolute", top: 0, bottom: 0, right: 0, left: "min(680px, 50%)", zIndex: 5 }}>
         <HeroVisual bg={C.bg} scrollYProgress={scrollYProgress} />
       </div>
 
