@@ -55,6 +55,30 @@ function Contact() {
           reaclyse.com
         </a>
       </Section>
+
+      <Section title="Press & media">
+        Journalists covering wellness, productivity, privacy, or European tech are welcome to
+        reach out. We can provide screenshots, app description, founder bio, technical architecture
+        details, and access to the app for review. We're also happy to speak on the record about
+        the business model, privacy architecture, or the broader voice journaling space. Email{" "}
+        <a href="mailto:hello@reaclyse.com" className="text-ember transition hover:opacity-75">
+          hello@reaclyse.com
+        </a>{" "}
+        with "Press" in the subject line. We respond to press enquiries within 24 hours.
+      </Section>
+
+      <Section title="Partnerships">
+        We're open to partnerships with wellness apps, therapists, executive coaches, and
+        productivity platforms whose values align with privacy and long-term self-understanding.
+        If you're building something that could benefit from ÉCHO's longitudinal insight layer —
+        or if you work with clients who would benefit from structured daily reflection — let's
+        talk. We're particularly interested in integrations that preserve the privacy-first
+        principle and add genuine value for users, not just distribution. Email{" "}
+        <a href="mailto:hello@reaclyse.com" className="text-ember transition hover:opacity-75">
+          hello@reaclyse.com
+        </a>{" "}
+        with "Partnership" in the subject line.
+      </Section>
     </InnerPage>
   );
 }

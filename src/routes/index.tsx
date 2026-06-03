@@ -3496,6 +3496,23 @@ function FAQSection() {
           </motion.div>
         ))}
       </motion.dl>
+      <div style={{ textAlign: "center", marginTop: 32 }}>
+        <Link
+          to="/faq"
+          style={{
+            fontFamily: C.sans,
+            fontSize: 14,
+            color: C.ember,
+            opacity: 0.8,
+            textDecoration: "none",
+            transition: "opacity 0.2s",
+          }}
+          onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = "1"; }}
+          onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = "0.8"; }}
+        >
+          See all questions →
+        </Link>
+      </div>
     </section>
   );
 }
