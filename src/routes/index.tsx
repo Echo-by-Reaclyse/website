@@ -1724,6 +1724,22 @@ function Nav() {
           >
             Waitlist
           </button>
+          <Link
+            to="/blog"
+            style={{
+              fontSize: 11,
+              textTransform: "uppercase",
+              letterSpacing: "0.2em",
+              color: C.muted,
+              textDecoration: "none",
+              fontFamily: C.sans,
+              transition: "color 0.2s",
+            }}
+            onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = C.ember)}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = C.muted)}
+          >
+            Blog
+          </Link>
           <SharedThemeToggle />
         </div>
 
@@ -1807,6 +1823,24 @@ function Nav() {
           >
             Waitlist
           </button>
+          <Link
+            to="/blog"
+            onClick={() => setMenuOpen(false)}
+            style={{
+              display: "block",
+              width: "100%",
+              fontSize: 12,
+              textTransform: "uppercase",
+              letterSpacing: "0.2em",
+              color: C.muted,
+              textDecoration: "none",
+              borderBottom: `1px solid ${C.border}`,
+              fontFamily: C.sans,
+              padding: "14px 0",
+            }}
+          >
+            Blog
+          </Link>
           <div
             style={{
               display: "flex",
@@ -3713,6 +3747,7 @@ function Footer() {
           }}
         >
           {[
+            { label: "Blog", to: "/blog" as const },
             { label: "Privacy", to: "/privacy" as const },
             { label: "GDPR", to: "/gdpr" as const },
             { label: "Support", to: "/support" as const },
