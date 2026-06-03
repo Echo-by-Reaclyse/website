@@ -1,9 +1,238 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { Linkedin, Instagram } from "lucide-react";
 import { InnerPage, Section } from "@/components/InnerPage";
 
 export const Route = createFileRoute("/about")({
   component: About,
 });
+
+// ── Team ──────────────────────────────────────────────────────
+interface TeamMember {
+  name: string;
+  role: string;
+  initials: string;
+  photo: string;
+  linkedin: string;
+  instagram?: string;
+}
+
+const TEAM: TeamMember[] = [
+  {
+    name: "Roksana Skubis",
+    role: "Chief Executive Officer",
+    initials: "RS",
+    photo: "/team-roksana.jpg",
+    linkedin: "https://www.linkedin.com/in/roksana-skubis-b663101b2/",
+  },
+  {
+    name: "Victor Mihaita",
+    role: "Chief Technology Officer",
+    initials: "VM",
+    photo: "/team-victor.jpg",
+    linkedin: "https://www.linkedin.com/in/vmihai12/",
+    instagram: "#instagram-victor",
+  },
+];
+
+function TeamCard({ member }: { member: TeamMember }) {
+  const [imgFailed, setImgFailed] = useState(false);
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        padding: "2rem 1.5rem 1.75rem",
+        borderRadius: "1.25rem",
+        border: "1px solid rgba(191,96,64,0.18)",
+        background: "var(--team-card-bg)",
+        gap: "1rem",
+        transition: "border-color 0.2s, transform 0.2s",
+      }}
+      className="team-card"
+    >
+      {/* Portrait */}
+      <div
+        style={{
+          width: 140,
+          height: 168,
+          borderRadius: "0.875rem",
+          overflow: "hidden",
+          flexShrink: 0,
+          border: "2px solid rgba(191,96,64,0.22)",
+          background: "rgba(191,96,64,0.08)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {!imgFailed ? (
+          <img
+            src={member.photo}
+            alt={member.name}
+            onError={() => setImgFailed(true)}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center top",
+              display: "block",
+            }}
+          />
+        ) : (
+          <span
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "2rem",
+              color: "#BF6040",
+              userSelect: "none",
+            }}
+          >
+            {member.initials}
+          </span>
+        )}
+      </div>
+
+      {/* Name & role */}
+      <div style={{ textAlign: "center" }}>
+        <p
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "1.35rem",
+            lineHeight: 1.2,
+            color: "var(--ink)",
+          }}
+        >
+          {member.name}
+        </p>
+        <p
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: "0.78rem",
+            fontWeight: 500,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            color: "#BF6040",
+            marginTop: "0.35rem",
+          }}
+        >
+          {member.role}
+        </p>
+      </div>
+
+      {/* Social links */}
+      <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.25rem" }}>
+        <a
+          href={member.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${member.name} on LinkedIn`}
+          className="social-icon-link"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 36,
+            height: 36,
+            borderRadius: "50%",
+            border: "1px solid rgba(191,96,64,0.25)",
+            color: "var(--muted-foreground)",
+            transition: "color 0.18s, border-color 0.18s, background 0.18s",
+            background: "transparent",
+          }}
+        >
+          <Linkedin size={15} strokeWidth={1.75} />
+        </a>
+        {member.instagram && (
+          <a
+            href={member.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${member.name} on Instagram`}
+            className="social-icon-link"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: 36,
+              height: 36,
+              borderRadius: "50%",
+              border: "1px solid rgba(191,96,64,0.25)",
+              color: "var(--muted-foreground)",
+              transition: "color 0.18s, border-color 0.18s, background 0.18s",
+              background: "transparent",
+            }}
+          >
+            <Instagram size={15} strokeWidth={1.75} />
+          </a>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function TeamSection() {
+  return (
+    <section style={{ marginBottom: "0.5rem" }}>
+      <style>{`
+        :root {
+          --team-card-bg: rgba(191,96,64,0.04);
+        }
+        .dark .team-card, :is(.dark *) .team-card {
+          --team-card-bg: rgba(191,96,64,0.06);
+        }
+        .team-card:hover {
+          border-color: rgba(191,96,64,0.38) !important;
+          transform: translateY(-2px);
+        }
+        .social-icon-link:hover {
+          color: #BF6040 !important;
+          border-color: rgba(191,96,64,0.55) !important;
+          background: rgba(191,96,64,0.08) !important;
+        }
+      `}</style>
+
+      <h2
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "1.5rem",
+          color: "var(--ink)",
+          marginBottom: "1.25rem",
+        }}
+      >
+        The team
+      </h2>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+          gap: "1.25rem",
+          maxWidth: 520,
+        }}
+      >
+        {TEAM.map((m) => (
+          <TeamCard key={m.name} member={m} />
+        ))}
+      </div>
+
+      <p
+        style={{
+          fontFamily: "var(--font-sans)",
+          fontSize: "0.78rem",
+          color: "var(--muted-foreground)",
+          marginTop: "1rem",
+          opacity: 0.7,
+          letterSpacing: "0.01em",
+        }}
+      >
+        Mentors & advisors coming soon.
+      </p>
+    </section>
+  );
+}
 
 function About() {
   return (
@@ -38,6 +267,8 @@ function About() {
           }),
         }}
       />
+
+      <TeamSection />
 
       <Section title="What is ÉCHO?">
         ÉCHO is a private voice journal for iPhone. Every day, one question appears. You speak.
