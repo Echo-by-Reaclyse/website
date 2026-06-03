@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { QueryClient } from "@tanstack/react-query";
 import { Link, Outlet, createRootRouteWithContext, useRouterState } from "@tanstack/react-router";
+import { trackPageView } from "@/lib/pixel";
 
 function NotFoundComponent() {
   return (
@@ -27,9 +28,7 @@ function NotFoundComponent() {
 function MetaPixelPageView() {
   const { location } = useRouterState();
   useEffect(() => {
-    if (typeof window.fbq === "function") {
-      window.fbq("track", "PageView");
-    }
+    trackPageView();
   }, [location.pathname]);
   return null;
 }

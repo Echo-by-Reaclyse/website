@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { Link } from "@tanstack/react-router";
 import { Checkbox } from "@/components/ui/checkbox";
 import { AnimatePresence, motion } from "framer-motion";
+import { trackLead } from "@/lib/pixel";
 
 const emailSchema = z.string().trim().toLowerCase().email("Invalid email address");
 
@@ -49,6 +50,7 @@ export function WaitlistForm({ variant = "hero" }: { variant?: "hero" | "footer"
         const body = await res.json().catch(() => ({}));
         throw new Error((body as { error?: string }).error ?? "Something went wrong.");
       }
+      trackLead(parsed.data);
       setDone(true);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong.");
