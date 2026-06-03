@@ -1637,51 +1637,26 @@ function Nav() {
         }}
       >
         {/* Logo */}
-        <div style={{ display: "flex", alignItems: "flex-end", gap: 10, position: "relative" }}>
-          {/* Full wordmark — fades out on mobile when scrolled */}
-          <div
+        <div style={{ display: "flex", alignItems: "flex-end", gap: 10 }}>
+          <img
+            src="/logo-main.svg"
+            alt="ÉCHO"
+            style={{ height: 22, width: "auto", opacity: 0.92 }}
+          />
+          <span
             style={{
-              display: "flex",
-              alignItems: "flex-end",
-              gap: 10,
-              opacity: isMobile && scrolled ? 0 : 1,
+              fontSize: 11,
+              textTransform: "uppercase",
+              letterSpacing: "0.18em",
+              color: C.muted,
+              fontFamily: C.sans,
+              paddingBottom: 2,
+              opacity: scrolled ? 0 : 1,
               transition: "opacity 0.25s",
-              pointerEvents: isMobile && scrolled ? "none" : "auto",
             }}
           >
-            <img
-              src="/logo-main.svg"
-              alt="ÉCHO"
-              style={{ height: 22, width: "auto", opacity: 0.92 }}
-            />
-            <span
-              style={{
-                fontSize: 11,
-                textTransform: "uppercase",
-                letterSpacing: "0.18em",
-                color: C.muted,
-                fontFamily: C.sans,
-                paddingBottom: 2,
-              }}
-            >
-              by Réaclyse
-            </span>
-          </div>
-          {/* Icon-only — fades in on mobile when scrolled */}
-          <div
-            className="sm:hidden"
-            style={{
-              position: "absolute",
-              left: 0,
-              top: "50%",
-              transform: "translateY(-50%)",
-              opacity: scrolled ? 0.85 : 0,
-              transition: "opacity 0.25s",
-              pointerEvents: scrolled ? "auto" : "none",
-            }}
-          >
-            <img src="/logo.svg" alt="ÉCHO" style={{ height: 24, width: "auto" }} />
-          </div>
+            by Réaclyse
+          </span>
         </div>
 
         {/* Desktop nav — hidden on mobile */}
