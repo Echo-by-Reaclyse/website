@@ -13,7 +13,7 @@ function Privacy() {
         name="description"
         content="ÉCHO privacy policy. Your voice recordings and transcripts are encrypted and never used to train AI models. GDPR-compliant. Built by Réaclyse, Luxembourg."
       />
-      <link rel="canonical" href="https://echobyreaclyse.com/privacy" />
+      <link rel="canonical" href="https://www.echobyreaclyse.com/privacy" />
       <meta name="robots" content="noindex, follow" />
 
       <Section title="Data controller">

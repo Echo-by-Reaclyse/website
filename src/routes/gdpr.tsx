@@ -16,7 +16,7 @@ function GDPRPage() {
         name="description"
         content="ÉCHO's internal regulations on personal data management, in accordance with GDPR (EU) 2016/679. How we collect, process, and protect your data."
       />
-      <link rel="canonical" href="https://echobyreaclyse.com/gdpr" />
+      <link rel="canonical" href="https://www.echobyreaclyse.com/gdpr" />
       <meta name="robots" content="noindex, follow" />
 
       {/* ── Notice ── */}

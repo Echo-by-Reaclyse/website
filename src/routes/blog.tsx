@@ -17,21 +17,21 @@ function BlogIndex() {
         name="description"
         content="Articles on voice journaling, daily reflection, building better habits, and long-term self-understanding. By the team behind ÉCHO."
       />
-      <link rel="canonical" href="https://echobyreaclyse.com/blog" />
+      <link rel="canonical" href="https://www.echobyreaclyse.com/blog" />
       <meta property="og:title" content="The ÉCHO Journal — Voice Journaling Articles" />
       <meta
         property="og:description"
         content="Articles on voice journaling, daily reflection, building better habits, and long-term self-understanding. By the team behind ÉCHO."
       />
-      <meta property="og:url" content="https://echobyreaclyse.com/blog" />
-      <meta property="og:image" content="https://echobyreaclyse.com/og-image.png" />
+      <meta property="og:url" content="https://www.echobyreaclyse.com/blog" />
+      <meta property="og:image" content="https://www.echobyreaclyse.com/og-image.png" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="The ÉCHO Journal — Voice Journaling Articles" />
       <meta
         name="twitter:description"
         content="Articles on voice journaling, daily reflection, building better habits, and long-term self-understanding. By the team behind ÉCHO."
       />
-      <meta name="twitter:image" content="https://echobyreaclyse.com/og-image.png" />
+      <meta name="twitter:image" content="https://www.echobyreaclyse.com/og-image.png" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -43,13 +43,13 @@ function BlogIndex() {
                 "@type": "ListItem",
                 position: 1,
                 name: "Home",
-                item: "https://echobyreaclyse.com/",
+                item: "https://www.echobyreaclyse.com/",
               },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: "Blog",
-                item: "https://echobyreaclyse.com/blog",
+                item: "https://www.echobyreaclyse.com/blog",
               },
             ],
           }),

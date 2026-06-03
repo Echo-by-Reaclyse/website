@@ -18,15 +18,15 @@ function BlogPost() {
     <InnerPage title={post.title} subtitle={`${post.date} · ${post.readingTime}`}>
       <title>{post.title} — ÉCHO Journal</title>
       <meta name="description" content={post.description} />
-      <link rel="canonical" href={`https://echobyreaclyse.com/blog/${post.slug}`} />
+      <link rel="canonical" href={`https://www.echobyreaclyse.com/blog/${post.slug}`} />
       <meta property="og:title" content={`${post.title} — ÉCHO Journal`} />
       <meta property="og:description" content={post.description} />
-      <meta property="og:url" content={`https://echobyreaclyse.com/blog/${post.slug}`} />
-      <meta property="og:image" content="https://echobyreaclyse.com/og-image.png" />
+      <meta property="og:url" content={`https://www.echobyreaclyse.com/blog/${post.slug}`} />
+      <meta property="og:image" content="https://www.echobyreaclyse.com/og-image.png" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={`${post.title} — ÉCHO Journal`} />
       <meta name="twitter:description" content={post.description} />
-      <meta name="twitter:image" content="https://echobyreaclyse.com/og-image.png" />
+      <meta name="twitter:image" content="https://www.echobyreaclyse.com/og-image.png" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -46,7 +46,7 @@ function BlogPost() {
               name: "Réaclyse",
               url: "https://reaclyse.com",
             },
-            url: `https://echobyreaclyse.com/blog/${post.slug}`,
+            url: `https://www.echobyreaclyse.com/blog/${post.slug}`,
           }),
         }}
       />
@@ -61,19 +61,19 @@ function BlogPost() {
                 "@type": "ListItem",
                 position: 1,
                 name: "Home",
-                item: "https://echobyreaclyse.com/",
+                item: "https://www.echobyreaclyse.com/",
               },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: "Blog",
-                item: "https://echobyreaclyse.com/blog",
+                item: "https://www.echobyreaclyse.com/blog",
               },
               {
                 "@type": "ListItem",
                 position: 3,
                 name: post.title,
-                item: `https://echobyreaclyse.com/blog/${post.slug}`,
+                item: `https://www.echobyreaclyse.com/blog/${post.slug}`,
               },
             ],
           }),

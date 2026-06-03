@@ -103,8 +103,8 @@ function FAQ() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://echobyreaclyse.com/" },
-      { "@type": "ListItem", position: 2, name: "FAQ", item: "https://echobyreaclyse.com/faq" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.echobyreaclyse.com/" },
+      { "@type": "ListItem", position: 2, name: "FAQ", item: "https://www.echobyreaclyse.com/faq" },
     ],
   };
 
@@ -131,21 +131,21 @@ function FAQ() {
         name="description"
         content="Answers to common questions about ÉCHO: how it works, privacy, pricing, iCloud sync, time capsules, and more."
       />
-      <link rel="canonical" href="https://echobyreaclyse.com/faq" />
+      <link rel="canonical" href="https://www.echobyreaclyse.com/faq" />
       <meta property="og:title" content="FAQ — ÉCHO Voice Journal" />
       <meta
         property="og:description"
         content="Everything you need to know about ÉCHO — the private voice journal for iPhone."
       />
-      <meta property="og:url" content="https://echobyreaclyse.com/faq" />
-      <meta property="og:image" content="https://echobyreaclyse.com/og-image.png" />
+      <meta property="og:url" content="https://www.echobyreaclyse.com/faq" />
+      <meta property="og:image" content="https://www.echobyreaclyse.com/og-image.png" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="FAQ — ÉCHO Voice Journal" />
       <meta
         name="twitter:description"
         content="Everything you need to know about ÉCHO — the private voice journal for iPhone."
       />
-      <meta name="twitter:image" content="https://echobyreaclyse.com/og-image.png" />
+      <meta name="twitter:image" content="https://www.echobyreaclyse.com/og-image.png" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}

@@ -13,18 +13,18 @@ function Support() {
         name="description"
         content="Get help with ÉCHO, the private voice journal for iPhone. Questions about recordings, transcription, your subscription, data export, or your account? We respond within one business day."
       />
-      <link rel="canonical" href="https://echobyreaclyse.com/support" />
+      <link rel="canonical" href="https://www.echobyreaclyse.com/support" />
       <meta property="og:title" content="Help & Support — ÉCHO Voice Journal" />
       <meta
         property="og:description"
         content="Get help with ÉCHO. Questions about recordings, your account, or subscription? We respond within one business day."
       />
-      <meta property="og:url" content="https://echobyreaclyse.com/support" />
-      <meta property="og:image" content="https://echobyreaclyse.com/og-image.png" />
+      <meta property="og:url" content="https://www.echobyreaclyse.com/support" />
+      <meta property="og:image" content="https://www.echobyreaclyse.com/og-image.png" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="Help & Support — ÉCHO Voice Journal" />
       <meta name="twitter:description" content="Get help with ÉCHO. Questions about recordings, your account, or subscription? We respond within one business day." />
-      <meta name="twitter:image" content="https://echobyreaclyse.com/og-image.png" />
+      <meta name="twitter:image" content="https://www.echobyreaclyse.com/og-image.png" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -32,8 +32,8 @@ function Support() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Home", item: "https://echobyreaclyse.com/" },
-              { "@type": "ListItem", position: 2, name: "Support", item: "https://echobyreaclyse.com/support" },
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://www.echobyreaclyse.com/" },
+              { "@type": "ListItem", position: 2, name: "Support", item: "https://www.echobyreaclyse.com/support" },
             ],
           }),
         }}

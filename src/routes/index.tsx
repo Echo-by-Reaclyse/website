@@ -3781,7 +3781,7 @@ function Landing() {
           name="description"
           content="ÉCHO is a private voice journal for iPhone. One question a day, your voice recorded and encrypted on-device. Weeks later, ÉCHO surfaces what you said before the doubt set in. Launching on iOS in Europe 2026."
         />
-        <link rel="canonical" href="https://echobyreaclyse.com/" />
+        <link rel="canonical" href="https://www.echobyreaclyse.com/" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

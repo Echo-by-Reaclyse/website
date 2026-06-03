@@ -13,18 +13,18 @@ function About() {
         name="description"
         content="ÉCHO is a private voice journal for iPhone, built by Réaclyse in Luxembourg. Learn how we built a privacy-first journaling app for reflective adults across Europe."
       />
-      <link rel="canonical" href="https://echobyreaclyse.com/about" />
+      <link rel="canonical" href="https://www.echobyreaclyse.com/about" />
       <meta property="og:title" content="About ÉCHO — Private Voice Journal | Réaclyse" />
       <meta
         property="og:description"
         content="ÉCHO is a private voice journal for iPhone built by Réaclyse in Luxembourg. Privacy-first journaling for reflective adults."
       />
-      <meta property="og:url" content="https://echobyreaclyse.com/about" />
-      <meta property="og:image" content="https://echobyreaclyse.com/og-image.png" />
+      <meta property="og:url" content="https://www.echobyreaclyse.com/about" />
+      <meta property="og:image" content="https://www.echobyreaclyse.com/og-image.png" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="About ÉCHO — Private Voice Journal | Réaclyse" />
       <meta name="twitter:description" content="ÉCHO is a private voice journal for iPhone built by Réaclyse in Luxembourg. Privacy-first journaling for reflective adults." />
-      <meta name="twitter:image" content="https://echobyreaclyse.com/og-image.png" />
+      <meta name="twitter:image" content="https://www.echobyreaclyse.com/og-image.png" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -32,8 +32,8 @@ function About() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Home", item: "https://echobyreaclyse.com/" },
-              { "@type": "ListItem", position: 2, name: "About", item: "https://echobyreaclyse.com/about" },
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://www.echobyreaclyse.com/" },
+              { "@type": "ListItem", position: 2, name: "About", item: "https://www.echobyreaclyse.com/about" },
             ],
           }),
         }}
