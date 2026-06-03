@@ -46,7 +46,12 @@ function AdminLayout() {
 
   // Login page renders standalone — no sidebar chrome
   if (pathname === "/admin/login") {
-    return <Outlet />;
+    return (
+      <>
+        <meta name="robots" content="noindex, nofollow" />
+        <Outlet />
+      </>
+    );
   }
 
   function handleLogout() {
@@ -56,6 +61,8 @@ function AdminLayout() {
   }
 
   return (
+    <>
+    <meta name="robots" content="noindex, nofollow" />
     <SidebarProvider>
       {/* ── Sidebar (fixed on desktop, Sheet on mobile) ───────────────────── */}
       <Sidebar collapsible="offcanvas">
@@ -126,5 +133,6 @@ function AdminLayout() {
         </div>
       </SidebarInset>
     </SidebarProvider>
+    </>
   );
 }
