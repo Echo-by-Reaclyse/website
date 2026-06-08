@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { SUPPORTED_LANGUAGES } from "@/lib/localization";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
@@ -60,6 +61,7 @@ interface CategoryFormValues {
   slug: string;
   description: string;
   is_active: boolean;
+  translations: Record<string, string>;
 }
 
 // ── Page ──────────────────────────────────────────────────────────────────────
@@ -87,6 +89,7 @@ function CategoriesPage() {
         slug: data.slug,
         description: data.description || null,
         is_active: data.is_active,
+        translations: data.translations,
       }),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: ["admin", "categories"] });
@@ -104,6 +107,7 @@ function CategoriesPage() {
         slug: data.slug,
         description: data.description || null,
         is_active: data.is_active,
+        translations: data.translations,
       }),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: ["admin", "categories"] });
@@ -328,6 +332,7 @@ function CategoriesPage() {
             slug: editTarget.slug,
             description: editTarget.description ?? "",
             is_active: editTarget.is_active,
+            translations: editTarget.translations ?? {},
           }}
           onSubmit={(values) =>
             updateMutation.mutate({ id: editTarget.id, data: values })
@@ -410,11 +415,13 @@ function CategoryDialog({
       slug: "",
       description: "",
       is_active: true,
+      translations: {},
     },
   });
 
   const isActive = watch("is_active");
   const name = watch("name");
+  const [translationsOpen, setTranslationsOpen] = useState(false);
 
   // Auto-derive slug from name when creating (not editing)
   useEffect(() => {
@@ -505,6 +512,38 @@ function CategoryDialog({
               checked={isActive}
               onCheckedChange={(val) => setValue("is_active", val)}
             />
+          </div>
+
+          {/* Translations */}
+          <div className="rounded-lg border">
+            <button
+              type="button"
+              className="flex w-full items-center justify-between px-3 py-2.5 text-sm font-medium"
+              onClick={() => setTranslationsOpen((o) => !o)}
+            >
+              Translations
+              <span className="text-muted-foreground text-xs">
+                {translationsOpen ? "▲" : "▼"}
+              </span>
+            </button>
+            {translationsOpen && (
+              <div className="border-t px-3 py-3 space-y-3">
+                {SUPPORTED_LANGUAGES.map((lang) => (
+                  <div key={lang.code} className="space-y-1">
+                    <Label htmlFor={`cat-trans-${lang.code}`} className="text-xs text-muted-foreground">
+                      {lang.label} — {lang.native}
+                    </Label>
+                    <input
+                      id={`cat-trans-${lang.code}`}
+                      type="text"
+                      placeholder={`Category name in ${lang.label}…`}
+                      className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm placeholder:text-muted-foreground"
+                      {...register(`translations.${lang.code}`)}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <DialogFooter>

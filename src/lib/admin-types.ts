@@ -5,6 +5,7 @@ export interface AdminCategory {
   description: string | null;
   sort_order: number;
   is_active: boolean;
+  translations: Record<string, string>;
   created_at: string;
   updated_at: string;
 }
@@ -17,6 +18,7 @@ export interface AdminQuestion {
   category_name: string;
   sort_order: number;
   is_active: boolean;
+  translations: Record<string, string>;
   created_at: string;
   updated_at: string;
 }
@@ -27,6 +29,7 @@ export interface CreateCategoryData {
   description?: string | null;
   sort_order?: number;
   is_active?: boolean;
+  translations?: Record<string, string>;
 }
 
 export interface UpdateCategoryData {
@@ -35,6 +38,7 @@ export interface UpdateCategoryData {
   description?: string | null;
   sort_order?: number;
   is_active?: boolean;
+  translations?: Record<string, string>;
 }
 
 export interface CreateQuestionData {
@@ -43,6 +47,7 @@ export interface CreateQuestionData {
   category_id: string;
   sort_order?: number;
   is_active?: boolean;
+  translations?: Record<string, string>;
 }
 
 export interface UpdateQuestionData {
@@ -50,6 +55,7 @@ export interface UpdateQuestionData {
   category_id?: string;
   sort_order?: number;
   is_active?: boolean;
+  translations?: Record<string, string>;
 }
 
 export interface ReorderItem {

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { SUPPORTED_LANGUAGES } from "@/lib/localization";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
@@ -65,6 +66,7 @@ interface QuestionFormValues {
   text: string;
   category_id: string;
   is_active: boolean;
+  translations: Record<string, string>;
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -113,6 +115,7 @@ function QuestionsPage() {
         text: data.text,
         category_id: data.category_id,
         is_active: data.is_active,
+        translations: data.translations,
       }),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: ["admin", "questions"] });
@@ -128,6 +131,7 @@ function QuestionsPage() {
         text: data.text,
         category_id: data.category_id,
         is_active: data.is_active,
+        translations: data.translations,
       }),
     onSuccess: () => {
       void qc.invalidateQueries({ queryKey: ["admin", "questions"] });
@@ -368,6 +372,7 @@ function QuestionsPage() {
             text: editTarget.text,
             category_id: editTarget.category_id,
             is_active: editTarget.is_active,
+            translations: editTarget.translations ?? {},
           }}
           onSubmit={(values) =>
             updateMutation.mutate({ id: editTarget.id, data: values })
@@ -449,8 +454,11 @@ function QuestionDialog({
       text: "",
       category_id: "",
       is_active: true,
+      translations: {},
     },
   });
+
+  const [translationsOpen, setTranslationsOpen] = useState(false);
 
   const isActive = watch("is_active");
   const categoryId = watch("category_id");
@@ -527,6 +535,37 @@ function QuestionDialog({
               checked={isActive}
               onCheckedChange={(val) => setValue("is_active", val)}
             />
+          </div>
+
+          {/* Translations */}
+          <div className="rounded-lg border">
+            <button
+              type="button"
+              className="flex w-full items-center justify-between px-3 py-2.5 text-sm font-medium"
+              onClick={() => setTranslationsOpen((o) => !o)}
+            >
+              Translations
+              <span className="text-muted-foreground text-xs">
+                {translationsOpen ? "▲" : "▼"}
+              </span>
+            </button>
+            {translationsOpen && (
+              <div className="border-t px-3 py-3 space-y-3">
+                {SUPPORTED_LANGUAGES.map((lang) => (
+                  <div key={lang.code} className="space-y-1">
+                    <Label htmlFor={`q-trans-${lang.code}`} className="text-xs text-muted-foreground">
+                      {lang.label} — {lang.native}
+                    </Label>
+                    <Textarea
+                      id={`q-trans-${lang.code}`}
+                      rows={2}
+                      placeholder={`Translation in ${lang.label}…`}
+                      {...register(`translations.${lang.code}`)}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <DialogFooter>
