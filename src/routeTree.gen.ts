@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as FindSupportRouteImport } from './routes/find-support'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as GdprRouteImport } from './routes/gdpr'
@@ -26,6 +27,11 @@ import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as AdminFlagsRouteImport } from './routes/admin/flags'
 import { Route as AdminCategoriesRouteImport } from './routes/admin/categories'
 
+const FindSupportRoute = FindSupportRouteImport.update({
+  id: '/find-support',
+  path: '/find-support',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SupportRoute = SupportRouteImport.update({
   id: '/support',
   path: '/support',
@@ -114,6 +120,7 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/find-support': typeof FindSupportRoute
   '/gdpr': typeof GdprRoute
   '/privacy': typeof PrivacyRoute
   '/support': typeof SupportRoute
@@ -130,6 +137,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/find-support': typeof FindSupportRoute
   '/gdpr': typeof GdprRoute
   '/privacy': typeof PrivacyRoute
   '/support': typeof SupportRoute
@@ -149,6 +157,7 @@ export interface FileRoutesById {
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/find-support': typeof FindSupportRoute
   '/gdpr': typeof GdprRoute
   '/privacy': typeof PrivacyRoute
   '/support': typeof SupportRoute
@@ -169,6 +178,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/faq'
+    | '/find-support'
     | '/gdpr'
     | '/privacy'
     | '/support'
@@ -185,6 +195,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/faq'
+    | '/find-support'
     | '/gdpr'
     | '/privacy'
     | '/support'
@@ -203,6 +214,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/faq'
+    | '/find-support'
     | '/gdpr'
     | '/privacy'
     | '/support'
@@ -222,6 +234,7 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
+  FindSupportRoute: typeof FindSupportRoute
   GdprRoute: typeof GdprRoute
   PrivacyRoute: typeof PrivacyRoute
   SupportRoute: typeof SupportRoute
@@ -283,6 +296,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/find-support': {
+      id: '/find-support'
+      path: '/find-support'
+      fullPath: '/find-support'
+      preLoaderRoute: typeof FindSupportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -381,6 +401,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
+  FindSupportRoute: FindSupportRoute,
   GdprRoute: GdprRoute,
   PrivacyRoute: PrivacyRoute,
   SupportRoute: SupportRoute,
