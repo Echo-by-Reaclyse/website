@@ -279,7 +279,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "How much does ÉCHO cost?",
-    a: "ÉCHO is free to download and use every day. A subscription unlocks your full journal history, deeper personal insights, and unlimited time capsules. Plans start at €7.99 / month or €69 / year. Waitlist members get a founding-member offer at launch.",
+    a: "ÉCHO is free to download and use every day. A subscription unlocks your full journal history, deeper personal insights, and unlimited time capsules. Plans start at $7.99 / month or $69.99 / year. Waitlist members get a founding-member offer at launch.",
   },
   {
     q: "Do I need to write anything?",
@@ -3311,11 +3311,11 @@ function PricingSection() {
             <span style={{ marginLeft: 8, fontSize: 10, textTransform: "uppercase", letterSpacing: "0.16em", color: C.ember, fontFamily: C.sans, fontWeight: 700 }}>Founding price</span>
           </div>
           <div style={{ marginBottom: 6 }}>
-            <span style={{ fontFamily: C.serif, fontSize: "clamp(2.4rem, 5vw, 3.2rem)", color: C.ember, letterSpacing: "-0.02em" }}>€7.99</span>
+            <span style={{ fontFamily: C.serif, fontSize: "clamp(2.4rem, 5vw, 3.2rem)", color: C.ember, letterSpacing: "-0.02em" }}>$7.99</span>
             <span style={{ fontSize: 15, color: C.muted, fontFamily: C.sans, marginLeft: 6 }}>/ mo</span>
           </div>
           <p style={{ fontSize: 12, color: C.muted, fontFamily: C.sans, marginBottom: 32 }}>
-            or €69 / year · 7-day free trial · Early adopters only
+            or $69.99 / year · 7-day free trial · Early adopters only
           </p>
 
           <ul style={{ display: "flex", flexDirection: "column", gap: 12, flex: 1, marginBottom: 32 }}>
