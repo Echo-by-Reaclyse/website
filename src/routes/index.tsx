@@ -279,7 +279,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "How much does ÉCHO cost?",
-    a: "ÉCHO is free to download and use every day. A subscription unlocks your full journal history, deeper personal insights, and unlimited time capsules. Plans start at $7.99 / month or $69.99 / year. Waitlist members get a founding-member offer at launch.",
+    a: "ÉCHO is free to download and use every day. A subscription unlocks your full journal history, deeper personal insights, and unlimited time capsules. Plans start at €7.99 / month or €69.99 / year. Waitlist members get a founding-member offer at launch.",
   },
   {
     q: "Do I need to write anything?",
@@ -2487,12 +2487,9 @@ function HeroSection() {
     target: ref,
     offset: ["start start", "end start"],
   });
-  // Background orb parallax
-  const y1 = useTransform(scrollYProgress, [0, 1], ["0%", "-40%"]);
-  const y2 = useTransform(scrollYProgress, [0, 1], ["0%", "-22%"]);
-  // Left-column text lifts slightly as you scroll out (creates depth)
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-12%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-14%"]);
   const textO = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
+  const imgO  = useTransform(scrollYProgress, [0, 0.68], [1, 0]);
   const scrollCueO = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
 
   return (
@@ -2500,12 +2497,43 @@ function HeroSection() {
       ref={ref}
       style={{ position: "relative", minHeight: "100dvh", overflow: "hidden", display: "flex", alignItems: "center" }}
     >
-      {/* Background orbs */}
-      <motion.div aria-hidden style={{ y: y1, position: "absolute", left: "1%", top: "6%", width: 580, height: 580, pointerEvents: "none", zIndex: 1 }}>
-        <div className="blob-float-1" style={{ width: "100%", height: "100%", borderRadius: "50%", background: "radial-gradient(circle, rgba(191,96,64,0.26), transparent 68%)", filter: "blur(65px)", opacity: isDark ? 0.35 : 0.16 }} />
+      {/* Mobile: right-side panel — mirrors desktop layout */}
+      <motion.div
+        className="block lg:hidden"
+        style={{ opacity: imgO, position: "absolute", top: 0, bottom: 0, right: 0, left: "28%", zIndex: 1, overflow: "hidden" }}
+      >
+        <img
+          src={isDark ? "/hero-dark.png" : "/hero-light.png"}
+          alt=""
+          aria-hidden
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "40% center", display: "block" }}
+        />
+        {/* Left — blend into page */}
+        <div aria-hidden style={{ position: "absolute", inset: 0, background: `linear-gradient(to right, ${C.bg} 0%, ${C.bg} 2%, transparent 50%)`, pointerEvents: "none" }} />
+        {/* Top + bottom bleed */}
+        <div aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: "22%", background: `linear-gradient(to bottom, ${C.bg}, transparent)`, pointerEvents: "none" }} />
+        <div aria-hidden style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "18%", background: `linear-gradient(to top, ${C.bg}, transparent)`, pointerEvents: "none" }} />
       </motion.div>
-      <motion.div aria-hidden style={{ y: y2, position: "absolute", left: "16%", bottom: "4%", width: 400, height: 400, pointerEvents: "none", zIndex: 1 }}>
-        <div className="blob-float-2" style={{ width: "100%", height: "100%", borderRadius: "50%", background: "radial-gradient(circle, rgba(27,77,168,0.38), transparent 68%)", filter: "blur(58px)", opacity: isDark ? 0.26 : 0.12 }} />
+
+      {/* Desktop: right-side panel */}
+      <motion.div
+        className="hidden lg:block"
+        style={{ opacity: imgO, position: "absolute", top: 0, bottom: 0, right: 0, left: "36%", zIndex: 1, overflow: "hidden" }}
+      >
+        <img
+          src={isDark ? "/hero-dark.png" : "/hero-light.png"}
+          alt=""
+          aria-hidden
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% center", display: "block" }}
+        />
+        {/* Left — blend into text column */}
+        <div aria-hidden style={{ position: "absolute", inset: 0, background: `linear-gradient(to right, ${C.bg} 0%, ${C.bg} 2%, transparent 36%)`, pointerEvents: "none" }} />
+        {/* Top */}
+        <div aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: "18%", background: `linear-gradient(to bottom, ${C.bg}, transparent)`, pointerEvents: "none" }} />
+        {/* Bottom */}
+        <div aria-hidden style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "18%", background: `linear-gradient(to top, ${C.bg}, transparent)`, pointerEvents: "none" }} />
+        {/* Right */}
+        <div aria-hidden style={{ position: "absolute", top: 0, right: 0, bottom: 0, width: "10%", background: `linear-gradient(to left, ${C.bg}, transparent)`, pointerEvents: "none" }} />
       </motion.div>
 
       {/* Left content column */}
@@ -2513,70 +2541,139 @@ function HeroSection() {
         style={{ y: textY, opacity: textO }}
         className="relative z-10 w-full lg:w-auto lg:flex-none"
       >
-        <div style={{
-          width: "min(680px, 100%)",
-          paddingTop: 130,
-          paddingBottom: 90,
-          paddingLeft: "max(48px, min(10vw, 260px))",
-          paddingRight: "max(40px, min(8vw, 200px))",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-        }} className="max-lg:items-center max-lg:text-center max-lg:!px-6 max-lg:!w-full max-lg:max-w-lg max-lg:mx-auto max-lg:!pt-[72px]">
+        <div
+          style={{
+            width: "min(660px, 100%)",
+            paddingTop: 130,
+            paddingBottom: 90,
+            paddingLeft: "max(48px, min(10vw, 260px))",
+            paddingRight: "max(40px, min(8vw, 200px))",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+          }}
+          className="max-lg:items-center max-lg:text-center max-lg:!px-6 max-lg:!w-full max-lg:max-w-lg max-lg:mx-auto max-lg:!pt-[72px]"
+        >
 
           {/* Badge */}
           <div className="hero-badge" style={{ marginBottom: 32 }}>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 18px", borderRadius: 999, border: `1px solid ${isDark ? "rgba(255,228,184,0.2)" : "rgba(191,96,64,0.28)"}`, background: isDark ? "rgba(255,228,184,0.05)" : "rgba(191,96,64,0.06)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.2em", color: C.muted, fontFamily: C.sans }}>
+            <span style={{
+              display: "inline-flex", alignItems: "center", gap: 8,
+              padding: "6px 18px", borderRadius: 999,
+              border: `1px solid ${isDark ? "rgba(255,228,184,0.2)" : "rgba(191,96,64,0.28)"}`,
+              background: isDark ? "rgba(255,228,184,0.05)" : "rgba(191,96,64,0.06)",
+              fontSize: 11, textTransform: "uppercase" as const, letterSpacing: "0.2em",
+              color: C.muted, fontFamily: C.sans,
+            }}>
               <span className="badge-dot" style={{ width: 7, height: 7, borderRadius: "50%", background: C.ember, display: "inline-block" }} />
-              European launch — iOS 2026
+              European launch — 2026
             </span>
           </div>
 
-          {/* Headline */}
-          <h1 style={{ fontFamily: C.serif, fontSize: "clamp(3.2rem, 6.5vw, 5.6rem)", letterSpacing: "0", lineHeight: 0.94, marginBottom: 28 }}>
-            <span className="block" style={{ overflow: "hidden", paddingBottom: "0.12em" }}>
-              {"The journal".split(" ").map((word, i) => (
-                <span key={word} className="hero-word" style={{ color: C.cream, display: "inline-block", marginRight: "0.22em", animationDelay: `${0.14 + i * 0.08}s` }}>{word}</span>
-              ))}
-            </span>
-            <span className="block" style={{ overflow: "hidden" }}>
-              <span className="hero-word" style={{ color: C.cream, display: "inline-block", marginRight: "0.22em", animationDelay: "0.30s" }}>that</span>
-              <span className="hero-word" style={{ color: C.ember, fontStyle: "italic", display: "inline-block", animationDelay: "0.38s" }}>listens.</span>
-            </span>
-          </h1>
-
-          {/* Subtext */}
-          <p className="hero-fade" style={{ fontFamily: C.sans, fontSize: "clamp(0.95rem, 1.4vw, 1.08rem)", color: C.muted, maxWidth: 400, lineHeight: 1.75, marginBottom: 36, animationDelay: "0.55s" }}>
-            One question a day. Your voice, encrypted on your iPhone.
-            Returned to you when you need it most.
+          {/* ÉCHO wordmark */}
+          <p
+            className="hero-fade"
+            style={{
+              fontFamily: C.serif,
+              fontSize: "clamp(0.9rem, 1.5vw, 1.05rem)",
+              letterSpacing: "0.46em",
+              textTransform: "uppercase" as const,
+              color: C.ember,
+              marginBottom: 16,
+              animationDelay: "0.10s",
+            }}
+          >
+            ÉCHO
           </p>
 
-          {/* Waitlist form */}
-          <div className="hero-fade w-full" style={{ maxWidth: 440, animationDelay: "0.70s" }}>
-            <WaitlistForm variant="hero" />
-          </div>
+          {/* Short rule */}
+          <div
+            className="hero-fade"
+            style={{
+              width: 28, height: 1.5,
+              background: `linear-gradient(to right, ${C.ember}, transparent)`,
+              marginBottom: 24,
+              animationDelay: "0.20s",
+            }}
+          />
+
+          {/* Main headline */}
+          <h1 style={{
+            fontFamily: C.serif,
+            fontSize: "clamp(3.0rem, 6.2vw, 5.4rem)",
+            letterSpacing: "-0.01em",
+            lineHeight: 0.96,
+            marginBottom: 18,
+          }}>
+            {["You", "already", "know."].map((word, i) => (
+              <span
+                key={i}
+                className="hero-word"
+                style={{
+                  color: C.cream,
+                  display: "inline-block",
+                  marginRight: "0.22em",
+                  animationDelay: `${0.26 + i * 0.07}s`,
+                }}
+              >
+                {word}
+              </span>
+            ))}
+          </h1>
+
+          {/* Italic sub-headline */}
+          <p
+            className="hero-fade"
+            style={{
+              fontFamily: C.serif,
+              fontSize: "clamp(1.2rem, 2.5vw, 1.9rem)",
+              color: C.ember,
+              fontStyle: "italic",
+              lineHeight: 1.2,
+              marginBottom: 34,
+              animationDelay: "0.48s",
+            }}
+          >
+            We return the proof.
+          </p>
+
+          {/* Body */}
+          <p
+            className="hero-fade"
+            style={{
+              fontFamily: C.sans,
+              fontSize: "clamp(0.92rem, 1.32vw, 1.04rem)",
+              color: C.muted,
+              maxWidth: 390,
+              lineHeight: 1.78,
+              marginBottom: 48,
+              animationDelay: "0.60s",
+            }}
+          >
+            One question a day. Your voice, transcribed privately on your iPhone.
+            Weeks later, ÉCHO surfaces what you said — before the doubt set in.
+          </p>
 
           {/* Stats */}
-          <div className="hero-fade" style={{ display: "flex", flexWrap: "wrap", gap: "12px 36px", marginTop: 36, animationDelay: "0.88s" }}>
-            {[{ k: "2026", v: "Launch" }, { k: "iOS 18+", v: "Platform" }, { k: "Global", v: "Europe first" }].map(({ k, v }) => (
+          <div
+            className="hero-fade"
+            style={{ display: "flex", flexWrap: "wrap", gap: "12px 36px", animationDelay: "0.76s" }}
+          >
+            {[
+              { k: "2026", v: "Launch" },
+              { k: "Europe first", v: "9 countries" },
+              { k: "On-device", v: "Transcription" },
+            ].map(({ k, v }) => (
               <div key={k}>
-                <p style={{ fontFamily: C.serif, fontSize: 18, color: C.cream, letterSpacing: "0" }}>{k}</p>
-                <p style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.18em", color: C.muted, fontFamily: C.sans, marginTop: 2 }}>{v}</p>
+                <p style={{ fontFamily: C.serif, fontSize: 18, color: C.cream }}>{k}</p>
+                <p style={{ fontSize: 10, textTransform: "uppercase" as const, letterSpacing: "0.18em", color: C.muted, fontFamily: C.sans, marginTop: 2 }}>{v}</p>
               </div>
             ))}
           </div>
 
-          {/* Mobile visual — shown only below lg */}
-          <div className="block lg:hidden hero-fade w-full mt-12 pb-6" style={{ animationDelay: "1.0s" }}>
-            <HeroVisualMobile />
-          </div>
-        </div>
-      </motion.div>
 
-      {/* Desktop right panel — fills from 680px mark to right screen edge */}
-      <div className="hidden lg:block" style={{ position: "absolute", top: 0, bottom: 0, right: 0, left: "min(680px, 50%)", zIndex: 5 }}>
-        <HeroVisual bg={C.bg} scrollYProgress={scrollYProgress} />
-      </div>
+</div>
+      </motion.div>
 
       {/* Scroll cue */}
       <motion.div
@@ -3311,11 +3408,11 @@ function PricingSection() {
             <span style={{ marginLeft: 8, fontSize: 10, textTransform: "uppercase", letterSpacing: "0.16em", color: C.ember, fontFamily: C.sans, fontWeight: 700 }}>Founding price</span>
           </div>
           <div style={{ marginBottom: 6 }}>
-            <span style={{ fontFamily: C.serif, fontSize: "clamp(2.4rem, 5vw, 3.2rem)", color: C.ember, letterSpacing: "-0.02em" }}>$7.99</span>
+            <span style={{ fontFamily: C.serif, fontSize: "clamp(2.4rem, 5vw, 3.2rem)", color: C.ember, letterSpacing: "-0.02em" }}>€7.99</span>
             <span style={{ fontSize: 15, color: C.muted, fontFamily: C.sans, marginLeft: 6 }}>/ mo</span>
           </div>
           <p style={{ fontSize: 12, color: C.muted, fontFamily: C.sans, marginBottom: 32 }}>
-            or $69.99 / year · 7-day free trial · Early adopters only
+            or €69.99 / year · 7-day free trial · Early adopters only
           </p>
 
           <ul style={{ display: "flex", flexDirection: "column", gap: 12, flex: 1, marginBottom: 32 }}>

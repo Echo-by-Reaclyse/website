@@ -9,10 +9,10 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as FindSupportRouteImport } from './routes/find-support'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as GdprRouteImport } from './routes/gdpr'
+import { Route as FindSupportRouteImport } from './routes/find-support'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
@@ -27,11 +27,6 @@ import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as AdminFlagsRouteImport } from './routes/admin/flags'
 import { Route as AdminCategoriesRouteImport } from './routes/admin/categories'
 
-const FindSupportRoute = FindSupportRouteImport.update({
-  id: '/find-support',
-  path: '/find-support',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SupportRoute = SupportRouteImport.update({
   id: '/support',
   path: '/support',
@@ -45,6 +40,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const GdprRoute = GdprRouteImport.update({
   id: '/gdpr',
   path: '/gdpr',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FindSupportRoute = FindSupportRouteImport.update({
+  id: '/find-support',
+  path: '/find-support',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -263,6 +263,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GdprRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/find-support': {
+      id: '/find-support'
+      path: '/find-support'
+      fullPath: '/find-support'
+      preLoaderRoute: typeof FindSupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/faq': {
       id: '/faq'
       path: '/faq'
@@ -296,13 +303,6 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/find-support': {
-      id: '/find-support'
-      path: '/find-support'
-      fullPath: '/find-support'
-      preLoaderRoute: typeof FindSupportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
