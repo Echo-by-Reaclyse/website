@@ -2543,11 +2543,11 @@ function HeroSection() {
       >
         <div
           style={{
-            width: "min(660px, 100%)",
+            width: "min(840px, 100%)",
             paddingTop: 130,
             paddingBottom: 90,
-            paddingLeft: "max(48px, min(10vw, 260px))",
-            paddingRight: "max(40px, min(8vw, 200px))",
+            paddingLeft: "max(48px, min(8vw, 110px))",
+            paddingRight: "48px",
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-start",
@@ -2571,13 +2571,16 @@ function HeroSection() {
           </div>
 
           {/* Main headline */}
-          <h1 style={{
-            fontFamily: C.serif,
-            fontSize: "clamp(3.0rem, 6.2vw, 5.4rem)",
-            letterSpacing: "-0.01em",
-            lineHeight: 0.96,
-            marginBottom: 14,
-          }}>
+          <h1
+            className="lg:whitespace-nowrap"
+            style={{
+              fontFamily: C.serif,
+              fontSize: "clamp(2.6rem, 5.2vw, 4.4rem)",
+              letterSpacing: "-0.01em",
+              lineHeight: 1,
+              marginBottom: 14,
+            }}
+          >
             {["You", "already", "know."].map((word, i) => (
               <span
                 key={i}
