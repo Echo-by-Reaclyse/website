@@ -2556,7 +2556,7 @@ function HeroSection() {
         >
 
           {/* Badge */}
-          <div className="hero-badge" style={{ marginBottom: 32 }}>
+          <div className="hero-badge" style={{ marginBottom: 22 }}>
             <span style={{
               display: "inline-flex", alignItems: "center", gap: 8,
               padding: "6px 18px", borderRadius: 999,
@@ -2570,40 +2570,13 @@ function HeroSection() {
             </span>
           </div>
 
-          {/* ÉCHO wordmark */}
-          <p
-            className="hero-fade"
-            style={{
-              fontFamily: C.serif,
-              fontSize: "clamp(0.9rem, 1.5vw, 1.05rem)",
-              letterSpacing: "0.46em",
-              textTransform: "uppercase" as const,
-              color: C.ember,
-              marginBottom: 16,
-              animationDelay: "0.10s",
-            }}
-          >
-            ÉCHO
-          </p>
-
-          {/* Short rule */}
-          <div
-            className="hero-fade"
-            style={{
-              width: 28, height: 1.5,
-              background: `linear-gradient(to right, ${C.ember}, transparent)`,
-              marginBottom: 24,
-              animationDelay: "0.20s",
-            }}
-          />
-
           {/* Main headline */}
           <h1 style={{
             fontFamily: C.serif,
             fontSize: "clamp(3.0rem, 6.2vw, 5.4rem)",
             letterSpacing: "-0.01em",
             lineHeight: 0.96,
-            marginBottom: 18,
+            marginBottom: 14,
           }}>
             {["You", "already", "know."].map((word, i) => (
               <span
@@ -2613,7 +2586,7 @@ function HeroSection() {
                   color: C.cream,
                   display: "inline-block",
                   marginRight: "0.22em",
-                  animationDelay: `${0.26 + i * 0.07}s`,
+                  animationDelay: `${0.12 + i * 0.07}s`,
                 }}
               >
                 {word}
@@ -2630,8 +2603,8 @@ function HeroSection() {
               color: C.ember,
               fontStyle: "italic",
               lineHeight: 1.2,
-              marginBottom: 34,
-              animationDelay: "0.48s",
+              marginBottom: 28,
+              animationDelay: "0.34s",
             }}
           >
             We return the proof.
