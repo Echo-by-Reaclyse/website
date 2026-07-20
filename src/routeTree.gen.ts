@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SupportRouteImport } from './routes/support'
+import { Route as SummitRouteImport } from './routes/summit'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as GdprRouteImport } from './routes/gdpr'
 import { Route as FindSupportRouteImport } from './routes/find-support'
@@ -30,6 +31,11 @@ import { Route as AdminCategoriesRouteImport } from './routes/admin/categories'
 const SupportRoute = SupportRouteImport.update({
   id: '/support',
   path: '/support',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SummitRoute = SummitRouteImport.update({
+  id: '/summit',
+  path: '/summit',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -123,6 +129,7 @@ export interface FileRoutesByFullPath {
   '/find-support': typeof FindSupportRoute
   '/gdpr': typeof GdprRoute
   '/privacy': typeof PrivacyRoute
+  '/summit': typeof SummitRoute
   '/support': typeof SupportRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/flags': typeof AdminFlagsRoute
@@ -140,6 +147,7 @@ export interface FileRoutesByTo {
   '/find-support': typeof FindSupportRoute
   '/gdpr': typeof GdprRoute
   '/privacy': typeof PrivacyRoute
+  '/summit': typeof SummitRoute
   '/support': typeof SupportRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/flags': typeof AdminFlagsRoute
@@ -160,6 +168,7 @@ export interface FileRoutesById {
   '/find-support': typeof FindSupportRoute
   '/gdpr': typeof GdprRoute
   '/privacy': typeof PrivacyRoute
+  '/summit': typeof SummitRoute
   '/support': typeof SupportRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/flags': typeof AdminFlagsRoute
@@ -181,6 +190,7 @@ export interface FileRouteTypes {
     | '/find-support'
     | '/gdpr'
     | '/privacy'
+    | '/summit'
     | '/support'
     | '/admin/categories'
     | '/admin/flags'
@@ -198,6 +208,7 @@ export interface FileRouteTypes {
     | '/find-support'
     | '/gdpr'
     | '/privacy'
+    | '/summit'
     | '/support'
     | '/admin/categories'
     | '/admin/flags'
@@ -217,6 +228,7 @@ export interface FileRouteTypes {
     | '/find-support'
     | '/gdpr'
     | '/privacy'
+    | '/summit'
     | '/support'
     | '/admin/categories'
     | '/admin/flags'
@@ -237,6 +249,7 @@ export interface RootRouteChildren {
   FindSupportRoute: typeof FindSupportRoute
   GdprRoute: typeof GdprRoute
   PrivacyRoute: typeof PrivacyRoute
+  SummitRoute: typeof SummitRoute
   SupportRoute: typeof SupportRoute
 }
 
@@ -247,6 +260,13 @@ declare module '@tanstack/react-router' {
       path: '/support'
       fullPath: '/support'
       preLoaderRoute: typeof SupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/summit': {
+      id: '/summit'
+      path: '/summit'
+      fullPath: '/summit'
+      preLoaderRoute: typeof SummitRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -404,6 +424,7 @@ const rootRouteChildren: RootRouteChildren = {
   FindSupportRoute: FindSupportRoute,
   GdprRoute: GdprRoute,
   PrivacyRoute: PrivacyRoute,
+  SummitRoute: SummitRoute,
   SupportRoute: SupportRoute,
 }
 export const routeTree = rootRouteImport
