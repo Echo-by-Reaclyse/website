@@ -8,15 +8,15 @@ export const Route = createFileRoute("/summit")({
 
 // ── Palette ────────────────────────────────────────────────────
 const C = {
-  bg: "#07091A",
-  ink: "#FFF6E9",
-  inkMuted: "rgba(255,246,233,0.55)",
+  bg: "#FAF7F4",
+  ink: "#1C0E06",
+  inkMuted: "rgba(28,14,6,0.52)",
   ember: "#BF6040",
-  pink: "#E8417A",
-  pinkDim: "rgba(232,65,122,0.12)",
-  pinkBorder: "rgba(232,65,122,0.28)",
-  cardBg: "rgba(255,246,233,0.035)",
-  cardBorder: "rgba(255,246,233,0.07)",
+  pink: "#D63B72",
+  pinkDim: "rgba(214,59,114,0.09)",
+  pinkBorder: "rgba(214,59,114,0.30)",
+  cardBg: "rgba(0,0,0,0.025)",
+  cardBorder: "rgba(0,0,0,0.08)",
 };
 
 // ── Animation helpers ──────────────────────────────────────────
@@ -210,7 +210,7 @@ function Summit() {
             height: 640,
             borderRadius: "50%",
             background:
-              "radial-gradient(circle, rgba(232,65,122,0.16) 0%, transparent 68%)",
+              "radial-gradient(circle, rgba(214,59,114,0.10) 0%, transparent 68%)",
           }}
         />
         <div
@@ -222,7 +222,7 @@ function Summit() {
             height: 480,
             borderRadius: "50%",
             background:
-              "radial-gradient(circle, rgba(191,96,64,0.13) 0%, transparent 68%)",
+              "radial-gradient(circle, rgba(191,96,64,0.09) 0%, transparent 68%)",
           }}
         />
         <div
@@ -234,7 +234,7 @@ function Summit() {
             height: 320,
             borderRadius: "50%",
             background:
-              "radial-gradient(circle, rgba(232,65,122,0.07) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(214,59,114,0.05) 0%, transparent 70%)",
           }}
         />
       </div>
@@ -362,7 +362,7 @@ function Summit() {
           style={{
             fontSize: "1.08rem",
             lineHeight: 1.72,
-            color: "rgba(255,246,233,0.82)",
+            color: "rgba(28,14,6,0.68)",
             maxWidth: 520,
             marginBottom: "2.75rem",
           }}
@@ -395,7 +395,7 @@ function Summit() {
               padding: "0.85rem 1.65rem",
               borderRadius: "0.875rem",
               background: C.ink,
-              color: "#07091A",
+              color: "#FAF7F4",
               fontSize: "0.9rem",
               fontWeight: 700,
               letterSpacing: "0.005em",
@@ -406,7 +406,7 @@ function Summit() {
             onMouseEnter={(e) => {
               const el = e.currentTarget as HTMLElement;
               el.style.transform = "translateY(-2px)";
-              el.style.boxShadow = "0 10px 28px rgba(255,246,233,0.18)";
+              el.style.boxShadow = "0 10px 28px rgba(28,14,6,0.14)";
             }}
             onMouseLeave={(e) => {
               const el = e.currentTarget as HTMLElement;
@@ -430,8 +430,8 @@ function Summit() {
               gap: "0.5rem",
               padding: "0.85rem 1.4rem",
               borderRadius: "0.875rem",
-              border: "1px solid rgba(255,246,233,0.13)",
-              color: "rgba(255,246,233,0.68)",
+              border: "1px solid rgba(28,14,6,0.14)",
+              color: "rgba(28,14,6,0.58)",
               fontSize: "0.9rem",
               fontWeight: 600,
               textDecoration: "none",
@@ -440,13 +440,13 @@ function Summit() {
             }}
             onMouseEnter={(e) => {
               const el = e.currentTarget as HTMLElement;
-              el.style.borderColor = "rgba(232,65,122,0.45)";
+              el.style.borderColor = "rgba(214,59,114,0.45)";
               el.style.color = C.pink;
             }}
             onMouseLeave={(e) => {
               const el = e.currentTarget as HTMLElement;
-              el.style.borderColor = "rgba(255,246,233,0.13)";
-              el.style.color = "rgba(255,246,233,0.68)";
+              el.style.borderColor = "rgba(28,14,6,0.14)";
+              el.style.color = "rgba(28,14,6,0.58)";
             }}
           >
             <Instagram size={16} strokeWidth={1.75} />
@@ -470,7 +470,7 @@ function Summit() {
           style={{
             height: 1,
             background:
-              "linear-gradient(90deg, transparent, rgba(232,65,122,0.25) 30%, rgba(191,96,64,0.2) 70%, transparent)",
+              "linear-gradient(90deg, transparent, rgba(214,59,114,0.22) 30%, rgba(191,96,64,0.18) 70%, transparent)",
           }}
         />
       </motion.div>
@@ -640,7 +640,7 @@ function Summit() {
                 padding: "0.75rem 1.5rem",
                 borderRadius: "0.75rem",
                 background: C.ink,
-                color: "#07091A",
+                color: "#FAF7F4",
                 fontSize: "0.88rem",
                 fontWeight: 700,
                 textDecoration: "none",
@@ -694,7 +694,7 @@ function Summit() {
         style={{
           position: "relative",
           zIndex: 10,
-          borderTop: "1px solid rgba(255,246,233,0.06)",
+          borderTop: "1px solid rgba(28,14,6,0.10)",
           padding: "2rem 1.5rem",
         }}
       >
@@ -747,7 +747,7 @@ function Summit() {
           <p
             style={{
               fontSize: "0.72rem",
-              color: "rgba(255,246,233,0.28)",
+              color: "rgba(28,14,6,0.32)",
               letterSpacing: "0.02em",
             }}
           >
@@ -781,7 +781,7 @@ function FeatureCard({
         border: `1px solid ${C.cardBorder}`,
         transition: "border-color 0.2s",
       }}
-      whileHover={{ borderColor: "rgba(255,246,233,0.14)" }}
+      whileHover={{ borderColor: "rgba(28,14,6,0.14)" }}
     >
       <div
         style={{
