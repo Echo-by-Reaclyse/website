@@ -112,7 +112,7 @@ export function WaitlistForm({
         Bots that auto-fill forms will populate this; we silently discard those.
         CSS-hidden rather than display:none so bots can't trivially detect it.
       */}
-      <div aria-hidden="true" style={{ position: "absolute", opacity: 0, pointerEvents: "none", height: 0, overflow: "hidden", tabIndex: -1 }}>
+      <div aria-hidden="true" tabIndex={-1} style={{ position: "absolute", opacity: 0, pointerEvents: "none", height: 0, overflow: "hidden" }}>
         <label htmlFor={`website-${variant}`}>Website</label>
         <input
           id={`website-${variant}`}

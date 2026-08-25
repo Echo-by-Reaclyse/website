@@ -252,14 +252,11 @@ function HeroSection({ C, isDark, onSuccess }: { C: C; isDark: boolean; onSucces
       }}
     >
       <div
+        className="ea-hero-grid"
         style={{
           maxWidth: 1120,
           width: "100%",
           margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "40px 60px",
-          alignItems: "center",
           position: "relative",
           zIndex: 1,
         }}
@@ -335,6 +332,7 @@ function HeroSection({ C, isDark, onSuccess }: { C: C; isDark: boolean; onSucces
 
         {/* Right: phone image placeholder */}
         <motion.div
+          className="ea-hero-phone"
           initial={{ opacity: 0, x: 32, scale: 0.97 }}
           animate={{ opacity: 1, x: 0, scale: 1, transition: { duration: 0.9, ease: EASE, delay: 0.25 } }}
           style={{
@@ -954,7 +952,7 @@ function ProductSection({ C, isDark }: { C: C; isDark: boolean }) {
           </motion.div>
 
           {/* Content: text left, phone right */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: "40px 80px", alignItems: "center" }}>
+          <div className="ea-product-grid">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeIdx}
@@ -973,9 +971,11 @@ function ProductSection({ C, isDark }: { C: C; isDark: boolean }) {
               </motion.div>
             </AnimatePresence>
 
-            <IPhoneFrameSmall>
-              <MiniPhoneScreen idx={activeIdx} C={C} />
-            </IPhoneFrameSmall>
+            <div className="ea-product-phone">
+              <IPhoneFrameSmall>
+                <MiniPhoneScreen idx={activeIdx} C={C} />
+              </IPhoneFrameSmall>
+            </div>
           </div>
         </motion.div>
       </div>
@@ -1365,12 +1365,10 @@ function EarlyAccessFooter({ C }: { C: C }) {
       }}
     >
       <div
+        className="ea-footer-grid"
         style={{
           maxWidth: 900,
           margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "2fr 1fr 1fr 1fr",
-          gap: 40,
         }}
       >
         {/* Brand */}
