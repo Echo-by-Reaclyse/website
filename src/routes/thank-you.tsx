@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useTheme as useGlobalTheme } from "@/components/ThemeProvider";
 import en from "@/locales/en.json";
@@ -23,6 +23,15 @@ const fadeUp = {
 function ThankYouPage() {
   const { theme } = useGlobalTheme();
   const isDark = theme === "dark";
+
+  // ECH-115: read waitlist position stored by WaitlistForm after successful submission
+  const [position, setPosition] = useState<number | null>(null);
+  useEffect(() => {
+    try {
+      const stored = sessionStorage.getItem("echo_waitlist_position");
+      if (stored) setPosition(Number(stored));
+    } catch { /* ignore */ }
+  }, []);
 
   const bg = isDark ? "#0A1220" : "#FFF6E9";
   const cream = isDark ? "rgba(255,246,233,0.92)" : "rgba(26,15,5,0.9)";
@@ -125,6 +134,30 @@ function ThankYouPage() {
               </svg>
             </motion.div>
           </motion.div>
+
+          {/* Waitlist position badge — ECH-115 */}
+          {position !== null && (
+            <motion.div variants={fadeUp}>
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  background: isDark ? "rgba(191,96,64,0.12)" : "rgba(191,96,64,0.07)",
+                  border: `1px solid ${ember}44`,
+                  borderRadius: 100,
+                  padding: "8px 18px",
+                  fontSize: 13,
+                  fontFamily: sans,
+                  fontWeight: 700,
+                  color: ember,
+                  letterSpacing: "0.01em",
+                }}
+              >
+                #{position.toLocaleString()} on the waitlist
+              </span>
+            </motion.div>
+          )}
 
           {/* Eyebrow */}
           <motion.div variants={fadeUp}>

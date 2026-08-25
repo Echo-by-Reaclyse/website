@@ -56,10 +56,15 @@ export function WaitlistForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: parsed.data, locale, source: "landing", hp, consent: true, utm }),
       });
+      const body = await res.json().catch(() => ({})) as { error?: string; position?: number; total?: number };
       if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        throw new Error((body as { error?: string }).error ?? "Something went wrong.");
+        throw new Error(body.error ?? "Something went wrong.");
       }
+      // Store waitlist position for /thank-you page display (ECH-115)
+      try {
+        const pos = body.position ?? body.total;
+        if (pos) sessionStorage.setItem("echo_waitlist_position", String(pos));
+      } catch { /* ignore */ }
       trackLead(parsed.data);
       trackFormSubmit(variant);
       setDone(true);
