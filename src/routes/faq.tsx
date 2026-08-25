@@ -36,7 +36,7 @@ const faqs = [
   },
   {
     q: "Is my data used to train AI?",
-    a: "No, never. Your entries are not used to train AI models — not Réaclyse's models, not any third-party model. The AI-generated insights in the app are computed from patterns in your own data and are never transmitted for training purposes. This is a hard architectural constraint, not just a policy.",
+    a: "No, never. Your entries are not used to train AI models — not Réaclyse's models, not Google's models, not anyone's. The AI-generated insights in ÉCHO Pro work by sending anonymised reflection text to Google Gemini for pattern processing. Your audio is never sent. The text that is sent is never used for training, and cannot be traced back to you. You can disable AI insights at any time in Settings.",
   },
   {
     q: "Is ÉCHO GDPR compliant?",

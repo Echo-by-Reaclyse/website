@@ -69,10 +69,10 @@
     "eyebrow": "Private by design",
     "headline": "Your thoughts stay yours.",
     "pillars": [
-      { "title": "Your data is encrypted\nend-to-end", "body": "Every entry is locked before it leaves your device." },
-      { "title": "We never sell your data", "body": "Your words aren't used to train AI or handed to third parties." },
-      { "title": "You're in control of your\nrecordings and data", "body": "Export, delete, or disable sync at any time." },
-      { "title": "Delete anything, anytime", "body": "One tap to remove any entry — permanently." }
+      { "title": "Transcription is\non-device", "body": "WhisperKit runs on your iPhone. Your audio is never sent to any server, ever." },
+      { "title": "AI insights use\nanonymised text only", "body": "Pattern insights (Pro) send anonymised reflection text to Gemini — never audio, never your name. You can disable it any time." },
+      { "title": "Never used to train AI", "body": "Your words aren't used to train AI models — not ours, not Google's, not anyone's. This is an architectural constraint, not just policy." },
+      { "title": "Delete anything, anytime", "body": "One tap removes any entry permanently — from your device and iCloud." }
     ],
     "link": "Learn more in our Privacy Policy"
   },
