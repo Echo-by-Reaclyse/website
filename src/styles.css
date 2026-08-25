@@ -110,6 +110,7 @@
   --shadow-ember:     0 20px 60px -20px rgba(191, 96, 64, 0.45);
   --shadow-soft:      0 10px 40px -10px rgba(0,0,0,0.55);
   --shadow-glow:      0 0 80px rgba(255,228,184,0.12);
+  --nav-bg:           rgba(10,18,32,0.88);
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -154,6 +155,7 @@
   --shadow-soft:      0 10px 40px -10px rgba(120,70,40,0.18);
   --shadow-ember:     0 20px 60px -20px rgba(168, 75, 42, 0.35);
   --shadow-glow:      0 0 80px rgba(191,96,64,0.18);
+  --nav-bg:           rgba(255,246,233,0.88);
 }
 
 @media (prefers-color-scheme: light) {
@@ -196,6 +198,7 @@
     --shadow-soft:      0 10px 40px -10px rgba(120,70,40,0.18);
     --shadow-ember:     0 20px 60px -20px rgba(168, 75, 42, 0.35);
     --shadow-glow:      0 0 80px rgba(191,96,64,0.18);
+    --nav-bg:           rgba(255,246,233,0.88);
   }
 }
 
@@ -498,6 +501,41 @@
     0%, 100% { opacity: 0.25; }
     50%       { opacity: 0.55; }
   }
+
+  /* ── SiteNav shared component ── */
+  @keyframes siteNavIn { from { opacity: 0; } to { opacity: 1; } }
+  .site-nav-header { animation: siteNavIn 0.18s ease-out both; }
+  .site-nav-link {
+    color: var(--muted-foreground);
+    transition: color 0.2s;
+    text-decoration: none;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    white-space: nowrap;
+  }
+  .site-nav-link:hover { color: var(--ink); }
+  .site-nav-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 18px;
+    border-radius: 100px;
+    background: var(--ember);
+    color: #fff;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+  }
+  .site-nav-cta:hover { opacity: 0.85; }
 
   /* ── Hero utility classes ── */
   .nav-entrance  { animation: heroFadeUp  0.6s  cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }

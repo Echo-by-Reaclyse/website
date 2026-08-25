@@ -12,7 +12,7 @@ import { Pointer, Smartphone, ShieldCheck, EyeOff, Cloud } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTheme as useGlobalTheme } from "@/components/ThemeProvider";
-import { ThemeToggle as SharedThemeToggle } from "@/components/ThemeToggle";
+import { SiteNav } from "@/components/SiteNav";
 
 export const Route = createFileRoute("/")({
   component: Landing,
@@ -1605,258 +1605,6 @@ function staggerStyle(
     transition:
       "opacity 0.16s ease-in, transform 0.16s ease-in, filter 0.16s ease-in",
   };
-}
-
-// ── Nav ────────────────────────────────────────────────────────
-function Nav() {
-  const { C, isDark } = useLandingTheme();
-  const isMobile = useIsMobile();
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 12);
-    fn();
-    window.addEventListener("scroll", fn, { passive: true });
-    return () => window.removeEventListener("scroll", fn);
-  }, []);
-
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    setMenuOpen(false);
-  };
-
-  const navBgActive = scrolled || menuOpen;
-
-  return (
-    <header
-      className="nav-entrance"
-      style={{
-        position: "fixed",
-        inset: "0 0 auto 0",
-        zIndex: 50,
-        transition: "all 0.3s",
-        backdropFilter: navBgActive ? "blur(18px) saturate(150%)" : "none",
-        WebkitBackdropFilter: navBgActive ? "blur(18px) saturate(150%)" : "none",
-        background: navBgActive ? C.navBg : "transparent",
-        borderBottom: navBgActive ? `1px solid ${C.border}` : "1px solid transparent",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 1100,
-          margin: "0 auto",
-          padding: isMobile ? "12px 20px" : "16px 24px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        {/* Logo */}
-        <div style={{ display: "flex", alignItems: "flex-end", gap: 10 }}>
-          <img
-            src="/logo-main.svg"
-            alt="ÉCHO"
-            style={{ height: 22, width: "auto", opacity: 0.92 }}
-          />
-          <span
-            style={{
-              fontSize: 11,
-              textTransform: "uppercase",
-              letterSpacing: "0.18em",
-              color: C.muted,
-              fontFamily: C.sans,
-              paddingBottom: 2,
-              opacity: scrolled ? 0 : 1,
-              transition: "opacity 0.25s",
-            }}
-          >
-            by Réaclyse
-          </span>
-        </div>
-
-        {/* Desktop nav — hidden on mobile */}
-        <div className="hidden sm:flex" style={{ alignItems: "center", gap: 22 }}>
-          <button
-            onClick={() => scrollTo("story")}
-            style={{
-              fontSize: 11,
-              textTransform: "uppercase",
-              letterSpacing: "0.2em",
-              color: C.muted,
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              fontFamily: C.sans,
-              transition: "color 0.2s",
-              padding: 0,
-            }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.color = C.ember)}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.color = C.muted)}
-          >
-            How it works
-          </button>
-          <button
-            onClick={() => scrollTo("waitlist")}
-            style={{
-              fontSize: 11,
-              textTransform: "uppercase",
-              letterSpacing: "0.2em",
-              color: C.muted,
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              fontFamily: C.sans,
-              transition: "color 0.2s",
-              padding: 0,
-            }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.color = C.ember)}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.color = C.muted)}
-          >
-            Waitlist
-          </button>
-          <Link
-            to="/blog"
-            style={{
-              fontSize: 11,
-              textTransform: "uppercase",
-              letterSpacing: "0.2em",
-              color: C.muted,
-              textDecoration: "none",
-              fontFamily: C.sans,
-              transition: "color 0.2s",
-            }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = C.ember)}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = C.muted)}
-          >
-            Blog
-          </Link>
-          <SharedThemeToggle />
-        </div>
-
-        {/* Mobile hamburger — hidden on desktop */}
-        <button
-          className="flex sm:hidden"
-          onClick={() => setMenuOpen((v) => !v)}
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            color: C.muted,
-            padding: "2px",
-            flexShrink: 0,
-          }}
-        >
-          {menuOpen ? (
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <line x1="1" y1="1" x2="13" y2="13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-              <line x1="13" y1="1" x2="1" y2="13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-          ) : (
-            <svg width="16" height="10" viewBox="0 0 16 10" fill="none">
-              <line x1="0" y1="1" x2="16" y2="1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-              <line x1="0" y1="5" x2="16" y2="5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-              <line x1="0" y1="9" x2="16" y2="9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-          )}
-        </button>
-      </div>
-
-      {/* Mobile dropdown */}
-      {menuOpen && (
-        <div
-          className="sm:hidden"
-          style={{
-            padding: "4px 24px 16px",
-            borderTop: `1px solid ${C.border}`,
-          }}
-        >
-          <button
-            onClick={() => scrollTo("story")}
-            style={{
-              display: "block",
-              width: "100%",
-              textAlign: "left",
-              fontSize: 12,
-              textTransform: "uppercase",
-              letterSpacing: "0.2em",
-              color: C.muted,
-              background: "none",
-              border: "none",
-              borderBottom: `1px solid ${C.border}`,
-              cursor: "pointer",
-              fontFamily: C.sans,
-              padding: "14px 0",
-            }}
-          >
-            How it works
-          </button>
-          <button
-            onClick={() => scrollTo("waitlist")}
-            style={{
-              display: "block",
-              width: "100%",
-              textAlign: "left",
-              fontSize: 12,
-              textTransform: "uppercase",
-              letterSpacing: "0.2em",
-              color: C.muted,
-              background: "none",
-              border: "none",
-              borderBottom: `1px solid ${C.border}`,
-              cursor: "pointer",
-              fontFamily: C.sans,
-              padding: "14px 0",
-            }}
-          >
-            Waitlist
-          </button>
-          <Link
-            to="/blog"
-            onClick={() => setMenuOpen(false)}
-            style={{
-              display: "block",
-              width: "100%",
-              fontSize: 12,
-              textTransform: "uppercase",
-              letterSpacing: "0.2em",
-              color: C.muted,
-              textDecoration: "none",
-              borderBottom: `1px solid ${C.border}`,
-              fontFamily: C.sans,
-              padding: "14px 0",
-            }}
-          >
-            Blog
-          </Link>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              padding: "14px 0",
-            }}
-          >
-            <span
-              style={{
-                fontSize: 12,
-                textTransform: "uppercase",
-                letterSpacing: "0.2em",
-                color: C.muted,
-                fontFamily: C.sans,
-              }}
-            >
-              Theme
-            </span>
-            <SharedThemeToggle />
-          </div>
-        </div>
-      )}
-    </header>
-  );
 }
 
 // ── MarqueeStrip ───────────────────────────────────────────────
@@ -3939,7 +3687,15 @@ function Landing() {
         </div>
 
         <Toaster richColors position="top-center" />
-        <Nav />
+        <SiteNav
+          links={[
+            { label: "How it works", to: "/early-access" },
+            { label: "About", to: "/about" },
+            { label: "Blog", to: "/blog" },
+            { label: "FAQ", to: "/faq" },
+          ]}
+          cta={{ label: "Join waitlist", to: "/early-access" }}
+        />
         <HeroSection />
         <MarqueeStrip />
         <ManifestoSection />

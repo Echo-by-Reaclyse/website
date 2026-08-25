@@ -43,6 +43,7 @@ export function SiteNav({ links, cta }: SiteNavProps) {
 
   return (
     <header
+      className="site-nav-header"
       style={{
         position: "fixed",
         inset: "0 0 auto 0",
@@ -54,14 +55,6 @@ export function SiteNav({ links, cta }: SiteNavProps) {
         transition: "background 0.3s, backdrop-filter 0.3s, border-color 0.3s",
       }}
     >
-      <style>{`
-        :root { --nav-bg: rgba(255,246,233,0.88); }
-        .dark { --nav-bg: rgba(10,18,32,0.88); }
-        .site-nav-link { color: var(--muted-foreground); transition: color 0.2s; text-decoration: none; font-family: var(--font-sans); font-size: 14px; background: none; border: none; cursor: pointer; padding: 0; white-space: nowrap; }
-        .site-nav-link:hover { color: var(--ink); }
-        .site-nav-cta { display: inline-flex; align-items: center; padding: 8px 18px; border-radius: 100px; background: var(--ember); color: #fff; font-family: var(--font-sans); font-size: 13px; font-weight: 700; letter-spacing: 0.01em; text-decoration: none; border: none; cursor: pointer; white-space: nowrap; transition: opacity 0.2s; }
-        .site-nav-cta:hover { opacity: 0.85; }
-      `}</style>
 
       <div
         style={{

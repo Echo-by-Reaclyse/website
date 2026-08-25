@@ -384,30 +384,67 @@ function Summit() {
             alignItems: "center",
           }}
         >
-          {/* TODO ECH-108: replace href with real App Store URL when app ships.
-              Linking to waitlist for now — app is not yet live on the App Store. */}
-          <a
-            href="/early-access"
-            aria-label="Join the ÉCHO waitlist"
+          {/* App Store — coming soon, disabled */}
+          <span
             style={{
               display: "inline-flex",
               alignItems: "center",
               gap: "0.55rem",
               padding: "0.85rem 1.65rem",
               borderRadius: "0.875rem",
-              background: C.ink,
-              color: "#FAF7F4",
+              background: "rgba(28,14,6,0.06)",
+              color: "rgba(28,14,6,0.30)",
+              fontSize: "0.9rem",
+              fontWeight: 700,
+              letterSpacing: "0.005em",
+              whiteSpace: "nowrap",
+              cursor: "not-allowed",
+              border: "1px solid rgba(28,14,6,0.10)",
+              position: "relative",
+              userSelect: "none",
+            }}
+          >
+            <AppleLogo size={18} />
+            App Store
+            <span style={{
+              position: "absolute",
+              top: -9,
+              right: -2,
+              background: C.ember,
+              color: "#fff",
+              fontSize: "0.56rem",
+              fontWeight: 800,
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              padding: "2px 7px",
+              borderRadius: 100,
+              lineHeight: 1.5,
+            }}>Soon</span>
+          </span>
+
+          {/* Join waitlist — primary CTA */}
+          <a
+            href="/early-access"
+            aria-label="Join the ÉCHO waitlist"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              padding: "0.85rem 1.65rem",
+              borderRadius: "0.875rem",
+              background: C.pink,
+              color: "#fff",
               fontSize: "0.9rem",
               fontWeight: 700,
               letterSpacing: "0.005em",
               textDecoration: "none",
-              transition: "transform 0.18s, box-shadow 0.18s",
+              transition: "transform 0.18s, box-shadow 0.18s, opacity 0.18s",
               whiteSpace: "nowrap",
             }}
             onMouseEnter={(e) => {
               const el = e.currentTarget as HTMLElement;
               el.style.transform = "translateY(-2px)";
-              el.style.boxShadow = "0 10px 28px rgba(28,14,6,0.14)";
+              el.style.boxShadow = "0 12px 32px rgba(214,59,114,0.30)";
             }}
             onMouseLeave={(e) => {
               const el = e.currentTarget as HTMLElement;
@@ -415,8 +452,7 @@ function Summit() {
               el.style.boxShadow = "";
             }}
           >
-            <AppleLogo size={18} />
-            Download on the App Store
+            Join the waitlist →
           </a>
 
           {/* Instagram */}
