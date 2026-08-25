@@ -817,7 +817,11 @@ function HomeTabScreen({
             <div style={{ background: "#FFFFFF", borderRadius: 16, padding: "14px", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
               <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600, marginBottom: 10 }}>The Mirror</p>
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                {["You've reflected on having money 1 times", "You've reflected on scares didn't 1 times", "You've reflected on family happy. 1 times"].map((line, i) => (
+                {[
+                  "You return to the theme of control in 6 of your last 10 entries.",
+                  "Your tone shifts noticeably when you speak about Sunday evenings.",
+                  "You mention your family in nearly every reflection this month.",
+                ].map((line, i) => (
                   <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 6 }}>
                     <span style={{ fontSize: 6, color: "#BF6040", marginTop: 4, flexShrink: 0 }}>●</span>
                     <span style={{ fontSize: 11, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif", lineHeight: 1.4 }}>{line}</span>
@@ -1208,12 +1212,11 @@ function ArchiveTabScreen() {
 function MirrorTabScreen({ mirrorKey }: { mirrorKey: number }) {
   const WAVEFORM_BARS = 46;
   const WORDS = [
-    { word: "Happy", count: 2, max: 2 },
-    { word: "Family", count: 2, max: 2 },
-    { word: "Success", count: 1, max: 2 },
-    { word: "Super", count: 1, max: 2 },
-    { word: "Successful", count: 1, max: 2 },
-    { word: "Scares", count: 1, max: 2 },
+    { word: "Control", count: 8, max: 8 },
+    { word: "Family", count: 6, max: 8 },
+    { word: "Growth", count: 5, max: 8 },
+    { word: "Present", count: 4, max: 8 },
+    { word: "Clarity", count: 3, max: 8 },
   ];
 
   return (
@@ -1302,11 +1305,25 @@ function MirrorTabScreen({ mirrorKey }: { mirrorKey: number }) {
 
         {/* Emotional landscape */}
         <div style={{ background: "#FFFFFF", borderRadius: 16, padding: "14px", boxShadow: "0 1px 4px rgba(0,0,0,0.07)" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 10 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 12 }}>
             <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600 }}>Emotional Landscape</p>
-            <span style={{ fontSize: 10, color: "rgba(0,0,0,0.35)", fontFamily: "Urbanist, sans-serif" }}>1 weeks</span>
+            <span style={{ fontSize: 10, color: "rgba(0,0,0,0.35)", fontFamily: "Urbanist, sans-serif" }}>This week</span>
           </div>
-          <div style={{ height: 1, background: "rgba(0,0,0,0.1)", borderRadius: 1, margin: "16px 0 8px" }} />
+          {[
+            { label: "Reflection", value: 0.82, color: "#BF6040" },
+            { label: "Clarity", value: 0.65, color: "#8FA8D4" },
+            { label: "Growth", value: 0.71, color: "#BF6040" },
+          ].map(({ label, value, color }) => (
+            <div key={label} style={{ marginBottom: 8 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
+                <span style={{ fontSize: 10, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif" }}>{label}</span>
+                <span style={{ fontSize: 10, color: "rgba(0,0,0,0.35)", fontFamily: "Urbanist, sans-serif" }}>{Math.round(value * 100)}%</span>
+              </div>
+              <div style={{ height: 4, background: "rgba(0,0,0,0.06)", borderRadius: 2, overflow: "hidden" }}>
+                <div style={{ height: "100%", width: `${value * 100}%`, background: color, borderRadius: 2, opacity: 0.8 }} />
+              </div>
+            </div>
+          ))}
         </div>
 
         {/* Thought connections */}

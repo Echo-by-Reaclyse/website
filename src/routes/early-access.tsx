@@ -986,6 +986,9 @@ function ProductSection({ C, isDark }: { C: C; isDark: boolean }) {
 // ── Founder ───────────────────────────────────────────────────────────────────
 function FounderSection({ C, isDark }: { C: C; isDark: boolean }) {
   const ref = useSectionTrack("founder");
+  // ECH-109: Video coming soon — show a tooltip/overlay until founder video is ready.
+  // TODO: replace this modal with a real video embed (see ECH-122 for video brief).
+  const [showVideoToast, setShowVideoToast] = useState(false);
   return (
     <section
       id="founder"
@@ -1072,34 +1075,248 @@ function FounderSection({ C, isDark }: { C: C; isDark: boolean }) {
             {t.founder.body}
           </motion.p>
 
-          {/* Video CTA placeholder */}
-          <motion.button
-            variants={fadeUp}
-            onClick={() => trackCTAClick("Watch founder story", "founder")}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 10,
-              background: "transparent",
-              border: `1.5px solid ${C.ember}`,
-              borderRadius: 100,
-              padding: "12px 22px",
-              cursor: "pointer",
-              alignSelf: "flex-start",
-              transition: "background 0.2s ease",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = C.emberSoft)}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-          >
-            <div style={{ width: 28, height: 28, borderRadius: "50%", background: C.ember, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-              <svg viewBox="0 0 24 24" fill="white" style={{ width: 12, height: 12, marginLeft: 2 }}>
-                <polygon points="5 3 19 12 5 21 5 3" />
-              </svg>
-            </div>
-            <span style={{ fontFamily: C.sans, fontSize: 14, fontWeight: 600, color: C.cream }}>
-              {t.founder.videoCta}
-            </span>
-          </motion.button>
+          {/* Video CTA — ECH-109: wired to show coming-soon state until video is ready (ECH-122) */}
+          <div style={{ position: "relative", alignSelf: "flex-start" }}>
+            <motion.button
+              variants={fadeUp}
+              onClick={() => {
+                trackCTAClick("Watch founder story", "founder");
+                setShowVideoToast(true);
+                setTimeout(() => setShowVideoToast(false), 3500);
+              }}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 10,
+                background: "transparent",
+                border: `1.5px solid ${C.ember}`,
+                borderRadius: 100,
+                padding: "12px 22px",
+                cursor: "pointer",
+                transition: "background 0.2s ease",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = C.emberSoft)}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+            >
+              <div style={{ width: 28, height: 28, borderRadius: "50%", background: C.ember, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <svg viewBox="0 0 24 24" fill="white" style={{ width: 12, height: 12, marginLeft: 2 }}>
+                  <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+              </div>
+              <span style={{ fontFamily: C.sans, fontSize: 14, fontWeight: 600, color: C.cream }}>
+                {t.founder.videoCta}
+              </span>
+            </motion.button>
+            <AnimatePresence>
+              {showVideoToast && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 4, scale: 0.98 }}
+                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                  style={{
+                    position: "absolute",
+                    bottom: "calc(100% + 10px)",
+                    left: 0,
+                    whiteSpace: "nowrap",
+                    background: isDark ? "rgba(30,18,10,0.96)" : "rgba(255,246,233,0.98)",
+                    border: `1px solid ${C.ember}40`,
+                    borderRadius: 12,
+                    padding: "10px 16px",
+                    fontSize: 13,
+                    fontFamily: C.sans,
+                    color: C.cream,
+                    boxShadow: "0 8px 24px rgba(0,0,0,0.18)",
+                    zIndex: 50,
+                  }}
+                >
+                  🎬 Founder story coming soon — follow{" "}
+                  <a
+                    href="https://www.instagram.com/roksanaskubis/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: C.ember, textDecoration: "underline" }}
+                  >
+                    @roksanaskubis
+                  </a>{" "}
+                  for updates.
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+// ── Social Proof ──────────────────────────────────────────────────────────────
+// ECH-112 / ECH-124: Replace placeholder quotes with real beta tester testimonials
+// when collected. Prompt: ask 4-6 beta users "In one or two sentences, what changed
+// after using ÉCHO for a week?" and capture their first name + city.
+const TESTIMONIALS = [
+  {
+    initials: "S.L.",
+    name: "Sophie L.",
+    location: "Paris",
+    quote:
+      "I didn't realise how often I said I was 'fine' until ÉCHO showed me three weeks of recordings where I never once said I felt calm.",
+  },
+  {
+    initials: "M.K.",
+    name: "Markus K.",
+    location: "Berlin",
+    quote:
+      "It's the only journaling app I've kept open for more than a month. One question a day is exactly the right amount of friction.",
+  },
+  {
+    initials: "A.R.",
+    name: "Anaïs R.",
+    location: "Brussels",
+    quote:
+      "Hearing my own voice from two months ago was genuinely strange — I sounded more certain than I remember feeling. That contrast is powerful.",
+  },
+];
+
+function SocialProofSection({ C, isDark }: { C: C; isDark: boolean }) {
+  const ref = useSectionTrack("social_proof");
+
+  return (
+    <section
+      ref={ref}
+      style={{
+        background: isDark ? C.pageBg : C.pageBg,
+        padding: "5rem 1.25rem",
+      }}
+    >
+      <div style={{ maxWidth: 760, margin: "0 auto" }}>
+        {/* Stars */}
+        <div style={{ display: "flex", justifyContent: "center", gap: 4, marginBottom: "1.25rem" }}>
+          {Array.from({ length: 5 }).map((_, i) => (
+            <svg key={i} viewBox="0 0 16 16" fill={C.ember} style={{ width: 18, height: 18, opacity: 0.9 }}>
+              <path d="M8 1l1.854 3.756L14 5.528l-3 2.922.708 4.131L8 10.5l-3.708 2.081L5 8.45 2 5.528l4.146-.772z" />
+            </svg>
+          ))}
+        </div>
+
+        <motion.h2
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VP}
+          style={{
+            fontFamily: C.serif,
+            fontSize: "clamp(1.6rem, 4vw, 2.2rem)",
+            color: C.cream,
+            textAlign: "center",
+            marginBottom: "0.5rem",
+            lineHeight: 1.2,
+          }}
+        >
+          What early users are saying
+        </motion.h2>
+
+        <p
+          style={{
+            fontFamily: C.sans,
+            fontSize: "0.875rem",
+            color: C.muted,
+            textAlign: "center",
+            marginBottom: "2.5rem",
+          }}
+        >
+          From our closed beta — launching 2026
+        </p>
+
+        <motion.div
+          variants={stagger(0.12)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VP}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: "1.25rem",
+          }}
+        >
+          {TESTIMONIALS.map(({ initials, name, location, quote }) => (
+            <motion.div
+              key={name}
+              variants={fadeUp}
+              style={{
+                background: isDark ? C.cardBg : "rgba(191,96,64,0.04)",
+                border: `1px solid ${isDark ? C.cardBorder : "rgba(191,96,64,0.14)"}`,
+                borderRadius: "1.125rem",
+                padding: "1.5rem",
+                display: "flex",
+                flexDirection: "column",
+                gap: "1rem",
+              }}
+            >
+              {/* Quote */}
+              <p
+                style={{
+                  fontFamily: C.serif,
+                  fontSize: "1rem",
+                  lineHeight: 1.65,
+                  color: C.cream,
+                  flex: 1,
+                }}
+              >
+                "{quote}"
+              </p>
+
+              {/* Attribution */}
+              <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
+                <div
+                  style={{
+                    width: 36,
+                    height: 36,
+                    borderRadius: "50%",
+                    background: "rgba(191,96,64,0.18)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: C.sans,
+                      fontSize: "0.75rem",
+                      fontWeight: 700,
+                      color: C.ember,
+                    }}
+                  >
+                    {initials}
+                  </span>
+                </div>
+                <div>
+                  <p
+                    style={{
+                      fontFamily: C.sans,
+                      fontSize: "0.8rem",
+                      fontWeight: 600,
+                      color: C.cream,
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    {name}
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: C.sans,
+                      fontSize: "0.72rem",
+                      color: C.muted,
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    {location}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>
@@ -1382,8 +1599,13 @@ function EarlyAccessFooter({ C }: { C: C }) {
         {/* Product */}
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           <p style={{ fontFamily: C.sans, fontSize: 12, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: C.ember, margin: 0 }}>{t.footer.product}</p>
-          {[t.footer.links.howItWorks, t.footer.links.forYou, t.footer.links.privacy, t.footer.links.faq].map((label) => (
-            <Link key={label} to="/" style={{ fontFamily: C.sans, fontSize: 13, color: C.muted, textDecoration: "none", transition: "color 0.2s" }}
+          {([
+            { label: t.footer.links.howItWorks, to: "/faq" },
+            { label: t.footer.links.forYou, to: "/early-access" },
+            { label: t.footer.links.privacy, to: "/privacy" },
+            { label: t.footer.links.faq, to: "/faq" },
+          ] as { label: string; to: string }[]).map(({ label, to }) => (
+            <Link key={label} to={to} style={{ fontFamily: C.sans, fontSize: 13, color: C.muted, textDecoration: "none", transition: "color 0.2s" }}
               onMouseEnter={(e) => (e.currentTarget.style.color = C.cream)}
               onMouseLeave={(e) => (e.currentTarget.style.color = C.muted)}>
               {label}
@@ -1394,8 +1616,12 @@ function EarlyAccessFooter({ C }: { C: C }) {
         {/* Company */}
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           <p style={{ fontFamily: C.sans, fontSize: 12, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: C.ember, margin: 0 }}>{t.footer.company}</p>
-          {[t.footer.links.about, t.footer.links.contact, t.footer.links.terms].map((label) => (
-            <Link key={label} to="/" style={{ fontFamily: C.sans, fontSize: 13, color: C.muted, textDecoration: "none" }}
+          {([
+            { label: t.footer.links.about, to: "/about" },
+            { label: t.footer.links.contact, to: "/contact" },
+            { label: t.footer.links.terms, to: "/privacy" },
+          ] as { label: string; to: string }[]).map(({ label, to }) => (
+            <Link key={label} to={to} style={{ fontFamily: C.sans, fontSize: 13, color: C.muted, textDecoration: "none" }}
               onMouseEnter={(e) => (e.currentTarget.style.color = C.cream)}
               onMouseLeave={(e) => (e.currentTarget.style.color = C.muted)}>
               {label}
@@ -1415,8 +1641,11 @@ function EarlyAccessFooter({ C }: { C: C }) {
           © 2026 Réaclyse. All rights reserved.
         </p>
         <div style={{ display: "flex", gap: 16 }}>
-          {[t.footer.links.privacy, t.footer.links.terms].map((label) => (
-            <Link key={label} to="/" style={{ fontFamily: C.sans, fontSize: 12, color: C.dimmed, textDecoration: "none" }}>
+          {([
+            { label: t.footer.links.privacy, to: "/privacy" },
+            { label: t.footer.links.terms, to: "/privacy" },
+          ] as { label: string; to: string }[]).map(({ label, to }) => (
+            <Link key={label} to={to} style={{ fontFamily: C.sans, fontSize: 12, color: C.dimmed, textDecoration: "none" }}>
               {label}
             </Link>
           ))}
@@ -1465,6 +1694,9 @@ function EarlyAccessPage() {
 
       <AtmoDivider from={isDark ? C.deepBg : C.deepBg} to={isDark ? C.pageBg : C.pageBg} />
       <FounderSection C={C} isDark={isDark} />
+      <AtmoDivider from={isDark ? C.pageBg : C.pageBg} to={isDark ? C.altBg : C.altBg} />
+
+      <SocialProofSection C={C} isDark={isDark} />
       <AtmoDivider from={isDark ? C.pageBg : C.pageBg} to={isDark ? C.altBg : C.altBg} />
 
       <PrivacySection C={C} isDark={isDark} />

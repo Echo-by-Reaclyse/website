@@ -384,10 +384,11 @@ function Summit() {
             alignItems: "center",
           }}
         >
-          {/* App Store */}
+          {/* TODO ECH-108: replace href with real App Store URL when app ships.
+              Linking to waitlist for now — app is not yet live on the App Store. */}
           <a
-            href="#"
-            aria-label="Download ÉCHO on the App Store"
+            href="/early-access"
+            aria-label="Join the ÉCHO waitlist"
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -631,8 +632,9 @@ function Summit() {
               alignItems: "center",
             }}
           >
+            {/* TODO ECH-108: replace href with real App Store URL when app ships */}
             <a
-              href="#"
+              href="/early-access"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -654,7 +656,7 @@ function Summit() {
               }
             >
               <AppleLogo size={16} />
-              Get the app
+              Join the waitlist
             </a>
             <a
               href="https://www.instagram.com/roksanaskubis/"

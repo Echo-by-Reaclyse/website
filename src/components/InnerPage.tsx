@@ -31,6 +31,63 @@ export function InnerPage({ title, subtitle, children }: InnerPageProps) {
           <p className="mt-4 font-sans text-sm text-muted-foreground">{subtitle}</p>
         )}
         <div className="mt-10 space-y-8">{children}</div>
+
+        {/* Waitlist CTA — ECH-111 */}
+        <div
+          style={{
+            marginTop: "4rem",
+            padding: "2rem 1.75rem",
+            borderRadius: "1.25rem",
+            border: "1px solid rgba(191,96,64,0.22)",
+            background: "rgba(191,96,64,0.05)",
+            textAlign: "center",
+          }}
+        >
+          <p
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "1.45rem",
+              lineHeight: 1.25,
+              color: "var(--ink)",
+              marginBottom: "0.5rem",
+            }}
+          >
+            Start hearing your own voice clearly.
+          </p>
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.875rem",
+              color: "var(--muted-foreground)",
+              lineHeight: 1.6,
+              marginBottom: "1.25rem",
+            }}
+          >
+            ÉCHO is launching in 2026. Join the waitlist for early access and founding-member pricing.
+          </p>
+          <Link
+            to="/early-access"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.4rem",
+              padding: "0.65rem 1.5rem",
+              borderRadius: 100,
+              background: "#BF6040",
+              color: "#fff",
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.875rem",
+              fontWeight: 700,
+              textDecoration: "none",
+              letterSpacing: "0.01em",
+              transition: "opacity 0.18s",
+            }}
+            className="waitlist-cta-btn"
+          >
+            Join the waitlist →
+          </Link>
+          <style>{`.waitlist-cta-btn:hover { opacity: 0.85; }`}</style>
+        </div>
       </main>
     </div>
   );

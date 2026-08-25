@@ -3,6 +3,7 @@ import { QueryClient } from "@tanstack/react-query";
 import { Link, Outlet, createRootRouteWithContext, useRouterState } from "@tanstack/react-router";
 import { trackPageView } from "@/lib/pixel";
 import { initGA4, trackGA4PageView } from "@/lib/analytics";
+import { SmartAppBanner } from "@/components/SmartAppBanner";
 
 function NotFoundComponent() {
   return (
@@ -49,6 +50,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   component: () => (
     <>
       <Analytics />
+      <SmartAppBanner />
       <Outlet />
     </>
   ),

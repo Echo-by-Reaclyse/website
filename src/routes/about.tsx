@@ -218,18 +218,9 @@ function TeamSection() {
         ))}
       </div>
 
-      <p
-        style={{
-          fontFamily: "var(--font-sans)",
-          fontSize: "0.78rem",
-          color: "var(--muted-foreground)",
-          marginTop: "1rem",
-          opacity: 0.7,
-          letterSpacing: "0.01em",
-        }}
-      >
-        Mentors & advisors coming soon.
-      </p>
+      {/* ECH-110: Mentors & advisors section — hidden until we have real content.
+          Placeholder: 2-3 advisors with photo, name, area of expertise, and a 1-line bio.
+          Content needed from Roksana before this section goes live. */}
     </section>
   );
 }

@@ -48,7 +48,7 @@ const faqs = [
   },
   {
     q: "How much does ÉCHO cost?",
-    a: "ÉCHO has a free tier with no time limit. PRO is $7.99 per month or $69.99 per year (a saving of about 27%). Members who join the waitlist before launch will receive a founding-member discount that locks in a lower rate for the lifetime of their subscription.",
+    a: "ÉCHO has a free tier with no time limit. PRO is €7.99 per month or €69.99 per year (a saving of about 27%). Members who join the waitlist before launch will receive a founding-member discount that locks in a lower rate for the lifetime of their subscription.",
   },
   {
     q: "What's included in the free tier?",
