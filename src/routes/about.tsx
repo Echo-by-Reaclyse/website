@@ -33,6 +33,14 @@ const TEAM: TeamMember[] = [
     photo: "/team-victor.jpg",
     linkedin: "https://www.linkedin.com/in/vmihai12/",
   },
+  {
+    // ECH-125: LinkedIn + photo (/team-susana.jpg) to be added by Susana
+    name: "Susana Monroy",
+    role: "Chief Marketing Officer",
+    initials: "SM",
+    photo: "/team-susana.jpg",
+    linkedin: "",
+  },
 ];
 
 function TeamCard({ member }: { member: TeamMember }) {
@@ -124,6 +132,7 @@ function TeamCard({ member }: { member: TeamMember }) {
 
       {/* Social links */}
       <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.25rem" }}>
+        {member.linkedin && (
         <a
           href={member.linkedin}
           target="_blank"
@@ -145,6 +154,7 @@ function TeamCard({ member }: { member: TeamMember }) {
         >
           <Linkedin size={15} strokeWidth={1.75} />
         </a>
+        )}
         {member.instagram && (
           <a
             href={member.instagram}
