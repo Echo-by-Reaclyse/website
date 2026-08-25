@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { QueryClient } from "@tanstack/react-query";
 import { Link, Outlet, createRootRouteWithContext, useRouterState } from "@tanstack/react-router";
 import { trackPageView } from "@/lib/pixel";
+import { initGA4, trackGA4PageView } from "@/lib/analytics";
 
 function NotFoundComponent() {
   return (
@@ -25,18 +26,29 @@ function NotFoundComponent() {
   );
 }
 
-function MetaPixelPageView() {
+function Analytics() {
   const { location } = useRouterState();
+
+  // Initialise GA4 once on mount
+  useEffect(() => {
+    const id = import.meta.env.VITE_GA4_ID as string | undefined;
+    if (id) initGA4(id);
+  }, []);
+
+  // Track both Meta Pixel and GA4 page views on every route change
   useEffect(() => {
     trackPageView();
+    const id = import.meta.env.VITE_GA4_ID as string | undefined;
+    if (id) trackGA4PageView(location.pathname, document.title);
   }, [location.pathname]);
+
   return null;
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   component: () => (
     <>
-      <MetaPixelPageView />
+      <Analytics />
       <Outlet />
     </>
   ),

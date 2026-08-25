@@ -1,0 +1,130 @@
+{
+  "nav": {
+    "joinEarlyAccess": "Join Early Access"
+  },
+  "hero": {
+    "eyebrow": "Voice journaling, reimagined",
+    "headline1": "You already know.",
+    "headline2": "ÉCHO helps you hear it.",
+    "subheadline": "Speak your thoughts naturally. ÉCHO remembers them — so you can come back to your own words, perspectives, and patterns over time.",
+    "trust": "Early access · No spam · Unsubscribe anytime"
+  },
+  "problem": {
+    "eyebrow": "Sound familiar?",
+    "headline": "You ask everyone else.\nBut what did you say?",
+    "cards": [
+      { "icon": "🔄", "text": "Decisions you keep overthinking" },
+      { "icon": "💭", "text": "Thoughts that come back again and again" },
+      { "icon": "✨", "text": "Goals, dreams and excitement" },
+      { "icon": "🌀", "text": "Things you can't stop thinking about" }
+    ]
+  },
+  "outcome": {
+    "eyebrow": "The outcome",
+    "headline": "Remember what mattered.",
+    "pillars": [
+      { "title": "Capture what's real", "body": "Speak freely about your day, your decisions, your thoughts." },
+      { "title": "Notice what keeps coming back", "body": "See your patterns, themes and recurring questions." },
+      { "title": "Reconnect with your perspective", "body": "Hear how your thinking evolves over time." },
+      { "title": "Make clearer decisions", "body": "Use your past insights to move forward with more confidence." }
+    ]
+  },
+  "howItWorks": {
+    "eyebrow": "How ÉCHO works",
+    "headline": "Three simple steps.",
+    "steps": [
+      { "number": "1", "title": "Speak", "body": "Tap to record and speak naturally about your day, your decisions, whatever is on your mind." },
+      { "number": "2", "title": "ÉCHO remembers", "body": "Your reflections are saved securely and organised over time." },
+      { "number": "3", "title": "Rediscover", "body": "Come back anytime to hear your past thoughts, words and patterns." }
+    ]
+  },
+  "whyVoice": {
+    "eyebrow": "Why voice?",
+    "headline": "Speaking is faster.\nMore natural.\nMore you.",
+    "body": "Sometimes you say something out loud before you've had time to turn it into what you think you're supposed to say.",
+    "pillars": [
+      { "label": "Fast" },
+      { "label": "Natural" },
+      { "label": "Authentic" }
+    ]
+  },
+  "product": {
+    "eyebrow": "A glimpse inside ÉCHO",
+    "headline": "Designed for clarity.\nBuilt for reflection.",
+    "features": [
+      { "tab": "Record", "title": "One question. One tap. Done.", "body": "A thoughtful question appears each day. Tap, speak, and you're finished in under a minute. No blank page. No pressure." },
+      { "tab": "Reflect", "title": "Every word you've ever said.", "body": "Browse and revisit your past reflections. Search, filter, and hear how your thinking has shifted over weeks and months." },
+      { "tab": "Patterns", "title": "See yourself clearly.", "body": "ÉCHO builds a picture of your emotional patterns, recurring themes, and growth arc over time. 8-point persona updated with every entry." },
+      { "tab": "Letters", "title": "Six months later, same question.", "body": "Seal your words. ÉCHO returns them when enough time has passed — and shows you who you've become since then." },
+      { "tab": "Privacy", "title": "Private by design.", "body": "On-device transcription. Encrypted at rest. No tracking. No advertising identifiers. Your voice never leaves your phone." }
+    ]
+  },
+  "founder": {
+    "eyebrow": "Founder",
+    "headline": "Why I built ÉCHO",
+    "body": "ÉCHO began with a simple belief: your own past words can help you understand what you're feeling now. This is the tool I always wished I had.",
+    "videoCta": "Watch Roksana's story"
+  },
+  "privacy": {
+    "eyebrow": "Private by design",
+    "headline": "Your thoughts stay yours.",
+    "pillars": [
+      { "title": "Your data is encrypted\nend-to-end", "body": "Every entry is locked before it leaves your device." },
+      { "title": "We never sell your data", "body": "Your words aren't used to train AI or handed to third parties." },
+      { "title": "You're in control of your\nrecordings and data", "body": "Export, delete, or disable sync at any time." },
+      { "title": "Delete anything, anytime", "body": "One tap to remove any entry — permanently." }
+    ],
+    "link": "Learn more in our Privacy Policy"
+  },
+  "earlyAccess": {
+    "eyebrow": "Founding member offer",
+    "headline": "Be the first to\nexperience ÉCHO.",
+    "subheadline": "Join the waitlist and get early access before launch — with a founding member price locked in for life.",
+    "offer": {
+      "badge": "Founding member",
+      "monthly": "€4.99",
+      "monthlyPeriod": "/month",
+      "yearly": "€49.99",
+      "yearlyPeriod": "/year",
+      "yearlySave": "Save 17%",
+      "lockedIn": "Price locked in for life",
+      "features": [
+        "Everything in ÉCHO Pro",
+        "Founding member price locked in for life",
+        "Priority access at launch",
+        "Input on future features"
+      ]
+    },
+    "trust": "Early access · No spam · Unsubscribe anytime"
+  },
+  "thankYou": {
+    "eyebrow": "You're on the list",
+    "headline": "We'll be in touch.",
+    "body": "You're among the first to join ÉCHO. Before launch, we'll reach out with your founding member offer and early access instructions.",
+    "whatNext": "What happens next",
+    "steps": [
+      { "title": "We build the final version", "body": "We're putting the finishing touches on ÉCHO right now." },
+      { "title": "You get early access", "body": "We'll email you before launch with your exclusive founding member link." },
+      { "title": "Your price is locked in", "body": "The founding member rate is yours for life, no matter what ÉCHO costs later." }
+    ],
+    "share": "Know someone who might love ÉCHO?",
+    "backHome": "Back to home"
+  },
+  "footer": {
+    "tagline": "A voice journaling experience that helps you remember what mattered most.",
+    "product": "Product",
+    "company": "Company",
+    "stayInLoop": "Stay in the loop",
+    "links": {
+      "howItWorks": "How it Works",
+      "forYou": "For You",
+      "privacy": "Privacy",
+      "faq": "FAQ",
+      "about": "About ÉCHO",
+      "ourStory": "Our Story",
+      "contact": "Contact",
+      "terms": "Terms",
+      "earlyAccess": "Early access, updates and behind-the-scenes from ÉCHO."
+    }
+  }
+}

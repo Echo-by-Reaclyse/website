@@ -9,12 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as SummitRouteImport } from './routes/summit'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as GdprRouteImport } from './routes/gdpr'
 import { Route as FindSupportRouteImport } from './routes/find-support'
 import { Route as FaqRouteImport } from './routes/faq'
+import { Route as EarlyAccessRouteImport } from './routes/early-access'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AdminRouteImport } from './routes/admin'
@@ -28,6 +30,11 @@ import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as AdminFlagsRouteImport } from './routes/admin/flags'
 import { Route as AdminCategoriesRouteImport } from './routes/admin/categories'
 
+const ThankYouRoute = ThankYouRouteImport.update({
+  id: '/thank-you',
+  path: '/thank-you',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SupportRoute = SupportRouteImport.update({
   id: '/support',
   path: '/support',
@@ -56,6 +63,11 @@ const FindSupportRoute = FindSupportRouteImport.update({
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EarlyAccessRoute = EarlyAccessRouteImport.update({
+  id: '/early-access',
+  path: '/early-access',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -125,12 +137,14 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
+  '/early-access': typeof EarlyAccessRoute
   '/faq': typeof FaqRoute
   '/find-support': typeof FindSupportRoute
   '/gdpr': typeof GdprRoute
   '/privacy': typeof PrivacyRoute
   '/summit': typeof SummitRoute
   '/support': typeof SupportRoute
+  '/thank-you': typeof ThankYouRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/flags': typeof AdminFlagsRoute
   '/admin/login': typeof AdminLoginRoute
@@ -143,12 +157,14 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/early-access': typeof EarlyAccessRoute
   '/faq': typeof FaqRoute
   '/find-support': typeof FindSupportRoute
   '/gdpr': typeof GdprRoute
   '/privacy': typeof PrivacyRoute
   '/summit': typeof SummitRoute
   '/support': typeof SupportRoute
+  '/thank-you': typeof ThankYouRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/flags': typeof AdminFlagsRoute
   '/admin/login': typeof AdminLoginRoute
@@ -164,12 +180,14 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
+  '/early-access': typeof EarlyAccessRoute
   '/faq': typeof FaqRoute
   '/find-support': typeof FindSupportRoute
   '/gdpr': typeof GdprRoute
   '/privacy': typeof PrivacyRoute
   '/summit': typeof SummitRoute
   '/support': typeof SupportRoute
+  '/thank-you': typeof ThankYouRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/flags': typeof AdminFlagsRoute
   '/admin/login': typeof AdminLoginRoute
@@ -186,12 +204,14 @@ export interface FileRouteTypes {
     | '/admin'
     | '/blog'
     | '/contact'
+    | '/early-access'
     | '/faq'
     | '/find-support'
     | '/gdpr'
     | '/privacy'
     | '/summit'
     | '/support'
+    | '/thank-you'
     | '/admin/categories'
     | '/admin/flags'
     | '/admin/login'
@@ -204,12 +224,14 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/early-access'
     | '/faq'
     | '/find-support'
     | '/gdpr'
     | '/privacy'
     | '/summit'
     | '/support'
+    | '/thank-you'
     | '/admin/categories'
     | '/admin/flags'
     | '/admin/login'
@@ -224,12 +246,14 @@ export interface FileRouteTypes {
     | '/admin'
     | '/blog'
     | '/contact'
+    | '/early-access'
     | '/faq'
     | '/find-support'
     | '/gdpr'
     | '/privacy'
     | '/summit'
     | '/support'
+    | '/thank-you'
     | '/admin/categories'
     | '/admin/flags'
     | '/admin/login'
@@ -245,16 +269,25 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
+  EarlyAccessRoute: typeof EarlyAccessRoute
   FaqRoute: typeof FaqRoute
   FindSupportRoute: typeof FindSupportRoute
   GdprRoute: typeof GdprRoute
   PrivacyRoute: typeof PrivacyRoute
   SummitRoute: typeof SummitRoute
   SupportRoute: typeof SupportRoute
+  ThankYouRoute: typeof ThankYouRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/thank-you': {
+      id: '/thank-you'
+      path: '/thank-you'
+      fullPath: '/thank-you'
+      preLoaderRoute: typeof ThankYouRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/support': {
       id: '/support'
       path: '/support'
@@ -295,6 +328,13 @@ declare module '@tanstack/react-router' {
       path: '/faq'
       fullPath: '/faq'
       preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/early-access': {
+      id: '/early-access'
+      path: '/early-access'
+      fullPath: '/early-access'
+      preLoaderRoute: typeof EarlyAccessRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -420,12 +460,14 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
+  EarlyAccessRoute: EarlyAccessRoute,
   FaqRoute: FaqRoute,
   FindSupportRoute: FindSupportRoute,
   GdprRoute: GdprRoute,
   PrivacyRoute: PrivacyRoute,
   SummitRoute: SummitRoute,
   SupportRoute: SupportRoute,
+  ThankYouRoute: ThankYouRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

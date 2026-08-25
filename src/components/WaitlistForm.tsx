@@ -5,16 +5,25 @@ import { Link } from "@tanstack/react-router";
 import { Checkbox } from "@/components/ui/checkbox";
 import { AnimatePresence, motion } from "framer-motion";
 import { trackLead } from "@/lib/pixel";
+import { trackFormStart, trackFormSubmit } from "@/lib/analytics";
+import { getStoredUTM } from "@/lib/utm";
 
 const emailSchema = z.string().trim().toLowerCase().email("Invalid email address");
 
-export function WaitlistForm({ variant = "hero" }: { variant?: "hero" | "footer" }) {
+export function WaitlistForm({
+  variant = "hero",
+  onSuccess,
+}: {
+  variant?: "hero" | "footer";
+  onSuccess?: () => void;
+}) {
   const [email, setEmail] = useState("");
   const [hp, setHp] = useState(""); // honeypot — must stay empty
   const [consented, setConsented] = useState(false);
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
   const [shake, setShake] = useState(false);
+  const [formStarted, setFormStarted] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -40,18 +49,21 @@ export function WaitlistForm({ variant = "hero" }: { variant?: "hero" | "footer"
     setLoading(true);
     try {
       const locale = typeof navigator !== "undefined" ? navigator.language : null;
+      const utm = getStoredUTM();
       const apiBase = import.meta.env.VITE_API_URL ?? "";
       const res = await fetch(`${apiBase}/subscribe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: parsed.data, locale, source: "landing", hp, consent: true }),
+        body: JSON.stringify({ email: parsed.data, locale, source: "landing", hp, consent: true, utm }),
       });
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
         throw new Error((body as { error?: string }).error ?? "Something went wrong.");
       }
       trackLead(parsed.data);
+      trackFormSubmit(variant);
       setDone(true);
+      onSuccess?.();
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong.");
     } finally {
@@ -128,6 +140,7 @@ export function WaitlistForm({ variant = "hero" }: { variant?: "hero" | "footer"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="your@email.com"
+          onFocus={() => { if (!formStarted) { setFormStarted(true); trackFormStart(variant); } }}
           className="min-w-0 flex-1 bg-transparent px-4 py-2.5 text-[15px] text-foreground placeholder:text-muted-foreground/45 outline-none"
         />
         <button

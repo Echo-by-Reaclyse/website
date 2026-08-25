@@ -821,3 +821,9 @@
 .echo-waveform line:nth-child(4) { animation-duration: 0.85s; animation-delay: 0.04s; }
 .echo-waveform line:nth-child(5) { animation-duration: 1.1s; animation-delay: 0.18s; }
 .echo-waveform line:nth-child(6) { animation-duration: 1.4s; animation-delay: 0.08s; }
+
+/* ── WhyVoice waveform bar dance ── */
+@keyframes barDance {
+  0%, 100% { transform: scaleY(0.55); }
+  50%       { transform: scaleY(1); }
+}
