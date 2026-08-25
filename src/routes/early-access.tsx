@@ -6,6 +6,7 @@ import {
 } from "framer-motion";
 import { WaitlistForm } from "@/components/WaitlistForm";
 import { useTheme as useGlobalTheme } from "@/components/ThemeProvider";
+import { SiteNav } from "@/components/SiteNav";
 import { captureUTM } from "@/lib/utm";
 import { trackCTAClick, trackSectionView } from "@/lib/analytics";
 import en from "@/locales/en.json";
@@ -98,137 +99,6 @@ function AtmoDivider({ from, to }: { from: string; to: string }) {
         marginTop: -1,
       }}
     />
-  );
-}
-
-// ── Minimal Nav ───────────────────────────────────────────────────────────────
-const NAV_LINKS = [
-  { label: "How it Works", href: "#how-it-works" },
-  { label: "For You", href: "#why-voice" },
-  { label: "Privacy", href: "#privacy" },
-  { label: "FAQ", to: "/faq" },
-];
-
-function EarlyAccessNav({ C }: { C: C }) {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
-  }, []);
-
-  const scrollTo = (href: string, label: string) => {
-    trackCTAClick(label, "nav");
-    const id = href.replace("#", "");
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
-  const scrollToForm = () => {
-    trackCTAClick("Join Early Access", "nav");
-    document.getElementById("hero-form")?.scrollIntoView({ behavior: "smooth", block: "center" });
-  };
-
-  return (
-    <nav
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 100,
-        padding: "0 clamp(16px, 4vw, 48px)",
-        height: 64,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        gap: 24,
-        background: scrolled ? C.navBg : "transparent",
-        backdropFilter: scrolled ? "blur(16px)" : "none",
-        transition: "background 0.35s ease, backdrop-filter 0.35s ease",
-        borderBottom: scrolled ? `1px solid ${C.cardBorder}` : "1px solid transparent",
-      }}
-    >
-      <Link to="/" style={{ textDecoration: "none", flexShrink: 0 }}>
-        <span style={{ fontFamily: C.serif, fontSize: 20, color: C.cream, letterSpacing: "0.02em" }}>
-          ÉCHO
-        </span>
-      </Link>
-
-      {/* Centre links — hidden on small screens */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 28,
-          flex: 1,
-          justifyContent: "center",
-        }}
-        className="ea-nav-links"
-      >
-        {NAV_LINKS.map((link) =>
-          link.to ? (
-            <Link
-              key={link.label}
-              to={link.to}
-              style={{
-                fontFamily: C.sans,
-                fontSize: 14,
-                color: C.muted,
-                textDecoration: "none",
-                transition: "color 0.2s ease",
-                whiteSpace: "nowrap",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = C.cream)}
-              onMouseLeave={(e) => (e.currentTarget.style.color = C.muted)}
-            >
-              {link.label}
-            </Link>
-          ) : (
-            <button
-              key={link.label}
-              onClick={() => scrollTo(link.href!, link.label)}
-              style={{
-                background: "none",
-                border: "none",
-                fontFamily: C.sans,
-                fontSize: 14,
-                color: C.muted,
-                cursor: "pointer",
-                padding: 0,
-                transition: "color 0.2s ease",
-                whiteSpace: "nowrap",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = C.cream)}
-              onMouseLeave={(e) => (e.currentTarget.style.color = C.muted)}
-            >
-              {link.label}
-            </button>
-          )
-        )}
-      </div>
-
-      <button
-        onClick={scrollToForm}
-        style={{
-          background: C.ember,
-          color: "#fff",
-          border: "none",
-          borderRadius: 100,
-          padding: "9px 20px",
-          fontSize: 14,
-          fontFamily: C.sans,
-          fontWeight: 600,
-          letterSpacing: "0.01em",
-          cursor: "pointer",
-          transition: "opacity 0.2s ease",
-          flexShrink: 0,
-        }}
-        onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.88")}
-        onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-      >
-        {t.nav.joinEarlyAccess}
-      </button>
-    </nav>
   );
 }
 
@@ -1673,7 +1543,15 @@ function EarlyAccessPage() {
 
   return (
     <div style={{ background: C.pageBg, minHeight: "100vh" }}>
-      <EarlyAccessNav C={C} />
+      <SiteNav
+        links={[
+          { label: "How it works", anchor: "how-it-works" },
+          { label: "For You", anchor: "why-voice" },
+          { label: "Privacy", anchor: "privacy" },
+          { label: "FAQ", to: "/faq" },
+        ]}
+        cta={{ label: "Join waitlist", anchor: "hero-form" }}
+      />
 
       <HeroSection C={C} isDark={isDark} onSuccess={handleSuccess} />
       <AtmoDivider from={isDark ? "#120F0D" : "#FAF0E6"} to={isDark ? C.altBg : C.altBg} />

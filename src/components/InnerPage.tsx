@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ThemeToggle } from "./ThemeToggle";
+import { SiteNav } from "./SiteNav";
 
 interface InnerPageProps {
   title: string;
@@ -13,6 +13,8 @@ const NAV_LINKS = [
   { label: "Blog", to: "/blog" },
   { label: "FAQ", to: "/faq" },
 ];
+
+const NAV_CTA = { label: "Join waitlist", to: "/early-access" };
 
 const FOOTER_PRODUCT = [
   { label: "FAQ", to: "/faq" },
@@ -30,61 +32,7 @@ const FOOTER_COMPANY = [
 export function InnerPage({ title, subtitle, children }: InnerPageProps) {
   return (
     <div className="relative min-h-screen bg-background [overflow-x:clip]">
-      {/* ── Nav ── */}
-      <header className="fixed inset-x-0 top-0 z-50 nav-blur">
-        <div
-          className="mx-auto flex items-center justify-between px-5 py-3 sm:px-6 sm:py-4"
-          style={{ maxWidth: 1100 }}
-        >
-          {/* Logo */}
-          <Link to="/" className="flex items-end gap-2.5 transition hover:opacity-80" style={{ flexShrink: 0 }}>
-            <img src="/logo-main.svg" alt="ÉCHO" style={{ height: 22, width: "auto", opacity: 0.92 }} />
-            <span className="hidden pb-0.5 font-sans text-[11px] uppercase tracking-[0.18em] text-muted-foreground sm:block">
-              by Réaclyse
-            </span>
-          </Link>
-
-          {/* Centre links — hidden on mobile */}
-          <nav className="hidden md:flex items-center gap-6" aria-label="Site navigation">
-            {NAV_LINKS.map(({ label, to }) => (
-              <Link
-                key={label}
-                to={to}
-                className="font-sans text-sm text-muted-foreground transition hover:text-ink"
-                style={{ textDecoration: "none", whiteSpace: "nowrap" }}
-              >
-                {label}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Right — theme toggle + CTA */}
-          <div className="flex items-center gap-3" style={{ flexShrink: 0 }}>
-            <ThemeToggle />
-            <Link
-              to="/early-access"
-              className="hidden sm:inline-flex items-center"
-              style={{
-                padding: "0.45rem 1.1rem",
-                borderRadius: 100,
-                background: "#BF6040",
-                color: "#fff",
-                fontFamily: "var(--font-sans)",
-                fontSize: "0.8rem",
-                fontWeight: 700,
-                textDecoration: "none",
-                letterSpacing: "0.01em",
-                whiteSpace: "nowrap",
-                transition: "opacity 0.18s",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.82")}
-              onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-            >
-              Join waitlist
-            </Link>
-          </div>
-        </div>
-      </header>
+      <SiteNav links={NAV_LINKS} cta={NAV_CTA} />
 
       {/* ── Content ── */}
       <main className="mx-auto max-w-2xl px-4 pb-24 pt-20 sm:px-6 sm:pt-24">

@@ -830,15 +830,6 @@
 
 /* ── Early-access page responsive layouts ── */
 
-/* Nav center links — hidden on small screens */
-.ea-nav-links {
-  display: flex;
-}
-@media (max-width: 767px) {
-  .ea-nav-links {
-    display: none !important;
-  }
-}
 
 /* Hero 2-col → 1-col on mobile */
 .ea-hero-grid {

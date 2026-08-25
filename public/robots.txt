@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /admin
+Disallow: /thank-you
 
-Sitemap: https://echobyreaclyse.com/sitemap.xml
+Sitemap: https://www.echobyreaclyse.com/sitemap.xml
