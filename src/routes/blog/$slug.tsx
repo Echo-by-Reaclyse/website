@@ -2,6 +2,11 @@ import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { InnerPage } from "@/components/InnerPage";
 import { getPost } from "@/lib/blog-posts";
 
+function formatDate(iso: string) {
+  const d = new Date(iso);
+  return d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+}
+
 export const Route = createFileRoute("/blog/$slug")({
   component: BlogPost,
   loader: ({ params }) => {
@@ -15,7 +20,7 @@ function BlogPost() {
   const post = Route.useLoaderData();
 
   return (
-    <InnerPage title={post.title} subtitle={`${post.date} · ${post.readingTime}`}>
+    <InnerPage title={post.title} subtitle={`${post.author} · ${formatDate(post.date)} · ${post.readingTime}`}>
       <title>{post.title} — ÉCHO Journal</title>
       <meta name="description" content={post.description} />
       <link rel="canonical" href={`https://www.echobyreaclyse.com/blog/${post.slug}`} />
@@ -91,7 +96,7 @@ function BlogPost() {
         {post.sections.map((section, i) => (
           <section key={i}>
             {section.heading && (
-              <h2 className="font-display text-2xl text-ink mb-3">{section.heading}</h2>
+              <h2 className="font-display text-3xl text-ink mb-3 leading-tight">{section.heading}</h2>
             )}
             <div className="space-y-4">
               {section.body.split("\n\n").map((para, j) => (

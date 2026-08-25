@@ -9,6 +9,7 @@ export interface BlogPost {
   description: string;
   date: string;
   readingTime: string;
+  author: string;
   sections: BlogSection[];
 }
 
@@ -20,6 +21,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "Discover what voice journaling is, how it differs from traditional journaling, and why speaking your thoughts reveals more than writing them ever could.",
     date: "2026-06-03",
     readingTime: "7 min read",
+    author: "The ÉCHO Team",
     sections: [
       {
         body: "Voice journaling is the practice of speaking your thoughts aloud into a recording instead of writing them down. That's the one-sentence version. The longer version is that it feels fundamentally different from anything you've tried before — closer to thinking out loud to a trusted friend than filling in a diary. You press record, you answer a question, you stop. There's no formatting, no backspacing, no rereading what you wrote and deciding it sounds wrong.\n\nMost people who try it for the first time notice something unexpected: they say things they didn't know they thought. The act of speaking — with no delete key and no audience — creates a kind of honesty that a notebook and pen rarely produces. That's not magic. It's just what happens when you remove the editing layer between a thought and its expression.",
@@ -57,6 +59,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "We write to look good. We speak to think. Here's why voice journaling consistently surfaces deeper truths than written journaling — and what the research says.",
     date: "2026-06-03",
     readingTime: "6 min read",
+    author: "The ÉCHO Team",
     sections: [
       {
         body: "There's a widespread assumption that written journals are the more serious, more literary, more worthwhile form of self-reflection. Centuries of tradition back this up. Marcus Aurelius wrote. Anaïs Nin wrote. Virginia Woolf wrote. The diary, as a form, has cultural prestige that voice memos do not.\n\nBut prestige and usefulness are different things. When you sit down to write about a hard conversation you had today, the version that reaches the page is already a revision — cleaned up, given a narrative arc, made more coherent than the actual experience was. That's not always bad. But it's worth asking: is the polished version the one you most need to examine? Or is it the raw, contradictory, mid-thought version that came before you knew what you actually felt?",
@@ -94,6 +97,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "Most journaling prompts are vague. These 5 questions are designed to surface hidden assumptions, break avoidance patterns, and build self-clarity over time.",
     date: "2026-06-03",
     readingTime: "8 min read",
+    author: "The ÉCHO Team",
     sections: [
       {
         body: "Most journaling prompts are well-intentioned and essentially useless. \"What are you grateful for?\" produces a list: coffee, my dog, my health. You write it, feel briefly virtuous, and learn nothing you didn't already know. \"How are you feeling?\" gets the same three-word answer every time. The problem isn't that these questions are bad — it's that they're so familiar your brain can answer them without actually thinking.\n\nA genuinely useful reflection question has to do something a familiar one doesn't: it has to introduce a moment of friction. A small gap between the question and the answer, during which your brain has to actually search rather than retrieve. That friction is where the insight lives. The five questions below are designed to create that gap — to ask something slightly uncomfortable, slightly specific, slightly unfamiliar, so that the answer surprises you.",
@@ -135,6 +139,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "The reason most journaling habits fail has nothing to do with motivation. Here's how to build a daily reflection practice in under 2 minutes — and keep it.",
     date: "2026-06-03",
     readingTime: "6 min read",
+    author: "The ÉCHO Team",
     sections: [
       {
         body: "Almost everyone has tried journaling. Most people have tried it more than once. A beautiful notebook purchased with good intentions, used for ten days, then left on a shelf. A meditation app that sent notifications for three weeks before being silenced. A \"morning pages\" phase that lasted a full month before quietly ending when a busy week made it impossible and it never resumed.\n\nThe failure of journaling habits is so common that people treat it as evidence of a personal flaw — a lack of discipline, or an insufficient inner life, or just not being \"a journaling person.\" None of that is true. The habits fail because they're designed badly. They create the wrong expectations, require too much friction to maintain, and produce no visible feedback until you've already given up.",
@@ -172,6 +177,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "A practical comparison of the top iPhone journaling apps in 2026 — from voice-first tools to classic text journals — with honest trade-offs for each.",
     date: "2026-06-03",
     readingTime: "9 min read",
+    author: "The ÉCHO Team",
     sections: [
       {
         body: "The iPhone journaling app market has matured considerably. A few years ago, the choice was essentially Day One or a notes app. Now there are genuinely distinct philosophies competing for your attention: structured versus free-form, voice versus text, private versus AI-analysed, longitudinal versus single-entry. The best app for you depends less on star ratings than on which of those trade-offs matches how you actually think and live.\n\nThis comparison is honest about limitations. Every app here has genuine strengths — the question is whether those strengths match what you're looking for. There's no ranking because ranking implies that one journaling philosophy is objectively better than another, and that's not true. There's only better and worse fits for different people.",

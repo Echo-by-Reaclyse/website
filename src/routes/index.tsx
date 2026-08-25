@@ -10,7 +10,6 @@ import {
 import { motion, AnimatePresence, useScroll, useTransform, useAnimation, type MotionValue } from "framer-motion";
 import { Pointer, Smartphone, ShieldCheck, EyeOff, Cloud } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
-import { WaitlistForm } from "@/components/WaitlistForm";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTheme as useGlobalTheme } from "@/components/ThemeProvider";
 import { ThemeToggle as SharedThemeToggle } from "@/components/ThemeToggle";
@@ -3342,8 +3341,8 @@ function PricingSection() {
             ))}
           </ul>
 
-          <button
-            onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth" })}
+          <Link
+            to="/early-access"
             style={{
               display: "block",
               width: "100%",
@@ -3355,7 +3354,7 @@ function PricingSection() {
               letterSpacing: "0.16em",
               fontFamily: C.sans,
               fontWeight: 600,
-              cursor: "pointer",
+              textDecoration: "none",
               border: `1px solid ${C.border}`,
               background: "transparent",
               color: C.muted,
@@ -3363,7 +3362,7 @@ function PricingSection() {
             }}
           >
             Get notified at launch
-          </button>
+          </Link>
         </motion.div>
 
         {/* Unfold — pro tier */}
@@ -3417,8 +3416,8 @@ function PricingSection() {
             ))}
           </ul>
 
-          <button
-            onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth" })}
+          <Link
+            to="/early-access"
             className="btn-ember"
             style={{
               display: "block",
@@ -3431,13 +3430,12 @@ function PricingSection() {
               letterSpacing: "0.16em",
               fontFamily: C.sans,
               fontWeight: 700,
-              cursor: "pointer",
-              border: "none",
+              textDecoration: "none",
               marginTop: "auto",
             }}
           >
             Join waitlist — founding price
-          </button>
+          </Link>
         </motion.div>
       </motion.div>
     </section>
@@ -3702,9 +3700,25 @@ function WaitlistSection() {
 
         <motion.div
           variants={scaleUp}
-          style={{ maxWidth: 480, margin: "0 auto 32px" }}
+          style={{ maxWidth: 480, margin: "0 auto 32px", display: "flex", justifyContent: "center" }}
         >
-          <WaitlistForm variant="footer" />
+          <Link
+            to="/early-access"
+            className="btn-ember"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "16px 40px",
+              borderRadius: 999,
+              fontSize: 15,
+              fontWeight: 700,
+              letterSpacing: "0.04em",
+              textDecoration: "none",
+            }}
+          >
+            Join the waitlist →
+          </Link>
         </motion.div>
 
         {/* Trust badges */}

@@ -88,9 +88,9 @@ export function InnerPage({ title, subtitle, children }: InnerPageProps) {
 
       {/* ── Content ── */}
       <main className="mx-auto max-w-2xl px-4 pb-24 pt-20 sm:px-6 sm:pt-24">
-        <h1 className="font-display text-4xl text-ink sm:text-5xl">{title}</h1>
+        <h1 className="font-display text-5xl text-ink leading-tight tracking-tight sm:text-6xl">{title}</h1>
         {subtitle && (
-          <p className="mt-4 font-sans text-sm text-muted-foreground">{subtitle}</p>
+          <p className="mt-3 font-sans text-sm text-muted-foreground">{subtitle}</p>
         )}
         <div className="mt-10 space-y-8">{children}</div>
 

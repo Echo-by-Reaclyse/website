@@ -2,6 +2,11 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { InnerPage } from "@/components/InnerPage";
 import { BLOG_POSTS } from "@/lib/blog-posts";
 
+function formatDate(iso: string) {
+  const d = new Date(iso);
+  return d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+}
+
 export const Route = createFileRoute("/blog/")({
   component: BlogIndex,
 });
@@ -64,17 +69,38 @@ function BlogIndex() {
             params={{ slug: post.slug }}
             className="block group"
           >
-            <article className="border border-border rounded-xl p-6 transition-shadow hover:shadow-md card-lift">
-              <p className="font-sans text-xs text-ember uppercase tracking-widest mb-2">
-                {post.readingTime}
-              </p>
-              <h2 className="font-display text-2xl text-ink mb-2 group-hover:opacity-80 transition-opacity">
-                {post.title}
-              </h2>
-              <p className="font-sans text-sm leading-relaxed text-muted-foreground mb-3">
-                {post.description}
-              </p>
-              <span className="font-sans text-sm text-ember">Read article →</span>
+            <article className="border border-border rounded-xl overflow-hidden transition-shadow hover:shadow-md card-lift">
+              {/* ECH-120: Replace placeholder with real cover image at /blog-covers/{post.slug}.jpg when assets are ready (ECH-85) */}
+              <div
+                className="w-full bg-[rgba(191,96,64,0.06)] border-b border-border flex items-center justify-center"
+                style={{ height: 160 }}
+                aria-hidden="true"
+              >
+                <span className="font-display text-3xl text-[rgba(191,96,64,0.25)] select-none">ÉCHO</span>
+              </div>
+
+              <div className="p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <p className="font-sans text-xs text-ember uppercase tracking-widest">
+                    {post.readingTime}
+                  </p>
+                  <span className="text-border text-xs">·</span>
+                  <p className="font-sans text-xs text-muted-foreground">
+                    {formatDate(post.date)}
+                  </p>
+                  <span className="text-border text-xs">·</span>
+                  <p className="font-sans text-xs text-muted-foreground">
+                    {post.author}
+                  </p>
+                </div>
+                <h2 className="font-display text-2xl text-ink mb-2 group-hover:opacity-80 transition-opacity sm:text-3xl leading-tight">
+                  {post.title}
+                </h2>
+                <p className="font-sans text-sm leading-relaxed text-muted-foreground mb-4">
+                  {post.description}
+                </p>
+                <span className="font-sans text-sm text-ember">Read article →</span>
+              </div>
             </article>
           </Link>
         ))}
