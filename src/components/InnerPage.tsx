@@ -7,24 +7,86 @@ interface InnerPageProps {
   children: React.ReactNode;
 }
 
+const NAV_LINKS = [
+  { label: "How it works", to: "/early-access" },
+  { label: "About", to: "/about" },
+  { label: "Blog", to: "/blog" },
+  { label: "FAQ", to: "/faq" },
+];
+
+const FOOTER_PRODUCT = [
+  { label: "FAQ", to: "/faq" },
+  { label: "About ÉCHO", to: "/about" },
+  { label: "Blog", to: "/blog" },
+  { label: "Privacy", to: "/privacy" },
+];
+
+const FOOTER_COMPANY = [
+  { label: "About Réaclyse", to: "/about" },
+  { label: "Contact", to: "/contact" },
+  { label: "Terms", to: "/privacy" },
+];
+
 export function InnerPage({ title, subtitle, children }: InnerPageProps) {
   return (
     <div className="relative min-h-screen bg-background [overflow-x:clip]">
+      {/* ── Nav ── */}
       <header className="fixed inset-x-0 top-0 z-50 nav-blur">
         <div
           className="mx-auto flex items-center justify-between px-5 py-3 sm:px-6 sm:py-4"
           style={{ maxWidth: 1100 }}
         >
-          <Link to="/" className="flex items-end gap-2.5 transition hover:opacity-80">
+          {/* Logo */}
+          <Link to="/" className="flex items-end gap-2.5 transition hover:opacity-80" style={{ flexShrink: 0 }}>
             <img src="/logo-main.svg" alt="ÉCHO" style={{ height: 22, width: "auto", opacity: 0.92 }} />
             <span className="hidden pb-0.5 font-sans text-[11px] uppercase tracking-[0.18em] text-muted-foreground sm:block">
               by Réaclyse
             </span>
           </Link>
-          <ThemeToggle />
+
+          {/* Centre links — hidden on mobile */}
+          <nav className="hidden md:flex items-center gap-6" aria-label="Site navigation">
+            {NAV_LINKS.map(({ label, to }) => (
+              <Link
+                key={label}
+                to={to}
+                className="font-sans text-sm text-muted-foreground transition hover:text-ink"
+                style={{ textDecoration: "none", whiteSpace: "nowrap" }}
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Right — theme toggle + CTA */}
+          <div className="flex items-center gap-3" style={{ flexShrink: 0 }}>
+            <ThemeToggle />
+            <Link
+              to="/early-access"
+              className="hidden sm:inline-flex items-center"
+              style={{
+                padding: "0.45rem 1.1rem",
+                borderRadius: 100,
+                background: "#BF6040",
+                color: "#fff",
+                fontFamily: "var(--font-sans)",
+                fontSize: "0.8rem",
+                fontWeight: 700,
+                textDecoration: "none",
+                letterSpacing: "0.01em",
+                whiteSpace: "nowrap",
+                transition: "opacity 0.18s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.82")}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+            >
+              Join waitlist
+            </Link>
+          </div>
         </div>
       </header>
 
+      {/* ── Content ── */}
       <main className="mx-auto max-w-2xl px-4 pb-24 pt-20 sm:px-6 sm:pt-24">
         <h1 className="font-display text-4xl text-ink sm:text-5xl">{title}</h1>
         {subtitle && (
@@ -82,13 +144,143 @@ export function InnerPage({ title, subtitle, children }: InnerPageProps) {
               letterSpacing: "0.01em",
               transition: "opacity 0.18s",
             }}
-            className="waitlist-cta-btn"
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.82")}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
           >
             Join the waitlist →
           </Link>
-          <style>{`.waitlist-cta-btn:hover { opacity: 0.85; }`}</style>
         </div>
       </main>
+
+      {/* ── Footer — ECH-113 ── */}
+      <footer
+        style={{
+          borderTop: "1px solid rgba(191,96,64,0.12)",
+          padding: "3rem clamp(1.25rem, 5vw, 4rem) 2rem",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: 1100,
+            margin: "0 auto",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+            gap: "2rem",
+          }}
+        >
+          {/* Brand */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <Link to="/" style={{ textDecoration: "none" }}>
+              <img src="/logo-main.svg" alt="ÉCHO" style={{ height: 20, width: "auto", opacity: 0.85 }} />
+            </Link>
+            <p className="font-sans text-xs text-muted-foreground" style={{ lineHeight: 1.65, maxWidth: 200, margin: 0 }}>
+              A private voice journal for iPhone. Launching 2026.
+            </p>
+          </div>
+
+          {/* Product */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <p
+              className="font-sans text-[11px] font-semibold uppercase tracking-widest"
+              style={{ color: "#BF6040", margin: 0 }}
+            >
+              Product
+            </p>
+            {FOOTER_PRODUCT.map(({ label, to }) => (
+              <Link
+                key={label}
+                to={to}
+                className="font-sans text-sm text-muted-foreground transition hover:text-ink"
+                style={{ textDecoration: "none" }}
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Company */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <p
+              className="font-sans text-[11px] font-semibold uppercase tracking-widest"
+              style={{ color: "#BF6040", margin: 0 }}
+            >
+              Company
+            </p>
+            {FOOTER_COMPANY.map(({ label, to }) => (
+              <Link
+                key={label}
+                to={to}
+                className="font-sans text-sm text-muted-foreground transition hover:text-ink"
+                style={{ textDecoration: "none" }}
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Get the app */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <p
+              className="font-sans text-[11px] font-semibold uppercase tracking-widest"
+              style={{ color: "#BF6040", margin: 0 }}
+            >
+              Get ÉCHO
+            </p>
+            <p className="font-sans text-sm text-muted-foreground" style={{ margin: 0, lineHeight: 1.55 }}>
+              Coming to the App Store in 2026.
+            </p>
+            <Link
+              to="/early-access"
+              className="font-sans text-sm font-semibold"
+              style={{
+                color: "#BF6040",
+                textDecoration: "none",
+                transition: "opacity 0.18s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.7")}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+            >
+              {/* TODO ECH-108: replace with App Store link when app ships */}
+              Join the waitlist →
+            </Link>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div
+          style={{
+            maxWidth: 1100,
+            margin: "2rem auto 0",
+            paddingTop: "1.5rem",
+            borderTop: "1px solid rgba(191,96,64,0.10)",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: 12,
+          }}
+        >
+          <p className="font-sans text-xs text-muted-foreground" style={{ margin: 0 }}>
+            © 2026 Réaclyse S.à r.l. · Luxembourg
+          </p>
+          <div style={{ display: "flex", gap: 16 }}>
+            {([
+              { label: "Privacy", to: "/privacy" },
+              { label: "Terms", to: "/privacy" },
+              { label: "Contact", to: "/contact" },
+            ] as { label: string; to: string }[]).map(({ label, to }) => (
+              <Link
+                key={label}
+                to={to}
+                className="font-sans text-xs text-muted-foreground transition hover:text-ink"
+                style={{ textDecoration: "none" }}
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
