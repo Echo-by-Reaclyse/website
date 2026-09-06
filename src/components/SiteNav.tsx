@@ -114,8 +114,8 @@ export function SiteNav({ links, cta }: SiteNavProps) {
         <div style={{ display: "flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
           <ThemeToggle />
 
-          {/* CTA — visible at all sizes */}
-          <span>
+          {/* CTA — hidden on mobile (accessible via hamburger drawer below) */}
+          <span className="hidden sm:block">
             {cta.to ? (
               <Link to={cta.to} className="site-nav-cta">
                 {cta.label}
