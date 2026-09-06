@@ -8,10 +8,10 @@ export const Route = createFileRoute("/privacy")({
 function Privacy() {
   return (
     <InnerPage title="Privacy Policy" subtitle="Last updated: May 2026">
-      <title>Privacy Policy — ÉCHO by Réaclyse</title>
+      <title>Privacy Policy · ÉCHO</title>
       <meta
         name="description"
-        content="ÉCHO privacy policy. Your voice recordings and transcripts are encrypted and never used to train AI models. GDPR-compliant. Built by Réaclyse, Luxembourg."
+        content="ÉCHO privacy policy. Your voice recordings and transcripts are encrypted and never used to train AI models. GDPR-compliant. Built by RÉACLYSE, Luxembourg."
       />
       <link rel="canonical" href="https://www.echobyreaclyse.com/privacy" />
 

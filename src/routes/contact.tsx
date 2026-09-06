@@ -8,13 +8,13 @@ export const Route = createFileRoute("/contact")({
 function Contact() {
   return (
     <InnerPage title="Contact" subtitle="We'd love to hear from you.">
-      <title>Contact Réaclyse — ÉCHO Voice Journal</title>
+      <title>Contact · ÉCHO</title>
       <meta
         name="description"
-        content="Contact Réaclyse about ÉCHO, the private voice journal for iPhone. General enquiries, press, partnerships, or GDPR data requests — hello@reaclyse.com."
+        content="Contact ÉCHO — general enquiries, press, partnerships, or GDPR data requests. We'd love to hear from you. hello@reaclyse.com."
       />
       <link rel="canonical" href="https://www.echobyreaclyse.com/contact" />
-      <meta property="og:title" content="Contact Réaclyse — ÉCHO Voice Journal" />
+      <meta property="og:title" content="Contact · ÉCHO" />
       <meta
         property="og:description"
         content="General enquiries, press, partnerships, or data requests — hello@reaclyse.com."

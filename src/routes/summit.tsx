@@ -778,7 +778,7 @@ function Summit() {
                 color: C.inkMuted,
               }}
             >
-              by Réaclyse
+              by RÉACLYSE
             </span>
           </Link>
 

@@ -1508,7 +1508,7 @@ function EarlyAccessFooter({ C }: { C: C }) {
 
       <div style={{ maxWidth: 900, margin: "48px auto 0", paddingTop: 24, borderTop: `1px solid ${C.cardBorder}`, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
         <p style={{ fontFamily: C.sans, fontSize: 12, color: C.dimmed, margin: 0 }}>
-          © 2026 Réaclyse. All rights reserved.
+          © 2026 ÉCHO by RÉACLYSE S.à r.l.-S. All rights reserved.
         </p>
         <div style={{ display: "flex", gap: 16 }}>
           {([
@@ -1552,6 +1552,7 @@ function EarlyAccessPage() {
         ]}
         cta={{ label: "Join waitlist", anchor: "hero-form" }}
       />
+      <div id="main-content" />
 
       <HeroSection C={C} isDark={isDark} onSuccess={handleSuccess} />
       <AtmoDivider from={isDark ? "#120F0D" : "#FAF0E6"} to={isDark ? C.altBg : C.altBg} />
@@ -1574,8 +1575,7 @@ function EarlyAccessPage() {
       <FounderSection C={C} isDark={isDark} />
       <AtmoDivider from={isDark ? C.pageBg : C.pageBg} to={isDark ? C.altBg : C.altBg} />
 
-      <SocialProofSection C={C} isDark={isDark} />
-      <AtmoDivider from={isDark ? C.pageBg : C.pageBg} to={isDark ? C.altBg : C.altBg} />
+      {/* SocialProofSection hidden until real beta quotes are available — ECH-112 / ECH-124 */}
 
       <PrivacySection C={C} isDark={isDark} />
       <AtmoDivider from={isDark ? C.altBg : C.altBg} to={isDark ? C.deepBg : C.deepBg} />

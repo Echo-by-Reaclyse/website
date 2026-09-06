@@ -524,7 +524,7 @@
     padding: 8px 18px;
     border-radius: 100px;
     background: var(--ember);
-    color: #fff;
+    color: var(--midnight);
     font-family: var(--font-sans);
     font-size: 13px;
     font-weight: 700;
@@ -536,6 +536,36 @@
     transition: opacity 0.2s;
   }
   .site-nav-cta:hover { opacity: 0.85; }
+
+  /* ── Skip-to-content link (accessibility) ── */
+  .skip-to-content {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    text-decoration: none;
+  }
+  .skip-to-content:focus {
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    z-index: 9999;
+    background: var(--ember);
+    color: var(--midnight);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    outline: 2px solid var(--midnight);
+    outline-offset: 2px;
+  }
 
   /* ── Hero utility classes ── */
   .nav-entrance  { animation: heroFadeUp  0.6s  cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }

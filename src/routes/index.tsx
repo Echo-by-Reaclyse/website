@@ -3561,7 +3561,7 @@ function Footer() {
               paddingBottom: 2,
             }}
           >
-            by Réaclyse
+            by RÉACLYSE
           </span>
         </div>
 
@@ -3616,7 +3616,7 @@ function Footer() {
             fontFamily: C.sans,
           }}
         >
-          © 2026 Réaclyse. All rights reserved.
+          © 2026 ÉCHO by RÉACLYSE S.à r.l.-S. All rights reserved.
         </p>
       </div>
     </footer>
@@ -3640,7 +3640,7 @@ function Landing() {
           overflowX: "clip",
         }}
       >
-        <title>ÉCHO — Private Voice Journal for iPhone | Réaclyse</title>
+        <title>ÉCHO — Private Voice Journal for iPhone</title>
         <meta
           name="description"
           content="ÉCHO is a private voice journal for iPhone. One question a day, your voice recorded and encrypted on-device. Weeks later, ÉCHO surfaces what you said before the doubt set in. Launching on iOS in Europe 2026."
@@ -3696,6 +3696,7 @@ function Landing() {
           ]}
           cta={{ label: "Join waitlist", to: "/early-access" }}
         />
+        <div id="main-content" />
         <HeroSection />
         <MarqueeStrip />
         <ManifestoSection />

@@ -15,6 +15,8 @@ interface TeamMember {
   photo: string;
   linkedin: string;
   instagram?: string;
+  /** Set true to hide from the page until photo/bio is ready */
+  hidden?: boolean;
 }
 
 const TEAM: TeamMember[] = [
@@ -34,12 +36,13 @@ const TEAM: TeamMember[] = [
     linkedin: "https://www.linkedin.com/in/vmihai12/",
   },
   {
-    // ECH-125: LinkedIn + photo (/team-susana.jpg) to be added by Susana
+    // ECH-125: hidden until Susana provides photo (/team-susana.jpg) and LinkedIn
     name: "Susana Monroy",
     role: "Chief Marketing Officer",
     initials: "SM",
     photo: "/team-susana.jpg",
     linkedin: "",
+    hidden: true,
   },
 ];
 
@@ -223,7 +226,7 @@ function TeamSection() {
           maxWidth: 520,
         }}
       >
-        {TEAM.map((m) => (
+        {TEAM.filter((m) => !m.hidden).map((m) => (
           <TeamCard key={m.name} member={m} />
         ))}
       </div>
@@ -237,23 +240,23 @@ function TeamSection() {
 
 function About() {
   return (
-    <InnerPage title="About ÉCHO" subtitle="Built by Réaclyse · Luxembourg">
-      <title>About ÉCHO — Private Voice Journal for iPhone | Réaclyse</title>
+    <InnerPage title="About ÉCHO" subtitle="Built by RÉACLYSE · Luxembourg">
+      <title>About · ÉCHO</title>
       <meta
         name="description"
-        content="ÉCHO is a private voice journal for iPhone, built by Réaclyse in Luxembourg. Learn how we built a privacy-first journaling app for reflective adults across Europe."
+        content="ÉCHO is a private voice journal for iPhone, built by RÉACLYSE in Luxembourg. Learn how we built a privacy-first journaling app for reflective adults across Europe."
       />
       <link rel="canonical" href="https://www.echobyreaclyse.com/about" />
-      <meta property="og:title" content="About ÉCHO — Private Voice Journal | Réaclyse" />
+      <meta property="og:title" content="About · ÉCHO — Private Voice Journal" />
       <meta
         property="og:description"
-        content="ÉCHO is a private voice journal for iPhone built by Réaclyse in Luxembourg. Privacy-first journaling for reflective adults."
+        content="ÉCHO is a private voice journal for iPhone built by RÉACLYSE in Luxembourg. Privacy-first journaling for reflective adults."
       />
       <meta property="og:url" content="https://www.echobyreaclyse.com/about" />
       <meta property="og:image" content="https://www.echobyreaclyse.com/og-image.png" />
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="About ÉCHO — Private Voice Journal | Réaclyse" />
-      <meta name="twitter:description" content="ÉCHO is a private voice journal for iPhone built by Réaclyse in Luxembourg. Privacy-first journaling for reflective adults." />
+      <meta name="twitter:title" content="About · ÉCHO — Private Voice Journal" />
+      <meta name="twitter:description" content="ÉCHO is a private voice journal for iPhone built by RÉACLYSE in Luxembourg. Privacy-first journaling for reflective adults." />
       <meta name="twitter:image" content="https://www.echobyreaclyse.com/og-image.png" />
       <script
         type="application/ld+json"
@@ -300,7 +303,7 @@ function About() {
       </Section>
 
       <Section title="Who built it?">
-        ÉCHO is a product of Réaclyse, a studio based in Luxembourg focused on tools for
+        ÉCHO is built by RÉACLYSE, a studio based in Luxembourg focused on tools for
         reflection, decision-making, and emotional clarity. Questions?{" "}
         <a href="mailto:hello@reaclyse.com" className="text-ember transition hover:opacity-75">
           hello@reaclyse.com

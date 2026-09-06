@@ -204,7 +204,7 @@ export function WaitlistForm({
           htmlFor={`consent-${variant}`}
           className={`cursor-pointer text-xs leading-snug transition-colors duration-200 ${shake && !consented ? "text-red-400/80" : "text-muted-foreground/55"}`}
         >
-          I agree to receive updates from RÉACLYSE. Unsubscribe anytime.{" "}
+          I agree to receive updates from ÉCHO. Unsubscribe anytime.{" "}
           <Link to="/privacy" className="underline underline-offset-2 hover:text-muted-foreground transition-colors">
             Read our Privacy Policy.
           </Link>

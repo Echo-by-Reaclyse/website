@@ -8,13 +8,13 @@ interface InnerPageProps {
 }
 
 const NAV_LINKS = [
-  { label: "How it works", to: "/early-access" },
+  { label: "How it works", to: "/" },
   { label: "About", to: "/about" },
   { label: "Blog", to: "/blog" },
   { label: "FAQ", to: "/faq" },
 ];
 
-const NAV_CTA = { label: "Join waitlist", to: "/early-access" };
+const NAV_CTA = { label: "Join waitlist", to: "/" };
 
 const FOOTER_PRODUCT = [
   { label: "FAQ", to: "/faq" },
@@ -24,7 +24,7 @@ const FOOTER_PRODUCT = [
 ];
 
 const FOOTER_COMPANY = [
-  { label: "About Réaclyse", to: "/about" },
+  { label: "About ÉCHO", to: "/about" },
   { label: "Contact", to: "/contact" },
   { label: "Terms", to: "/privacy" },
 ];
@@ -35,7 +35,7 @@ export function InnerPage({ title, subtitle, children }: InnerPageProps) {
       <SiteNav links={NAV_LINKS} cta={NAV_CTA} />
 
       {/* ── Content ── */}
-      <main className="mx-auto max-w-2xl px-4 pb-24 pt-20 sm:px-6 sm:pt-24">
+      <main id="main-content" className="mx-auto max-w-2xl px-4 pb-24 pt-20 sm:px-6 sm:pt-24">
         <h1 className="font-display text-5xl text-ink leading-tight tracking-tight sm:text-6xl">{title}</h1>
         {subtitle && (
           <p className="mt-3 font-sans text-sm text-muted-foreground">{subtitle}</p>
@@ -76,7 +76,7 @@ export function InnerPage({ title, subtitle, children }: InnerPageProps) {
             ÉCHO is launching in 2026. Join the waitlist for early access and founding-member pricing.
           </p>
           <Link
-            to="/early-access"
+            to="/"
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -84,7 +84,7 @@ export function InnerPage({ title, subtitle, children }: InnerPageProps) {
               padding: "0.65rem 1.5rem",
               borderRadius: 100,
               background: "#BF6040",
-              color: "#fff",
+              color: "#0A1220",
               fontFamily: "var(--font-sans)",
               fontSize: "0.875rem",
               fontWeight: 700,
@@ -178,7 +178,7 @@ export function InnerPage({ title, subtitle, children }: InnerPageProps) {
               Coming to the App Store in 2026.
             </p>
             <Link
-              to="/early-access"
+              to="/"
               className="font-sans text-sm font-semibold"
               style={{
                 color: "#BF6040",
@@ -188,7 +188,7 @@ export function InnerPage({ title, subtitle, children }: InnerPageProps) {
               onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.7")}
               onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
             >
-              {/* TODO ECH-108: replace with App Store link when app ships */}
+              {/* ECH-108: replace with App Store link when app ships */}
               Join the waitlist →
             </Link>
           </div>
@@ -209,7 +209,7 @@ export function InnerPage({ title, subtitle, children }: InnerPageProps) {
           }}
         >
           <p className="font-sans text-xs text-muted-foreground" style={{ margin: 0 }}>
-            © 2026 Réaclyse S.à r.l. · Luxembourg
+            © 2026 ÉCHO by RÉACLYSE S.à r.l.-S · Luxembourg
           </p>
           <div style={{ display: "flex", gap: 16 }}>
             {([

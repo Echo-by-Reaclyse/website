@@ -43,13 +43,13 @@ function BlogPost() {
             datePublished: post.date,
             author: {
               "@type": "Organization",
-              name: "Réaclyse",
-              url: "https://reaclyse.com",
+              name: "ÉCHO by RÉACLYSE",
+              url: "https://www.echobyreaclyse.com",
             },
             publisher: {
               "@type": "Organization",
-              name: "Réaclyse",
-              url: "https://reaclyse.com",
+              name: "ÉCHO by RÉACLYSE",
+              url: "https://www.echobyreaclyse.com",
             },
             url: `https://www.echobyreaclyse.com/blog/${post.slug}`,
           }),

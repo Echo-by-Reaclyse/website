@@ -83,7 +83,7 @@ export function SiteNav({ links, cta }: SiteNavProps) {
             }}
             className="hidden sm:block"
           >
-            by Réaclyse
+            by RÉACLYSE
           </span>
         </Link>
 
@@ -114,8 +114,8 @@ export function SiteNav({ links, cta }: SiteNavProps) {
         <div style={{ display: "flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
           <ThemeToggle />
 
-          {/* CTA — hidden on xs */}
-          <span className="hidden sm:block">
+          {/* CTA — visible at all sizes */}
+          <span>
             {cta.to ? (
               <Link to={cta.to} className="site-nav-cta">
                 {cta.label}

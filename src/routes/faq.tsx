@@ -126,7 +126,7 @@ function FAQ() {
       title="Frequently Asked Questions"
       subtitle="Everything you need to know about ÉCHO."
     >
-      <title>FAQ — ÉCHO Voice Journal | Réaclyse</title>
+      <title>FAQ · ÉCHO</title>
       <meta
         name="description"
         content="Answers to common questions about ÉCHO: how it works, privacy, pricing, iCloud sync, time capsules, and more."

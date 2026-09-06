@@ -49,6 +49,7 @@ function Analytics() {
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   component: () => (
     <>
+      <a href="#main-content" className="skip-to-content">Skip to main content</a>
       <Analytics />
       <SmartAppBanner />
       <Outlet />

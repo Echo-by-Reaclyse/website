@@ -44,7 +44,7 @@ function ThankYouPage() {
   const serif = "'Instrument Serif', Georgia, 'Times New Roman', serif";
   const sans = "Urbanist, ui-sans-serif, system-ui, sans-serif";
 
-  const shareUrl = "https://echo.réaclyse.com/early-access";
+  const shareUrl = "https://www.echobyreaclyse.com/";
   const shareText = "I just joined the early access waitlist for ÉCHO — a private voice journaling app that helps you understand your own patterns over time. Check it out:";
 
   return (

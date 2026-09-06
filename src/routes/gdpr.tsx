@@ -11,7 +11,7 @@ function GDPRPage() {
       title="GDPR & Internal Data Protection Regulations"
       subtitle="Version of May 2026 — Updated as the company evolves"
     >
-      <title>GDPR & Data Protection Regulations — ÉCHO by Réaclyse</title>
+      <title>GDPR & Data Protection · ÉCHO</title>
       <meta
         name="description"
         content="ÉCHO's internal regulations on personal data management, in accordance with GDPR (EU) 2016/679. How we collect, process, and protect your data."

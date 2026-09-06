@@ -79,7 +79,7 @@
   "earlyAccess": {
     "eyebrow": "Founding member offer",
     "headline": "Be the first to\nexperience ÉCHO.",
-    "subheadline": "Join the waitlist and get early access before launch — with a founding member price locked in for life.",
+    "subheadline": "Join the waitlist and get early access before launch — with a founding member price locked in for as long as your subscription remains active.",
     "offer": {
       "badge": "Founding member",
       "monthly": "€4.99",
@@ -87,10 +87,10 @@
       "yearly": "€49.99",
       "yearlyPeriod": "/year",
       "yearlySave": "Save 17%",
-      "lockedIn": "Price locked in for life",
+      "lockedIn": "Price locked in while you stay subscribed",
       "features": [
         "Everything in ÉCHO Pro",
-        "Founding member price locked in for life",
+        "Founding member price, locked in while you stay subscribed",
         "Priority access at launch",
         "Input on future features"
       ]
@@ -105,7 +105,7 @@
     "steps": [
       { "title": "We build the final version", "body": "We're putting the finishing touches on ÉCHO right now." },
       { "title": "You get early access", "body": "We'll email you before launch with your exclusive founding member link." },
-      { "title": "Your price is locked in", "body": "The founding member rate is yours for life, no matter what ÉCHO costs later." }
+      { "title": "Your price is locked in", "body": "The founding member rate is yours for as long as your subscription remains active." }
     ],
     "share": "Know someone who might love ÉCHO?",
     "backHome": "Back to home"

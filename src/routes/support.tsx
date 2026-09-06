@@ -8,7 +8,7 @@ export const Route = createFileRoute("/support")({
 function Support() {
   return (
     <InnerPage title="Help & Support" subtitle="We're here to help.">
-      <title>Help & Support — ÉCHO Voice Journal | Réaclyse</title>
+      <title>Help & Support · ÉCHO</title>
       <meta
         name="description"
         content="Get help with ÉCHO, the private voice journal for iPhone. Questions about recordings, transcription, your subscription, data export, or your account? We respond within one business day."
