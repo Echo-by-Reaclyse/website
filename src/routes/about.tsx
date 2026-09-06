@@ -219,9 +219,9 @@ function TeamSection() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+          gridTemplateColumns: "repeat(3, 1fr)",
           gap: "1.25rem",
-          maxWidth: 520,
+          maxWidth: 820,
         }}
       >
         {TEAM.filter((m) => !m.hidden).map((m) => (
