@@ -278,7 +278,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "How much does ÉCHO cost?",
-    a: "ÉCHO is free to download and use every day. A subscription unlocks your full journal history, deeper personal insights, and unlimited time capsules. Standard pricing is €7.99/month or €69.99/year. Until 1 December 2026, founding members get €4.99/month for the first 3 months, or €49.99 for the first year.",
+    a: "ÉCHO is free to download and use every day. A subscription unlocks your full journal history, deeper personal insights, and unlimited time capsules. Until 1 December 2026, founding members get a 7-day free trial then €4.99/month or €49.99/year. After 1 December 2026, standard pricing is €7.99/month or €69.99/year.",
   },
   {
     q: "Do I need to write anything?",
@@ -3152,7 +3152,7 @@ function PricingSection() {
             <span style={{ fontSize: 15, color: C.muted, fontFamily: C.sans, marginLeft: 6 }}>/ mo</span>
           </div>
           <p style={{ fontSize: 12, color: C.muted, fontFamily: C.sans, marginBottom: 32 }}>
-            First 3 months, then €7.99/mo · or €49.99/yr first year (then €69.99) · Offer ends 1 Dec 2026
+            7 days free, then €4.99/mo · or €49.99/yr · Offer ends 1 Dec 2026
           </p>
 
           <ul style={{ display: "flex", flexDirection: "column", gap: 12, flex: 1, marginBottom: 32 }}>
