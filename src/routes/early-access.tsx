@@ -398,14 +398,17 @@ function OutcomeSection({ C, isDark }: { C: C; isDark: boolean }) {
             {t.outcome.headline}
           </motion.h2>
 
-          {/* 4-pillar flow */}
+          {/* 4-pillar grid — gap=1px acts as borders, works at every breakpoint */}
           <motion.div
             variants={stagger(0.1)}
+            className="grid-cols-1 sm:grid-cols-2"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-              gap: 0,
-              position: "relative",
+              gap: 1,
+              background: C.cardBorder,
+              border: `1px solid ${C.cardBorder}`,
+              borderRadius: 20,
+              overflow: "hidden",
             }}
           >
             {t.outcome.pillars.map((p, i) => (
@@ -415,10 +418,9 @@ function OutcomeSection({ C, isDark }: { C: C; isDark: boolean }) {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  gap: 12,
-                  padding: "0 32px 0 0",
-                  borderLeft: i === 0 ? "none" : `1px solid ${C.cardBorder}`,
-                  paddingLeft: i === 0 ? 0 : 32,
+                  gap: 14,
+                  padding: "32px 28px",
+                  background: isDark ? C.pageBg : "#FAF6F0",
                 }}
               >
                 <div
@@ -431,6 +433,7 @@ function OutcomeSection({ C, isDark }: { C: C; isDark: boolean }) {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
+                    flexShrink: 0,
                   }}
                 >
                   <span style={{ fontFamily: C.sans, fontSize: 13, fontWeight: 700, color: C.ember }}>
