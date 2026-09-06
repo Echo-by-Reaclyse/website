@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { ThemeToggle } from "./ThemeToggle";
+import { SmartAppBanner } from "./SmartAppBanner";
 
 export interface NavLink {
   label: string;
@@ -46,10 +47,12 @@ export function SiteNav({ links, cta }: SiteNavProps) {
       className="site-nav-header"
       style={{
         position: "fixed",
-        top: "var(--banner-height, 0px)",
+        top: 0,
         left: 0,
         right: 0,
         zIndex: 100,
+        display: "flex",
+        flexDirection: "column",
         backdropFilter: navActive ? "blur(18px) saturate(150%)" : "none",
         WebkitBackdropFilter: navActive ? "blur(18px) saturate(150%)" : "none",
         background: navActive ? "var(--nav-bg)" : "transparent",
@@ -57,6 +60,7 @@ export function SiteNav({ links, cta }: SiteNavProps) {
         transition: "background 0.3s, backdrop-filter 0.3s, border-color 0.3s",
       }}
     >
+      <SmartAppBanner />
 
       <div
         style={{
