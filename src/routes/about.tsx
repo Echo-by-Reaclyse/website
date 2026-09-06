@@ -217,12 +217,8 @@ function TeamSection() {
       </h2>
 
       <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "1.25rem",
-          maxWidth: 820,
-        }}
+        className="grid grid-cols-1 sm:grid-cols-3"
+        style={{ gap: "1.25rem", maxWidth: 820 }}
       >
         {TEAM.filter((m) => !m.hidden).map((m) => (
           <TeamCard key={m.name} member={m} />
