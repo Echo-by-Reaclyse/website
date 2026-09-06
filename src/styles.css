@@ -237,6 +237,7 @@
   }
 
   ::selection { background: var(--ember); color: #FFF6E9; }
+  :focus-visible { outline-color: var(--ring); }
 }
 
 /* Light-mode body tint override */
