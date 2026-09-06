@@ -18,7 +18,7 @@ type Res = {
   json(data: unknown): void;
 };
 
-const PIXEL_ID = process.env.VITE_META_PIXEL_ID;
+const PIXEL_ID = process.env.META_PIXEL_ID;
 const ACCESS_TOKEN = process.env.META_CAPI_TOKEN;
 const GRAPH_URL = `https://graph.facebook.com/v20.0/${PIXEL_ID}/events`;
 
