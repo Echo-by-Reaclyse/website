@@ -36,13 +36,11 @@ const TEAM: TeamMember[] = [
     linkedin: "https://www.linkedin.com/in/vmihai12/",
   },
   {
-    // ECH-125: hidden until Susana provides photo (/team-susana.jpg) and LinkedIn
     name: "Susana Monroy",
     role: "Chief Marketing Officer",
     initials: "SM",
-    photo: "/team-susana.jpg",
+    photo: "/team-susana.png",
     linkedin: "",
-    hidden: true,
   },
 ];
 
