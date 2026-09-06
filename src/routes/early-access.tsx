@@ -263,7 +263,7 @@ function ProblemSection({ C, isDark }: { C: C; isDark: boolean }) {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-              gap: 16,
+              gap: 14,
             }}
           >
             {t.problem.cards.map((card) => (
@@ -271,17 +271,68 @@ function ProblemSection({ C, isDark }: { C: C; isDark: boolean }) {
                 key={card.text}
                 variants={fadeUp}
                 style={{
-                  background: C.cardBg,
-                  border: `1px solid ${C.cardBorder}`,
-                  borderRadius: 20,
-                  padding: "28px 24px",
+                  position: "relative",
+                  borderRadius: 24,
+                  padding: "26px 22px 28px",
                   display: "flex",
                   flexDirection: "column",
-                  gap: 14,
+                  gap: 16,
+                  overflow: "hidden",
+                  background: isDark
+                    ? "linear-gradient(145deg, rgba(255,246,233,0.07) 0%, rgba(255,246,233,0.03) 100%)"
+                    : "linear-gradient(145deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.28) 100%)",
+                  backdropFilter: "blur(24px) saturate(180%)",
+                  WebkitBackdropFilter: "blur(24px) saturate(180%)",
+                  border: isDark
+                    ? "1px solid rgba(255,246,233,0.10)"
+                    : "1px solid rgba(255,255,255,0.65)",
+                  boxShadow: isDark
+                    ? "inset 0 1px 0 rgba(255,246,233,0.10), 0 4px 24px rgba(0,0,0,0.28)"
+                    : "inset 0 1px 0 rgba(255,255,255,0.9), 0 4px 20px rgba(0,0,0,0.07)",
                 }}
               >
-                <span style={{ fontSize: 28 }}>{card.icon}</span>
-                <p style={{ fontFamily: C.sans, fontSize: 15, color: C.cream, lineHeight: 1.5, margin: 0 }}>
+                {/* Specular highlight */}
+                <div aria-hidden style={{
+                  position: "absolute", inset: "0 0 auto 0", height: 1,
+                  background: isDark
+                    ? "linear-gradient(90deg, transparent, rgba(255,246,233,0.18) 40%, rgba(255,246,233,0.18) 60%, transparent)"
+                    : "linear-gradient(90deg, transparent, rgba(255,255,255,0.9) 40%, rgba(255,255,255,0.9) 60%, transparent)",
+                  pointerEvents: "none",
+                }} />
+
+                {/* Icon pill */}
+                <div style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: 44,
+                  height: 44,
+                  borderRadius: 14,
+                  background: isDark
+                    ? "linear-gradient(145deg, rgba(255,246,233,0.10) 0%, rgba(255,246,233,0.04) 100%)"
+                    : "linear-gradient(145deg, rgba(255,255,255,0.70) 0%, rgba(255,255,255,0.35) 100%)",
+                  border: isDark
+                    ? "1px solid rgba(255,246,233,0.12)"
+                    : "1px solid rgba(255,255,255,0.80)",
+                  boxShadow: isDark
+                    ? "inset 0 1px 0 rgba(255,246,233,0.12)"
+                    : "inset 0 1px 0 rgba(255,255,255,1), 0 2px 8px rgba(0,0,0,0.06)",
+                  backdropFilter: "blur(12px)",
+                  WebkitBackdropFilter: "blur(12px)",
+                  flexShrink: 0,
+                }}>
+                  <span style={{ fontSize: 22, lineHeight: 1 }}>{card.icon}</span>
+                </div>
+
+                <p style={{
+                  fontFamily: C.sans,
+                  fontSize: 15,
+                  fontWeight: 500,
+                  color: isDark ? "rgba(255,246,233,0.88)" : "rgba(26,15,5,0.82)",
+                  lineHeight: 1.45,
+                  margin: 0,
+                  letterSpacing: "-0.01em",
+                }}>
                   {card.text}
                 </p>
               </motion.div>
