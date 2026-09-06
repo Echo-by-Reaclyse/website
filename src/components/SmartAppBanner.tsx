@@ -7,6 +7,7 @@ const DISMISSED_KEY = "echo_app_banner_dismissed";
 // Shows above the nav on mobile, can be dismissed.
 // TODO: When app is on the App Store, replace the CTA with a real App Store link.
 export function SmartAppBanner() {
+  const BANNER_HEIGHT = 60;
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -20,6 +21,17 @@ export function SmartAppBanner() {
     const isMobile = window.innerWidth < 768;
     if (isMobile) setVisible(true);
   }, []);
+
+  // Sync CSS variable so SiteNav can offset itself below this banner
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      "--banner-height",
+      visible ? `${BANNER_HEIGHT}px` : "0px"
+    );
+    return () => {
+      document.documentElement.style.setProperty("--banner-height", "0px");
+    };
+  }, [visible]);
 
   function dismiss() {
     try {
@@ -37,9 +49,12 @@ export function SmartAppBanner() {
       role="banner"
       aria-label="Get ÉCHO on the App Store"
       style={{
-        position: "relative",
-        zIndex: 100,
-        width: "100%",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        height: BANNER_HEIGHT,
+        zIndex: 101,
         background: "rgba(10,18,32,0.97)",
         borderBottom: "1px solid rgba(191,96,64,0.20)",
         display: "flex",

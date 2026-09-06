@@ -46,7 +46,9 @@ export function SiteNav({ links, cta }: SiteNavProps) {
       className="site-nav-header"
       style={{
         position: "fixed",
-        inset: "0 0 auto 0",
+        top: "var(--banner-height, 0px)",
+        left: 0,
+        right: 0,
         zIndex: 100,
         backdropFilter: navActive ? "blur(18px) saturate(150%)" : "none",
         WebkitBackdropFilter: navActive ? "blur(18px) saturate(150%)" : "none",

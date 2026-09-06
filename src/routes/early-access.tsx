@@ -548,12 +548,11 @@ function WhyVoiceSection({ C, isDark }: { C: C; isDark: boolean }) {
             overflow: "hidden",
           }}
         >
-          <svg viewBox="0 0 120 160" fill="none" style={{ width: 100, opacity: 0.18 }}>
-            <circle cx="60" cy="52" r="32" fill={C.ember} />
-            <path d="M8 160c0-28.7 23.3-52 52-52s52 23.3 52 52H8z" fill={C.ember} />
-          </svg>
-          <p style={{ fontFamily: C.sans, fontSize: 12, color: C.dimmed, letterSpacing: "0.06em" }}>Photo coming soon</p>
-          <div aria-hidden style={{ position: "absolute", bottom: -50, right: -50, width: 180, height: 180, borderRadius: "50%", background: `radial-gradient(circle, ${C.emberSoft}, transparent 70%)`, pointerEvents: "none" }} />
+          <img
+            src="/team-roksana.jpg"
+            alt="Roksana, founder of ÉCHO"
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
+          />
         </motion.div>
 
         {/* Right: copy + pillars */}
@@ -899,16 +898,11 @@ function FounderSection({ C, isDark }: { C: C; isDark: boolean }) {
             position: "relative",
           }}
         >
-          {/* Placeholder silhouette */}
-          <svg viewBox="0 0 120 160" fill="none" style={{ width: 120, opacity: 0.2 }}>
-            <circle cx="60" cy="52" r="32" fill={C.ember} />
-            <path d="M8 160c0-28.7 23.3-52 52-52s52 23.3 52 52H8z" fill={C.ember} />
-          </svg>
-          <p style={{ fontFamily: C.sans, fontSize: 12, color: C.dimmed, letterSpacing: "0.06em" }}>
-            Photo coming soon
-          </p>
-          {/* Decorative ember circle */}
-          <div aria-hidden style={{ position: "absolute", bottom: -60, right: -60, width: 200, height: 200, borderRadius: "50%", background: `radial-gradient(circle, ${C.emberSoft}, transparent 70%)`, pointerEvents: "none" }} />
+          <img
+            src="/team-roksana.jpg"
+            alt="Roksana, founder of ÉCHO"
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
+          />
         </motion.div>
 
         {/* Right: copy */}
