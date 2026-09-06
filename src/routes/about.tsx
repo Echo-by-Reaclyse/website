@@ -33,7 +33,8 @@ const TEAM: TeamMember[] = [
     role: "Chief Marketing Officer",
     initials: "SM",
     photo: "/team-susana.png",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/susana-monroy-8bb1b38a",
+    instagram: "https://www.instagram.com/tag_media_co",
   },
   {
     name: "Victor Mihaita",
