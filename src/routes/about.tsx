@@ -29,18 +29,18 @@ const TEAM: TeamMember[] = [
     instagram: "https://www.instagram.com/roksanaskubis/",
   },
   {
-    name: "Victor Mihaita",
-    role: "Chief Technology Officer",
-    initials: "VM",
-    photo: "/team-victor.jpg",
-    linkedin: "https://www.linkedin.com/in/vmihai12/",
-  },
-  {
     name: "Susana Monroy",
     role: "Chief Marketing Officer",
     initials: "SM",
     photo: "/team-susana.png",
     linkedin: "",
+  },
+  {
+    name: "Victor Mihaita",
+    role: "Chief Technology Officer",
+    initials: "VM",
+    photo: "/team-victor.jpg",
+    linkedin: "https://www.linkedin.com/in/vmihai12/",
   },
 ];
 
