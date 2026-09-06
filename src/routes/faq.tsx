@@ -48,7 +48,7 @@ const faqs = [
   },
   {
     q: "How much does ÉCHO cost?",
-    a: "ÉCHO has a free tier with no time limit. PRO is normally €7.99/month or €69.99/year. Until 1 December 2026, founding members get a 7-day free trial and then €4.99/month or €49.99/year. After the deadline, new subscribers pay full price. Founding members who subscribe before 1 December lock in their price for as long as they stay subscribed.",
+    a: "ÉCHO has a free tier with no time limit. PRO is normally €7.99/month or €69.99/year. Until 1 December 2026, founding members pay €4.99/month for the first 3 months (then €7.99/month), or €49.99 for the first year (then €69.99/year). After the deadline, new subscribers pay full price from day one.",
   },
   {
     q: "What's included in the free tier?",
