@@ -2267,7 +2267,7 @@ function HeroSection() {
         style={{ opacity: imgO, position: "absolute", top: 0, bottom: 0, right: 0, left: "28%", zIndex: 1, overflow: "hidden" }}
       >
         <img
-          src={isDark ? "/hero-dark.png" : "/hero-light.png"}
+          src={isDark ? "/hero-dark.webp" : "/hero-light.webp"}
           alt=""
           aria-hidden
           style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "40% center", display: "block" }}
@@ -2285,7 +2285,7 @@ function HeroSection() {
         style={{ opacity: imgO, position: "absolute", top: 0, bottom: 0, right: 0, left: "36%", zIndex: 1, overflow: "hidden" }}
       >
         <img
-          src={isDark ? "/hero-dark.png" : "/hero-light.png"}
+          src={isDark ? "/hero-dark.webp" : "/hero-light.webp"}
           alt=""
           aria-hidden
           style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% center", display: "block" }}

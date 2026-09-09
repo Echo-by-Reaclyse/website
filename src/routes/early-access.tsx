@@ -581,7 +581,7 @@ function WhyVoiceSection({ C, isDark }: { C: C; isDark: boolean }) {
           alignItems: "center",
         }}
       >
-        {/* Left: photo placeholder */}
+        {/* Left: lifestyle photo */}
         <motion.div
           initial={{ opacity: 0, x: -24, scale: 0.97 }}
           whileInView={{ opacity: 1, x: 0, scale: 1, transition: { duration: 0.75, ease: EASE } }}
@@ -589,22 +589,13 @@ function WhyVoiceSection({ C, isDark }: { C: C; isDark: boolean }) {
           style={{
             aspectRatio: "4/5",
             borderRadius: 28,
-            background: isDark
-              ? "linear-gradient(145deg, rgba(191,96,64,0.10) 0%, rgba(255,228,184,0.03) 100%)"
-              : "linear-gradient(145deg, rgba(191,96,64,0.07) 0%, rgba(255,228,184,0.25) 100%)",
-            border: `1px solid ${C.cardBorder}`,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 12,
             position: "relative",
             overflow: "hidden",
           }}
         >
           <img
-            src="/team-roksana.jpg"
-            alt="Roksana, founder of ÉCHO"
+            src="/roksana2.webp"
+            alt="Someone using ÉCHO at a café"
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
           />
         </motion.div>
@@ -907,12 +898,16 @@ function ProductSection({ C, isDark }: { C: C; isDark: boolean }) {
 }
 
 // ── Founder ───────────────────────────────────────────────────────────────────
+// Set to a YouTube/Vimeo embed URL (e.g. "https://www.youtube.com/embed/VIDEO_ID")
+// to enable the video modal. Leave empty to keep the "coming soon" toast.
+const FOUNDER_VIDEO_URL = "";
+
 function FounderSection({ C, isDark }: { C: C; isDark: boolean }) {
   const ref = useSectionTrack("founder");
-  // ECH-109: Video coming soon — show a tooltip/overlay until founder video is ready.
-  // TODO: replace this modal with a real video embed (see ECH-122 for video brief).
   const [showVideoToast, setShowVideoToast] = useState(false);
+  const [showVideoModal, setShowVideoModal] = useState(false);
   return (
+    <>
     <section
       id="founder"
       ref={ref}
@@ -931,7 +926,7 @@ function FounderSection({ C, isDark }: { C: C; isDark: boolean }) {
           alignItems: "center",
         }}
       >
-        {/* Left: photo placeholder */}
+        {/* Left: founder photo */}
         <motion.div
           initial={{ opacity: 0, scale: 0.97 }}
           whileInView={{ opacity: 1, scale: 1, transition: { duration: 0.7, ease: EASE } }}
@@ -939,21 +934,12 @@ function FounderSection({ C, isDark }: { C: C; isDark: boolean }) {
           style={{
             aspectRatio: "4/5",
             borderRadius: 28,
-            background: isDark
-              ? "linear-gradient(145deg, rgba(191,96,64,0.12) 0%, rgba(255,228,184,0.04) 100%)"
-              : "linear-gradient(145deg, rgba(191,96,64,0.08) 0%, rgba(255,228,184,0.3) 100%)",
-            border: `1px solid ${C.cardBorder}`,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 12,
             overflow: "hidden",
             position: "relative",
           }}
         >
           <img
-            src="/team-roksana.jpg"
+            src="/roksana4.webp"
             alt="Roksana, founder of ÉCHO"
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
           />
@@ -993,14 +979,18 @@ function FounderSection({ C, isDark }: { C: C; isDark: boolean }) {
             {t.founder.body}
           </motion.p>
 
-          {/* Video CTA — ECH-109: wired to show coming-soon state until video is ready (ECH-122) */}
+          {/* Video CTA */}
           <div style={{ position: "relative", alignSelf: "flex-start" }}>
             <motion.button
               variants={fadeUp}
               onClick={() => {
                 trackCTAClick("Watch founder story", "founder");
-                setShowVideoToast(true);
-                setTimeout(() => setShowVideoToast(false), 3500);
+                if (FOUNDER_VIDEO_URL) {
+                  setShowVideoModal(true);
+                } else {
+                  setShowVideoToast(true);
+                  setTimeout(() => setShowVideoToast(false), 3500);
+                }
               }}
               style={{
                 display: "inline-flex",
@@ -1065,6 +1055,60 @@ function FounderSection({ C, isDark }: { C: C; isDark: boolean }) {
         </motion.div>
       </div>
     </section>
+
+    {/* Video modal */}
+    <AnimatePresence>
+      {showVideoModal && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.22 }}
+          onClick={() => setShowVideoModal(false)}
+          style={{
+            position: "fixed", inset: 0, zIndex: 1000,
+            background: "rgba(0,0,0,0.82)", backdropFilter: "blur(6px)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            padding: "24px",
+          }}
+        >
+          <motion.div
+            initial={{ scale: 0.94, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.96, opacity: 0 }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              width: "100%", maxWidth: 840,
+              aspectRatio: "16/9",
+              borderRadius: 16,
+              overflow: "hidden",
+              background: "#000",
+              boxShadow: "0 40px 100px rgba(0,0,0,0.5)",
+              position: "relative",
+            }}
+          >
+            <button
+              onClick={() => setShowVideoModal(false)}
+              style={{
+                position: "absolute", top: 12, right: 12, zIndex: 10,
+                background: "rgba(0,0,0,0.6)", border: "none", borderRadius: "50%",
+                width: 32, height: 32, cursor: "pointer", color: "#fff",
+                display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18,
+              }}
+              aria-label="Close video"
+            >×</button>
+            <iframe
+              src={`${FOUNDER_VIDEO_URL}?autoplay=1&rel=0`}
+              allow="autoplay; fullscreen; picture-in-picture"
+              style={{ width: "100%", height: "100%", border: "none", display: "block" }}
+              title="Founder story"
+            />
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+    </>
   );
 }
 
