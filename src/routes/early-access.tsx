@@ -7,6 +7,7 @@ import {
 import { WaitlistForm } from "@/components/WaitlistForm";
 import { useTheme as useGlobalTheme } from "@/components/ThemeProvider";
 import { SiteNav } from "@/components/SiteNav";
+import { SiteFooter } from "@/components/SiteFooter";
 import { captureUTM } from "@/lib/utm";
 import { trackCTAClick, trackSectionView } from "@/lib/analytics";
 import en from "@/locales/en.json";
@@ -1533,90 +1534,6 @@ function EarlyAccessSection({
   );
 }
 
-// ── Footer ────────────────────────────────────────────────────────────────────
-function EarlyAccessFooter({ C }: { C: C }) {
-  return (
-    <footer
-      style={{
-        background: C.pageBg,
-        borderTop: `1px solid ${C.cardBorder}`,
-        padding: "60px clamp(20px, 5vw, 80px) 40px",
-      }}
-    >
-      <div
-        className="ea-footer-grid"
-        style={{
-          maxWidth: 900,
-          margin: "0 auto",
-        }}
-      >
-        {/* Brand */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          <span style={{ fontFamily: C.serif, fontSize: 22, color: C.cream, letterSpacing: "0.02em" }}>ÉCHO</span>
-          <p style={{ fontFamily: C.sans, fontSize: 13, color: C.muted, lineHeight: 1.65, margin: 0, maxWidth: 240 }}>
-            {t.footer.tagline}
-          </p>
-        </div>
-
-        {/* Product */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          <p style={{ fontFamily: C.sans, fontSize: 12, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: C.ember, margin: 0 }}>{t.footer.product}</p>
-          {([
-            { label: t.footer.links.howItWorks, to: "/faq" },
-            { label: t.footer.links.forYou, to: "/early-access" },
-            { label: t.footer.links.privacy, to: "/privacy" },
-            { label: t.footer.links.faq, to: "/faq" },
-          ] as { label: string; to: string }[]).map(({ label, to }) => (
-            <Link key={label} to={to} style={{ fontFamily: C.sans, fontSize: 13, color: C.muted, textDecoration: "none", transition: "color 0.2s" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = C.cream)}
-              onMouseLeave={(e) => (e.currentTarget.style.color = C.muted)}>
-              {label}
-            </Link>
-          ))}
-        </div>
-
-        {/* Company */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          <p style={{ fontFamily: C.sans, fontSize: 12, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: C.ember, margin: 0 }}>{t.footer.company}</p>
-          {([
-            { label: t.footer.links.about, to: "/about" },
-            { label: t.footer.links.contact, to: "/contact" },
-            { label: t.footer.links.terms, to: "/privacy" },
-          ] as { label: string; to: string }[]).map(({ label, to }) => (
-            <Link key={label} to={to} style={{ fontFamily: C.sans, fontSize: 13, color: C.muted, textDecoration: "none" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = C.cream)}
-              onMouseLeave={(e) => (e.currentTarget.style.color = C.muted)}>
-              {label}
-            </Link>
-          ))}
-        </div>
-
-        {/* Stay in the loop */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          <p style={{ fontFamily: C.sans, fontSize: 12, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: C.ember, margin: 0 }}>{t.footer.stayInLoop}</p>
-          <p style={{ fontFamily: C.sans, fontSize: 13, color: C.muted, lineHeight: 1.55, margin: 0 }}>{t.footer.links.earlyAccess}</p>
-        </div>
-      </div>
-
-      <div style={{ maxWidth: 900, margin: "48px auto 0", paddingTop: 24, borderTop: `1px solid ${C.cardBorder}`, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
-        <p style={{ fontFamily: C.sans, fontSize: 12, color: C.dimmed, margin: 0 }}>
-          © 2026 ÉCHO by RÉACLYSE S.à r.l.-S. All rights reserved.
-        </p>
-        <div style={{ display: "flex", gap: 16 }}>
-          {([
-            { label: t.footer.links.privacy, to: "/privacy" },
-            { label: t.footer.links.terms, to: "/privacy" },
-          ] as { label: string; to: string }[]).map(({ label, to }) => (
-            <Link key={label} to={to} style={{ fontFamily: C.sans, fontSize: 12, color: C.dimmed, textDecoration: "none" }}>
-              {label}
-            </Link>
-          ))}
-        </div>
-      </div>
-    </footer>
-  );
-}
-
 // ── Page ──────────────────────────────────────────────────────────────────────
 function EarlyAccessPage() {
   const { theme } = useGlobalTheme();
@@ -1637,7 +1554,6 @@ function EarlyAccessPage() {
     <div style={{ background: C.pageBg, minHeight: "100vh" }}>
       <SiteNav
         links={[
-          { label: "How it works", anchor: "how-it-works" },
           { label: "For You", anchor: "why-voice" },
           { label: "Privacy", anchor: "privacy" },
           { label: "FAQ", to: "/faq" },
@@ -1674,7 +1590,7 @@ function EarlyAccessPage() {
 
       <EarlyAccessSection C={C} isDark={isDark} onSuccess={handleSuccess} />
 
-      <EarlyAccessFooter C={C} />
+      <SiteFooter />
     </div>
   );
 }
