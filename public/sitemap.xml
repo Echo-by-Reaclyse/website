@@ -1,69 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+          http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- Core pages -->
   <url>
     <loc>https://www.echobyreaclyse.com/</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://www.echobyreaclyse.com/early-access</loc>
+    <lastmod>2026-09-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://www.echobyreaclyse.com/about</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.echobyreaclyse.com/faq</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.echobyreaclyse.com/contact</loc>
+    <lastmod>2026-09-09</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.echobyreaclyse.com/support</loc>
+    <lastmod>2026-09-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.echobyreaclyse.com/find-support</loc>
+    <lastmod>2026-09-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Blog -->
+  <url>
     <loc>https://www.echobyreaclyse.com/blog</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.echobyreaclyse.com/blog/what-is-voice-journaling</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.echobyreaclyse.com/blog/voice-journaling-vs-writing</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.echobyreaclyse.com/blog/daily-reflection-questions</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.echobyreaclyse.com/blog/build-journaling-habit</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.echobyreaclyse.com/blog/best-journaling-apps-iphone-2026</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+
+  <!-- Legal -->
   <url>
     <loc>https://www.echobyreaclyse.com/privacy</loc>
-    <lastmod>2026-08-25</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://www.echobyreaclyse.com/contact</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://www.echobyreaclyse.com/gdpr</loc>
+    <lastmod>2026-09-09</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.4</priority>
   </url>
+
 </urlset>

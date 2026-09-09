@@ -594,7 +594,7 @@ function WhyVoiceSection({ C, isDark }: { C: C; isDark: boolean }) {
           }}
         >
           <img
-            src="/roksana2.webp"
+            src="/lifestyle-voice.webp"
             alt="Someone using ÉCHO at a café"
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
           />
@@ -939,7 +939,7 @@ function FounderSection({ C, isDark }: { C: C; isDark: boolean }) {
           }}
         >
           <img
-            src="/roksana4.webp"
+            src="/founder-roksana.webp"
             alt="Roksana, founder of ÉCHO"
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
           />

@@ -2261,22 +2261,22 @@ function HeroSection() {
       ref={ref}
       style={{ position: "relative", minHeight: "100dvh", overflow: "hidden", display: "flex", alignItems: "center" }}
     >
-      {/* Mobile: right-side panel — mirrors desktop layout */}
+      {/* Mobile: right-side atmospheric panel */}
       <motion.div
         className="block lg:hidden"
-        style={{ opacity: imgO, position: "absolute", top: 0, bottom: 0, right: 0, left: "28%", zIndex: 1, overflow: "hidden" }}
+        style={{ opacity: imgO, position: "absolute", top: 0, bottom: 0, right: 0, left: "52%", zIndex: 1, overflow: "hidden" }}
       >
         <img
-          src={isDark ? "/hero-dark.webp" : "/hero-light.webp"}
+          src={isDark ? "/hero-lifestyle-dark.webp" : "/hero-lifestyle-light.webp"}
           alt=""
           aria-hidden
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "40% center", display: "block" }}
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "65% center", display: "block", opacity: 0.72 }}
         />
-        {/* Left — blend into page */}
-        <div aria-hidden style={{ position: "absolute", inset: 0, background: `linear-gradient(to right, ${C.bg} 0%, ${C.bg} 2%, transparent 50%)`, pointerEvents: "none" }} />
+        {/* Heavy left fade — covers most of the panel so text is never overlapped */}
+        <div aria-hidden style={{ position: "absolute", inset: 0, background: `linear-gradient(to right, ${C.bg} 0%, ${C.bg} 50%, transparent 100%)`, pointerEvents: "none" }} />
         {/* Top + bottom bleed */}
-        <div aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: "22%", background: `linear-gradient(to bottom, ${C.bg}, transparent)`, pointerEvents: "none" }} />
-        <div aria-hidden style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "18%", background: `linear-gradient(to top, ${C.bg}, transparent)`, pointerEvents: "none" }} />
+        <div aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: "30%", background: `linear-gradient(to bottom, ${C.bg}, transparent)`, pointerEvents: "none" }} />
+        <div aria-hidden style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "25%", background: `linear-gradient(to top, ${C.bg}, transparent)`, pointerEvents: "none" }} />
       </motion.div>
 
       {/* Desktop: right-side panel */}
@@ -2285,7 +2285,7 @@ function HeroSection() {
         style={{ opacity: imgO, position: "absolute", top: 0, bottom: 0, right: 0, left: "36%", zIndex: 1, overflow: "hidden" }}
       >
         <img
-          src={isDark ? "/hero-dark.webp" : "/hero-light.webp"}
+          src={isDark ? "/hero-lifestyle-dark.webp" : "/hero-lifestyle-light.webp"}
           alt=""
           aria-hidden
           style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% center", display: "block" }}
