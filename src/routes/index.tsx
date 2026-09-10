@@ -248,20 +248,16 @@ const SIDE_CARDS = [
 
 const PRIVACY = [
   {
-    title: "Your voice never leaves your iPhone",
-    body: "Everything is transcribed directly on your device. Your audio is never sent to any server — not ours, not anyone else's.",
+    title: "Your voice stays private",
+    body: "Audio is processed on your device and never uploaded. Your journal entries exist only where you choose to keep them.",
   },
   {
-    title: "Locked before it's stored",
-    body: "Every entry is encrypted the moment it's saved. Not even we can read what you've written.",
+    title: "Your entries belong to you",
+    body: "Delete your reflections whenever you want. No lock-in, no data held hostage. Your words, your rules.",
   },
   {
-    title: "Never shared. Never sold.",
-    body: "Your words aren't used to train AI, handed to third parties, or monetised in any way. They belong to you.",
-  },
-  {
-    title: "Sync on your terms",
-    body: "Want your journal across all your Apple devices? It stays encrypted the whole way. You can turn it off at any time.",
+    title: "European by design",
+    body: "Built in Luxembourg and designed around GDPR from day one. Privacy is architecture here, not a setting.",
   },
 ];
 
@@ -300,14 +296,13 @@ const FREE_FEATURES = [
   "8 weeks of basic insights",
 ];
 const PRO_FEATURES = [
-  "Everything in Begin",
+  "Everything in ÉCHO",
+  "Founding member pricing while your subscription remains active",
+  "Priority access at launch",
+  "Opportunity to help shape future features",
   "Unlimited journal history",
-  "Full 8-part persona profile",
-  "Deep emotional pattern analysis",
-  "Unlimited time capsules",
-  "Search across all entries",
-  "Export your data",
-  "Custom themes",
+  "Full persona profile & pattern analysis",
+  "Unlimited time capsule letters",
 ];
 
 // ── iPhone Frame Components ────────────────────────────────────
@@ -734,7 +729,7 @@ function HomeTabScreen({
   const [savedMoods, setSavedMoods] = useState<Set<string>>(new Set());
   const [justSaved, setJustSaved] = useState(false);
   const WAVEFORM_BARS = 24;
-  const question = "What's been sitting with you today?";
+  const question = "What thought keeps coming back to you?";
 
   const formatTime = (s: number) =>
     `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
@@ -957,46 +952,21 @@ function HomeTabScreen({
         {homeState === "result" && (
           <>
             <p style={{ fontSize: 13, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif", marginTop: 2 }}>Good morning, Reflector.</p>
-            <p style={{ fontSize: 10, color: "rgba(0,0,0,0.4)", fontFamily: "Urbanist, sans-serif", fontStyle: "italic", lineHeight: 1.4 }}>
-              "{question}"
-            </p>
-            <div style={{ background: "#FFFFFF", borderRadius: 14, padding: "12px 14px", boxShadow: "0 1px 4px rgba(0,0,0,0.06)", border: "1px solid rgba(191,96,64,0.15)" }}>
-              <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 8 }}>Echo reflects</p>
-              <p style={{ fontSize: 13, color: "#1A1A1A", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic", lineHeight: 1.55 }}>
-                "You already know the answer. You're asking because you want permission to act on it."
+            {/* Transcribed entry */}
+            <div style={{ background: "#FFFFFF", borderRadius: 14, padding: "12px 14px", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
+              <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 8 }}>Today's entry</p>
+              <p style={{ fontSize: 12, color: "#1A1A1A", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic", lineHeight: 1.55 }}>
+                "Everyone's life seems to be turning into something while mine still feels like a draft. I keep waiting for the version of me who has it figured out to show up."
               </p>
             </div>
-            <div>
-              <p style={{ fontSize: 9, color: "rgba(0,0,0,0.4)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 8 }}>How do you feel?</p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                {["Reflective", "Curious", "Unsettled", "Brave"].map(mood => {
-                  const active = savedMoods.has(mood);
-                  return (
-                    <button
-                      key={mood}
-                      onClick={() => setSavedMoods(prev => {
-                        const s = new Set(prev);
-                        s.has(mood) ? s.delete(mood) : s.add(mood);
-                        return s;
-                      })}
-                      style={{
-                        padding: "5px 10px",
-                        borderRadius: 20,
-                        fontSize: 11,
-                        fontFamily: "Urbanist, sans-serif",
-                        border: `1px solid ${active ? "#BF6040" : "rgba(0,0,0,0.15)"}`,
-                        background: active ? "rgba(191,96,64,0.12)" : "transparent",
-                        color: active ? "#BF6040" : "rgba(0,0,0,0.5)",
-                        cursor: "pointer",
-                        WebkitTapHighlightColor: "transparent",
-                        transition: "all 0.18s ease",
-                      }}
-                    >
-                      {mood}
-                    </button>
-                  );
-                })}
+            {/* 3 weeks later surfaced memory */}
+            <div style={{ background: "rgba(191,96,64,0.07)", borderRadius: 14, padding: "12px 14px", border: "1px solid rgba(191,96,64,0.2)" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 8 }}>
+                <span style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.18em", textTransform: "uppercase" }}>3 weeks ago</span>
               </div>
+              <p style={{ fontSize: 12, color: "#BF6040", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic", lineHeight: 1.55 }}>
+                "What if she's already here?"
+              </p>
             </div>
             <button
               onClick={handleSave}
@@ -2332,91 +2302,49 @@ function HeroSection() {
               color: C.muted, fontFamily: C.sans,
             }}>
               <span className="badge-dot" style={{ width: 7, height: 7, borderRadius: "50%", background: C.ember, display: "inline-block" }} />
-              European launch — 2026
+              Private voice journal · Coming first to iPhone
             </span>
           </div>
 
           {/* Main headline */}
           <h1
-            className="lg:whitespace-nowrap"
             style={{
               fontFamily: C.serif,
-              fontSize: "clamp(2.6rem, 5.2vw, 4.4rem)",
+              fontSize: "clamp(2.4rem, 4.8vw, 4rem)",
               letterSpacing: "-0.01em",
-              lineHeight: 1,
-              marginBottom: 14,
-            }}
-          >
-            {["You", "already", "know."].map((word, i) => (
-              <span
-                key={i}
-                className="hero-word"
-                style={{
-                  color: C.cream,
-                  display: "inline-block",
-                  marginRight: "0.22em",
-                  animationDelay: `${0.12 + i * 0.07}s`,
-                }}
-              >
-                {word}
-              </span>
-            ))}
-          </h1>
-
-          {/* Italic sub-headline */}
-          <p
-            className="hero-fade"
-            style={{
-              fontFamily: C.serif,
-              fontSize: "clamp(1.2rem, 2.5vw, 1.9rem)",
-              color: C.ember,
-              fontStyle: "italic",
-              lineHeight: 1.2,
+              lineHeight: 1.1,
               marginBottom: 28,
-              animationDelay: "0.34s",
+              color: C.cream,
             }}
           >
-            We return the proof.
-          </p>
+            <span className="hero-word" style={{ display: "inline-block", animationDelay: "0.12s" }}>
+              Everyone's asking AI for answers.
+            </span>{" "}
+            <em style={{ color: C.ember, fontStyle: "italic", display: "block", marginTop: 4 }}>
+              ÉCHO helps you hear your own.
+            </em>
+          </h1>
 
           {/* Body */}
           <p
             className="hero-fade"
             style={{
               fontFamily: C.sans,
-              fontSize: "clamp(0.92rem, 1.32vw, 1.04rem)",
+              fontSize: "clamp(0.95rem, 1.35vw, 1.06rem)",
               color: C.muted,
-              maxWidth: 390,
+              maxWidth: 420,
               lineHeight: 1.78,
-              marginBottom: 48,
-              animationDelay: "0.60s",
+              marginBottom: 36,
+              animationDelay: "0.34s",
             }}
           >
-            One question a day. Your voice, transcribed privately on your iPhone.
-            Weeks later, ÉCHO surfaces what you said — before the doubt set in.
+            A private voice journal that remembers what you said, notices the thoughts you return to, and brings your own words back when they matter.
           </p>
-
-          {/* Stats */}
-          <div
-            className="hero-fade"
-            style={{ display: "flex", flexWrap: "wrap", gap: "12px 36px", animationDelay: "0.76s" }}
-          >
-            {[
-              { k: "2026", v: "Launch" },
-              { k: "Europe first", v: "9 countries" },
-              { k: "On-device", v: "Transcription" },
-            ].map(({ k, v }) => (
-              <div key={k}>
-                <p style={{ fontFamily: C.serif, fontSize: 18, color: C.cream }}>{k}</p>
-                <p style={{ fontSize: 10, textTransform: "uppercase" as const, letterSpacing: "0.18em", color: C.muted, fontFamily: C.sans, marginTop: 2 }}>{v}</p>
-              </div>
-            ))}
-          </div>
 
           {/* Hero CTAs */}
           <div
             className="hero-fade max-lg:justify-center"
-            style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 36, animationDelay: "0.92s" }}
+            style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 20, animationDelay: "0.56s" }}
           >
             <button
               onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "start" })}
@@ -2430,23 +2358,24 @@ function HeroSection() {
               onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
               onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
             >
-              Join Early Access →
-            </button>
-            <button
-              onClick={() => document.getElementById("interactive-phone")?.scrollIntoView({ behavior: "smooth", block: "start" })}
-              style={{
-                padding: "13px 28px", borderRadius: 999,
-                background: "transparent", color: C.muted,
-                fontFamily: C.sans, fontSize: 14,
-                border: `1px solid ${C.border}`, cursor: "pointer",
-                transition: "color 0.2s, border-color 0.2s",
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = C.cream; e.currentTarget.style.borderColor = C.cream; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; }}
-            >
-              See how it works
+              Join the founding waitlist →
             </button>
           </div>
+
+          {/* Supporting line */}
+          <p
+            className="hero-fade"
+            style={{
+              fontFamily: C.sans,
+              fontSize: 13,
+              color: C.muted,
+              lineHeight: 1.6,
+              animationDelay: "0.72s",
+              opacity: 0.75,
+            }}
+          >
+            Be among the first to access ÉCHO and the first 1,000 subscribers eligible for founding member pricing.
+          </p>
 
 </div>
       </motion.div>
@@ -2467,13 +2396,20 @@ function HeroSection() {
   );
 }
 
-// ── ManifestoSection ───────────────────────────────────────────
-function ManifestoSection() {
+// ── WhyEchoSection (Section 2) ─────────────────────────────────
+function WhyEchoSection() {
   const { C, isDark } = useLandingTheme();
+
+  const EXAMPLES = [
+    "The decision you keep reconsidering",
+    "The thought that comes back three months later",
+    "The goal you keep talking about",
+    "The version of you who already knew",
+  ];
 
   return (
     <section
-      id="manifesto"
+      id="why"
       style={{
         position: "relative",
         padding: "120px 24px",
@@ -2510,7 +2446,7 @@ function ManifestoSection() {
             fontFamily: C.sans,
           }}
         >
-          — The concept
+          — Why ÉCHO
         </motion.p>
 
         <motion.h2
@@ -2520,16 +2456,16 @@ function ManifestoSection() {
           viewport={VP}
           style={{
             fontFamily: C.serif,
-            fontSize: "clamp(2.4rem, 6vw, 4rem)",
+            fontSize: "clamp(2.2rem, 5.5vw, 3.8rem)",
             letterSpacing: "0",
             color: C.cream,
-            lineHeight: 1.08,
-            marginBottom: 24,
+            lineHeight: 1.1,
+            marginBottom: 32,
           }}
         >
-          Most journals stay empty.{" "}
+          You've probably already said{" "}
           <em style={{ color: C.ember, fontStyle: "italic" }}>
-            Not anymore.
+            the thing you needed to hear.
           </em>
         </motion.h2>
 
@@ -2538,58 +2474,147 @@ function ManifestoSection() {
           initial="hidden"
           whileInView="visible"
           viewport={VP}
-          style={{ display: "flex", flexDirection: "column", gap: 20 }}
+          style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: 48 }}
         >
-          {[
-            "ÉCHO removes the hardest part of journaling — the blank page, the cursor blinking, the pressure to sound articulate. Instead, one question appears. You speak. That's it.",
-            "Over weeks, your voice becomes a record of who you are: what you're afraid of, what energises you, what you've been avoiding. Not a diary — a mirror.",
-            "And six months later, ÉCHO returns your own words to you. You'll be surprised how much you already knew.",
-          ].map((text, i) => (
-            <motion.p
-              key={i}
-              variants={fadeUp}
-              style={{
-                fontSize: "clamp(1rem, 1.6vw, 1.1rem)",
-                color: C.muted,
-                lineHeight: 1.75,
-                fontFamily: C.sans,
-              }}
-            >
-              {text}
-            </motion.p>
-          ))}
+          <motion.p variants={fadeUp} style={{ fontSize: "clamp(1rem, 1.6vw, 1.1rem)", color: C.muted, lineHeight: 1.75, fontFamily: C.sans }}>
+            Somewhere in the last six months, you said it out loud. To a friend. In a voice memo. Walking home. Maybe only to yourself.
+          </motion.p>
+          <motion.p variants={fadeUp} style={{ fontSize: "clamp(1rem, 1.6vw, 1.1rem)", color: C.muted, lineHeight: 1.75, fontFamily: C.sans }}>
+            But thoughts disappear.
+          </motion.p>
+          <motion.p variants={fadeUp} style={{ fontSize: "clamp(1.05rem, 1.7vw, 1.15rem)", color: C.cream, lineHeight: 1.75, fontFamily: C.sans, fontWeight: 500 }}>
+            ÉCHO keeps them.
+          </motion.p>
         </motion.div>
 
-        {/* Quote callout */}
-        <motion.blockquote
-          variants={scaleUp}
+        {/* Example list */}
+        <motion.div
+          variants={staggerV(0.09)}
           initial="hidden"
           whileInView="visible"
           viewport={VP}
-          style={{
-            margin: "48px 0 0",
-            padding: "28px 32px",
-            background: isDark
-              ? "rgba(191,96,64,0.07)"
-              : "rgba(191,96,64,0.05)",
-            border: `1px solid ${isDark ? "rgba(191,96,64,0.2)" : "rgba(191,96,64,0.15)"}`,
-            borderLeft: `3px solid ${C.ember}`,
-            borderRadius: "0 16px 16px 0",
-          }}
+          style={{ display: "flex", flexDirection: "column", gap: 12 }}
         >
-          <p
+          {EXAMPLES.map((ex, i) => (
+            <motion.div
+              key={i}
+              variants={fadeUp}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 14,
+                padding: "16px 20px",
+                background: isDark ? "rgba(255,228,184,0.04)" : "rgba(191,96,64,0.04)",
+                border: `1px solid ${isDark ? "rgba(255,228,184,0.08)" : "rgba(191,96,64,0.1)"}`,
+                borderRadius: 14,
+              }}
+            >
+              <span style={{ color: C.ember, fontFamily: C.serif, fontSize: 18, flexShrink: 0, opacity: 0.7 }}>{i + 1}</span>
+              <p style={{ fontFamily: C.sans, fontSize: "clamp(0.9rem, 1.4vw, 1rem)", color: C.muted, lineHeight: 1.5, fontStyle: "italic" }}>
+                {ex}
+              </p>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+// ── HowItWorksSection (Section 3) ──────────────────────────────
+function HowItWorksSection() {
+  const { C, isDark } = useLandingTheme();
+
+  const STEPS = [
+    {
+      num: "One",
+      title: "Speak",
+      body: "A question waits for you. Answer however it comes out. Messy, unfinished, completely yours.",
+    },
+    {
+      num: "Two",
+      title: "ÉCHO remembers",
+      body: "Your words become part of your private journal, building a record of the thoughts you keep coming back to.",
+    },
+    {
+      num: "Three",
+      title: "Hear yourself again",
+      body: "When a thought returns, ÉCHO can bring back what you said before, helping you see what changed and what didn't.",
+    },
+  ];
+
+  return (
+    <section
+      id="how-it-works"
+      style={{
+        position: "relative",
+        padding: "80px 24px 100px",
+        overflow: "hidden",
+      }}
+    >
+      <div style={{ maxWidth: 860, margin: "0 auto" }}>
+        <motion.div
+          variants={staggerV(0.1)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VP}
+          style={{ textAlign: "center", marginBottom: 64 }}
+        >
+          <motion.p variants={fadeUp} style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.24em", color: C.ember, marginBottom: 16, fontFamily: C.sans }}>
+            — How it works
+          </motion.p>
+          <motion.h2
+            variants={fadeUp}
             style={{
               fontFamily: C.serif,
-              fontSize: "clamp(1.1rem, 2.2vw, 1.35rem)",
+              fontSize: "clamp(2rem, 5vw, 3.4rem)",
               color: C.cream,
-              lineHeight: 1.6,
-              fontStyle: "italic",
+              lineHeight: 1.1,
             }}
           >
-            "You were clearer than you thought. You already knew what you
-            needed to know."
-          </p>
-        </motion.blockquote>
+            Three steps.{" "}
+            <em style={{ color: C.ember, fontStyle: "italic" }}>
+              That's the whole app.
+            </em>
+          </motion.h2>
+        </motion.div>
+
+        <motion.div
+          variants={staggerV(0.15)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VP}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+        >
+          {STEPS.map((step, i) => (
+            <motion.div
+              key={i}
+              variants={scaleUp}
+              style={{
+                padding: "32px 28px",
+                background: C.card,
+                border: `1px solid ${C.border}`,
+                borderRadius: 24,
+                position: "relative",
+              }}
+            >
+              <p style={{ fontFamily: C.serif, fontSize: 13, color: C.ember, marginBottom: 12, opacity: 0.7, letterSpacing: "0.04em" }}>
+                {step.num}
+              </p>
+              <h3 style={{ fontFamily: C.serif, fontSize: "clamp(1.3rem, 2.5vw, 1.6rem)", color: C.cream, marginBottom: 14, lineHeight: 1.2 }}>
+                {step.title}
+              </h3>
+              <p style={{ fontFamily: C.sans, fontSize: 15, color: C.muted, lineHeight: 1.7 }}>
+                {step.body}
+              </p>
+              {i < STEPS.length - 1 && (
+                <div className="hidden md:block" style={{ position: "absolute", top: "50%", right: -20, transform: "translateY(-50%)", fontSize: 16, color: C.ember, opacity: 0.35, zIndex: 1 }}>
+                  →
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
@@ -2757,6 +2782,16 @@ function InteractivePhoneSection() {
         <div aria-hidden style={{ position: "absolute", inset: 0, background: ambientColor, transition: "background 0.7s ease-in-out", pointerEvents: "none" }} />
 
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
+          {/* Section headline */}
+          <div style={{ textAlign: "center", marginBottom: 4 }}>
+            <p style={{ fontSize: 11, color: C.ember, fontFamily: C.sans, letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: 8 }}>
+              — The demo
+            </p>
+            <h2 style={{ fontFamily: C.serif, fontSize: "clamp(1.8rem, 5vw, 2.6rem)", color: C.cream, lineHeight: 1.12, marginBottom: 0 }}>
+              See what ÉCHO{" "}
+              <em style={{ color: C.ember, fontStyle: "italic" }}>feels like.</em>
+            </h2>
+          </div>
           {/* Chapter label above phone */}
           <div style={{ textAlign: "center" }}>
             <p style={{ fontSize: 10, color: C.ember, fontFamily: C.sans, letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: 4 }}>
@@ -2785,6 +2820,7 @@ function InteractivePhoneSection() {
         position: "relative",
         minHeight: "100vh",
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
         padding: "80px 24px",
@@ -2793,6 +2829,17 @@ function InteractivePhoneSection() {
     >
       {/* Ambient */}
       <div aria-hidden style={{ position: "absolute", inset: 0, background: ambientColor, transition: "background 0.7s ease-in-out", pointerEvents: "none" }} />
+
+      {/* Section headline */}
+      <div style={{ position: "relative", zIndex: 2, textAlign: "center", marginBottom: 52 }}>
+        <p style={{ fontSize: 11, color: C.ember, fontFamily: C.sans, letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: 12 }}>
+          — The demo
+        </p>
+        <h2 style={{ fontFamily: C.serif, fontSize: "clamp(2rem, 4vw, 3.2rem)", color: C.cream, lineHeight: 1.12 }}>
+          See what ÉCHO{" "}
+          <em style={{ color: C.ember, fontStyle: "italic" }}>feels like.</em>
+        </h2>
+      </div>
 
       {/* Progress bar */}
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: isDark ? "rgba(255,228,184,0.08)" : "rgba(26,15,5,0.08)", zIndex: 20 }}>
@@ -2851,7 +2898,188 @@ function InteractivePhoneSection() {
           </div>
         </div>
       </div>
+
+      {/* Closing line */}
+      <p style={{ position: "relative", zIndex: 2, textAlign: "center", marginTop: 48, fontFamily: C.sans, fontSize: 14, color: C.muted, opacity: 0.7 }}>
+        No account. No download. Just a glimpse of the ÉCHO experience.
+      </p>
     </div>
+  );
+}
+
+// ── FeatureListingSection (Section 5) ─────────────────────────
+function FeatureListingSection() {
+  const { C, isDark } = useLandingTheme();
+
+  const FEATURES = [
+    {
+      tag: "Record",
+      body: "One tap starts it. No typing, no cursor blinking at you, no deciding how to phrase it. Just talk — ÉCHO writes it down as you go.",
+    },
+    {
+      tag: "Reflect",
+      body: "Come back to any entry, any day. Read it, or hear it in your own voice — exactly as you said it, nothing smoothed over.",
+    },
+    {
+      tag: "The Mirror",
+      body: "The thoughts you keep circling back to, gathered and shown to you — not analyzed, not explained.",
+    },
+    {
+      tag: "Letters",
+      body: "Write to a version of yourself who isn't here yet. Set a date. ÉCHO holds it until then.",
+    },
+  ];
+
+  return (
+    <section
+      id="features"
+      style={{ position: "relative", padding: "100px 24px", overflow: "hidden" }}
+    >
+      <div style={{ maxWidth: 960, margin: "0 auto" }}>
+        <motion.div
+          variants={staggerV(0.08)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VP}
+          style={{ textAlign: "center", marginBottom: 64 }}
+        >
+          <motion.p variants={fadeUp} style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.24em", color: C.ember, marginBottom: 14, fontFamily: C.sans }}>
+            — What's inside
+          </motion.p>
+          <motion.h2 variants={fadeUp} style={{ fontFamily: C.serif, fontSize: "clamp(2rem, 5vw, 3.2rem)", color: C.cream, lineHeight: 1.1 }}>
+            Four things ÉCHO{" "}
+            <em style={{ color: C.ember, fontStyle: "italic" }}>actually does.</em>
+          </motion.h2>
+        </motion.div>
+
+        <motion.div
+          variants={staggerV(0.1)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VP}
+          style={{ display: "flex", flexDirection: "column", gap: 1 }}
+        >
+          {FEATURES.map((f, i) => (
+            <motion.div
+              key={i}
+              variants={fadeUp}
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                gap: 28,
+                padding: "28px 0",
+                borderBottom: i < FEATURES.length - 1 ? `1px solid ${C.border}` : "none",
+              }}
+            >
+              <div style={{ minWidth: 100, paddingTop: 2 }}>
+                <span style={{
+                  display: "inline-block",
+                  padding: "4px 12px",
+                  borderRadius: 999,
+                  border: `1px solid ${isDark ? "rgba(191,96,64,0.35)" : "rgba(191,96,64,0.28)"}`,
+                  background: isDark ? "rgba(191,96,64,0.08)" : "rgba(191,96,64,0.05)",
+                  fontFamily: C.serif,
+                  fontSize: 13,
+                  color: C.ember,
+                  fontStyle: "italic",
+                  letterSpacing: "0.02em",
+                }}>
+                  {f.tag}
+                </span>
+              </div>
+              <p style={{ fontFamily: C.sans, fontSize: "clamp(0.95rem, 1.5vw, 1.05rem)", color: C.muted, lineHeight: 1.72, flex: 1 }}>
+                {f.body}
+              </p>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+// ── FounderSection (Section 7) ─────────────────────────────────
+function FounderSection() {
+  const { C, isDark } = useLandingTheme();
+
+  return (
+    <section
+      id="founder"
+      style={{ position: "relative", padding: "80px 24px", overflow: "hidden" }}
+    >
+      <div style={{ maxWidth: 760, margin: "0 auto" }}>
+        <motion.div
+          variants={staggerV(0.1)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VP}
+        >
+          <motion.p variants={fadeUp} style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.24em", color: C.ember, marginBottom: 20, fontFamily: C.sans }}>
+            — The founder
+          </motion.p>
+
+          <motion.div
+            variants={scaleUp}
+            style={{
+              padding: "40px 36px",
+              background: isDark
+                ? "linear-gradient(135deg, rgba(14,22,44,0.85) 0%, rgba(10,12,20,0.92) 100%)"
+                : "rgba(191,96,64,0.04)",
+              border: `1px solid ${isDark ? "rgba(191,96,64,0.2)" : "rgba(191,96,64,0.15)"}`,
+              borderRadius: 28,
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
+            <div aria-hidden style={{ position: "absolute", inset: "0 0 auto 0", height: 1, background: "linear-gradient(90deg, transparent, rgba(191,96,64,0.45), transparent)" }} />
+
+            {/* Video placeholder */}
+            <div
+              style={{
+                width: "100%",
+                aspectRatio: "16/9",
+                background: isDark ? "rgba(6,10,18,0.7)" : "rgba(0,0,0,0.08)",
+                borderRadius: 16,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: 32,
+                border: `1px solid ${isDark ? "rgba(255,228,184,0.07)" : "rgba(0,0,0,0.08)"}`,
+              }}
+            >
+              <div style={{
+                width: 64,
+                height: 64,
+                borderRadius: "50%",
+                background: "rgba(191,96,64,0.15)",
+                border: "1.5px solid rgba(191,96,64,0.45)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}>
+                <svg viewBox="0 0 24 24" fill="#BF6040" style={{ width: 24, height: 24, marginLeft: 3 }}>
+                  <polygon points="5 3 19 12 5 21 5 3" />
+                </svg>
+              </div>
+            </div>
+
+            <h2 style={{ fontFamily: C.serif, fontSize: "clamp(1.6rem, 3.5vw, 2.2rem)", color: C.cream, lineHeight: 1.15, marginBottom: 20 }}>
+              Why I built ÉCHO
+            </h2>
+
+            <blockquote style={{ borderLeft: `2px solid ${C.ember}`, paddingLeft: 20, marginBottom: 20 }}>
+              <p style={{ fontFamily: C.serif, fontSize: "clamp(1rem, 2vw, 1.2rem)", color: C.cream, lineHeight: 1.65, fontStyle: "italic" }}>
+                "I didn't want another app telling me what I should think. I wanted something that could help me remember what I already knew."
+              </p>
+            </blockquote>
+
+            <p style={{ fontFamily: C.sans, fontSize: 13, color: C.muted, letterSpacing: "0.04em" }}>
+              Roksana, Founder of ÉCHO
+            </p>
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
   );
 }
 
@@ -2860,7 +3088,6 @@ const PRIVACY_ICONS = [
   <Smartphone key="smartphone" size={22} strokeWidth={1.5} />,
   <ShieldCheck key="shield" size={22} strokeWidth={1.5} />,
   <EyeOff key="eye" size={22} strokeWidth={1.5} />,
-  <Cloud key="cloud" size={22} strokeWidth={1.5} />,
 ];
 
 function PrivacySection() {
@@ -2924,16 +3151,16 @@ function PrivacySection() {
             variants={fadeUp}
             style={{
               fontFamily: C.serif,
-              fontSize: "clamp(2.4rem, 6vw, 4rem)",
+              fontSize: "clamp(2.2rem, 5.5vw, 3.8rem)",
               letterSpacing: "0",
               color: C.cream,
-              lineHeight: 1.08,
+              lineHeight: 1.1,
               marginBottom: 18,
             }}
           >
-            On your iPhone.{" "}
+            Your journal should feel{" "}
             <em style={{ color: C.ember, fontStyle: "italic" }}>
-              Nowhere else.
+              private enough to be honest.
             </em>
           </motion.h2>
           <motion.p
@@ -2957,7 +3184,7 @@ function PrivacySection() {
           initial="hidden"
           whileInView="visible"
           viewport={VP}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5"
+          className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-5"
         >
           {PRIVACY.map((p, i) => (
             <motion.div
@@ -3018,6 +3245,31 @@ function PrivacySection() {
             </motion.div>
           ))}
         </motion.div>
+
+        {/* Privacy CTA */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VP}
+          style={{ textAlign: "center", marginTop: 36 }}
+        >
+          <Link
+            to="/privacy"
+            style={{
+              fontFamily: C.sans,
+              fontSize: 14,
+              color: C.ember,
+              textDecoration: "none",
+              opacity: 0.85,
+              transition: "opacity 0.2s",
+            }}
+            onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.opacity = "1")}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.opacity = "0.85")}
+          >
+            See exactly how ÉCHO protects your data →
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
@@ -3060,15 +3312,15 @@ function PricingSection() {
           variants={fadeUp}
           style={{
             fontFamily: C.serif,
-            fontSize: "clamp(2.2rem, 5.5vw, 3.8rem)",
+            fontSize: "clamp(2rem, 5vw, 3.4rem)",
             letterSpacing: "0",
             color: C.cream,
-            lineHeight: 1.08,
+            lineHeight: 1.1,
           }}
         >
-          Free for the{" "}
+          Be one of ÉCHO's first{" "}
           <em style={{ color: C.ember, fontStyle: "italic" }}>
-            first circle.
+            1,000 founding members.
           </em>
         </motion.h2>
       </motion.div>
@@ -3180,15 +3432,14 @@ function PricingSection() {
           </div>
 
           <div style={{ marginBottom: 4 }}>
-            <span style={{ fontSize: 12, color: C.muted, fontFamily: C.sans, textDecoration: "line-through", opacity: 0.6 }}>€7.99 / mo</span>
-            <span style={{ marginLeft: 8, fontSize: 10, textTransform: "uppercase", letterSpacing: "0.16em", color: C.ember, fontFamily: C.sans, fontWeight: 700 }}>Founding price</span>
+            <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.16em", color: C.ember, fontFamily: C.sans, fontWeight: 700 }}>Founding member price</span>
           </div>
           <div style={{ marginBottom: 6 }}>
-            <span style={{ fontFamily: C.serif, fontSize: "clamp(2.4rem, 5vw, 3.2rem)", color: C.ember, letterSpacing: "-0.02em" }}>€4.99</span>
+            <span style={{ fontFamily: C.serif, fontSize: "clamp(2.4rem, 5vw, 3.2rem)", color: C.ember, letterSpacing: "-0.02em" }}>€3.99</span>
             <span style={{ fontSize: 15, color: C.muted, fontFamily: C.sans, marginLeft: 6 }}>/ mo</span>
           </div>
           <p style={{ fontSize: 12, color: C.muted, fontFamily: C.sans, marginBottom: 32 }}>
-            First 3 months at €4.99/mo, then €7.99/mo · or €49.99/yr first year · Offer ends 1 Dec 2026
+            Founding member pricing remains active for as long as your subscription stays active.
           </p>
 
           <ul style={{ display: "flex", flexDirection: "column", gap: 12, flex: 1, marginBottom: 32 }}>
@@ -3223,6 +3474,79 @@ function PricingSection() {
           </button>
         </motion.div>
       </motion.div>
+    </section>
+  );
+}
+
+// ── TestimonialsPlaceholder ────────────────────────────────────
+function TestimonialsPlaceholder() {
+  const { C, isDark } = useLandingTheme();
+
+  const SLOTS = [
+    { init: "S.L.", role: "Joined the waitlist" },
+    { init: "M.K.", role: "Joined the waitlist" },
+    { init: "A.R.", role: "Joined the waitlist" },
+  ];
+
+  return (
+    <section
+      id="testimonials"
+      style={{ position: "relative", padding: "80px 24px", overflow: "hidden" }}
+    >
+      <div style={{ maxWidth: 900, margin: "0 auto" }}>
+        <motion.div
+          variants={staggerV(0.1)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VP}
+          style={{ textAlign: "center", marginBottom: 48 }}
+        >
+          <motion.p variants={fadeUp} style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.24em", color: C.ember, marginBottom: 14, fontFamily: C.sans }}>
+            — Early voices
+          </motion.p>
+          <motion.h2 variants={fadeUp} style={{ fontFamily: C.serif, fontSize: "clamp(1.8rem, 4vw, 2.8rem)", color: C.cream, lineHeight: 1.12 }}>
+            What people are{" "}
+            <em style={{ color: C.ember, fontStyle: "italic" }}>already saying.</em>
+          </motion.h2>
+        </motion.div>
+
+        <motion.div
+          variants={staggerV(0.1)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VP}
+          className="grid grid-cols-1 sm:grid-cols-3 gap-4"
+        >
+          {SLOTS.map((slot, i) => (
+            <motion.div
+              key={i}
+              variants={scaleUp}
+              style={{
+                padding: "28px 24px",
+                background: C.card,
+                border: `1px dashed ${isDark ? "rgba(255,228,184,0.12)" : "rgba(191,96,64,0.15)"}`,
+                borderRadius: 20,
+                display: "flex",
+                flexDirection: "column",
+                gap: 16,
+                minHeight: 160,
+              }}
+            >
+              <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <p style={{ fontFamily: C.serif, fontSize: 14, color: isDark ? "rgba(255,228,184,0.2)" : "rgba(26,15,5,0.2)", fontStyle: "italic", textAlign: "center" }}>
+                  Real quote from closed beta — coming soon
+                </p>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <div style={{ width: 32, height: 32, borderRadius: "50%", background: isDark ? "rgba(191,96,64,0.15)" : "rgba(191,96,64,0.1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <span style={{ fontSize: 10, color: C.ember, fontFamily: C.sans, fontWeight: 600 }}>{slot.init}</span>
+                </div>
+                <p style={{ fontSize: 11, color: C.muted, fontFamily: C.sans, opacity: 0.6 }}>{slot.role}</p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
     </section>
   );
 }
@@ -3463,9 +3787,9 @@ function WaitlistSection() {
             marginBottom: 20,
           }}
         >
-          The first voice you should trust{" "}
+          Your answers might{" "}
           <em style={{ color: C.ember, fontStyle: "italic" }}>
-            is yours.
+            already be there.
           </em>
         </motion.h2>
 
@@ -3480,7 +3804,7 @@ function WaitlistSection() {
             fontFamily: C.sans,
           }}
         >
-          Join the waitlist. Founding-member pricing at launch.
+          ÉCHO helps you keep them long enough to hear them again.
         </motion.p>
 
         <motion.div
@@ -3715,18 +4039,22 @@ function Landing() {
             { label: "FAQ", anchor: "faq" },
             { label: "Blog", to: "/blog" },
           ]}
-          cta={{ label: "Join Early Access", anchor: "waitlist" }}
+          cta={{ label: "Join the founding waitlist", anchor: "waitlist" }}
         />
         <div id="main-content" />
         <HeroSection />
         <MarqueeStrip />
-        <ManifestoSection />
+        <WhyEchoSection />
+        <HowItWorksSection />
         <div id="story">
           <InteractivePhoneSection />
         </div>
         <MarqueeStrip reversed />
+        <FeatureListingSection />
+        <FounderSection />
         <PrivacySection />
         <PricingSection />
+        <TestimonialsPlaceholder />
         <FAQSection />
         <WaitlistSection />
         <SiteFooter />
