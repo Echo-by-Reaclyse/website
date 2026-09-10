@@ -3507,8 +3507,11 @@ function TestimonialsPlaceholder() {
 
   const scrollTo = (idx: number) => {
     if (!carouselRef.current) return;
-    const el = carouselRef.current.children[idx] as HTMLElement;
-    el?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+    const container = carouselRef.current;
+    const el = container.children[idx] as HTMLElement;
+    if (!el) return;
+    // Scroll only the carousel container — scrollIntoView scrolls the entire page
+    container.scrollTo({ left: el.offsetLeft, behavior: "smooth" });
     setActive(idx);
   };
 
@@ -3538,7 +3541,7 @@ function TestimonialsPlaceholder() {
   );
 
   return (
-    <section id="testimonials" style={{ position: "relative", padding: "80px 0 88px", overflow: "hidden" }}>
+    <section id="testimonials" style={{ position: "relative", padding: "80px 0 88px", overflowX: "clip", overflowY: "visible" }}>
 
       {/* Ambient blobs */}
       <div aria-hidden style={{ position: "absolute", top: -60, right: -80, width: 420, height: 420, borderRadius: "50%", background: isDark ? "radial-gradient(circle,rgba(191,96,64,0.07) 0%,transparent 70%)" : "radial-gradient(circle,rgba(191,96,64,0.08) 0%,transparent 70%)", filter: "blur(60px)", pointerEvents: "none" }} />
