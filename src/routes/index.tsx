@@ -3459,13 +3459,23 @@ function PricingSection() {
           <div style={{ marginBottom: 4 }}>
             <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.16em", color: C.ember, fontFamily: C.sans, fontWeight: 700 }}>Founding member price</span>
           </div>
-          <div style={{ marginBottom: 6 }}>
-            <span style={{ fontFamily: C.serif, fontSize: "clamp(2.4rem, 5vw, 3.2rem)", color: C.ember, letterSpacing: "-0.02em" }}>€3.99</span>
-            <span style={{ fontSize: 15, color: C.muted, fontFamily: C.sans, marginLeft: 6 }}>/ mo</span>
+          <div style={{ marginBottom: 32 }}>
+            {/* Crossed-out regular price */}
+            <p style={{ fontFamily: C.sans, fontSize: 14, color: C.muted, textDecoration: "line-through", opacity: 0.5, margin: "0 0 6px" }}>
+              €69.99 / yr
+            </p>
+            {/* Founding member price */}
+            <div style={{ display: "flex", alignItems: "baseline", gap: 6, marginBottom: 6 }}>
+              <span style={{ fontFamily: C.serif, fontSize: "clamp(2.4rem, 5vw, 3.2rem)", color: C.ember, letterSpacing: "-0.02em" }}>€49.99</span>
+              <span style={{ fontSize: 15, color: C.muted, fontFamily: C.sans }}>/&thinsp;yr</span>
+            </div>
+            <p style={{ fontSize: 12, color: C.muted, fontFamily: C.sans, margin: "0 0 10px" }}>
+              €4.16&thinsp;/&thinsp;mo · billed annually
+            </p>
+            <p style={{ fontSize: 12, color: C.muted, fontFamily: C.sans, margin: 0 }}>
+              Founding member pricing remains active for as long as your subscription stays active.
+            </p>
           </div>
-          <p style={{ fontSize: 12, color: C.muted, fontFamily: C.sans, marginBottom: 32 }}>
-            Founding member pricing remains active for as long as your subscription stays active.
-          </p>
 
           <ul style={{ display: "flex", flexDirection: "column", gap: 12, flex: 1, marginBottom: 32 }}>
             {PRO_FEATURES.map((f, i) => (
