@@ -276,7 +276,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "How much does ÉCHO cost?",
-    a: "ÉCHO is free to download and use every day. A subscription unlocks your full journal history, deeper personal insights, and unlimited time capsules. Until 1 December 2026, founding members pay €4.99/month for the first 3 months (then €7.99/month), or €49.99 for the first year (then €69.99/year). After 1 December 2026, standard pricing applies from day one.",
+    a: "ÉCHO is free to download and use every day. A subscription unlocks your full journal history, deeper personal insights, and unlimited time capsules. Founding members pay €3.99/month or €34.99/year (regular price: €7.99/month or €69.99/year). Founding member pricing remains active for as long as your subscription stays active.",
   },
   {
     q: "Do I need to write anything?",
@@ -3466,11 +3466,11 @@ function PricingSection() {
             </p>
             {/* Founding member price */}
             <div style={{ display: "flex", alignItems: "baseline", gap: 6, marginBottom: 6 }}>
-              <span style={{ fontFamily: C.serif, fontSize: "clamp(2.4rem, 5vw, 3.2rem)", color: C.ember, letterSpacing: "-0.02em" }}>€49.99</span>
+              <span style={{ fontFamily: C.serif, fontSize: "clamp(2.4rem, 5vw, 3.2rem)", color: C.ember, letterSpacing: "-0.02em" }}>€34.99</span>
               <span style={{ fontSize: 15, color: C.muted, fontFamily: C.sans }}>/&thinsp;yr</span>
             </div>
             <p style={{ fontSize: 12, color: C.muted, fontFamily: C.sans, margin: "0 0 10px" }}>
-              €4.16&thinsp;/&thinsp;mo · billed annually
+              €2.92&thinsp;/&thinsp;mo · billed annually
             </p>
             <p style={{ fontSize: 12, color: C.muted, fontFamily: C.sans, margin: 0 }}>
               Founding member pricing remains active for as long as your subscription stays active.
