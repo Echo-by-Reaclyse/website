@@ -3547,11 +3547,12 @@ function TestimonialsPlaceholder() {
       <div aria-hidden style={{ position: "absolute", top: -60, right: -80, width: 420, height: 420, borderRadius: "50%", background: isDark ? "radial-gradient(circle,rgba(191,96,64,0.07) 0%,transparent 70%)" : "radial-gradient(circle,rgba(191,96,64,0.08) 0%,transparent 70%)", filter: "blur(60px)", pointerEvents: "none" }} />
       <div aria-hidden style={{ position: "absolute", bottom: 80, left: -100, width: 300, height: 300, borderRadius: "50%", background: isDark ? "radial-gradient(circle,rgba(191,96,64,0.05) 0%,transparent 70%)" : "radial-gradient(circle,rgba(191,96,64,0.06) 0%,transparent 70%)", filter: "blur(50px)", pointerEvents: "none" }} />
 
-      <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 20px" }}>
+      {/* No horizontal padding — carousel goes edge-to-edge; sub-elements set their own inset */}
+      <div style={{ maxWidth: 960, margin: "0 auto" }}>
 
-        {/* Header */}
+        {/* Header — padded */}
         <motion.div variants={staggerV(0.09)} initial="hidden" whileInView="visible" viewport={VP}
-          style={{ textAlign: "center", marginBottom: 48 }}>
+          style={{ textAlign: "center", marginBottom: 48, padding: "0 20px" }}>
           <motion.p variants={fadeUp} style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.24em", color: C.ember, marginBottom: 14, fontFamily: C.sans }}>
             — Real stories
           </motion.p>
@@ -3564,10 +3565,10 @@ function TestimonialsPlaceholder() {
           </motion.p>
         </motion.div>
 
-        {/* Carousel */}
+        {/* Carousel — edge to edge, cards slide past the window boundary */}
         <div ref={carouselRef} style={{
           display: "flex",
-          gap: 14,
+          gap: 12,
           overflowX: "auto",
           scrollSnapType: "x mandatory",
           scrollbarWidth: "none",
@@ -3575,7 +3576,7 @@ function TestimonialsPlaceholder() {
         } as React.CSSProperties}>
           {CARDS.map((card, i) => (
             <div key={i} style={{
-              flex: "0 0 min(300px, 84vw)",
+              flex: "0 0 min(300px, 88vw)",
               scrollSnapAlign: "start",
               borderRadius: 20,
               background: cardBg,
@@ -3583,6 +3584,10 @@ function TestimonialsPlaceholder() {
               padding: "22px 20px 20px",
               display: "flex",
               flexDirection: "column",
+              // First card: small left margin so rounded corner breathes from screen edge
+              marginLeft: i === 0 ? 16 : 0,
+              // Last card: right margin so it doesn't jam into the screen edge on scroll end
+              marginRight: i === CARDS.length - 1 ? 16 : 0,
             }}>
               <span aria-hidden style={{ display: "block", fontFamily: C.serif, fontSize: 40, lineHeight: 0.85, color: C.ember, marginBottom: 10, userSelect: "none" as const }}>"</span>
               <p style={{ fontFamily: C.serif, fontSize: "clamp(0.9rem, 1.3vw, 1.02rem)", color: qColor, lineHeight: 1.64, margin: "0 0 20px", flex: 1 }}>
@@ -3602,8 +3607,8 @@ function TestimonialsPlaceholder() {
           ))}
         </div>
 
-        {/* Navigation: arrows flanking dots — fixed-width dot containers prevent layout shift */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, marginTop: 20, marginBottom: 40 }}>
+        {/* Navigation: arrows flanking dots — padded to match page content */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, marginTop: 20, marginBottom: 40, padding: "0 20px" }}>
           {arrowBtn(() => scrollTo(Math.max(0, active - 1)), "Previous", "‹")}
           <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
             {CARDS.map((_, i) => (
@@ -3620,14 +3625,14 @@ function TestimonialsPlaceholder() {
           {arrowBtn(() => scrollTo(Math.min(CARDS.length - 1, active + 1)), "Next", "›")}
         </div>
 
-        {/* Featured quote */}
+        {/* Featured quote — padded from edges */}
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={VP}
-          style={{
+          style={{ padding: "0 16px", marginBottom: 44 }}>
+        <div style={{
             borderRadius: 24,
             background: isDark ? "rgba(255,246,233,0.04)" : "rgba(191,96,64,0.035)",
             border: `1px solid ${cardBd}`,
             padding: "32px 28px 26px",
-            marginBottom: 44,
           }}>
           <span aria-hidden style={{ display: "block", fontFamily: C.serif, fontSize: 52, lineHeight: 0.9, color: C.ember, marginBottom: 10, userSelect: "none" as const, opacity: 0.75 }}>"</span>
           <p style={{ fontFamily: C.serif, fontSize: "clamp(1.1rem, 2.2vw, 1.38rem)", color: qColor, lineHeight: 1.6, margin: "0 0 24px", maxWidth: 600, fontStyle: "italic" }}>
@@ -3643,11 +3648,13 @@ function TestimonialsPlaceholder() {
               <span style={{ fontFamily: C.sans, fontSize: 12, color: C.muted }}>Marketing Director, 28</span>
             </div>
           </div>
+        </div>
         </motion.div>
 
-        {/* Social proof bar */}
+        {/* Social proof bar — padded from edges */}
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={VP}
-          style={{
+          style={{ padding: "0 16px" }}>
+        <div style={{
             borderTop: `1px solid ${isDark ? "rgba(255,228,184,0.09)" : "rgba(191,96,64,0.12)"}`,
             paddingTop: 22,
             display: "flex", flexWrap: "wrap" as const, justifyContent: "space-between", alignItems: "center", gap: 14,
@@ -3688,6 +3695,7 @@ function TestimonialsPlaceholder() {
             </svg>
             <span style={{ fontFamily: C.sans, fontSize: 10, color: C.muted, textTransform: "uppercase" as const, letterSpacing: "0.14em" }}>Real thoughts. Real people.</span>
           </div>
+        </div>
         </motion.div>
 
       </div>
