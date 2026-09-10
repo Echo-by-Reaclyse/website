@@ -2402,9 +2402,9 @@ function WhyEchoSection() {
 
   const CARDS = [
     { text: "The decision you keep reconsidering",          c1: "#3D1A0A", c2: "#7A3218" },
-    { text: "The thought that comes back three months later", c1: "#0F1A2C", c2: "#1A3060" },
+    { text: "The thought that comes back three months later", c1: "#2A1509", c2: "#5A3018" },
     { text: "The goal you keep talking about",              c1: "#2C0E05", c2: "#6A2510" },
-    { text: "The version of you who already knew",          c1: "#0F1F12", c2: "#1E3820" },
+    { text: "The version of you who already knew",          c1: "#261508", c2: "#4A2A0A" },
   ];
 
   return (
@@ -2412,7 +2412,7 @@ function WhyEchoSection() {
       id="why"
       style={{
         position: "relative",
-        padding: "120px 24px",
+        padding: "80px 24px",
         overflow: "hidden",
       }}
     >
@@ -2446,7 +2446,7 @@ function WhyEchoSection() {
             fontFamily: C.sans,
           }}
         >
-          — Why ÉCHO
+          — WHY ÉCHO
         </motion.p>
 
         <motion.h2
@@ -2460,32 +2460,24 @@ function WhyEchoSection() {
             letterSpacing: "0",
             color: C.cream,
             lineHeight: 1.1,
-            marginBottom: 32,
+            marginBottom: 20,
           }}
         >
-          You've probably already said{" "}
+          ÉCHO{" "}
           <em style={{ color: C.ember, fontStyle: "italic" }}>
-            the thing you needed to hear.
+            keeps them.
           </em>
         </motion.h2>
 
-        <motion.div
-          variants={staggerV(0.12)}
+        <motion.p
+          variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={VP}
-          style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: 48 }}
+          style={{ fontSize: "clamp(1rem, 1.6vw, 1.08rem)", color: C.muted, lineHeight: 1.72, fontFamily: C.sans, marginBottom: 40, maxWidth: 540 }}
         >
-          <motion.p variants={fadeUp} style={{ fontSize: "clamp(1rem, 1.6vw, 1.1rem)", color: C.muted, lineHeight: 1.75, fontFamily: C.sans }}>
-            Somewhere in the last six months, you said it out loud. To a friend. In a voice memo. Walking home. Maybe only to yourself.
-          </motion.p>
-          <motion.p variants={fadeUp} style={{ fontSize: "clamp(1rem, 1.6vw, 1.1rem)", color: C.muted, lineHeight: 1.75, fontFamily: C.sans }}>
-            But thoughts disappear.
-          </motion.p>
-          <motion.p variants={fadeUp} style={{ fontSize: "clamp(1.05rem, 1.7vw, 1.15rem)", color: C.cream, lineHeight: 1.75, fontFamily: C.sans, fontWeight: 500 }}>
-            ÉCHO keeps them.
-          </motion.p>
-        </motion.div>
+          The thoughts you don't want to lose, held gently in one place — so you can return to what matters.
+        </motion.p>
 
         {/* 2×2 image-led card grid */}
         <motion.div
@@ -3275,7 +3267,7 @@ function PricingSection() {
       id="pricing"
       style={{
         position: "relative",
-        padding: "100px 24px",
+        padding: "72px 24px 80px",
         textAlign: "center",
       }}
     >
@@ -3297,7 +3289,7 @@ function PricingSection() {
             fontFamily: C.sans,
           }}
         >
-          Pricing
+          — Pricing
         </motion.p>
         <motion.h2
           variants={fadeUp}
@@ -3485,23 +3477,32 @@ function TestimonialsPlaceholder() {
   const [active, setActive] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
 
-  const cardBg = isDark ? "rgba(255,246,233,0.06)" : "#FFFFFF";
-  const cardBd = isDark ? "rgba(255,228,184,0.09)" : "rgba(191,96,64,0.1)";
+  // Warm translucent cards — no stark white
+  const cardBg = isDark ? "rgba(255,246,233,0.06)" : "rgba(191,96,64,0.04)";
+  const cardBd = isDark ? "rgba(255,228,184,0.09)" : "rgba(191,96,64,0.10)";
   const qColor = isDark ? C.cream : "#1A0F05";
 
-  const PEOPLE = [
-    { init: "M", name: "Maya",   role: "Marketing",  grad: "linear-gradient(135deg,#C87D5A,#8B4020)" },
-    { init: "J", name: "Jess",   role: "Teacher",    grad: "linear-gradient(135deg,#8B6A20,#C0A030)" },
-    { init: "L", name: "Liam",   role: "Product",    grad: "linear-gradient(135deg,#1A3060,#2A5080)" },
-    { init: "D", name: "Daniel", role: "Student",    grad: "linear-gradient(135deg,#204020,#406040)" },
-    { init: "A", name: "Ava",    role: "Freelancer", grad: "linear-gradient(135deg,#602040,#A04060)" },
-  ];
-
-  const SMALL_CARDS = [
-    { quote: "It helps me ground myself and find a sense of calm.", name: "Liam",   tag: "Closed beta", role: "Product Designer, 31", grad: "linear-gradient(135deg,#1A3060,#2A5080)" },
-    { quote: "It's like a reset button for my mind. I leave every session feeling lighter.", name: "Jess",   tag: "Closed beta", role: "Teacher, 26",          grad: "linear-gradient(135deg,#8B6A20,#C0A030)" },
-    { quote: "A small moment with ÉCHO makes a big difference in my day.", name: "Daniel", tag: "Early user", role: "Graduate Student, 24",  grad: "linear-gradient(135deg,#204020,#406040)" },
-    { quote: "I've tried other journaling apps, but ÉCHO actually feels like it listens.", name: "Ava",    tag: "Closed beta", role: "Freelancer, 29",        grad: "linear-gradient(135deg,#602040,#A04060)" },
+  const CARDS = [
+    {
+      quote: "ÉCHO helps me slow down and actually listen to myself. I didn't realise how much I needed this.",
+      init: "S.", tag: "Joined the beta", location: "FRANCE",
+      grad: "linear-gradient(135deg,#C87D5A,#8B4020)",
+    },
+    {
+      quote: "It's like a conversation with my future self. The reminders always come at the right time.",
+      init: "M.", tag: "Early user", location: "GERMANY",
+      grad: "linear-gradient(135deg,#A0785A,#7B5028)",
+    },
+    {
+      quote: "Simple, beautiful and so meaningful. ÉCHO helps me see patterns I kept missing.",
+      init: "L.", tag: "Joined the beta", location: "LUXEMBOURG",
+      grad: "linear-gradient(135deg,#8B6A50,#6A4830)",
+    },
+    {
+      quote: "I always knew what I needed to do. I just needed to hear myself say it again.",
+      init: "A.", tag: "Early user", location: "BELGIUM",
+      grad: "linear-gradient(135deg,#C8956A,#9B6A40)",
+    },
   ];
 
   const scrollTo = (idx: number) => {
@@ -3516,68 +3517,123 @@ function TestimonialsPlaceholder() {
       padding: "2px 10px", borderRadius: 99,
       background: isDark ? "rgba(255,228,184,0.08)" : "rgba(191,96,64,0.06)",
       border: `1px solid ${isDark ? "rgba(255,228,184,0.16)" : "rgba(191,96,64,0.14)"}`,
-      fontSize: 10, fontFamily: C.sans, color: C.ember, letterSpacing: "0.04em", whiteSpace: "nowrap" as const,
+      fontSize: 10, fontFamily: C.sans, color: C.ember,
+      letterSpacing: "0.04em", whiteSpace: "nowrap" as const,
     }}>{label}</span>
   );
 
+  const arrowBtn = (onClick: () => void, label: string, icon: string) => (
+    <button
+      onClick={onClick}
+      aria-label={label}
+      style={{
+        width: 34, height: 34, borderRadius: "50%",
+        background: isDark ? "rgba(255,228,184,0.07)" : "rgba(191,96,64,0.06)",
+        border: `1px solid ${cardBd}`,
+        cursor: "pointer", color: C.ember, fontSize: 20,
+        display: "flex", alignItems: "center", justifyContent: "center",
+        flexShrink: 0,
+      }}
+    >{icon}</button>
+  );
+
   return (
-    <section id="testimonials" style={{ position: "relative", padding: "96px 0 100px", overflow: "hidden" }}>
+    <section id="testimonials" style={{ position: "relative", padding: "80px 0 88px", overflow: "hidden" }}>
 
-      {/* Background blobs */}
-      <div aria-hidden style={{ position: "absolute", top: -60, right: -80, width: 420, height: 420, borderRadius: "50%", background: isDark ? "radial-gradient(circle, rgba(191,96,64,0.07) 0%, transparent 70%)" : "radial-gradient(circle, rgba(191,96,64,0.08) 0%, transparent 70%)", filter: "blur(60px)", pointerEvents: "none" }} />
-      <div aria-hidden style={{ position: "absolute", bottom: 120, left: -100, width: 300, height: 300, borderRadius: "50%", background: isDark ? "radial-gradient(circle, rgba(191,96,64,0.05) 0%, transparent 70%)" : "radial-gradient(circle, rgba(191,96,64,0.06) 0%, transparent 70%)", filter: "blur(50px)", pointerEvents: "none" }} />
+      {/* Ambient blobs */}
+      <div aria-hidden style={{ position: "absolute", top: -60, right: -80, width: 420, height: 420, borderRadius: "50%", background: isDark ? "radial-gradient(circle,rgba(191,96,64,0.07) 0%,transparent 70%)" : "radial-gradient(circle,rgba(191,96,64,0.08) 0%,transparent 70%)", filter: "blur(60px)", pointerEvents: "none" }} />
+      <div aria-hidden style={{ position: "absolute", bottom: 80, left: -100, width: 300, height: 300, borderRadius: "50%", background: isDark ? "radial-gradient(circle,rgba(191,96,64,0.05) 0%,transparent 70%)" : "radial-gradient(circle,rgba(191,96,64,0.06) 0%,transparent 70%)", filter: "blur(50px)", pointerEvents: "none" }} />
 
-      <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 24px" }}>
+      <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 20px" }}>
 
-        {/* Header — centered */}
+        {/* Header */}
         <motion.div variants={staggerV(0.09)} initial="hidden" whileInView="visible" viewport={VP}
-          style={{ textAlign: "center", marginBottom: 52 }}>
+          style={{ textAlign: "center", marginBottom: 48 }}>
           <motion.p variants={fadeUp} style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.24em", color: C.ember, marginBottom: 14, fontFamily: C.sans }}>
-            — Early voices
+            — Real stories
           </motion.p>
-          <motion.h2 variants={fadeUp} style={{ fontFamily: C.serif, fontSize: "clamp(2rem, 5vw, 3.2rem)", color: C.cream, lineHeight: 1.1, margin: "0 0 18px" }}>
+          <motion.h2 variants={fadeUp} style={{ fontFamily: C.serif, fontSize: "clamp(2rem, 5vw, 3.2rem)", color: C.cream, lineHeight: 1.1, margin: "0 0 16px" }}>
             What people are{" "}
             <em style={{ color: C.ember, fontStyle: "italic" }}>already saying.</em>
           </motion.h2>
-          <motion.p variants={fadeUp} style={{ fontFamily: C.sans, fontSize: "clamp(0.9rem, 1.4vw, 1rem)", color: C.muted, lineHeight: 1.72, maxWidth: 480, margin: "0 auto" }}>
-            Real reflections from early users finding a calmer, clearer connection with themselves — one thought at a time.
+          <motion.p variants={fadeUp} style={{ fontFamily: C.sans, fontSize: "clamp(0.88rem, 1.4vw, 1rem)", color: C.muted, lineHeight: 1.7, maxWidth: 400, margin: "0 auto" }}>
+            Early users are already feeling the difference.
           </motion.p>
         </motion.div>
 
-        {/* Avatar row — centered, wraps on mobile */}
-        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={VP}
-          style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" as const, gap: "clamp(20px, 4vw, 48px)", marginBottom: 48 }}>
-          {PEOPLE.map((p, i) => (
-            <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
-              <div style={{
-                width: 58, height: 58, borderRadius: "50%", background: p.grad,
-                boxShadow: "0 4px 14px rgba(191,96,64,0.2)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-              }}>
-                <span style={{ fontFamily: C.sans, fontSize: 20, color: "#FFF6E9", fontWeight: 600 }}>{p.init}</span>
-              </div>
-              <div style={{ textAlign: "center" }}>
-                <p style={{ margin: 0, fontFamily: C.sans, fontSize: 12, fontWeight: 700, color: qColor }}>{p.name}</p>
-                <p style={{ margin: 0, fontFamily: C.sans, fontSize: 11, color: C.muted }}>{p.role}</p>
+        {/* Carousel */}
+        <div ref={carouselRef} style={{
+          display: "flex",
+          gap: 14,
+          overflowX: "auto",
+          scrollSnapType: "x mandatory",
+          scrollbarWidth: "none",
+          paddingBottom: 4,
+        } as React.CSSProperties}>
+          {CARDS.map((card, i) => (
+            <div key={i} style={{
+              flex: "0 0 min(300px, 84vw)",
+              scrollSnapAlign: "start",
+              borderRadius: 20,
+              background: cardBg,
+              border: `1px solid ${cardBd}`,
+              padding: "22px 20px 20px",
+              display: "flex",
+              flexDirection: "column",
+            }}>
+              <span aria-hidden style={{ display: "block", fontFamily: C.serif, fontSize: 40, lineHeight: 0.85, color: C.ember, marginBottom: 10, userSelect: "none" as const }}>"</span>
+              <p style={{ fontFamily: C.serif, fontSize: "clamp(0.9rem, 1.3vw, 1.02rem)", color: qColor, lineHeight: 1.64, margin: "0 0 20px", flex: 1 }}>
+                {card.quote}"
+              </p>
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <div style={{ width: 36, height: 36, borderRadius: "50%", background: card.grad, flexShrink: 0 }} />
+                <div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
+                    <span style={{ fontFamily: C.sans, fontSize: 13, fontWeight: 700, color: qColor }}>{card.init}</span>
+                    {tagPill(card.tag)}
+                  </div>
+                  <span style={{ fontFamily: C.sans, fontSize: 11, color: C.muted, letterSpacing: "0.06em" }}>{card.location}</span>
+                </div>
               </div>
             </div>
           ))}
-        </motion.div>
+        </div>
 
-        {/* Featured card */}
+        {/* Navigation: arrows flanking dots — fixed-width dot containers prevent layout shift */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, marginTop: 20, marginBottom: 40 }}>
+          {arrowBtn(() => scrollTo(Math.max(0, active - 1)), "Previous", "‹")}
+          <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
+            {CARDS.map((_, i) => (
+              <button key={i} onClick={() => scrollTo(i)} aria-label={`Go to card ${i + 1}`}
+                style={{ width: 24, height: 14, display: "flex", alignItems: "center", justifyContent: "center", background: "none", border: "none", cursor: "pointer", padding: 0 }}>
+                <div style={{
+                  width: i === active ? 22 : 6, height: 6, borderRadius: 99,
+                  background: i === active ? C.ember : (isDark ? "rgba(255,228,184,0.22)" : "rgba(191,96,64,0.22)"),
+                  transition: "width 0.25s ease, background 0.25s ease",
+                }} />
+              </button>
+            ))}
+          </div>
+          {arrowBtn(() => scrollTo(Math.min(CARDS.length - 1, active + 1)), "Next", "›")}
+        </div>
+
+        {/* Featured quote */}
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={VP}
           style={{
-            borderRadius: 24, background: cardBg, border: `1px solid ${cardBd}`,
-            padding: "36px 36px 28px", marginBottom: 16,
+            borderRadius: 24,
+            background: isDark ? "rgba(255,246,233,0.04)" : "rgba(191,96,64,0.035)",
+            border: `1px solid ${cardBd}`,
+            padding: "32px 28px 26px",
+            marginBottom: 44,
           }}>
-          <span aria-hidden style={{ display: "block", fontFamily: C.serif, fontSize: 60, lineHeight: 0.9, color: C.ember, marginBottom: 12, userSelect: "none" as const }}>"</span>
-          <p style={{ fontFamily: C.serif, fontSize: "clamp(1.15rem, 2.2vw, 1.5rem)", color: qColor, lineHeight: 1.58, margin: "0 0 28px", maxWidth: 640 }}>
+          <span aria-hidden style={{ display: "block", fontFamily: C.serif, fontSize: 52, lineHeight: 0.9, color: C.ember, marginBottom: 10, userSelect: "none" as const, opacity: 0.75 }}>"</span>
+          <p style={{ fontFamily: C.serif, fontSize: "clamp(1.1rem, 2.2vw, 1.38rem)", color: qColor, lineHeight: 1.6, margin: "0 0 24px", maxWidth: 600, fontStyle: "italic" }}>
             ÉCHO gives me space to hear myself clearly instead of rushing past my thoughts."
           </p>
-          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-            <div style={{ width: 48, height: 48, borderRadius: "50%", background: "linear-gradient(135deg,#C87D5A,#8B4020)", flexShrink: 0, boxShadow: "0 2px 10px rgba(191,96,64,0.22)" }} />
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <div style={{ width: 44, height: 44, borderRadius: "50%", background: "linear-gradient(135deg,#C87D5A,#8B4020)", flexShrink: 0, boxShadow: "0 2px 10px rgba(191,96,64,0.2)" }} />
             <div>
-              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4, flexWrap: "wrap" as const }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 3, flexWrap: "wrap" as const }}>
                 <span style={{ fontFamily: C.sans, fontSize: 14, fontWeight: 700, color: qColor }}>Maya</span>
                 {tagPill("Early waitlist")}
               </div>
@@ -3586,53 +3642,50 @@ function TestimonialsPlaceholder() {
           </div>
         </motion.div>
 
-        {/* Carousel */}
-        <div>
-          <div ref={carouselRef} className="flex" style={{
-            gap: 14, overflowX: "auto",
-            scrollSnapType: "x mandatory",
-            scrollbarWidth: "none" as const,
-            paddingBottom: 4,
-          } as React.CSSProperties}>
-            {SMALL_CARDS.map((card, i) => (
-              <div key={i} style={{
-                flex: "0 0 min(320px, 80vw)",
-                scrollSnapAlign: "start",
-                borderRadius: 20, background: cardBg, border: `1px solid ${cardBd}`,
-                padding: "22px 20px 18px", display: "flex", flexDirection: "column",
-              }}>
-                <span aria-hidden style={{ display: "block", fontFamily: C.serif, fontSize: 40, lineHeight: 0.85, color: C.ember, marginBottom: 8, userSelect: "none" as const }}>"</span>
-                <p style={{ fontFamily: C.serif, fontSize: "clamp(0.93rem, 1.3vw, 1.03rem)", color: qColor, lineHeight: 1.64, margin: "0 0 20px", flex: 1 }}>
-                  {card.quote}"
-                </p>
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <div style={{ width: 38, height: 38, borderRadius: "50%", background: card.grad, flexShrink: 0 }} />
-                  <div>
-                    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2, flexWrap: "wrap" as const }}>
-                      <span style={{ fontFamily: C.sans, fontSize: 13, fontWeight: 600, color: qColor }}>{card.name}</span>
-                      {tagPill(card.tag)}
-                    </div>
-                    <span style={{ fontFamily: C.sans, fontSize: 11, color: C.muted }}>{card.role}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Dots + arrows */}
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginTop: 24, marginBottom: 0 }}>
-            <button onClick={() => scrollTo(Math.max(0, active - 1))} aria-label="Previous"
-              style={{ width: 34, height: 34, borderRadius: "50%", background: isDark ? "rgba(255,228,184,0.07)" : "rgba(191,96,64,0.07)", border: `1px solid ${cardBd}`, cursor: "pointer", color: C.ember, fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center" }}>‹</button>
-            <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
-              {SMALL_CARDS.map((_, i) => (
-                <button key={i} onClick={() => scrollTo(i)} aria-label={`Card ${i + 1}`}
-                  style={{ width: i === active ? 22 : 6, height: 6, borderRadius: 99, background: i === active ? C.ember : (isDark ? "rgba(255,228,184,0.2)" : "rgba(191,96,64,0.2)"), border: "none", cursor: "pointer", padding: 0, transition: "all 0.25s ease" }} />
+        {/* Social proof bar */}
+        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={VP}
+          style={{
+            borderTop: `1px solid ${isDark ? "rgba(255,228,184,0.09)" : "rgba(191,96,64,0.12)"}`,
+            paddingTop: 22,
+            display: "flex", flexWrap: "wrap" as const, justifyContent: "space-between", alignItems: "center", gap: 14,
+          }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <div style={{ display: "flex" }}>
+              {[
+                "linear-gradient(135deg,#C87D5A,#8B4020)",
+                "linear-gradient(135deg,#A0785A,#7B5028)",
+                "linear-gradient(135deg,#C8956A,#9B6A40)",
+              ].map((grad, i) => (
+                <div key={i} style={{
+                  width: 30, height: 30, borderRadius: "50%",
+                  background: grad,
+                  marginLeft: i > 0 ? -10 : 0,
+                  border: `2px solid ${isDark ? "#0A1220" : "#FFF6E9"}`,
+                  flexShrink: 0,
+                }} />
               ))}
+              <div style={{
+                width: 30, height: 30, borderRadius: "50%",
+                background: isDark ? "rgba(255,246,233,0.10)" : "rgba(191,96,64,0.08)",
+                border: `2px solid ${isDark ? "#0A1220" : "#FFF6E9"}`,
+                marginLeft: -10, flexShrink: 0,
+                display: "flex", alignItems: "center", justifyContent: "center",
+              }}>
+                <span style={{ fontFamily: C.sans, fontSize: 7, color: C.ember, fontWeight: 700, lineHeight: 1 }}>+1K</span>
+              </div>
             </div>
-            <button onClick={() => scrollTo(Math.min(SMALL_CARDS.length - 1, active + 1))} aria-label="Next"
-              style={{ width: 34, height: 34, borderRadius: "50%", background: isDark ? "rgba(255,228,184,0.07)" : "rgba(191,96,64,0.07)", border: `1px solid ${cardBd}`, cursor: "pointer", color: C.ember, fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center" }}>›</button>
+            <div>
+              <span style={{ fontFamily: C.serif, fontSize: 22, fontWeight: 700, color: C.ember }}>1,000+</span>
+              <span style={{ fontFamily: C.sans, fontSize: 11, color: C.muted, marginLeft: 6, textTransform: "uppercase" as const, letterSpacing: "0.07em" }}>people on the waitlist</span>
+            </div>
           </div>
-        </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <svg width="28" height="14" viewBox="0 0 28 14" fill="none" aria-hidden="true">
+              <path d="M2 7C5 3 9 11 14 7C19 3 23 11 26 7" stroke={C.ember} strokeWidth="1.5" strokeLinecap="round" fill="none" opacity="0.5" />
+            </svg>
+            <span style={{ fontFamily: C.sans, fontSize: 10, color: C.muted, textTransform: "uppercase" as const, letterSpacing: "0.14em" }}>Real thoughts. Real people.</span>
+          </div>
+        </motion.div>
 
       </div>
     </section>
