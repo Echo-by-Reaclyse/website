@@ -2400,11 +2400,11 @@ function HeroSection() {
 function WhyEchoSection() {
   const { C, isDark } = useLandingTheme();
 
-  const EXAMPLES = [
-    "The decision you keep reconsidering",
-    "The thought that comes back three months later",
-    "The goal you keep talking about",
-    "The version of you who already knew",
+  const CARDS = [
+    { text: "The decision you keep reconsidering",          c1: "#3D1A0A", c2: "#7A3218" },
+    { text: "The thought that comes back three months later", c1: "#0F1A2C", c2: "#1A3060" },
+    { text: "The goal you keep talking about",              c1: "#2C0E05", c2: "#6A2510" },
+    { text: "The version of you who already knew",          c1: "#0F1F12", c2: "#1E3820" },
   ];
 
   return (
@@ -2487,31 +2487,56 @@ function WhyEchoSection() {
           </motion.p>
         </motion.div>
 
-        {/* Example list */}
+        {/* 2×2 image-led card grid */}
         <motion.div
-          variants={staggerV(0.09)}
+          variants={staggerV(0.08)}
           initial="hidden"
           whileInView="visible"
           viewport={VP}
-          style={{ display: "flex", flexDirection: "column", gap: 12 }}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: 12,
+          }}
         >
-          {EXAMPLES.map((ex, i) => (
+          {CARDS.map((card, i) => (
             <motion.div
               key={i}
               variants={fadeUp}
               style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 14,
-                padding: "16px 20px",
-                background: isDark ? "rgba(255,228,184,0.04)" : "rgba(191,96,64,0.04)",
-                border: `1px solid ${isDark ? "rgba(255,228,184,0.08)" : "rgba(191,96,64,0.1)"}`,
-                borderRadius: 14,
+                position: "relative",
+                borderRadius: 20,
+                overflow: "hidden",
+                aspectRatio: "4/5",
+                background: `linear-gradient(145deg, ${card.c1} 0%, ${card.c2} 100%)`,
               }}
             >
-              <span style={{ color: C.ember, fontFamily: C.serif, fontSize: 18, flexShrink: 0, opacity: 0.7 }}>{i + 1}</span>
-              <p style={{ fontFamily: C.sans, fontSize: "clamp(0.9rem, 1.4vw, 1rem)", color: C.muted, lineHeight: 1.5, fontStyle: "italic" }}>
-                {ex}
+              {/* Soft warm highlight */}
+              <div aria-hidden style={{
+                position: "absolute",
+                inset: 0,
+                background: "radial-gradient(ellipse at 30% 15%, rgba(255,228,184,0.07) 0%, transparent 60%)",
+              }} />
+              {/* Bottom scrim */}
+              <div aria-hidden style={{
+                position: "absolute",
+                inset: 0,
+                background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 55%)",
+              }} />
+              {/* Caption */}
+              <p style={{
+                position: "absolute",
+                bottom: 18,
+                left: 18,
+                right: 18,
+                margin: 0,
+                fontFamily: C.serif,
+                fontSize: "clamp(0.88rem, 1.4vw, 1rem)",
+                color: "#FFF6E9",
+                lineHeight: 1.35,
+                fontStyle: "italic",
+              }}>
+                {card.text}
               </p>
             </motion.div>
           ))}
@@ -3482,11 +3507,52 @@ function PricingSection() {
 function TestimonialsPlaceholder() {
   const { C, isDark } = useLandingTheme();
 
-  const SLOTS = [
-    { init: "S.L.", role: "Joined the waitlist" },
-    { init: "M.K.", role: "Joined the waitlist" },
-    { init: "A.R.", role: "Joined the waitlist" },
+  const featured = {
+    quote: "I didn't expect it to feel this honest. Something about speaking instead of typing made the real thoughts come out. ÉCHO brought back something I said months ago that I actually needed to hear.",
+    initials: "S.L.",
+  };
+  const smallCards = [
+    {
+      quote: "It's the first voice journal that actually felt private enough to be real. I trusted it with things I wouldn't even write down.",
+      initials: "M.K.",
+    },
+    {
+      quote: "After a few weeks I started seeing what I keep circling back to. I didn't expect clarity to come from just listening to myself.",
+      initials: "A.R.",
+    },
   ];
+  const all = [featured, ...smallCards];
+
+  const ClosedBetaPill = ({ dark }: { dark?: boolean }) => (
+    <div style={{
+      display: "inline-flex",
+      alignSelf: "flex-start",
+      padding: "4px 11px",
+      borderRadius: 100,
+      background: dark ? "rgba(255,228,184,0.12)" : (isDark ? "rgba(255,228,184,0.08)" : "rgba(191,96,64,0.08)"),
+      border: `1px solid ${dark ? "rgba(255,228,184,0.22)" : (isDark ? "rgba(255,228,184,0.15)" : "rgba(191,96,64,0.2)")}`,
+    }}>
+      <span style={{ fontSize: 10, fontFamily: C.sans, color: dark ? "#FFE4B8" : C.ember, letterSpacing: "0.1em", textTransform: "uppercase" as const, fontWeight: 600 }}>
+        Closed beta
+      </span>
+    </div>
+  );
+
+  const Avatar = ({ initials, dark }: { initials: string; dark?: boolean }) => (
+    <div style={{
+      width: 34,
+      height: 34,
+      borderRadius: "50%",
+      background: dark ? "rgba(191,96,64,0.28)" : (isDark ? "rgba(191,96,64,0.18)" : "rgba(191,96,64,0.12)"),
+      border: `1px solid ${dark ? "rgba(191,96,64,0.5)" : "rgba(191,96,64,0.25)"}`,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexShrink: 0,
+    }}>
+      <span style={{ fontSize: 10, fontFamily: C.sans, color: dark ? "#FFE4B8" : C.ember, fontWeight: 600 }}>{initials}</span>
+    </div>
+  );
 
   return (
     <section
@@ -3494,58 +3560,178 @@ function TestimonialsPlaceholder() {
       style={{ position: "relative", padding: "80px 24px", overflow: "hidden" }}
     >
       <div style={{ maxWidth: 900, margin: "0 auto" }}>
+        {/* Header */}
         <motion.div
           variants={staggerV(0.1)}
           initial="hidden"
           whileInView="visible"
           viewport={VP}
-          style={{ textAlign: "center", marginBottom: 48 }}
+          style={{ marginBottom: 48 }}
         >
           <motion.p variants={fadeUp} style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.24em", color: C.ember, marginBottom: 14, fontFamily: C.sans }}>
             — Early voices
           </motion.p>
-          <motion.h2 variants={fadeUp} style={{ fontFamily: C.serif, fontSize: "clamp(1.8rem, 4vw, 2.8rem)", color: C.cream, lineHeight: 1.12 }}>
+          <motion.h2 variants={fadeUp} style={{ fontFamily: C.serif, fontSize: "clamp(1.8rem, 4vw, 2.8rem)", color: C.cream, lineHeight: 1.12, maxWidth: 480 }}>
             What people are{" "}
             <em style={{ color: C.ember, fontStyle: "italic" }}>already saying.</em>
           </motion.h2>
         </motion.div>
 
+        {/* Desktop: featured left + 2 stacked right */}
         <motion.div
-          variants={staggerV(0.1)}
+          className="hidden sm:grid"
+          variants={staggerV(0.08)}
           initial="hidden"
           whileInView="visible"
           viewport={VP}
-          className="grid grid-cols-1 sm:grid-cols-3 gap-4"
+          style={{ gridTemplateColumns: "1.6fr 1fr", gap: 16 }}
         >
-          {SLOTS.map((slot, i) => (
+          {/* Featured card — spans 2 implicit rows */}
+          <motion.div
+            variants={fadeUp}
+            style={{
+              gridRow: "span 2",
+              background: "#0F1A2C",
+              borderRadius: 24,
+              padding: "36px 30px 30px",
+              display: "flex",
+              flexDirection: "column",
+              gap: 20,
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
+            {/* Decorative large quote mark */}
+            <span aria-hidden style={{
+              position: "absolute",
+              top: 14,
+              left: 22,
+              fontFamily: C.serif,
+              fontSize: 130,
+              lineHeight: 0.75,
+              color: "#BF6040",
+              opacity: 0.25,
+              userSelect: "none",
+            }}>"</span>
+            <ClosedBetaPill dark />
+            <p style={{
+              fontFamily: C.serif,
+              fontSize: "clamp(1.05rem, 1.55vw, 1.2rem)",
+              color: "#FFE4B8",
+              lineHeight: 1.7,
+              fontStyle: "italic",
+              margin: 0,
+              flex: 1,
+              paddingTop: 12,
+            }}>
+              "{featured.quote}"
+            </p>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <Avatar initials={featured.initials} dark />
+              <span style={{ fontFamily: C.sans, fontSize: 12, color: "rgba(255,228,184,0.45)" }}>Waitlist member</span>
+            </div>
+          </motion.div>
+
+          {/* Two smaller cards */}
+          {smallCards.map((s, i) => (
             <motion.div
               key={i}
-              variants={scaleUp}
+              variants={fadeUp}
               style={{
-                padding: "28px 24px",
                 background: C.card,
-                border: `1px dashed ${isDark ? "rgba(255,228,184,0.12)" : "rgba(191,96,64,0.15)"}`,
+                border: `1px solid ${isDark ? "rgba(255,228,184,0.08)" : "rgba(26,15,5,0.07)"}`,
                 borderRadius: 20,
+                padding: "22px 20px",
                 display: "flex",
                 flexDirection: "column",
-                gap: 16,
-                minHeight: 160,
+                gap: 14,
               }}
             >
-              <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <p style={{ fontFamily: C.serif, fontSize: 14, color: isDark ? "rgba(255,228,184,0.2)" : "rgba(26,15,5,0.2)", fontStyle: "italic", textAlign: "center" }}>
-                  Real quote from closed beta — coming soon
-                </p>
-              </div>
-              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <div style={{ width: 32, height: 32, borderRadius: "50%", background: isDark ? "rgba(191,96,64,0.15)" : "rgba(191,96,64,0.1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <span style={{ fontSize: 10, color: C.ember, fontFamily: C.sans, fontWeight: 600 }}>{slot.init}</span>
-                </div>
-                <p style={{ fontSize: 11, color: C.muted, fontFamily: C.sans, opacity: 0.6 }}>{slot.role}</p>
+              <ClosedBetaPill />
+              <p style={{
+                fontFamily: C.serif,
+                fontSize: "clamp(0.88rem, 1.2vw, 0.98rem)",
+                color: C.cream,
+                lineHeight: 1.65,
+                fontStyle: "italic",
+                margin: 0,
+                flex: 1,
+              }}>
+                "{s.quote}"
+              </p>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <Avatar initials={s.initials} />
+                <span style={{ fontFamily: C.sans, fontSize: 11, color: C.muted, opacity: 0.7 }}>Waitlist member</span>
               </div>
             </motion.div>
           ))}
         </motion.div>
+
+        {/* Mobile: horizontal swipe carousel */}
+        <div
+          className="sm:hidden"
+          style={{
+            display: "flex",
+            gap: 12,
+            overflowX: "auto",
+            scrollSnapType: "x mandatory",
+            WebkitOverflowScrolling: "touch" as unknown as undefined,
+            paddingBottom: 8,
+            scrollbarWidth: "none" as const,
+          } as React.CSSProperties}
+        >
+          {all.map((card, i) => (
+            <div
+              key={i}
+              style={{
+                flex: "0 0 82vw",
+                scrollSnapAlign: "start",
+                background: i === 0 ? "#0F1A2C" : C.card,
+                border: i === 0 ? "none" : `1px solid ${isDark ? "rgba(255,228,184,0.08)" : "rgba(26,15,5,0.07)"}`,
+                borderRadius: 20,
+                padding: "24px 20px",
+                display: "flex",
+                flexDirection: "column",
+                gap: 16,
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              {i === 0 && (
+                <span aria-hidden style={{
+                  position: "absolute",
+                  top: 10,
+                  left: 16,
+                  fontFamily: C.serif,
+                  fontSize: 100,
+                  lineHeight: 0.75,
+                  color: "#BF6040",
+                  opacity: 0.22,
+                  userSelect: "none",
+                }}>"</span>
+              )}
+              <ClosedBetaPill dark={i === 0} />
+              <p style={{
+                fontFamily: C.serif,
+                fontSize: "clamp(0.95rem, 3.5vw, 1.05rem)",
+                color: i === 0 ? "#FFE4B8" : C.cream,
+                lineHeight: 1.65,
+                fontStyle: "italic",
+                margin: 0,
+                flex: 1,
+                paddingTop: i === 0 ? 10 : 0,
+              }}>
+                "{card.quote}"
+              </p>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <Avatar initials={card.initials} dark={i === 0} />
+                <span style={{ fontFamily: C.sans, fontSize: 11, color: i === 0 ? "rgba(255,228,184,0.45)" : C.muted, opacity: i === 0 ? 1 : 0.7 }}>
+                  Waitlist member
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
