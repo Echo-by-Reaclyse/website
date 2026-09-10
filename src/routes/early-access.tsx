@@ -1,19 +1,10 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useRef, useState, useCallback } from "react";
-import {
-  motion,
-  AnimatePresence,
-} from "framer-motion";
-import { WaitlistForm } from "@/components/WaitlistForm";
-import { useTheme as useGlobalTheme } from "@/components/ThemeProvider";
-import { SiteNav } from "@/components/SiteNav";
-import { SiteFooter } from "@/components/SiteFooter";
-import { captureUTM } from "@/lib/utm";
-import { trackCTAClick, trackSectionView } from "@/lib/analytics";
-import en from "@/locales/en.json";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/early-access")({
-  component: EarlyAccessPage,
+  beforeLoad: () => {
+    throw redirect({ to: "/", replace: true });
+  },
+  component: () => null,
 });
 
 // ── i18n ─────────────────────────────────────────────────────────────────────

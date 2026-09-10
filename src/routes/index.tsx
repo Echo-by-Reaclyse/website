@@ -13,6 +13,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTheme as useGlobalTheme } from "@/components/ThemeProvider";
 import { SiteNav } from "@/components/SiteNav";
+import { SiteFooter } from "@/components/SiteFooter";
+import { WaitlistForm } from "@/components/WaitlistForm";
 
 export const Route = createFileRoute("/")({
   component: Landing,
@@ -2411,6 +2413,40 @@ function HeroSection() {
             ))}
           </div>
 
+          {/* Hero CTAs */}
+          <div
+            className="hero-fade max-lg:justify-center"
+            style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 36, animationDelay: "0.92s" }}
+          >
+            <button
+              onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+              style={{
+                padding: "13px 28px", borderRadius: 999,
+                background: C.ember, color: "#FFF6E9",
+                fontFamily: C.sans, fontSize: 14, fontWeight: 600,
+                border: "none", cursor: "pointer", letterSpacing: "0.02em",
+                transition: "opacity 0.2s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+            >
+              Join Early Access →
+            </button>
+            <button
+              onClick={() => document.getElementById("interactive-phone")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+              style={{
+                padding: "13px 28px", borderRadius: 999,
+                background: "transparent", color: C.muted,
+                fontFamily: C.sans, fontSize: 14,
+                border: `1px solid ${C.border}`, cursor: "pointer",
+                transition: "color 0.2s, border-color 0.2s",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = C.cream; e.currentTarget.style.borderColor = C.cream; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; }}
+            >
+              See how it works
+            </button>
+          </div>
 
 </div>
       </motion.div>
@@ -3089,8 +3125,8 @@ function PricingSection() {
             ))}
           </ul>
 
-          <Link
-            to="/early-access"
+          <button
+            onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "start" })}
             style={{
               display: "block",
               width: "100%",
@@ -3102,15 +3138,15 @@ function PricingSection() {
               letterSpacing: "0.16em",
               fontFamily: C.sans,
               fontWeight: 600,
-              textDecoration: "none",
               border: `1px solid ${C.border}`,
               background: "transparent",
               color: C.muted,
               marginTop: "auto",
+              cursor: "pointer",
             }}
           >
             Get notified at launch
-          </Link>
+          </button>
         </motion.div>
 
         {/* Unfold — pro tier */}
@@ -3164,8 +3200,8 @@ function PricingSection() {
             ))}
           </ul>
 
-          <Link
-            to="/early-access"
+          <button
+            onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "start" })}
             className="btn-ember"
             style={{
               display: "block",
@@ -3178,12 +3214,13 @@ function PricingSection() {
               letterSpacing: "0.16em",
               fontFamily: C.sans,
               fontWeight: 700,
-              textDecoration: "none",
               marginTop: "auto",
+              cursor: "pointer",
+              border: "none",
             }}
           >
             Join waitlist — founding price
-          </Link>
+          </button>
         </motion.div>
       </motion.div>
     </section>
@@ -3448,25 +3485,9 @@ function WaitlistSection() {
 
         <motion.div
           variants={scaleUp}
-          style={{ maxWidth: 480, margin: "0 auto 32px", display: "flex", justifyContent: "center" }}
+          style={{ maxWidth: 480, margin: "0 auto 32px" }}
         >
-          <Link
-            to="/early-access"
-            className="btn-ember"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "16px 40px",
-              borderRadius: 999,
-              fontSize: 15,
-              fontWeight: 700,
-              letterSpacing: "0.04em",
-              textDecoration: "none",
-            }}
-          >
-            Join the waitlist →
-          </Link>
+          <WaitlistForm variant="hero" />
         </motion.div>
 
         {/* Trust badges */}
@@ -3689,12 +3710,12 @@ function Landing() {
         <Toaster richColors position="top-center" />
         <SiteNav
           links={[
-            { label: "How it works", to: "/early-access" },
-            { label: "About", to: "/about" },
+            { label: "How it works", anchor: "interactive-phone" },
+            { label: "Privacy", anchor: "privacy" },
+            { label: "FAQ", anchor: "faq" },
             { label: "Blog", to: "/blog" },
-            { label: "FAQ", to: "/faq" },
           ]}
-          cta={{ label: "Join waitlist", to: "/early-access" }}
+          cta={{ label: "Join Early Access", anchor: "waitlist" }}
         />
         <div id="main-content" />
         <HeroSection />
@@ -3708,7 +3729,7 @@ function Landing() {
         <PricingSection />
         <FAQSection />
         <WaitlistSection />
-        <Footer />
+        <SiteFooter />
       </div>
     </ThemeCtx.Provider>
   );

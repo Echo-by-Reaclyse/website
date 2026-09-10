@@ -8,9 +8,9 @@ const FOOTER_PRODUCT = [
 ];
 
 const FOOTER_COMPANY = [
-  { label: "About ÉCHO", to: "/about" },
   { label: "Contact", to: "/contact" },
-  { label: "Terms", to: "/privacy" },
+  { label: "Terms", to: "/terms" },
+  { label: "GDPR", to: "/gdpr" },
 ];
 
 export function SiteFooter() {
@@ -91,8 +91,8 @@ export function SiteFooter() {
           <p className="font-sans text-sm text-muted-foreground" style={{ margin: 0, lineHeight: 1.55 }}>
             Coming to the App Store in 2026.
           </p>
-          <Link
-            to="/"
+          <a
+            href="/#waitlist"
             className="font-sans text-sm font-semibold"
             style={{
               color: "#BF6040",
@@ -101,9 +101,13 @@ export function SiteFooter() {
             }}
             onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.7")}
             onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+            onClick={(e) => {
+              const el = document.getElementById("waitlist");
+              if (el) { e.preventDefault(); el.scrollIntoView({ behavior: "smooth", block: "start" }); }
+            }}
           >
             Join the waitlist →
-          </Link>
+          </a>
         </div>
       </div>
 
@@ -127,7 +131,7 @@ export function SiteFooter() {
         <div style={{ display: "flex", gap: 16 }}>
           {([
             { label: "Privacy", to: "/privacy" },
-            { label: "Terms", to: "/privacy" },
+            { label: "Terms", to: "/terms" },
             { label: "Contact", to: "/contact" },
           ] as { label: string; to: string }[]).map(({ label, to }) => (
             <Link

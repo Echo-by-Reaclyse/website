@@ -113,7 +113,7 @@ export function SmartAppBanner() {
 
       {/* CTA */}
       <Link
-        to="/early-access"
+        to="/"
         style={{
           display: "inline-flex",
           alignItems: "center",
@@ -128,6 +128,11 @@ export function SmartAppBanner() {
           flexShrink: 0,
           whiteSpace: "nowrap",
           letterSpacing: "0.01em",
+        }}
+        onClick={() => {
+          setTimeout(() => {
+            document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 100);
         }}
       >
         Join waitlist
