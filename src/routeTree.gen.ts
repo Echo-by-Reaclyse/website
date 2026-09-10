@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as SummitRouteImport } from './routes/summit'
 import { Route as PrivacyRouteImport } from './routes/privacy'
@@ -33,6 +34,11 @@ import { Route as AdminCategoriesRouteImport } from './routes/admin/categories'
 const ThankYouRoute = ThankYouRouteImport.update({
   id: '/thank-you',
   path: '/thank-you',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SupportRoute = SupportRouteImport.update({
@@ -144,6 +150,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/summit': typeof SummitRoute
   '/support': typeof SupportRoute
+  '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/flags': typeof AdminFlagsRoute
@@ -164,6 +171,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/summit': typeof SummitRoute
   '/support': typeof SupportRoute
+  '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/flags': typeof AdminFlagsRoute
@@ -187,6 +195,7 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/summit': typeof SummitRoute
   '/support': typeof SupportRoute
+  '/terms': typeof TermsRoute
   '/thank-you': typeof ThankYouRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/flags': typeof AdminFlagsRoute
@@ -211,6 +220,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/summit'
     | '/support'
+    | '/terms'
     | '/thank-you'
     | '/admin/categories'
     | '/admin/flags'
@@ -231,6 +241,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/summit'
     | '/support'
+    | '/terms'
     | '/thank-you'
     | '/admin/categories'
     | '/admin/flags'
@@ -253,6 +264,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/summit'
     | '/support'
+    | '/terms'
     | '/thank-you'
     | '/admin/categories'
     | '/admin/flags'
@@ -276,6 +288,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   SummitRoute: typeof SummitRoute
   SupportRoute: typeof SupportRoute
+  TermsRoute: typeof TermsRoute
   ThankYouRoute: typeof ThankYouRoute
 }
 
@@ -286,6 +299,13 @@ declare module '@tanstack/react-router' {
       path: '/thank-you'
       fullPath: '/thank-you'
       preLoaderRoute: typeof ThankYouRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/support': {
@@ -467,6 +487,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   SummitRoute: SummitRoute,
   SupportRoute: SupportRoute,
+  TermsRoute: TermsRoute,
   ThankYouRoute: ThankYouRoute,
 }
 export const routeTree = rootRouteImport
