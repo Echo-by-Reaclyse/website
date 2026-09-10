@@ -2511,30 +2511,23 @@ function WhyEchoSection() {
                 background: `linear-gradient(145deg, ${card.c1} 0%, ${card.c2} 100%)`,
               }}
             >
-              {/* Soft warm highlight */}
+              {/* Top-left scrim for text legibility */}
               <div aria-hidden style={{
                 position: "absolute",
                 inset: 0,
-                background: "radial-gradient(ellipse at 30% 15%, rgba(255,228,184,0.07) 0%, transparent 60%)",
+                background: "linear-gradient(135deg, rgba(0,0,0,0.62) 0%, transparent 58%)",
               }} />
-              {/* Bottom scrim */}
-              <div aria-hidden style={{
-                position: "absolute",
-                inset: 0,
-                background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 55%)",
-              }} />
-              {/* Caption */}
+              {/* Caption — top-left */}
               <p style={{
                 position: "absolute",
-                bottom: 18,
+                top: 18,
                 left: 18,
                 right: 18,
                 margin: 0,
                 fontFamily: C.serif,
-                fontSize: "clamp(0.88rem, 1.4vw, 1rem)",
+                fontSize: "clamp(1.15rem, 2vw, 1.45rem)",
                 color: "#FFF6E9",
-                lineHeight: 1.35,
-                fontStyle: "italic",
+                lineHeight: 1.28,
               }}>
                 {card.text}
               </p>
