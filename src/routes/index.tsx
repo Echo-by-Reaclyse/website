@@ -3525,10 +3525,10 @@ function TestimonialsPlaceholder() {
   ];
 
   const SMALL_CARDS = [
-    { quote: "It helps me ground myself and find a sense of calm.", name: "Liam",   tag: "Closed beta",  role: "Product Designer, 31", grad: "linear-gradient(135deg,#1A3060,#2A5080)" },
-    { quote: "It's like a reset button for my mind. I leave every check-in feeling lighter.", name: "Jess",   tag: "Closed beta",  role: "Teacher, 26",          grad: "linear-gradient(135deg,#8B6A20,#C0A030)" },
-    { quote: "A small moment with ÉCHO makes a big difference in my day.", name: "Daniel", tag: "Early user",   role: "Graduate Student, 24",  grad: "linear-gradient(135deg,#204020,#406040)" },
-    { quote: "I've tried other journaling apps, but ÉCHO actually feels like it listens.", name: "Ava",    tag: "Closed beta",  role: "Freelancer, 29",        grad: "linear-gradient(135deg,#602040,#A04060)" },
+    { quote: "It helps me ground myself and find a sense of calm.", name: "Liam",   tag: "Closed beta", role: "Product Designer, 31", grad: "linear-gradient(135deg,#1A3060,#2A5080)" },
+    { quote: "It's like a reset button for my mind. I leave every session feeling lighter.", name: "Jess",   tag: "Closed beta", role: "Teacher, 26",          grad: "linear-gradient(135deg,#8B6A20,#C0A030)" },
+    { quote: "A small moment with ÉCHO makes a big difference in my day.", name: "Daniel", tag: "Early user", role: "Graduate Student, 24",  grad: "linear-gradient(135deg,#204020,#406040)" },
+    { quote: "I've tried other journaling apps, but ÉCHO actually feels like it listens.", name: "Ava",    tag: "Closed beta", role: "Freelancer, 29",        grad: "linear-gradient(135deg,#602040,#A04060)" },
   ];
 
   const scrollTo = (idx: number) => {
@@ -3541,58 +3541,44 @@ function TestimonialsPlaceholder() {
   const tagPill = (label: string) => (
     <span style={{
       padding: "2px 10px", borderRadius: 99,
-      background: isDark ? "rgba(255,228,184,0.08)" : "rgba(191,96,64,0.07)",
-      border: `1px solid ${isDark ? "rgba(255,228,184,0.16)" : "rgba(191,96,64,0.16)"}`,
-      fontSize: 10, fontFamily: C.sans, color: C.ember, letterSpacing: "0.04em",
+      background: isDark ? "rgba(255,228,184,0.08)" : "rgba(191,96,64,0.06)",
+      border: `1px solid ${isDark ? "rgba(255,228,184,0.16)" : "rgba(191,96,64,0.14)"}`,
+      fontSize: 10, fontFamily: C.sans, color: C.ember, letterSpacing: "0.04em", whiteSpace: "nowrap" as const,
     }}>{label}</span>
   );
 
   return (
-    <section id="testimonials" style={{ position: "relative", padding: "80px 0 0", overflow: "hidden" }}>
+    <section id="testimonials" style={{ position: "relative", padding: "96px 0 100px", overflow: "hidden" }}>
 
-      {/* ── Background decorative blobs ── */}
-      <div aria-hidden style={{ position: "absolute", top: -80, right: -100, width: 480, height: 480, borderRadius: "50%", background: isDark ? "radial-gradient(circle, rgba(191,96,64,0.08) 0%, transparent 70%)" : "radial-gradient(circle, rgba(191,96,64,0.1) 0%, transparent 70%)", filter: "blur(50px)", pointerEvents: "none" }} />
-      <div aria-hidden style={{ position: "absolute", bottom: 160, left: -120, width: 320, height: 320, borderRadius: "50%", background: isDark ? "radial-gradient(circle, rgba(191,96,64,0.05) 0%, transparent 70%)" : "radial-gradient(circle, rgba(191,96,64,0.07) 0%, transparent 70%)", filter: "blur(55px)", pointerEvents: "none" }} />
+      {/* Background blobs */}
+      <div aria-hidden style={{ position: "absolute", top: -60, right: -80, width: 420, height: 420, borderRadius: "50%", background: isDark ? "radial-gradient(circle, rgba(191,96,64,0.07) 0%, transparent 70%)" : "radial-gradient(circle, rgba(191,96,64,0.08) 0%, transparent 70%)", filter: "blur(60px)", pointerEvents: "none" }} />
+      <div aria-hidden style={{ position: "absolute", bottom: 120, left: -100, width: 300, height: 300, borderRadius: "50%", background: isDark ? "radial-gradient(circle, rgba(191,96,64,0.05) 0%, transparent 70%)" : "radial-gradient(circle, rgba(191,96,64,0.06) 0%, transparent 70%)", filter: "blur(50px)", pointerEvents: "none" }} />
 
-      <div style={{ maxWidth: 980, margin: "0 auto", padding: "0 24px" }}>
+      <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 24px" }}>
 
-        {/* ── Section header ── */}
-        <motion.div variants={staggerV(0.09)} initial="hidden" whileInView="visible" viewport={VP} style={{ marginBottom: 44, position: "relative" }}>
-
-          {/* Decorative arc + sparkle + tagline (top-right) */}
-          <div aria-hidden style={{ position: "absolute", top: 0, right: 0, width: 170, height: 130, pointerEvents: "none" }}>
-            <svg viewBox="0 0 170 130" fill="none" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}>
-              <path d="M 140 8 Q 162 65 105 122" stroke={C.ember} strokeWidth="0.9" fill="none" opacity="0.3" strokeLinecap="round"/>
-            </svg>
-            <span style={{ position: "absolute", top: 16, right: 10, fontSize: 16, color: C.ember, opacity: 0.6 }}>✦</span>
-            <p style={{ position: "absolute", top: 50, right: 0, fontFamily: C.sans, fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase" as const, color: isDark ? "rgba(255,228,184,0.28)" : "rgba(191,96,64,0.38)", lineHeight: 1.85, textAlign: "right", margin: 0 }}>
-              Real<br />people<br />brighter<br />days
-            </p>
-          </div>
-
+        {/* Header — centered */}
+        <motion.div variants={staggerV(0.09)} initial="hidden" whileInView="visible" viewport={VP}
+          style={{ textAlign: "center", marginBottom: 52 }}>
           <motion.p variants={fadeUp} style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.24em", color: C.ember, marginBottom: 14, fontFamily: C.sans }}>
             — Early voices
           </motion.p>
-          <motion.h2 variants={fadeUp} style={{ fontFamily: C.serif, fontSize: "clamp(2rem, 5vw, 3.4rem)", color: C.cream, lineHeight: 1.08, maxWidth: 520, marginBottom: 18 }}>
+          <motion.h2 variants={fadeUp} style={{ fontFamily: C.serif, fontSize: "clamp(2rem, 5vw, 3.2rem)", color: C.cream, lineHeight: 1.1, margin: "0 0 18px" }}>
             What people are{" "}
             <em style={{ color: C.ember, fontStyle: "italic" }}>already saying.</em>
           </motion.h2>
-          <motion.p variants={fadeUp} style={{ fontFamily: C.sans, fontSize: "clamp(0.92rem, 1.4vw, 1rem)", color: C.muted, lineHeight: 1.72, maxWidth: 460, margin: 0 }}>
-            Real reflections from early users who are finding a calmer, clearer connection with themselves — one thought at a time.
+          <motion.p variants={fadeUp} style={{ fontFamily: C.sans, fontSize: "clamp(0.9rem, 1.4vw, 1rem)", color: C.muted, lineHeight: 1.72, maxWidth: 480, margin: "0 auto" }}>
+            Real reflections from early users finding a calmer, clearer connection with themselves — one thought at a time.
           </motion.p>
         </motion.div>
 
-        {/* ── Avatar row ── */}
-        <motion.div
-          variants={staggerV(0.06)} initial="hidden" whileInView="visible" viewport={VP}
-          style={{ display: "flex", gap: "clamp(20px, 5vw, 48px)", marginBottom: 40, overflowX: "auto", scrollbarWidth: "none" as const, paddingBottom: 4 } as React.CSSProperties}
-        >
+        {/* Avatar row — centered, wraps on mobile */}
+        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={VP}
+          style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" as const, gap: "clamp(20px, 4vw, 48px)", marginBottom: 48 }}>
           {PEOPLE.map((p, i) => (
-            <motion.div key={i} variants={fadeUp} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, flexShrink: 0 }}>
+            <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
               <div style={{
-                width: 62, height: 62, borderRadius: "50%", background: p.grad,
-                border: `3px solid ${isDark ? "#0A1420" : "#FAF5EF"}`,
-                boxShadow: "0 3px 14px rgba(191,96,64,0.2)",
+                width: 58, height: 58, borderRadius: "50%", background: p.grad,
+                boxShadow: "0 4px 14px rgba(191,96,64,0.2)",
                 display: "flex", alignItems: "center", justifyContent: "center",
               }}>
                 <span style={{ fontFamily: C.sans, fontSize: 20, color: "#FFF6E9", fontWeight: 600 }}>{p.init}</span>
@@ -3601,82 +3587,55 @@ function TestimonialsPlaceholder() {
                 <p style={{ margin: 0, fontFamily: C.sans, fontSize: 12, fontWeight: 700, color: qColor }}>{p.name}</p>
                 <p style={{ margin: 0, fontFamily: C.sans, fontSize: 11, color: C.muted }}>{p.role}</p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </motion.div>
 
-        {/* ── Featured testimonial card ── */}
-        <motion.div
-          variants={fadeUp} initial="hidden" whileInView="visible" viewport={VP}
+        {/* Featured card */}
+        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={VP}
           style={{
             borderRadius: 24, background: cardBg, border: `1px solid ${cardBd}`,
-            padding: "30px 30px 26px", marginBottom: 14, position: "relative", overflow: "hidden",
-          }}
-        >
-          {/* Botanical leaf decoration */}
-          <div aria-hidden style={{ position: "absolute", right: 16, bottom: 0, opacity: isDark ? 0.08 : 0.11, pointerEvents: "none" }}>
-            <svg width="110" height="130" viewBox="0 0 110 130" fill="none">
-              <path d="M55 125 Q18 95 10 48 Q6 18 55 8 Q104 18 100 48 Q92 95 55 125Z" fill={isDark ? "#FFE4B8" : "#BF6040"}/>
-              <path d="M55 125 L55 8" stroke={isDark ? "#FFE4B8" : "#BF6040"} strokeWidth="1.2" opacity="0.5"/>
-              <path d="M55 88 Q36 73 22 62" stroke={isDark ? "#FFE4B8" : "#BF6040"} strokeWidth="1" opacity="0.45"/>
-              <path d="M55 68 Q74 55 88 47" stroke={isDark ? "#FFE4B8" : "#BF6040"} strokeWidth="1" opacity="0.45"/>
-              <path d="M55 48 Q38 39 26 32" stroke={isDark ? "#FFE4B8" : "#BF6040"} strokeWidth="1" opacity="0.35"/>
-            </svg>
-          </div>
-
-          <span aria-hidden style={{ display: "block", fontFamily: C.serif, fontSize: 54, lineHeight: 0.85, color: C.ember, marginBottom: 10, userSelect: "none" as const }}>"</span>
-
-          <p style={{ fontFamily: C.serif, fontSize: "clamp(1.15rem, 2.2vw, 1.48rem)", color: qColor, lineHeight: 1.56, margin: "0 0 26px", maxWidth: 600 }}>
+            padding: "36px 36px 28px", marginBottom: 16,
+          }}>
+          <span aria-hidden style={{ display: "block", fontFamily: C.serif, fontSize: 60, lineHeight: 0.9, color: C.ember, marginBottom: 12, userSelect: "none" as const }}>"</span>
+          <p style={{ fontFamily: C.serif, fontSize: "clamp(1.15rem, 2.2vw, 1.5rem)", color: qColor, lineHeight: 1.58, margin: "0 0 28px", maxWidth: 640 }}>
             ÉCHO gives me space to hear myself clearly instead of rushing past my thoughts."
           </p>
-
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap" as const, gap: 12 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-              <div style={{ width: 50, height: 50, borderRadius: "50%", background: "linear-gradient(135deg,#C87D5A,#8B4020)", flexShrink: 0, boxShadow: "0 2px 10px rgba(191,96,64,0.25)" }} />
-              <div>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 3 }}>
-                  <span style={{ fontFamily: C.sans, fontSize: 14, fontWeight: 700, color: qColor }}>Maya</span>
-                  {tagPill("Early waitlist")}
-                </div>
-                <span style={{ fontFamily: C.sans, fontSize: 12, color: C.muted }}>Marketing Director, 28</span>
+          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+            <div style={{ width: 48, height: 48, borderRadius: "50%", background: "linear-gradient(135deg,#C87D5A,#8B4020)", flexShrink: 0, boxShadow: "0 2px 10px rgba(191,96,64,0.22)" }} />
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4, flexWrap: "wrap" as const }}>
+                <span style={{ fontFamily: C.sans, fontSize: 14, fontWeight: 700, color: qColor }}>Maya</span>
+                {tagPill("Early waitlist")}
               </div>
+              <span style={{ fontFamily: C.sans, fontSize: 12, color: C.muted }}>Marketing Director, 28</span>
             </div>
-            <p style={{ fontFamily: C.sans, fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase" as const, color: isDark ? "rgba(255,228,184,0.25)" : "rgba(191,96,64,0.35)", lineHeight: 1.8, margin: 0, textAlign: "right" }}>
-              A calmer<br />more you
-            </p>
           </div>
         </motion.div>
 
-        {/* ── Smaller cards — horizontal swipe carousel ── */}
+        {/* Carousel */}
         <div>
-          <div
-            ref={carouselRef}
-            className="flex"
-            style={{
-              gap: 14, overflowX: "auto",
-              scrollSnapType: "x mandatory",
-              scrollbarWidth: "none" as const,
-              paddingBottom: 4,
-            } as React.CSSProperties}
-          >
+          <div ref={carouselRef} className="flex" style={{
+            gap: 14, overflowX: "auto",
+            scrollSnapType: "x mandatory",
+            scrollbarWidth: "none" as const,
+            paddingBottom: 4,
+          } as React.CSSProperties}>
             {SMALL_CARDS.map((card, i) => (
               <div key={i} style={{
-                flex: "0 0 min(340px, 80vw)",
+                flex: "0 0 min(320px, 80vw)",
                 scrollSnapAlign: "start",
                 borderRadius: 20, background: cardBg, border: `1px solid ${cardBd}`,
                 padding: "22px 20px 18px", display: "flex", flexDirection: "column",
-                position: "relative", overflow: "hidden",
               }}>
-                {/* Soft blob */}
-                <div aria-hidden style={{ position: "absolute", bottom: -24, right: -24, width: 100, height: 100, borderRadius: "50%", background: `radial-gradient(circle, ${isDark ? "rgba(191,96,64,0.08)" : "rgba(191,96,64,0.06)"} 0%, transparent 70%)`, pointerEvents: "none" }} />
-                <span aria-hidden style={{ display: "block", fontFamily: C.serif, fontSize: 42, lineHeight: 0.85, color: C.ember, marginBottom: 8, userSelect: "none" as const }}>"</span>
-                <p style={{ fontFamily: C.serif, fontSize: "clamp(0.95rem, 1.4vw, 1.05rem)", color: qColor, lineHeight: 1.62, margin: "0 0 20px", flex: 1 }}>
+                <span aria-hidden style={{ display: "block", fontFamily: C.serif, fontSize: 40, lineHeight: 0.85, color: C.ember, marginBottom: 8, userSelect: "none" as const }}>"</span>
+                <p style={{ fontFamily: C.serif, fontSize: "clamp(0.93rem, 1.3vw, 1.03rem)", color: qColor, lineHeight: 1.64, margin: "0 0 20px", flex: 1 }}>
                   {card.quote}"
                 </p>
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <div style={{ width: 40, height: 40, borderRadius: "50%", background: card.grad, flexShrink: 0 }} />
+                  <div style={{ width: 38, height: 38, borderRadius: "50%", background: card.grad, flexShrink: 0 }} />
                   <div>
-                    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2, flexWrap: "wrap" as const }}>
                       <span style={{ fontFamily: C.sans, fontSize: 13, fontWeight: 600, color: qColor }}>{card.name}</span>
                       {tagPill(card.tag)}
                     </div>
@@ -3688,27 +3647,17 @@ function TestimonialsPlaceholder() {
           </div>
 
           {/* Dots + arrows */}
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, marginTop: 22, marginBottom: 80 }}>
-            <button
-              onClick={() => scrollTo(Math.max(0, active - 1))}
-              aria-label="Previous"
-              style={{ width: 36, height: 36, borderRadius: "50%", background: isDark ? "rgba(255,228,184,0.08)" : "rgba(191,96,64,0.07)", border: `1px solid ${cardBd}`, cursor: "pointer", color: C.ember, fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center" }}
-            >‹</button>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginTop: 24, marginBottom: 0 }}>
+            <button onClick={() => scrollTo(Math.max(0, active - 1))} aria-label="Previous"
+              style={{ width: 34, height: 34, borderRadius: "50%", background: isDark ? "rgba(255,228,184,0.07)" : "rgba(191,96,64,0.07)", border: `1px solid ${cardBd}`, cursor: "pointer", color: C.ember, fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center" }}>‹</button>
             <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
               {SMALL_CARDS.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => scrollTo(i)}
-                  aria-label={`Go to card ${i + 1}`}
-                  style={{ width: i === active ? 20 : 6, height: 6, borderRadius: 99, background: i === active ? C.ember : (isDark ? "rgba(255,228,184,0.2)" : "rgba(191,96,64,0.22)"), border: "none", cursor: "pointer", padding: 0, transition: "all 0.25s ease" }}
-                />
+                <button key={i} onClick={() => scrollTo(i)} aria-label={`Card ${i + 1}`}
+                  style={{ width: i === active ? 22 : 6, height: 6, borderRadius: 99, background: i === active ? C.ember : (isDark ? "rgba(255,228,184,0.2)" : "rgba(191,96,64,0.2)"), border: "none", cursor: "pointer", padding: 0, transition: "all 0.25s ease" }} />
               ))}
             </div>
-            <button
-              onClick={() => scrollTo(Math.min(SMALL_CARDS.length - 1, active + 1))}
-              aria-label="Next"
-              style={{ width: 36, height: 36, borderRadius: "50%", background: isDark ? "rgba(255,228,184,0.08)" : "rgba(191,96,64,0.07)", border: `1px solid ${cardBd}`, cursor: "pointer", color: C.ember, fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center" }}
-            >›</button>
+            <button onClick={() => scrollTo(Math.min(SMALL_CARDS.length - 1, active + 1))} aria-label="Next"
+              style={{ width: 34, height: 34, borderRadius: "50%", background: isDark ? "rgba(255,228,184,0.07)" : "rgba(191,96,64,0.07)", border: `1px solid ${cardBd}`, cursor: "pointer", color: C.ember, fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center" }}>›</button>
           </div>
         </div>
 
