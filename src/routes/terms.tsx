@@ -14,15 +14,15 @@ function TermsPage() {
       <title>Terms of Service · ÉCHO</title>
       <meta
         name="description"
-        content="Terms of Service for the ÉCHO app and website, operated by Réaclyse S.à r.l.-S, Luxembourg."
+        content="Terms of Service for the ÉCHO app and website, operated by ECHO by REACLYSE S.à r.l.-S, Luxembourg."
       />
       <link rel="canonical" href="https://www.echobyreaclyse.com/terms" />
 
       {/* ── I. Who we are ── */}
       <Section title="I. Who we are">
         ÉCHO is a private voice journalling application developed and operated by{" "}
-        <strong>Réaclyse S.à r.l.-S</strong>, a company incorporated in Luxembourg
-        (hereinafter "Réaclyse", "we", "us", or "our"). Our registered office is in
+        <strong>ECHO by REACLYSE S.à r.l.-S</strong>, a company incorporated in Luxembourg
+        (hereinafter "ECHO by REACLYSE", "we", "us", or "our"). Our registered office is in
         Luxembourg. Contact:{" "}
         <a href="mailto:hello@reaclyse.com" className="text-ember transition hover:opacity-75">
           hello@reaclyse.com
@@ -37,7 +37,7 @@ function TermsPage() {
         (the "Terms"). If you do not agree, do not use the Service.
         <br />
         <br />
-        These Terms form a legally binding agreement between you and Réaclyse. We may
+        These Terms form a legally binding agreement between you and ECHO by REACLYSE. We may
         update them from time to time; continued use of the Service after an update
         constitutes acceptance of the revised Terms. We will notify you of material
         changes via the app or by email.
@@ -113,7 +113,7 @@ function TermsPage() {
         >
           Apple's Terms of Sale
         </a>
-        . Réaclyse does not process payments or issue refunds directly.
+        . ECHO by REACLYSE does not process payments or issue refunds directly.
         <br />
         <br />
         <strong>Price changes.</strong> We may change subscription prices with reasonable
@@ -149,7 +149,7 @@ function TermsPage() {
         <br />
         <br />
         <strong>On-device storage.</strong> Your Content is stored on your device and,
-        optionally, in your personal iCloud. Réaclyse does not store copies of your
+        optionally, in your personal iCloud. ECHO by REACLYSE does not store copies of your
         recordings or transcripts on its own servers.
         <br />
         <br />
@@ -171,9 +171,9 @@ function TermsPage() {
       {/* ── VIII. Intellectual property ── */}
       <Section title="VIII. Intellectual property">
         The ÉCHO name, logo, design, software, and all related materials are the
-        exclusive property of Réaclyse S.à r.l.-S and are protected by copyright,
+        exclusive property of ECHO by REACLYSE S.à r.l.-S and are protected by copyright,
         trademark, and other applicable laws. Nothing in these Terms grants you any right
-        to use Réaclyse's trademarks or branding without prior written permission.
+        to use ECHO by REACLYSE's trademarks or branding without prior written permission.
         <br />
         <br />
         The app incorporates open-source components, including{" "}
@@ -201,13 +201,13 @@ function TermsPage() {
 
       {/* ── X. Limitation of liability ── */}
       <Section title="X. Limitation of liability">
-        To the fullest extent permitted by applicable law, Réaclyse shall not be liable
+        To the fullest extent permitted by applicable law, ECHO by REACLYSE shall not be liable
         for any indirect, incidental, special, consequential, or punitive damages arising
         from your use of the Service, including but not limited to loss of data, loss of
         profits, or business interruption.
         <br />
         <br />
-        Réaclyse's total aggregate liability to you for any claims arising from these
+        ECHO by REACLYSE's total aggregate liability to you for any claims arising from these
         Terms or your use of the Service shall not exceed the amount you paid for the
         Service in the twelve (12) months preceding the claim (or €10 if you have not
         made any payment).
@@ -267,7 +267,7 @@ function TermsPage() {
         For questions about these Terms:
         <br />
         <br />
-        <strong>Réaclyse S.à r.l.-S</strong> · Luxembourg
+        <strong>ECHO by REACLYSE S.à r.l.-S</strong> · Luxembourg
         <br />
         <a href="mailto:hello@reaclyse.com" className="text-ember transition hover:opacity-75">
           hello@reaclyse.com

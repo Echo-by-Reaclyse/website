@@ -30,10 +30,10 @@ function GDPRPage() {
         className="leading-relaxed text-muted-foreground"
       >
         <strong className="text-ink">Note on company details:</strong> ÉCHO is developed by{" "}
-        <strong>⚠ [COMPANY LEGAL NAME TO BE CONFIRMED UPON INCORPORATION]</strong>,
-        a company being established in Luxembourg. Placeholders marked with{" "}
+        <strong>ECHO by REACLYSE S.à r.l.-S</strong>,
+        a company incorporated in Luxembourg. Placeholders marked with{" "}
         <strong>⚠ [PLACEHOLDER]</strong> throughout this document must be updated once
-        the company is incorporated and roles are formally assigned. Contact:{" "}
+        roles are formally assigned. Contact:{" "}
         <a href="mailto:hello@reaclyse.com" className="text-ember transition hover:opacity-75">
           hello@reaclyse.com
         </a>
@@ -42,7 +42,7 @@ function GDPRPage() {
 
       {/* ── I. Objectives ── */}
       <Section title="I. Objectives of this regulation">
-        <strong>⚠ [COMPANY LEGAL NAME]</strong> (operating as Réaclyse, hereinafter
+        <strong>ECHO by REACLYSE S.à r.l.-S</strong> (hereinafter
         "the Company") collects and processes certain personal information about natural
         persons. These individuals may include app users, waitlist subscribers, service
         providers, suppliers, partners, and any other persons with whom the Company has or
@@ -578,7 +578,7 @@ function GDPRPage() {
         Regulations:
         <br />
         <br />
-        <strong>⚠ [COMPANY LEGAL NAME]</strong> (Réaclyse) ·{" "}
+        <strong>ECHO by REACLYSE S.à r.l.-S</strong> ·{" "}
         <strong>⚠ [REGISTERED ADDRESS — TO BE CONFIRMED]</strong> · Luxembourg
         <br />
         <br />
