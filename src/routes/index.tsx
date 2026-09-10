@@ -2545,19 +2545,19 @@ function HowItWorksSection() {
 
   const STEPS = [
     {
-      num: "One",
+      num: "01",
       title: "Speak",
-      body: "A question waits for you. Answer however it comes out. Messy, unfinished, completely yours.",
+      body: "A question waits for you. Answer however it comes out — messy, unfinished, completely yours.",
     },
     {
-      num: "Two",
+      num: "02",
       title: "ÉCHO remembers",
       body: "Your words become part of your private journal, building a record of the thoughts you keep coming back to.",
     },
     {
-      num: "Three",
+      num: "03",
       title: "Hear yourself again",
-      body: "When a thought returns, ÉCHO can bring back what you said before, helping you see what changed and what didn't.",
+      body: "When a thought returns, ÉCHO surfaces what you said before — so you can see what changed and what didn't.",
     },
   ];
 
@@ -2566,70 +2566,58 @@ function HowItWorksSection() {
       id="how-it-works"
       style={{
         position: "relative",
-        padding: "80px 24px 100px",
+        padding: "68px 24px 72px",
         overflow: "hidden",
       }}
     >
-      <div style={{ maxWidth: 860, margin: "0 auto" }}>
+      <div style={{ maxWidth: 880, margin: "0 auto" }}>
         <motion.div
           variants={staggerV(0.1)}
           initial="hidden"
           whileInView="visible"
           viewport={VP}
-          style={{ textAlign: "center", marginBottom: 64 }}
+          style={{ textAlign: "center", marginBottom: 48 }}
         >
-          <motion.p variants={fadeUp} style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.24em", color: C.ember, marginBottom: 16, fontFamily: C.sans }}>
+          <motion.p variants={fadeUp} style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.24em", color: C.ember, marginBottom: 14, fontFamily: C.sans }}>
             — How it works
           </motion.p>
           <motion.h2
             variants={fadeUp}
-            style={{
-              fontFamily: C.serif,
-              fontSize: "clamp(2rem, 5vw, 3.4rem)",
-              color: C.cream,
-              lineHeight: 1.1,
-            }}
+            style={{ fontFamily: C.serif, fontSize: "clamp(2rem, 5vw, 3.2rem)", color: C.cream, lineHeight: 1.1 }}
           >
             Three steps.{" "}
-            <em style={{ color: C.ember, fontStyle: "italic" }}>
-              That's the whole app.
-            </em>
+            <em style={{ color: C.ember, fontStyle: "italic" }}>That's the whole app.</em>
           </motion.h2>
         </motion.div>
 
         <motion.div
-          variants={staggerV(0.15)}
+          variants={staggerV(0.12)}
           initial="hidden"
           whileInView="visible"
           viewport={VP}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4"
         >
           {STEPS.map((step, i) => (
             <motion.div
               key={i}
               variants={scaleUp}
               style={{
-                padding: "32px 28px",
-                background: C.card,
-                border: `1px solid ${C.border}`,
-                borderRadius: 24,
+                padding: "28px 26px 26px",
+                background: isDark ? "rgba(255,246,233,0.04)" : "rgba(255,246,233,0.9)",
+                border: `1px solid ${isDark ? "rgba(255,228,184,0.09)" : "rgba(191,96,64,0.1)"}`,
+                borderRadius: 20,
                 position: "relative",
               }}
             >
-              <p style={{ fontFamily: C.serif, fontSize: 13, color: C.ember, marginBottom: 12, opacity: 0.7, letterSpacing: "0.04em" }}>
+              <p style={{ fontFamily: C.serif, fontSize: "clamp(2rem, 3vw, 2.6rem)", color: C.ember, marginBottom: 14, opacity: 0.22, lineHeight: 1, letterSpacing: "-0.02em" }}>
                 {step.num}
               </p>
-              <h3 style={{ fontFamily: C.serif, fontSize: "clamp(1.3rem, 2.5vw, 1.6rem)", color: C.cream, marginBottom: 14, lineHeight: 1.2 }}>
+              <h3 style={{ fontFamily: C.serif, fontSize: "clamp(1.25rem, 2.2vw, 1.5rem)", color: C.cream, marginBottom: 12, lineHeight: 1.2 }}>
                 {step.title}
               </h3>
-              <p style={{ fontFamily: C.sans, fontSize: 15, color: C.muted, lineHeight: 1.7 }}>
+              <p style={{ fontFamily: C.sans, fontSize: 14.5, color: C.muted, lineHeight: 1.72, margin: 0 }}>
                 {step.body}
               </p>
-              {i < STEPS.length - 1 && (
-                <div className="hidden md:block" style={{ position: "absolute", top: "50%", right: -20, transform: "translateY(-50%)", fontSize: 16, color: C.ember, opacity: 0.35, zIndex: 1 }}>
-                  →
-                </div>
-              )}
             </motion.div>
           ))}
         </motion.div>
@@ -2951,15 +2939,15 @@ function FeatureListingSection() {
   return (
     <section
       id="features"
-      style={{ position: "relative", padding: "100px 24px", overflow: "hidden" }}
+      style={{ position: "relative", padding: "68px 24px 72px", overflow: "hidden" }}
     >
-      <div style={{ maxWidth: 960, margin: "0 auto" }}>
+      <div style={{ maxWidth: 880, margin: "0 auto" }}>
         <motion.div
           variants={staggerV(0.08)}
           initial="hidden"
           whileInView="visible"
           viewport={VP}
-          style={{ textAlign: "center", marginBottom: 64 }}
+          style={{ textAlign: "center", marginBottom: 44 }}
         >
           <motion.p variants={fadeUp} style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.24em", color: C.ember, marginBottom: 14, fontFamily: C.sans }}>
             — What's inside
@@ -2975,7 +2963,7 @@ function FeatureListingSection() {
           initial="hidden"
           whileInView="visible"
           viewport={VP}
-          style={{ display: "flex", flexDirection: "column", gap: 1 }}
+          style={{ display: "flex", flexDirection: "column", gap: 8 }}
         >
           {FEATURES.map((f, i) => (
             <motion.div
@@ -2984,18 +2972,20 @@ function FeatureListingSection() {
               style={{
                 display: "flex",
                 alignItems: "flex-start",
-                gap: 28,
-                padding: "28px 0",
-                borderBottom: i < FEATURES.length - 1 ? `1px solid ${C.border}` : "none",
+                gap: 24,
+                padding: "22px 24px",
+                borderRadius: 18,
+                background: isDark ? "rgba(255,246,233,0.03)" : "rgba(255,246,233,0.85)",
+                border: `1px solid ${isDark ? "rgba(255,228,184,0.07)" : "rgba(191,96,64,0.09)"}`,
               }}
             >
-              <div style={{ minWidth: 100, paddingTop: 2 }}>
+              <div style={{ minWidth: 90, paddingTop: 2, flexShrink: 0 }}>
                 <span style={{
                   display: "inline-block",
                   padding: "4px 12px",
                   borderRadius: 999,
-                  border: `1px solid ${isDark ? "rgba(191,96,64,0.35)" : "rgba(191,96,64,0.28)"}`,
-                  background: isDark ? "rgba(191,96,64,0.08)" : "rgba(191,96,64,0.05)",
+                  border: `1px solid ${isDark ? "rgba(191,96,64,0.35)" : "rgba(191,96,64,0.25)"}`,
+                  background: isDark ? "rgba(191,96,64,0.08)" : "rgba(191,96,64,0.06)",
                   fontFamily: C.serif,
                   fontSize: 13,
                   color: C.ember,
@@ -3005,7 +2995,7 @@ function FeatureListingSection() {
                   {f.tag}
                 </span>
               </div>
-              <p style={{ fontFamily: C.sans, fontSize: "clamp(0.95rem, 1.5vw, 1.05rem)", color: C.muted, lineHeight: 1.72, flex: 1 }}>
+              <p style={{ fontFamily: C.sans, fontSize: "clamp(0.93rem, 1.4vw, 1.02rem)", color: C.muted, lineHeight: 1.72, flex: 1, margin: 0 }}>
                 {f.body}
               </p>
             </motion.div>
@@ -3023,7 +3013,7 @@ function FounderSection() {
   return (
     <section
       id="founder"
-      style={{ position: "relative", padding: "80px 24px", overflow: "hidden" }}
+      style={{ position: "relative", padding: "68px 24px 72px", overflow: "hidden" }}
     >
       <div style={{ maxWidth: 760, margin: "0 auto" }}>
         <motion.div
@@ -3039,60 +3029,43 @@ function FounderSection() {
           <motion.div
             variants={scaleUp}
             style={{
-              padding: "40px 36px",
+              padding: "36px 36px 32px",
               background: isDark
-                ? "linear-gradient(135deg, rgba(14,22,44,0.85) 0%, rgba(10,12,20,0.92) 100%)"
-                : "rgba(191,96,64,0.04)",
-              border: `1px solid ${isDark ? "rgba(191,96,64,0.2)" : "rgba(191,96,64,0.15)"}`,
-              borderRadius: 28,
+                ? "rgba(255,246,233,0.04)"
+                : "rgba(255,246,233,0.92)",
+              border: `1px solid ${isDark ? "rgba(191,96,64,0.18)" : "rgba(191,96,64,0.12)"}`,
+              borderRadius: 24,
               position: "relative",
               overflow: "hidden",
             }}
           >
-            <div aria-hidden style={{ position: "absolute", inset: "0 0 auto 0", height: 1, background: "linear-gradient(90deg, transparent, rgba(191,96,64,0.45), transparent)" }} />
+            {/* Soft ember accent top */}
+            <div aria-hidden style={{ position: "absolute", inset: "0 0 auto 0", height: 2, background: `linear-gradient(90deg, transparent, ${C.ember}55, transparent)` }} />
 
-            {/* Video placeholder */}
-            <div
-              style={{
-                width: "100%",
-                aspectRatio: "16/9",
-                background: isDark ? "rgba(6,10,18,0.7)" : "rgba(0,0,0,0.08)",
-                borderRadius: 16,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                marginBottom: 32,
-                border: `1px solid ${isDark ? "rgba(255,228,184,0.07)" : "rgba(0,0,0,0.08)"}`,
-              }}
-            >
+            {/* Avatar + name row */}
+            <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 28 }}>
               <div style={{
-                width: 64,
-                height: 64,
-                borderRadius: "50%",
-                background: "rgba(191,96,64,0.15)",
-                border: "1.5px solid rgba(191,96,64,0.45)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                width: 52, height: 52, borderRadius: "50%", flexShrink: 0,
+                background: "linear-gradient(135deg, #C87D5A, #8B3D1A)",
+                boxShadow: "0 3px 12px rgba(191,96,64,0.22)",
+                display: "flex", alignItems: "center", justifyContent: "center",
               }}>
-                <svg viewBox="0 0 24 24" fill="#BF6040" style={{ width: 24, height: 24, marginLeft: 3 }}>
-                  <polygon points="5 3 19 12 5 21 5 3" />
-                </svg>
+                <span style={{ fontFamily: C.serif, fontSize: 20, color: "#FFF6E9", fontStyle: "italic" }}>R</span>
+              </div>
+              <div>
+                <p style={{ margin: 0, fontFamily: C.sans, fontSize: 14, fontWeight: 700, color: isDark ? C.cream : "#2A1008" }}>Roksana</p>
+                <p style={{ margin: 0, fontFamily: C.sans, fontSize: 12, color: C.muted }}>Founder of ÉCHO</p>
               </div>
             </div>
 
-            <h2 style={{ fontFamily: C.serif, fontSize: "clamp(1.6rem, 3.5vw, 2.2rem)", color: C.cream, lineHeight: 1.15, marginBottom: 20 }}>
-              Why I built ÉCHO
-            </h2>
+            <span aria-hidden style={{ display: "block", fontFamily: C.serif, fontSize: 52, lineHeight: 0.85, color: C.ember, marginBottom: 10, userSelect: "none" as const, opacity: 0.7 }}>"</span>
 
-            <blockquote style={{ borderLeft: `2px solid ${C.ember}`, paddingLeft: 20, marginBottom: 20 }}>
-              <p style={{ fontFamily: C.serif, fontSize: "clamp(1rem, 2vw, 1.2rem)", color: C.cream, lineHeight: 1.65, fontStyle: "italic" }}>
-                "I didn't want another app telling me what I should think. I wanted something that could help me remember what I already knew."
-              </p>
-            </blockquote>
+            <p style={{ fontFamily: C.serif, fontSize: "clamp(1.1rem, 2.2vw, 1.38rem)", color: isDark ? C.cream : "#1A0A02", lineHeight: 1.62, margin: "0 0 20px", fontStyle: "italic" }}>
+              I didn't want another app telling me what I should think. I wanted something that could help me remember what I already knew."
+            </p>
 
-            <p style={{ fontFamily: C.sans, fontSize: 13, color: C.muted, letterSpacing: "0.04em" }}>
-              Roksana, Founder of ÉCHO
+            <p style={{ fontFamily: C.sans, fontSize: 13.5, color: C.muted, lineHeight: 1.7, margin: 0, maxWidth: 560 }}>
+              ÉCHO started as a personal tool — a way to keep track of the thoughts I kept losing. If it helps you too, that's everything.
             </p>
           </motion.div>
         </motion.div>
@@ -3121,7 +3094,7 @@ function PrivacySection() {
       style={{
         position: "relative",
         overflow: "hidden",
-        padding: "120px 24px 100px",
+        padding: "68px 24px 72px",
       }}
     >
       <div
@@ -3143,14 +3116,14 @@ function PrivacySection() {
       />
 
       <div
-        style={{ maxWidth: 980, margin: "0 auto", position: "relative" }}
+        style={{ maxWidth: 900, margin: "0 auto", position: "relative" }}
       >
         <motion.div
           variants={staggerV(0.1)}
           initial="hidden"
           whileInView="visible"
           viewport={VP}
-          style={{ textAlign: "center", marginBottom: 72 }}
+          style={{ textAlign: "center", marginBottom: 44 }}
         >
           <motion.p
             variants={fadeUp}
@@ -3676,7 +3649,7 @@ function FAQSection() {
       id="faq"
       style={{
         position: "relative",
-        padding: "80px 24px 100px",
+        padding: "68px 24px 72px",
         maxWidth: 760,
         margin: "0 auto",
       }}
@@ -3847,7 +3820,7 @@ function WaitlistSection() {
       id="waitlist"
       style={{
         position: "relative",
-        padding: "100px 24px 120px",
+        padding: "72px 24px 88px",
         textAlign: "center",
         overflow: "hidden",
       }}
