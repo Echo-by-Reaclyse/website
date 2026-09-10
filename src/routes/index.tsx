@@ -3509,230 +3509,209 @@ function PricingSection() {
 // ── TestimonialsPlaceholder ────────────────────────────────────
 function TestimonialsPlaceholder() {
   const { C, isDark } = useLandingTheme();
+  const [active, setActive] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
-  const featured = {
-    quote: "I didn't expect it to feel this honest. Something about speaking instead of typing made the real thoughts come out. ÉCHO brought back something I said months ago that I actually needed to hear.",
-    initials: "S.L.",
-  };
-  const smallCards = [
-    {
-      quote: "It's the first voice journal that actually felt private enough to be real. I trusted it with things I wouldn't even write down.",
-      initials: "M.K.",
-    },
-    {
-      quote: "After a few weeks I started seeing what I keep circling back to. I didn't expect clarity to come from just listening to myself.",
-      initials: "A.R.",
-    },
+  const cardBg = isDark ? "rgba(255,246,233,0.06)" : "#FFFFFF";
+  const cardBd = isDark ? "rgba(255,228,184,0.09)" : "rgba(191,96,64,0.1)";
+  const qColor = isDark ? C.cream : "#1A0F05";
+
+  const PEOPLE = [
+    { init: "M", name: "Maya",   role: "Marketing",  grad: "linear-gradient(135deg,#C87D5A,#8B4020)" },
+    { init: "J", name: "Jess",   role: "Teacher",    grad: "linear-gradient(135deg,#8B6A20,#C0A030)" },
+    { init: "L", name: "Liam",   role: "Product",    grad: "linear-gradient(135deg,#1A3060,#2A5080)" },
+    { init: "D", name: "Daniel", role: "Student",    grad: "linear-gradient(135deg,#204020,#406040)" },
+    { init: "A", name: "Ava",    role: "Freelancer", grad: "linear-gradient(135deg,#602040,#A04060)" },
   ];
-  const all = [featured, ...smallCards];
 
-  const ClosedBetaPill = ({ dark }: { dark?: boolean }) => (
-    <div style={{
-      display: "inline-flex",
-      alignSelf: "flex-start",
-      padding: "4px 11px",
-      borderRadius: 100,
-      background: dark ? "rgba(255,228,184,0.12)" : (isDark ? "rgba(255,228,184,0.08)" : "rgba(191,96,64,0.08)"),
-      border: `1px solid ${dark ? "rgba(255,228,184,0.22)" : (isDark ? "rgba(255,228,184,0.15)" : "rgba(191,96,64,0.2)")}`,
-    }}>
-      <span style={{ fontSize: 10, fontFamily: C.sans, color: dark ? "#FFE4B8" : C.ember, letterSpacing: "0.1em", textTransform: "uppercase" as const, fontWeight: 600 }}>
-        Closed beta
-      </span>
-    </div>
-  );
+  const SMALL_CARDS = [
+    { quote: "It helps me ground myself and find a sense of calm.", name: "Liam",   tag: "Closed beta",  role: "Product Designer, 31", grad: "linear-gradient(135deg,#1A3060,#2A5080)" },
+    { quote: "It's like a reset button for my mind. I leave every check-in feeling lighter.", name: "Jess",   tag: "Closed beta",  role: "Teacher, 26",          grad: "linear-gradient(135deg,#8B6A20,#C0A030)" },
+    { quote: "A small moment with ÉCHO makes a big difference in my day.", name: "Daniel", tag: "Early user",   role: "Graduate Student, 24",  grad: "linear-gradient(135deg,#204020,#406040)" },
+    { quote: "I've tried other journaling apps, but ÉCHO actually feels like it listens.", name: "Ava",    tag: "Closed beta",  role: "Freelancer, 29",        grad: "linear-gradient(135deg,#602040,#A04060)" },
+  ];
 
-  const Avatar = ({ initials, dark }: { initials: string; dark?: boolean }) => (
-    <div style={{
-      width: 34,
-      height: 34,
-      borderRadius: "50%",
-      background: dark ? "rgba(191,96,64,0.28)" : (isDark ? "rgba(191,96,64,0.18)" : "rgba(191,96,64,0.12)"),
-      border: `1px solid ${dark ? "rgba(191,96,64,0.5)" : "rgba(191,96,64,0.25)"}`,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      flexShrink: 0,
-    }}>
-      <span style={{ fontSize: 10, fontFamily: C.sans, color: dark ? "#FFE4B8" : C.ember, fontWeight: 600 }}>{initials}</span>
-    </div>
+  const scrollTo = (idx: number) => {
+    if (!carouselRef.current) return;
+    const el = carouselRef.current.children[idx] as HTMLElement;
+    el?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+    setActive(idx);
+  };
+
+  const tagPill = (label: string) => (
+    <span style={{
+      padding: "2px 10px", borderRadius: 99,
+      background: isDark ? "rgba(255,228,184,0.08)" : "rgba(191,96,64,0.07)",
+      border: `1px solid ${isDark ? "rgba(255,228,184,0.16)" : "rgba(191,96,64,0.16)"}`,
+      fontSize: 10, fontFamily: C.sans, color: C.ember, letterSpacing: "0.04em",
+    }}>{label}</span>
   );
 
   return (
-    <section
-      id="testimonials"
-      style={{ position: "relative", padding: "80px 24px", overflow: "hidden" }}
-    >
-      <div style={{ maxWidth: 900, margin: "0 auto" }}>
-        {/* Header */}
-        <motion.div
-          variants={staggerV(0.1)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={VP}
-          style={{ marginBottom: 48 }}
-        >
+    <section id="testimonials" style={{ position: "relative", padding: "80px 0 0", overflow: "hidden" }}>
+
+      {/* ── Background decorative blobs ── */}
+      <div aria-hidden style={{ position: "absolute", top: -80, right: -100, width: 480, height: 480, borderRadius: "50%", background: isDark ? "radial-gradient(circle, rgba(191,96,64,0.08) 0%, transparent 70%)" : "radial-gradient(circle, rgba(191,96,64,0.1) 0%, transparent 70%)", filter: "blur(50px)", pointerEvents: "none" }} />
+      <div aria-hidden style={{ position: "absolute", bottom: 160, left: -120, width: 320, height: 320, borderRadius: "50%", background: isDark ? "radial-gradient(circle, rgba(191,96,64,0.05) 0%, transparent 70%)" : "radial-gradient(circle, rgba(191,96,64,0.07) 0%, transparent 70%)", filter: "blur(55px)", pointerEvents: "none" }} />
+
+      <div style={{ maxWidth: 980, margin: "0 auto", padding: "0 24px" }}>
+
+        {/* ── Section header ── */}
+        <motion.div variants={staggerV(0.09)} initial="hidden" whileInView="visible" viewport={VP} style={{ marginBottom: 44, position: "relative" }}>
+
+          {/* Decorative arc + sparkle + tagline (top-right) */}
+          <div aria-hidden style={{ position: "absolute", top: 0, right: 0, width: 170, height: 130, pointerEvents: "none" }}>
+            <svg viewBox="0 0 170 130" fill="none" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}>
+              <path d="M 140 8 Q 162 65 105 122" stroke={C.ember} strokeWidth="0.9" fill="none" opacity="0.3" strokeLinecap="round"/>
+            </svg>
+            <span style={{ position: "absolute", top: 16, right: 10, fontSize: 16, color: C.ember, opacity: 0.6 }}>✦</span>
+            <p style={{ position: "absolute", top: 50, right: 0, fontFamily: C.sans, fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase" as const, color: isDark ? "rgba(255,228,184,0.28)" : "rgba(191,96,64,0.38)", lineHeight: 1.85, textAlign: "right", margin: 0 }}>
+              Real<br />people<br />brighter<br />days
+            </p>
+          </div>
+
           <motion.p variants={fadeUp} style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.24em", color: C.ember, marginBottom: 14, fontFamily: C.sans }}>
             — Early voices
           </motion.p>
-          <motion.h2 variants={fadeUp} style={{ fontFamily: C.serif, fontSize: "clamp(1.8rem, 4vw, 2.8rem)", color: C.cream, lineHeight: 1.12, maxWidth: 480 }}>
+          <motion.h2 variants={fadeUp} style={{ fontFamily: C.serif, fontSize: "clamp(2rem, 5vw, 3.4rem)", color: C.cream, lineHeight: 1.08, maxWidth: 520, marginBottom: 18 }}>
             What people are{" "}
             <em style={{ color: C.ember, fontStyle: "italic" }}>already saying.</em>
           </motion.h2>
+          <motion.p variants={fadeUp} style={{ fontFamily: C.sans, fontSize: "clamp(0.92rem, 1.4vw, 1rem)", color: C.muted, lineHeight: 1.72, maxWidth: 460, margin: 0 }}>
+            Real reflections from early users who are finding a calmer, clearer connection with themselves — one thought at a time.
+          </motion.p>
         </motion.div>
 
-        {/* Desktop: featured left + 2 stacked right */}
+        {/* ── Avatar row ── */}
         <motion.div
-          className="hidden sm:grid"
-          variants={staggerV(0.08)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={VP}
-          style={{ gridTemplateColumns: "1.6fr 1fr", gap: 16 }}
+          variants={staggerV(0.06)} initial="hidden" whileInView="visible" viewport={VP}
+          style={{ display: "flex", gap: "clamp(20px, 5vw, 48px)", marginBottom: 40, overflowX: "auto", scrollbarWidth: "none" as const, paddingBottom: 4 } as React.CSSProperties}
         >
-          {/* Featured card — spans 2 implicit rows */}
-          <motion.div
-            variants={fadeUp}
-            style={{
-              gridRow: "span 2",
-              background: "#0F1A2C",
-              borderRadius: 24,
-              padding: "36px 30px 30px",
-              display: "flex",
-              flexDirection: "column",
-              gap: 20,
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            {/* Decorative large quote mark */}
-            <span aria-hidden style={{
-              position: "absolute",
-              top: 14,
-              left: 22,
-              fontFamily: C.serif,
-              fontSize: 130,
-              lineHeight: 0.75,
-              color: "#BF6040",
-              opacity: 0.25,
-              userSelect: "none",
-            }}>"</span>
-            <ClosedBetaPill dark />
-            <p style={{
-              fontFamily: C.serif,
-              fontSize: "clamp(1.05rem, 1.55vw, 1.2rem)",
-              color: "#FFE4B8",
-              lineHeight: 1.7,
-              fontStyle: "italic",
-              margin: 0,
-              flex: 1,
-              paddingTop: 12,
-            }}>
-              "{featured.quote}"
-            </p>
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <Avatar initials={featured.initials} dark />
-              <span style={{ fontFamily: C.sans, fontSize: 12, color: "rgba(255,228,184,0.45)" }}>Waitlist member</span>
-            </div>
-          </motion.div>
-
-          {/* Two smaller cards */}
-          {smallCards.map((s, i) => (
-            <motion.div
-              key={i}
-              variants={fadeUp}
-              style={{
-                background: C.card,
-                border: `1px solid ${isDark ? "rgba(255,228,184,0.08)" : "rgba(26,15,5,0.07)"}`,
-                borderRadius: 20,
-                padding: "22px 20px",
-                display: "flex",
-                flexDirection: "column",
-                gap: 14,
-              }}
-            >
-              <ClosedBetaPill />
-              <p style={{
-                fontFamily: C.serif,
-                fontSize: "clamp(0.88rem, 1.2vw, 0.98rem)",
-                color: C.cream,
-                lineHeight: 1.65,
-                fontStyle: "italic",
-                margin: 0,
-                flex: 1,
+          {PEOPLE.map((p, i) => (
+            <motion.div key={i} variants={fadeUp} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, flexShrink: 0 }}>
+              <div style={{
+                width: 62, height: 62, borderRadius: "50%", background: p.grad,
+                border: `3px solid ${isDark ? "#0A1420" : "#FAF5EF"}`,
+                boxShadow: "0 3px 14px rgba(191,96,64,0.2)",
+                display: "flex", alignItems: "center", justifyContent: "center",
               }}>
-                "{s.quote}"
-              </p>
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <Avatar initials={s.initials} />
-                <span style={{ fontFamily: C.sans, fontSize: 11, color: C.muted, opacity: 0.7 }}>Waitlist member</span>
+                <span style={{ fontFamily: C.sans, fontSize: 20, color: "#FFF6E9", fontWeight: 600 }}>{p.init}</span>
+              </div>
+              <div style={{ textAlign: "center" }}>
+                <p style={{ margin: 0, fontFamily: C.sans, fontSize: 12, fontWeight: 700, color: qColor }}>{p.name}</p>
+                <p style={{ margin: 0, fontFamily: C.sans, fontSize: 11, color: C.muted }}>{p.role}</p>
               </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Mobile: horizontal swipe carousel */}
-        <div
-          className="flex sm:hidden"
+        {/* ── Featured testimonial card ── */}
+        <motion.div
+          variants={fadeUp} initial="hidden" whileInView="visible" viewport={VP}
           style={{
-            gap: 12,
-            overflowX: "auto",
-            scrollSnapType: "x mandatory",
-            paddingBottom: 8,
-            scrollbarWidth: "none" as const,
-          } as React.CSSProperties}
+            borderRadius: 24, background: cardBg, border: `1px solid ${cardBd}`,
+            padding: "30px 30px 26px", marginBottom: 14, position: "relative", overflow: "hidden",
+          }}
         >
-          {all.map((card, i) => (
-            <div
-              key={i}
-              style={{
-                flex: "0 0 82vw",
-                scrollSnapAlign: "start",
-                background: i === 0 ? "#0F1A2C" : C.card,
-                border: i === 0 ? "none" : `1px solid ${isDark ? "rgba(255,228,184,0.08)" : "rgba(26,15,5,0.07)"}`,
-                borderRadius: 20,
-                padding: "24px 20px",
-                display: "flex",
-                flexDirection: "column",
-                gap: 16,
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              {i === 0 && (
-                <span aria-hidden style={{
-                  position: "absolute",
-                  top: 10,
-                  left: 16,
-                  fontFamily: C.serif,
-                  fontSize: 100,
-                  lineHeight: 0.75,
-                  color: "#BF6040",
-                  opacity: 0.22,
-                  userSelect: "none",
-                }}>"</span>
-              )}
-              <ClosedBetaPill dark={i === 0} />
-              <p style={{
-                fontFamily: C.serif,
-                fontSize: "clamp(0.95rem, 3.5vw, 1.05rem)",
-                color: i === 0 ? "#FFE4B8" : C.cream,
-                lineHeight: 1.65,
-                fontStyle: "italic",
-                margin: 0,
-                flex: 1,
-                paddingTop: i === 0 ? 10 : 0,
-              }}>
-                "{card.quote}"
-              </p>
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <Avatar initials={card.initials} dark={i === 0} />
-                <span style={{ fontFamily: C.sans, fontSize: 11, color: i === 0 ? "rgba(255,228,184,0.45)" : C.muted, opacity: i === 0 ? 1 : 0.7 }}>
-                  Waitlist member
-                </span>
+          {/* Botanical leaf decoration */}
+          <div aria-hidden style={{ position: "absolute", right: 16, bottom: 0, opacity: isDark ? 0.08 : 0.11, pointerEvents: "none" }}>
+            <svg width="110" height="130" viewBox="0 0 110 130" fill="none">
+              <path d="M55 125 Q18 95 10 48 Q6 18 55 8 Q104 18 100 48 Q92 95 55 125Z" fill={isDark ? "#FFE4B8" : "#BF6040"}/>
+              <path d="M55 125 L55 8" stroke={isDark ? "#FFE4B8" : "#BF6040"} strokeWidth="1.2" opacity="0.5"/>
+              <path d="M55 88 Q36 73 22 62" stroke={isDark ? "#FFE4B8" : "#BF6040"} strokeWidth="1" opacity="0.45"/>
+              <path d="M55 68 Q74 55 88 47" stroke={isDark ? "#FFE4B8" : "#BF6040"} strokeWidth="1" opacity="0.45"/>
+              <path d="M55 48 Q38 39 26 32" stroke={isDark ? "#FFE4B8" : "#BF6040"} strokeWidth="1" opacity="0.35"/>
+            </svg>
+          </div>
+
+          <span aria-hidden style={{ display: "block", fontFamily: C.serif, fontSize: 54, lineHeight: 0.85, color: C.ember, marginBottom: 10, userSelect: "none" as const }}>"</span>
+
+          <p style={{ fontFamily: C.serif, fontSize: "clamp(1.15rem, 2.2vw, 1.48rem)", color: qColor, lineHeight: 1.56, margin: "0 0 26px", maxWidth: 600 }}>
+            ÉCHO gives me space to hear myself clearly instead of rushing past my thoughts."
+          </p>
+
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap" as const, gap: 12 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+              <div style={{ width: 50, height: 50, borderRadius: "50%", background: "linear-gradient(135deg,#C87D5A,#8B4020)", flexShrink: 0, boxShadow: "0 2px 10px rgba(191,96,64,0.25)" }} />
+              <div>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 3 }}>
+                  <span style={{ fontFamily: C.sans, fontSize: 14, fontWeight: 700, color: qColor }}>Maya</span>
+                  {tagPill("Early waitlist")}
+                </div>
+                <span style={{ fontFamily: C.sans, fontSize: 12, color: C.muted }}>Marketing Director, 28</span>
               </div>
             </div>
-          ))}
+            <p style={{ fontFamily: C.sans, fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase" as const, color: isDark ? "rgba(255,228,184,0.25)" : "rgba(191,96,64,0.35)", lineHeight: 1.8, margin: 0, textAlign: "right" }}>
+              A calmer<br />more you
+            </p>
+          </div>
+        </motion.div>
+
+        {/* ── Smaller cards — horizontal swipe carousel ── */}
+        <div>
+          <div
+            ref={carouselRef}
+            className="flex"
+            style={{
+              gap: 14, overflowX: "auto",
+              scrollSnapType: "x mandatory",
+              scrollbarWidth: "none" as const,
+              paddingBottom: 4,
+            } as React.CSSProperties}
+          >
+            {SMALL_CARDS.map((card, i) => (
+              <div key={i} style={{
+                flex: "0 0 min(340px, 80vw)",
+                scrollSnapAlign: "start",
+                borderRadius: 20, background: cardBg, border: `1px solid ${cardBd}`,
+                padding: "22px 20px 18px", display: "flex", flexDirection: "column",
+                position: "relative", overflow: "hidden",
+              }}>
+                {/* Soft blob */}
+                <div aria-hidden style={{ position: "absolute", bottom: -24, right: -24, width: 100, height: 100, borderRadius: "50%", background: `radial-gradient(circle, ${isDark ? "rgba(191,96,64,0.08)" : "rgba(191,96,64,0.06)"} 0%, transparent 70%)`, pointerEvents: "none" }} />
+                <span aria-hidden style={{ display: "block", fontFamily: C.serif, fontSize: 42, lineHeight: 0.85, color: C.ember, marginBottom: 8, userSelect: "none" as const }}>"</span>
+                <p style={{ fontFamily: C.serif, fontSize: "clamp(0.95rem, 1.4vw, 1.05rem)", color: qColor, lineHeight: 1.62, margin: "0 0 20px", flex: 1 }}>
+                  {card.quote}"
+                </p>
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <div style={{ width: 40, height: 40, borderRadius: "50%", background: card.grad, flexShrink: 0 }} />
+                  <div>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
+                      <span style={{ fontFamily: C.sans, fontSize: 13, fontWeight: 600, color: qColor }}>{card.name}</span>
+                      {tagPill(card.tag)}
+                    </div>
+                    <span style={{ fontFamily: C.sans, fontSize: 11, color: C.muted }}>{card.role}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Dots + arrows */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14, marginTop: 22, marginBottom: 80 }}>
+            <button
+              onClick={() => scrollTo(Math.max(0, active - 1))}
+              aria-label="Previous"
+              style={{ width: 36, height: 36, borderRadius: "50%", background: isDark ? "rgba(255,228,184,0.08)" : "rgba(191,96,64,0.07)", border: `1px solid ${cardBd}`, cursor: "pointer", color: C.ember, fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center" }}
+            >‹</button>
+            <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+              {SMALL_CARDS.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => scrollTo(i)}
+                  aria-label={`Go to card ${i + 1}`}
+                  style={{ width: i === active ? 20 : 6, height: 6, borderRadius: 99, background: i === active ? C.ember : (isDark ? "rgba(255,228,184,0.2)" : "rgba(191,96,64,0.22)"), border: "none", cursor: "pointer", padding: 0, transition: "all 0.25s ease" }}
+                />
+              ))}
+            </div>
+            <button
+              onClick={() => scrollTo(Math.min(SMALL_CARDS.length - 1, active + 1))}
+              aria-label="Next"
+              style={{ width: 36, height: 36, borderRadius: "50%", background: isDark ? "rgba(255,228,184,0.08)" : "rgba(191,96,64,0.07)", border: `1px solid ${cardBd}`, cursor: "pointer", color: C.ember, fontSize: 18, display: "flex", alignItems: "center", justifyContent: "center" }}
+            >›</button>
+          </div>
         </div>
+
       </div>
     </section>
   );
