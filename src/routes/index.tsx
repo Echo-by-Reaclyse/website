@@ -3669,13 +3669,11 @@ function TestimonialsPlaceholder() {
 
         {/* Mobile: horizontal swipe carousel */}
         <div
-          className="sm:hidden"
+          className="flex sm:hidden"
           style={{
-            display: "flex",
             gap: 12,
             overflowX: "auto",
             scrollSnapType: "x mandatory",
-            WebkitOverflowScrolling: "touch" as unknown as undefined,
             paddingBottom: 8,
             scrollbarWidth: "none" as const,
           } as React.CSSProperties}
