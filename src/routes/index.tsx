@@ -2927,30 +2927,88 @@ function FeatureListingSection() {
   const prev = () => { setActive(a => (a - 1 + N) % N); resetTimer(); };
   const goto = (i: number) => { setActive(i); resetTimer(); };
 
-  const FEATURES = [
+  const FEATURES: Array<{
+    tag: string;
+    body: string;
+    grad: string;
+    cardContent: React.ReactNode;
+  }> = [
     {
       tag: "Record",
       body: "One tap starts it. Just talk — ÉCHO writes it down as you go.",
-      grad: "linear-gradient(158deg, #EAD8C4 0%, #D4B080 45%, #A87C42 100%)",
-      spot: "radial-gradient(ellipse at 28% 18%, rgba(255,240,210,0.55) 0%, transparent 52%)",
+      grad: "linear-gradient(168deg, #EDE0CC 0%, #D8B87A 50%, #B08040 100%)",
+      cardContent: (
+        <>
+          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 30% 20%, rgba(255,245,220,0.55) 0%, transparent 55%)" }} />
+          {/* "Just talk…" label */}
+          <p style={{ position: "absolute", top: "30%", left: 0, right: 0, textAlign: "center", margin: 0, fontFamily: "'Instrument Serif', Georgia, serif", fontSize: "clamp(16px, 4.5vw, 20px)", fontStyle: "italic", color: "rgba(80,42,8,0.55)", letterSpacing: "0.01em" }}>
+            Just talk…
+          </p>
+          {/* Mic button */}
+          <div style={{ position: "absolute", top: "52%", left: "50%", transform: "translate(-50%,-50%)", width: 56, height: 56, borderRadius: "50%", background: "rgba(255,255,255,0.88)", boxShadow: "0 6px 20px rgba(0,0,0,0.12)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ width: 30, height: 30, borderRadius: "50%", background: "#BF6040" }} />
+          </div>
+          {/* Soundwave lines */}
+          <div style={{ position: "absolute", bottom: "22%", left: "50%", transform: "translateX(-50%)", display: "flex", gap: 4, alignItems: "flex-end" }}>
+            {[10, 16, 22, 16, 12, 20, 14, 10].map((h, idx) => (
+              <div key={idx} style={{ width: 3, height: h, borderRadius: 2, background: "rgba(255,255,255,0.45)" }} />
+            ))}
+          </div>
+        </>
+      ),
     },
     {
       tag: "Reflect",
       body: "Come back to any entry. Read it, or hear it in your own voice — exactly as you said it.",
-      grad: "linear-gradient(158deg, #DDD0B8 0%, #BFAA82 45%, #906850 100%)",
-      spot: "radial-gradient(ellipse at 65% 22%, rgba(255,235,200,0.45) 0%, transparent 50%)",
+      grad: "linear-gradient(168deg, #E4D8C0 0%, #C8AE88 50%, #9A7050 100%)",
+      cardContent: (
+        <>
+          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 65% 25%, rgba(255,240,210,0.48) 0%, transparent 52%)" }} />
+          {/* Journal lines */}
+          <div style={{ position: "absolute", top: "20%", left: "14%", right: "14%", display: "flex", flexDirection: "column", gap: 9 }}>
+            {[80, 92, 70, 88, 60].map((w, idx) => (
+              <div key={idx} style={{ width: `${w}%`, height: 1.5, borderRadius: 1, background: "rgba(255,255,255,0.38)" }} />
+            ))}
+          </div>
+          {/* "A quieter me." text */}
+          <p style={{ position: "absolute", bottom: "28%", left: 0, right: 0, textAlign: "center", margin: 0, fontFamily: "'Instrument Serif', Georgia, serif", fontSize: "clamp(17px, 4.5vw, 21px)", fontStyle: "italic", color: "rgba(75,38,8,0.58)" }}>
+            A quieter me.
+          </p>
+        </>
+      ),
     },
     {
       tag: "The Mirror",
       body: "The thoughts you keep circling back to, gathered and shown to you — not analyzed, not explained.",
-      grad: "linear-gradient(158deg, #D4C8B4 0%, #AAAAAA 45%, #808080 100%)",
-      spot: "radial-gradient(ellipse at 30% 70%, rgba(255,245,220,0.40) 0%, transparent 55%)",
+      grad: "linear-gradient(168deg, #D8D0C0 0%, #B4A890 50%, #8A7860 100%)",
+      cardContent: (
+        <>
+          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 35% 72%, rgba(255,245,225,0.42) 0%, transparent 58%)" }} />
+          {/* Mirror shape — oval frame */}
+          <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -54%)", width: 88, height: 118, borderRadius: "50% 50% 46% 46%", border: "2.5px solid rgba(255,255,255,0.55)", boxShadow: "0 0 0 1px rgba(255,255,255,0.15), inset 0 0 24px rgba(255,255,255,0.08)" }} />
+          {/* Shadow cast */}
+          <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-20%, -20%) rotate(20deg)", width: 60, height: 120, background: "linear-gradient(135deg, rgba(0,0,0,0.07) 0%, transparent 70%)", borderRadius: 4, pointerEvents: "none" }} />
+        </>
+      ),
     },
     {
       tag: "Letters",
       body: "Write to a version of yourself who isn't here yet. Set a date. ÉCHO holds it until then.",
-      grad: "linear-gradient(158deg, #E2D4B8 0%, #C8AA78 45%, #9A7A48 100%)",
-      spot: "radial-gradient(ellipse at 50% 15%, rgba(255,245,215,0.50) 0%, transparent 50%)",
+      grad: "linear-gradient(168deg, #EAD8B4 0%, #CCB07A 50%, #9E8050 100%)",
+      cardContent: (
+        <>
+          <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 52% 18%, rgba(255,248,220,0.52) 0%, transparent 54%)" }} />
+          {/* Envelope shape */}
+          <div style={{ position: "absolute", top: "28%", left: "50%", transform: "translateX(-50%)", width: 100, height: 70, borderRadius: 6, border: "2px solid rgba(255,255,255,0.52)", background: "rgba(255,255,255,0.10)" }}>
+            {/* Flap lines */}
+            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "50%", borderBottom: "1.5px solid rgba(255,255,255,0.30)", background: "linear-gradient(to bottom, rgba(255,255,255,0.08), transparent)" }} />
+          </div>
+          {/* "To a brighter you." */}
+          <p style={{ position: "absolute", bottom: "26%", left: 0, right: 0, textAlign: "center", margin: 0, fontFamily: "'Instrument Serif', Georgia, serif", fontSize: "clamp(15px, 4vw, 18px)", fontStyle: "italic", color: "rgba(75,40,5,0.54)" }}>
+            To a brighter you.
+          </p>
+        </>
+      ),
     },
   ];
 
@@ -2962,9 +3020,9 @@ function FeatureListingSection() {
     { x: 116, y: 24, scale: 0.73, rotate: 14, opacity: 0.36, z: 1 },
   ];
 
-  // Card dimensions — taller aspect ratio, consistent across devices
+  // Card dimensions — portrait ratio matching the mockup
   const CARD_W = "min(290px, 80vw)";
-  const CARD_H = "clamp(420px, 112vw, 500px)";
+  const CARD_H = "clamp(430px, 115vw, 510px)";
 
   return (
     <section
@@ -3029,58 +3087,51 @@ function FeatureListingSection() {
                     cursor: "pointer",
                     display: "flex",
                     flexDirection: "column" as const,
-                    padding: 18,
+                    padding: 14,
                     userSelect: "none" as const,
                   }}
                 >
                   {/* Top row: counter + tag pill */}
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14, flexShrink: 0 }}>
-                    <span style={{ fontFamily: C.sans, fontSize: 11.5, color: isDark ? "rgba(255,246,233,0.26)" : "rgba(26,15,5,0.24)", fontWeight: 600, letterSpacing: "0.06em" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexShrink: 0 }}>
+                    <span style={{ fontFamily: C.sans, fontSize: 11, color: isDark ? "rgba(255,246,233,0.26)" : "rgba(26,15,5,0.24)", fontWeight: 600, letterSpacing: "0.07em" }}>
                       {i + 1} / {N}
                     </span>
                     <span style={{
-                      padding: "5px 15px",
+                      padding: "4px 14px",
                       borderRadius: 999,
                       border: `1px solid ${isDark ? "rgba(191,96,64,0.28)" : "rgba(191,96,64,0.18)"}`,
-                      background: isDark ? "rgba(191,96,64,0.07)" : "rgba(255,246,233,0.95)",
+                      background: isDark ? "rgba(191,96,64,0.07)" : "rgba(255,246,233,0.97)",
                       fontFamily: C.serif,
                       fontSize: 13,
                       color: C.ember,
                       fontStyle: "italic",
-                      letterSpacing: "0.01em",
                     }}>
                       {f.tag}
                     </span>
                   </div>
 
-                  {/* Placeholder image — layered warm gradient */}
+                  {/* Image area — styled gradient placeholder with feature content */}
                   <div style={{
                     flex: 1,
-                    borderRadius: 18,
+                    borderRadius: 16,
                     background: f.grad,
-                    marginBottom: 18,
+                    marginBottom: 14,
                     position: "relative",
                     overflow: "hidden",
                     minHeight: 0,
                   }}>
-                    {/* Soft spotlight */}
-                    <div style={{ position: "absolute", inset: 0, background: f.spot }} />
-                    {/* Vignette bottom */}
-                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 55%, rgba(0,0,0,0.12) 100%)" }} />
-                    {/* Subtle grain texture via repeating pattern */}
-                    <div style={{
-                      position: "absolute", inset: 0,
-                      backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E\")",
-                      opacity: 0.6,
-                    }} />
+                    {/* Bottom vignette */}
+                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.10) 100%)" }} />
+                    {/* Feature-specific overlay content */}
+                    {f.cardContent}
                   </div>
 
                   {/* Description */}
                   <p style={{
                     fontFamily: C.sans,
-                    fontSize: 14,
+                    fontSize: 13.5,
                     color: isDark ? "rgba(255,246,233,0.75)" : "rgba(26,15,5,0.70)",
-                    lineHeight: 1.70,
+                    lineHeight: 1.68,
                     margin: 0,
                     flexShrink: 0,
                   }}>
