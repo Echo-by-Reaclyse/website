@@ -2908,91 +2908,189 @@ function InteractivePhoneSection() {
 // ── FeatureListingSection (Section 5) ─────────────────────────
 function FeatureListingSection() {
   const { C, isDark } = useLandingTheme();
+  const [active, setActive] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+  const N = 4;
+
+  // Auto-loop
+  useEffect(() => {
+    const id = setInterval(() => setActive(a => (a + 1) % N), 4500);
+    return () => clearInterval(id);
+  }, []);
 
   const FEATURES = [
     {
       tag: "Record",
-      body: "One tap starts it. No typing, no cursor blinking at you, no deciding how to phrase it. Just talk — ÉCHO writes it down as you go.",
+      body: "One tap starts it. Just talk — ÉCHO writes it down as you go.",
+      grad: "linear-gradient(165deg, #E8D6C0 0%, #CBAB72 55%, #A07840 100%)",
     },
     {
       tag: "Reflect",
-      body: "Come back to any entry, any day. Read it, or hear it in your own voice — exactly as you said it, nothing smoothed over.",
+      body: "Come back to any entry. Read it, or hear it in your own voice — exactly as you said it.",
+      grad: "linear-gradient(165deg, #DDD0B8 0%, #BCAA82 55%, #946A52 100%)",
     },
     {
       tag: "The Mirror",
       body: "The thoughts you keep circling back to, gathered and shown to you — not analyzed, not explained.",
+      grad: "linear-gradient(165deg, #D0C4AE 0%, #A89880 55%, #907062 100%)",
     },
     {
       tag: "Letters",
       body: "Write to a version of yourself who isn't here yet. Set a date. ÉCHO holds it until then.",
+      grad: "linear-gradient(165deg, #E0D0B4 0%, #C0A87A 55%, #9C8252 100%)",
     },
   ];
+
+  // Stacking positions: index 0 = active (front)
+  const STACK = [
+    { x: 0,   y: 0,  scale: 1,    rotate: -1, opacity: 1,    z: 4 },
+    { x: 50,  y: 10, scale: 0.92, rotate: 4,  opacity: 0.82, z: 3 },
+    { x: 90,  y: 18, scale: 0.84, rotate: 9,  opacity: 0.62, z: 2 },
+    { x: 122, y: 24, scale: 0.76, rotate: 14, opacity: 0.42, z: 1 },
+  ];
+
+  const next = () => setActive(a => (a + 1) % N);
+  const prev = () => setActive(a => (a - 1 + N) % N);
 
   return (
     <section
       id="features"
-      style={{ position: "relative", padding: "68px 24px 72px", overflow: "hidden" }}
+      style={{ position: "relative", padding: "72px 0 88px", overflowX: "clip" }}
     >
       <div style={{ maxWidth: 880, margin: "0 auto" }}>
+        {/* Header */}
         <motion.div
-          variants={staggerV(0.08)}
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={VP}
-          style={{ textAlign: "center", marginBottom: 44 }}
+          transition={{ duration: 0.65 }}
+          style={{ textAlign: "center", marginBottom: 52, padding: "0 24px" }}
         >
-          <motion.p variants={fadeUp} style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.24em", color: C.ember, marginBottom: 14, fontFamily: C.sans }}>
+          <p style={{ fontSize: 11, textTransform: "uppercase" as const, letterSpacing: "0.24em", color: C.ember, margin: "0 0 14px", fontFamily: C.sans }}>
             — What's inside
-          </motion.p>
-          <motion.h2 variants={fadeUp} style={{ fontFamily: C.serif, fontSize: "clamp(2rem, 5vw, 3.2rem)", color: C.cream, lineHeight: 1.1 }}>
+          </p>
+          <h2 style={{ fontFamily: C.serif, fontSize: "clamp(2rem, 7vw, 3.2rem)", color: isDark ? C.cream : "#1A0F05", lineHeight: 1.1, margin: "0 0 14px" }}>
             Four things ÉCHO{" "}
             <em style={{ color: C.ember, fontStyle: "italic" }}>actually does.</em>
-          </motion.h2>
+          </h2>
+          <p style={{ fontFamily: C.sans, fontSize: "clamp(0.9rem, 3vw, 1rem)", color: C.muted, lineHeight: 1.65, maxWidth: 360, margin: "0 auto" }}>
+            A quieter mind, one tap at a time.
+          </p>
         </motion.div>
 
-        <motion.div
-          variants={staggerV(0.1)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={VP}
-          style={{ display: "flex", flexDirection: "column", gap: 8 }}
+        {/* Card stack — fans out to the right */}
+        <div
+          style={{ display: "flex", justifyContent: "center", paddingLeft: 24, paddingRight: "28vw" }}
+          onTouchStart={e => { touchStartX.current = e.touches[0].clientX; }}
+          onTouchEnd={e => {
+            if (touchStartX.current === null) return;
+            const dx = e.changedTouches[0].clientX - touchStartX.current;
+            if (dx < -40) next();
+            else if (dx > 40) prev();
+            touchStartX.current = null;
+          }}
         >
-          {FEATURES.map((f, i) => (
-            <motion.div
-              key={i}
-              variants={fadeUp}
-              style={{
-                display: "flex",
-                alignItems: "flex-start",
-                gap: 24,
-                padding: "22px 24px",
-                borderRadius: 18,
-                background: isDark ? "rgba(255,246,233,0.03)" : "rgba(255,246,233,0.85)",
-                border: `1px solid ${isDark ? "rgba(255,228,184,0.07)" : "rgba(191,96,64,0.09)"}`,
-              }}
-            >
-              <div style={{ minWidth: 90, paddingTop: 2, flexShrink: 0 }}>
-                <span style={{
-                  display: "inline-block",
-                  padding: "4px 12px",
-                  borderRadius: 999,
-                  border: `1px solid ${isDark ? "rgba(191,96,64,0.35)" : "rgba(191,96,64,0.25)"}`,
-                  background: isDark ? "rgba(191,96,64,0.08)" : "rgba(191,96,64,0.06)",
-                  fontFamily: C.serif,
-                  fontSize: 13,
-                  color: C.ember,
-                  fontStyle: "italic",
-                  letterSpacing: "0.02em",
-                }}>
-                  {f.tag}
-                </span>
-              </div>
-              <p style={{ fontFamily: C.sans, fontSize: "clamp(0.93rem, 1.4vw, 1.02rem)", color: C.muted, lineHeight: 1.72, flex: 1, margin: 0 }}>
-                {f.body}
-              </p>
-            </motion.div>
-          ))}
-        </motion.div>
+          <div style={{ position: "relative", width: "min(272px, 76vw)", height: "clamp(370px, 90vw, 416px)" }}>
+            {FEATURES.map((f, i) => {
+              const d = (i - active + N) % N;
+              const s = STACK[d];
+              return (
+                <motion.div
+                  key={i}
+                  animate={{ x: s.x, y: s.y, scale: s.scale, rotate: s.rotate, opacity: s.opacity }}
+                  transition={{ type: "spring", stiffness: 280, damping: 28 }}
+                  onClick={() => d !== 0 && setActive(i)}
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    zIndex: s.z,
+                    borderRadius: 24,
+                    background: isDark ? "#231810" : "#FFFFFF",
+                    border: `1px solid ${isDark ? "rgba(255,228,184,0.07)" : "rgba(191,96,64,0.09)"}`,
+                    boxShadow: d === 0
+                      ? "0 20px 56px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.07)"
+                      : "0 8px 24px rgba(0,0,0,0.09)",
+                    overflow: "hidden",
+                    cursor: d === 0 ? "default" : "pointer",
+                    display: "flex",
+                    flexDirection: "column" as const,
+                    padding: 16,
+                    userSelect: "none" as const,
+                  }}
+                >
+                  {/* Top row: counter + tag pill */}
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexShrink: 0 }}>
+                    <span style={{ fontFamily: C.sans, fontSize: 12, color: isDark ? "rgba(255,246,233,0.28)" : "rgba(26,15,5,0.26)", fontWeight: 500, letterSpacing: "0.04em" }}>
+                      {i + 1} / {N}
+                    </span>
+                    <span style={{
+                      padding: "5px 14px",
+                      borderRadius: 999,
+                      border: `1px solid ${isDark ? "rgba(191,96,64,0.30)" : "rgba(191,96,64,0.20)"}`,
+                      background: isDark ? "rgba(191,96,64,0.07)" : "rgba(255,246,233,0.95)",
+                      fontFamily: C.serif,
+                      fontSize: 13,
+                      color: C.ember,
+                      fontStyle: "italic",
+                    }}>
+                      {f.tag}
+                    </span>
+                  </div>
+
+                  {/* Placeholder image — warm lifestyle gradient */}
+                  <div style={{
+                    flex: 1,
+                    borderRadius: 16,
+                    background: f.grad,
+                    marginBottom: 16,
+                    position: "relative",
+                    overflow: "hidden",
+                    minHeight: 0,
+                  }}>
+                    <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 25% 20%, rgba(255,255,255,0.17) 0%, transparent 55%)" }} />
+                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.08) 100%)" }} />
+                  </div>
+
+                  {/* Description */}
+                  <p style={{
+                    fontFamily: C.sans,
+                    fontSize: 13.5,
+                    color: isDark ? "rgba(255,246,233,0.72)" : "rgba(26,15,5,0.68)",
+                    lineHeight: 1.68,
+                    margin: 0,
+                    flexShrink: 0,
+                  }}>
+                    {f.body}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Dots + swipe hint */}
+        <div style={{ display: "flex", flexDirection: "column" as const, alignItems: "center", gap: 14, marginTop: 48, padding: "0 24px" }}>
+          <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
+            {FEATURES.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActive(i)}
+                style={{ width: 24, height: 14, display: "flex", alignItems: "center", justifyContent: "center", background: "none", border: "none", cursor: "pointer", padding: 0 }}
+              >
+                <div style={{
+                  width: i === active ? 22 : 6,
+                  height: 6,
+                  borderRadius: 99,
+                  background: i === active ? C.ember : isDark ? "rgba(191,96,64,0.22)" : "rgba(191,96,64,0.18)",
+                  transition: "width 0.28s ease, background 0.28s ease",
+                }} />
+              </button>
+            ))}
+          </div>
+          <p style={{ fontFamily: C.serif, fontSize: 14, color: C.muted, fontStyle: "italic", margin: 0, opacity: 0.58 }}>
+            ← Swipe or tap to explore
+          </p>
+        </div>
       </div>
     </section>
   );
