@@ -3012,17 +3012,18 @@ function FeatureListingSection() {
     },
   ];
 
-  // Stacking positions: index 0 = active (front), 1–3 fan behind-right
+  // Stacking positions — matches mockup: front tilts left, back cards fan clockwise
+  // pivot near card bottom (originY 88%) so fan feels like a held deck
   const STACK = [
-    { x: 0,   y: 0,  scale: 1,    rotate: -1, opacity: 1,    z: 4 },
-    { x: 72,  y: 10, scale: 0.91, rotate: 4,  opacity: 0.82, z: 3 },
-    { x: 124, y: 18, scale: 0.82, rotate: 9,  opacity: 0.60, z: 2 },
-    { x: 164, y: 24, scale: 0.73, rotate: 14, opacity: 0.40, z: 1 },
+    { x: 0,   y: 0,  scale: 1,    rotate: -4,  opacity: 1,    z: 4 },
+    { x: 86,  y: 4,  scale: 0.86, rotate:  5,  opacity: 0.84, z: 3 },
+    { x: 154, y: 8,  scale: 0.73, rotate: 14,  opacity: 0.65, z: 2 },
+    { x: 208, y: 12, scale: 0.61, rotate: 23,  opacity: 0.47, z: 1 },
   ];
 
-  // Card dimensions — portrait ratio matching the mockup
-  const CARD_W = "min(290px, 80vw)";
-  const CARD_H = "clamp(430px, 115vw, 510px)";
+  // Card dimensions — taller to match mockup portrait proportions
+  const CARD_W = "min(300px, 82vw)";
+  const CARD_H = "clamp(500px, 130vw, 560px)";
 
   return (
     <section
@@ -3089,6 +3090,9 @@ function FeatureListingSection() {
                     flexDirection: "column" as const,
                     padding: 14,
                     userSelect: "none" as const,
+                    // pivot near bottom so rotation fans like a held deck of cards
+                    originX: "50%",
+                    originY: "88%",
                   }}
                 >
                   {/* Top row: counter + tag pill */}
