@@ -2910,47 +2910,61 @@ function FeatureListingSection() {
   const { C, isDark } = useLandingTheme();
   const [active, setActive] = useState(0);
   const touchStartX = useRef<number | null>(null);
+  const autoRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const N = 4;
 
-  // Auto-loop
+  const resetTimer = () => {
+    if (autoRef.current) clearInterval(autoRef.current);
+    autoRef.current = setInterval(() => setActive(a => (a + 1) % N), 4500);
+  };
+
   useEffect(() => {
-    const id = setInterval(() => setActive(a => (a + 1) % N), 4500);
-    return () => clearInterval(id);
+    resetTimer();
+    return () => { if (autoRef.current) clearInterval(autoRef.current); };
   }, []);
+
+  const next = () => { setActive(a => (a + 1) % N); resetTimer(); };
+  const prev = () => { setActive(a => (a - 1 + N) % N); resetTimer(); };
+  const goto = (i: number) => { setActive(i); resetTimer(); };
 
   const FEATURES = [
     {
       tag: "Record",
       body: "One tap starts it. Just talk — ÉCHO writes it down as you go.",
-      grad: "linear-gradient(165deg, #E8D6C0 0%, #CBAB72 55%, #A07840 100%)",
+      grad: "linear-gradient(158deg, #EAD8C4 0%, #D4B080 45%, #A87C42 100%)",
+      spot: "radial-gradient(ellipse at 28% 18%, rgba(255,240,210,0.55) 0%, transparent 52%)",
     },
     {
       tag: "Reflect",
       body: "Come back to any entry. Read it, or hear it in your own voice — exactly as you said it.",
-      grad: "linear-gradient(165deg, #DDD0B8 0%, #BCAA82 55%, #946A52 100%)",
+      grad: "linear-gradient(158deg, #DDD0B8 0%, #BFAA82 45%, #906850 100%)",
+      spot: "radial-gradient(ellipse at 65% 22%, rgba(255,235,200,0.45) 0%, transparent 50%)",
     },
     {
       tag: "The Mirror",
       body: "The thoughts you keep circling back to, gathered and shown to you — not analyzed, not explained.",
-      grad: "linear-gradient(165deg, #D0C4AE 0%, #A89880 55%, #907062 100%)",
+      grad: "linear-gradient(158deg, #D4C8B4 0%, #AAAAAA 45%, #808080 100%)",
+      spot: "radial-gradient(ellipse at 30% 70%, rgba(255,245,220,0.40) 0%, transparent 55%)",
     },
     {
       tag: "Letters",
       body: "Write to a version of yourself who isn't here yet. Set a date. ÉCHO holds it until then.",
-      grad: "linear-gradient(165deg, #E0D0B4 0%, #C0A87A 55%, #9C8252 100%)",
+      grad: "linear-gradient(158deg, #E2D4B8 0%, #C8AA78 45%, #9A7A48 100%)",
+      spot: "radial-gradient(ellipse at 50% 15%, rgba(255,245,215,0.50) 0%, transparent 50%)",
     },
   ];
 
-  // Stacking positions: index 0 = active (front)
+  // Stacking positions: index 0 = active (front), 1–3 fan behind-right
   const STACK = [
     { x: 0,   y: 0,  scale: 1,    rotate: -1, opacity: 1,    z: 4 },
-    { x: 50,  y: 10, scale: 0.92, rotate: 4,  opacity: 0.82, z: 3 },
-    { x: 90,  y: 18, scale: 0.84, rotate: 9,  opacity: 0.62, z: 2 },
-    { x: 122, y: 24, scale: 0.76, rotate: 14, opacity: 0.42, z: 1 },
+    { x: 48,  y: 10, scale: 0.91, rotate: 4,  opacity: 0.78, z: 3 },
+    { x: 86,  y: 18, scale: 0.82, rotate: 9,  opacity: 0.56, z: 2 },
+    { x: 116, y: 24, scale: 0.73, rotate: 14, opacity: 0.36, z: 1 },
   ];
 
-  const next = () => setActive(a => (a + 1) % N);
-  const prev = () => setActive(a => (a - 1 + N) % N);
+  // Card dimensions — taller aspect ratio, consistent across devices
+  const CARD_W = "min(290px, 80vw)";
+  const CARD_H = "clamp(420px, 112vw, 500px)";
 
   return (
     <section
@@ -2978,19 +2992,20 @@ function FeatureListingSection() {
           </p>
         </motion.div>
 
-        {/* Card stack — fans out to the right */}
-        <div
-          style={{ display: "flex", justifyContent: "center", paddingLeft: 24, paddingRight: "28vw" }}
-          onTouchStart={e => { touchStartX.current = e.touches[0].clientX; }}
-          onTouchEnd={e => {
-            if (touchStartX.current === null) return;
-            const dx = e.changedTouches[0].clientX - touchStartX.current;
-            if (dx < -40) next();
-            else if (dx > 40) prev();
-            touchStartX.current = null;
-          }}
-        >
-          <div style={{ position: "relative", width: "min(272px, 76vw)", height: "clamp(370px, 90vw, 416px)" }}>
+        {/* Card stack — centered; fanned cards overflow-clipped by section */}
+        <div style={{ display: "flex", justifyContent: "center", padding: "0 24px" }}>
+          <div
+            style={{ position: "relative", width: CARD_W, height: CARD_H, outline: "none" }}
+            tabIndex={0}
+            onKeyDown={e => { if (e.key === "ArrowRight" || e.key === "ArrowDown") next(); if (e.key === "ArrowLeft" || e.key === "ArrowUp") prev(); }}
+            onTouchStart={e => { touchStartX.current = e.touches[0].clientX; }}
+            onTouchEnd={e => {
+              if (touchStartX.current === null) return;
+              const dx = e.changedTouches[0].clientX - touchStartX.current;
+              if (Math.abs(dx) > 36) { dx < 0 ? next() : prev(); }
+              touchStartX.current = null;
+            }}
+          >
             {FEATURES.map((f, i) => {
               const d = (i - active + N) % N;
               const s = STACK[d];
@@ -2998,65 +3013,74 @@ function FeatureListingSection() {
                 <motion.div
                   key={i}
                   animate={{ x: s.x, y: s.y, scale: s.scale, rotate: s.rotate, opacity: s.opacity }}
-                  transition={{ type: "spring", stiffness: 280, damping: 28 }}
-                  onClick={() => d !== 0 && setActive(i)}
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  onClick={() => d === 0 ? next() : goto(i)}
                   style={{
                     position: "absolute",
                     inset: 0,
                     zIndex: s.z,
                     borderRadius: 24,
-                    background: isDark ? "#231810" : "#FFFFFF",
-                    border: `1px solid ${isDark ? "rgba(255,228,184,0.07)" : "rgba(191,96,64,0.09)"}`,
+                    background: isDark ? "#231810" : "#FEFCF8",
+                    border: `1px solid ${isDark ? "rgba(255,228,184,0.07)" : "rgba(191,96,64,0.08)"}`,
                     boxShadow: d === 0
-                      ? "0 20px 56px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.07)"
-                      : "0 8px 24px rgba(0,0,0,0.09)",
+                      ? "0 24px 64px rgba(0,0,0,0.16), 0 4px 16px rgba(0,0,0,0.06)"
+                      : "0 6px 20px rgba(0,0,0,0.08)",
                     overflow: "hidden",
-                    cursor: d === 0 ? "default" : "pointer",
+                    cursor: "pointer",
                     display: "flex",
                     flexDirection: "column" as const,
-                    padding: 16,
+                    padding: 18,
                     userSelect: "none" as const,
                   }}
                 >
                   {/* Top row: counter + tag pill */}
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexShrink: 0 }}>
-                    <span style={{ fontFamily: C.sans, fontSize: 12, color: isDark ? "rgba(255,246,233,0.28)" : "rgba(26,15,5,0.26)", fontWeight: 500, letterSpacing: "0.04em" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14, flexShrink: 0 }}>
+                    <span style={{ fontFamily: C.sans, fontSize: 11.5, color: isDark ? "rgba(255,246,233,0.26)" : "rgba(26,15,5,0.24)", fontWeight: 600, letterSpacing: "0.06em" }}>
                       {i + 1} / {N}
                     </span>
                     <span style={{
-                      padding: "5px 14px",
+                      padding: "5px 15px",
                       borderRadius: 999,
-                      border: `1px solid ${isDark ? "rgba(191,96,64,0.30)" : "rgba(191,96,64,0.20)"}`,
+                      border: `1px solid ${isDark ? "rgba(191,96,64,0.28)" : "rgba(191,96,64,0.18)"}`,
                       background: isDark ? "rgba(191,96,64,0.07)" : "rgba(255,246,233,0.95)",
                       fontFamily: C.serif,
                       fontSize: 13,
                       color: C.ember,
                       fontStyle: "italic",
+                      letterSpacing: "0.01em",
                     }}>
                       {f.tag}
                     </span>
                   </div>
 
-                  {/* Placeholder image — warm lifestyle gradient */}
+                  {/* Placeholder image — layered warm gradient */}
                   <div style={{
                     flex: 1,
-                    borderRadius: 16,
+                    borderRadius: 18,
                     background: f.grad,
-                    marginBottom: 16,
+                    marginBottom: 18,
                     position: "relative",
                     overflow: "hidden",
                     minHeight: 0,
                   }}>
-                    <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 25% 20%, rgba(255,255,255,0.17) 0%, transparent 55%)" }} />
-                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.08) 100%)" }} />
+                    {/* Soft spotlight */}
+                    <div style={{ position: "absolute", inset: 0, background: f.spot }} />
+                    {/* Vignette bottom */}
+                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 55%, rgba(0,0,0,0.12) 100%)" }} />
+                    {/* Subtle grain texture via repeating pattern */}
+                    <div style={{
+                      position: "absolute", inset: 0,
+                      backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E\")",
+                      opacity: 0.6,
+                    }} />
                   </div>
 
                   {/* Description */}
                   <p style={{
                     fontFamily: C.sans,
-                    fontSize: 13.5,
-                    color: isDark ? "rgba(255,246,233,0.72)" : "rgba(26,15,5,0.68)",
-                    lineHeight: 1.68,
+                    fontSize: 14,
+                    color: isDark ? "rgba(255,246,233,0.75)" : "rgba(26,15,5,0.70)",
+                    lineHeight: 1.70,
                     margin: 0,
                     flexShrink: 0,
                   }}>
@@ -3068,13 +3092,13 @@ function FeatureListingSection() {
           </div>
         </div>
 
-        {/* Dots + swipe hint */}
-        <div style={{ display: "flex", flexDirection: "column" as const, alignItems: "center", gap: 14, marginTop: 48, padding: "0 24px" }}>
+        {/* Dots + hint */}
+        <div style={{ display: "flex", flexDirection: "column" as const, alignItems: "center", gap: 16, marginTop: 48, padding: "0 24px" }}>
           <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
             {FEATURES.map((_, i) => (
               <button
                 key={i}
-                onClick={() => setActive(i)}
+                onClick={() => goto(i)}
                 style={{ width: 24, height: 14, display: "flex", alignItems: "center", justifyContent: "center", background: "none", border: "none", cursor: "pointer", padding: 0 }}
               >
                 <div style={{
@@ -3087,8 +3111,8 @@ function FeatureListingSection() {
               </button>
             ))}
           </div>
-          <p style={{ fontFamily: C.serif, fontSize: 14, color: C.muted, fontStyle: "italic", margin: 0, opacity: 0.58 }}>
-            ← Swipe or tap to explore
+          <p style={{ fontFamily: C.serif, fontSize: 14, color: C.muted, fontStyle: "italic", margin: 0, opacity: 0.55 }}>
+            Tap to explore, or swipe
           </p>
         </div>
       </div>
