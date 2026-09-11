@@ -3015,9 +3015,9 @@ function FeatureListingSection() {
   // Stacking positions: index 0 = active (front), 1–3 fan behind-right
   const STACK = [
     { x: 0,   y: 0,  scale: 1,    rotate: -1, opacity: 1,    z: 4 },
-    { x: 48,  y: 10, scale: 0.91, rotate: 4,  opacity: 0.78, z: 3 },
-    { x: 86,  y: 18, scale: 0.82, rotate: 9,  opacity: 0.56, z: 2 },
-    { x: 116, y: 24, scale: 0.73, rotate: 14, opacity: 0.36, z: 1 },
+    { x: 72,  y: 10, scale: 0.91, rotate: 4,  opacity: 0.82, z: 3 },
+    { x: 124, y: 18, scale: 0.82, rotate: 9,  opacity: 0.60, z: 2 },
+    { x: 164, y: 24, scale: 0.73, rotate: 14, opacity: 0.40, z: 1 },
   ];
 
   // Card dimensions — portrait ratio matching the mockup
@@ -3880,6 +3880,7 @@ function TestimonialsPlaceholder() {
 function FAQSection() {
   const { C, isDark } = useLandingTheme();
   const [open, setOpen] = useState<number | null>(null);
+  const [expanded, setExpanded] = useState(false);
 
   return (
     <section
@@ -3927,123 +3928,137 @@ function FAQSection() {
         </em>
       </motion.h2>
 
-      <motion.dl
-        variants={staggerV(0.06)}
+      {/* Toggle button — always visible */}
+      <motion.div
+        variants={fadeUp}
         initial="hidden"
         whileInView="visible"
         viewport={VP}
-        style={{ display: "flex", flexDirection: "column", gap: 10 }}
       >
-        {FAQ_ITEMS.map((item, i) => (
-          <motion.div
-            key={i}
-            variants={fadeUp}
-            style={{
-              borderRadius: 18,
-              border: `1px solid ${open === i ? (isDark ? "rgba(191,96,64,0.32)" : "rgba(168,75,42,0.28)") : C.border}`,
-              background:
-                open === i
-                  ? isDark
-                    ? "rgba(191,96,64,0.07)"
-                    : "rgba(191,96,64,0.04)"
-                  : isDark
-                    ? "rgba(14,50,114,0.18)"
-                    : "rgba(191,96,64,0.03)",
-              transition: "border-color 0.2s ease, background 0.2s ease",
-            }}
-          >
-            <dt>
-              <button
-                onClick={() => setOpen(open === i ? null : i)}
-                aria-expanded={open === i}
-                style={{
-                  display: "flex",
-                  width: "100%",
-                  alignItems: "flex-start",
-                  justifyContent: "space-between",
-                  gap: 16,
-                  padding: "20px 22px",
-                  textAlign: "left",
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: C.serif,
-                    fontSize: "clamp(0.95rem, 2vw, 1.1rem)",
-                    color: C.cream,
-                    lineHeight: 1.4,
-                  }}
-                >
-                  {item.q}
-                </span>
-                <span
-                  aria-hidden
-                  style={{
-                    marginTop: 2,
-                    flexShrink: 0,
-                    width: 26,
-                    height: 26,
-                    borderRadius: "50%",
-                    border: `1px solid ${open === i ? "rgba(191,96,64,0.55)" : C.border}`,
-                    background:
-                      open === i
-                        ? "rgba(191,96,64,0.18)"
-                        : "rgba(191,96,64,0.05)",
-                    color: open === i ? C.ember : C.muted,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: 16,
-                    fontFamily: C.sans,
-                    transform: open === i ? "rotate(45deg)" : "rotate(0deg)",
-                    transition: "transform 0.25s ease, background 0.2s ease, border-color 0.2s ease",
-                  }}
-                >
-                  +
-                </span>
-              </button>
-            </dt>
-            <div
-              className="faq-body"
-              data-open={open === i ? "true" : "false"}
-            >
-              <div>
-                <p
-                  style={{
-                    padding: "0 22px 20px",
-                    fontSize: 15,
-                    lineHeight: 1.7,
-                    color: C.muted,
-                    fontFamily: C.sans,
-                  }}
-                >
-                  {item.a}
-                </p>
-              </div>
-            </div>
-          </motion.div>
-        ))}
-      </motion.dl>
-      <div style={{ textAlign: "center", marginTop: 32 }}>
-        <Link
-          to="/faq"
+        <button
+          onClick={() => setExpanded(e => !e)}
           style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 10,
+            padding: "12px 22px",
+            borderRadius: 999,
+            border: `1px solid ${isDark ? "rgba(191,96,64,0.28)" : "rgba(191,96,64,0.20)"}`,
+            background: isDark ? "rgba(191,96,64,0.06)" : "rgba(191,96,64,0.05)",
             fontFamily: C.sans,
             fontSize: 14,
             color: C.ember,
-            opacity: 0.8,
-            textDecoration: "none",
-            transition: "opacity 0.2s",
+            cursor: "pointer",
+            letterSpacing: "0.01em",
+            transition: "background 0.2s, border-color 0.2s",
+            marginBottom: expanded ? 28 : 0,
           }}
-          onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = "1"; }}
-          onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = "0.8"; }}
         >
-          See all questions →
-        </Link>
-      </div>
+          <span>{expanded ? "Hide questions" : "Read the FAQ"}</span>
+          <span style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 20,
+            height: 20,
+            borderRadius: "50%",
+            border: `1px solid rgba(191,96,64,0.35)`,
+            fontSize: 14,
+            lineHeight: 1,
+            transform: expanded ? "rotate(45deg)" : "rotate(0deg)",
+            transition: "transform 0.25s ease",
+          }}>+</span>
+        </button>
+      </motion.div>
+
+      {/* Collapsible FAQ list */}
+      <AnimatePresence>
+        {expanded && (
+          <motion.dl
+            key="faq-list"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.38, ease: [0.4, 0, 0.2, 1] }}
+            style={{ display: "flex", flexDirection: "column", gap: 10, overflow: "hidden" }}
+          >
+            {FAQ_ITEMS.map((item, i) => (
+              <div
+                key={i}
+                style={{
+                  borderRadius: 18,
+                  border: `1px solid ${open === i ? (isDark ? "rgba(191,96,64,0.32)" : "rgba(168,75,42,0.28)") : C.border}`,
+                  background:
+                    open === i
+                      ? isDark ? "rgba(191,96,64,0.07)" : "rgba(191,96,64,0.04)"
+                      : isDark ? "rgba(14,50,114,0.18)" : "rgba(191,96,64,0.03)",
+                  transition: "border-color 0.2s ease, background 0.2s ease",
+                }}
+              >
+                <dt>
+                  <button
+                    onClick={() => setOpen(open === i ? null : i)}
+                    aria-expanded={open === i}
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      alignItems: "flex-start",
+                      justifyContent: "space-between",
+                      gap: 16,
+                      padding: "20px 22px",
+                      textAlign: "left",
+                      background: "none",
+                      border: "none",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <span style={{ fontFamily: C.serif, fontSize: "clamp(0.95rem, 2vw, 1.1rem)", color: C.cream, lineHeight: 1.4 }}>
+                      {item.q}
+                    </span>
+                    <span
+                      aria-hidden
+                      style={{
+                        marginTop: 2,
+                        flexShrink: 0,
+                        width: 26,
+                        height: 26,
+                        borderRadius: "50%",
+                        border: `1px solid ${open === i ? "rgba(191,96,64,0.55)" : C.border}`,
+                        background: open === i ? "rgba(191,96,64,0.18)" : "rgba(191,96,64,0.05)",
+                        color: open === i ? C.ember : C.muted,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: 16,
+                        fontFamily: C.sans,
+                        transform: open === i ? "rotate(45deg)" : "rotate(0deg)",
+                        transition: "transform 0.25s ease, background 0.2s ease, border-color 0.2s ease",
+                      }}
+                    >+</span>
+                  </button>
+                </dt>
+                <div className="faq-body" data-open={open === i ? "true" : "false"}>
+                  <div>
+                    <p style={{ padding: "0 22px 20px", fontSize: 15, lineHeight: 1.7, color: C.muted, fontFamily: C.sans }}>
+                      {item.a}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+            <div style={{ textAlign: "center", marginTop: 8 }}>
+              <Link
+                to="/faq"
+                style={{ fontFamily: C.sans, fontSize: 14, color: C.ember, opacity: 0.8, textDecoration: "none", transition: "opacity 0.2s" }}
+                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = "1"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = "0.8"; }}
+              >
+                See all questions →
+              </Link>
+            </div>
+          </motion.dl>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
