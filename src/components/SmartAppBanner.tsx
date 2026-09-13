@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 
 const DISMISSED_KEY = "echo_app_banner_dismissed";
@@ -9,6 +9,7 @@ const DISMISSED_KEY = "echo_app_banner_dismissed";
 // TODO: When app is on the App Store, replace the CTA with a real App Store link.
 export function SmartAppBanner() {
   const [visible, setVisible] = useState(false);
+  const bannerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     try {
@@ -21,6 +22,22 @@ export function SmartAppBanner() {
     const isMobile = window.innerWidth < 768;
     if (isMobile) setVisible(true);
   }, []);
+
+  // The nav (with this banner) is position:fixed, so it doesn't reserve layout
+  // space. Reserve the banner's height as body top-padding while it's shown, so
+  // it never overlaps page content. Cleared on dismiss/unmount.
+  useEffect(() => {
+    if (!visible) return;
+    const el = bannerRef.current;
+    if (!el) return;
+    const apply = () => { document.body.style.paddingTop = `${el.offsetHeight}px`; };
+    apply();
+    window.addEventListener("resize", apply);
+    return () => {
+      window.removeEventListener("resize", apply);
+      document.body.style.paddingTop = "";
+    };
+  }, [visible]);
 
   function dismiss() {
     try {
@@ -35,6 +52,7 @@ export function SmartAppBanner() {
 
   return (
     <div
+      ref={bannerRef}
       role="banner"
       aria-label="Get ÉCHO on the App Store"
       style={{

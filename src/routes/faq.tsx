@@ -48,18 +48,18 @@ const faqs = [
   },
   {
     q: "How much does ÉCHO cost?",
-    a: "ÉCHO has a free tier with no time limit. PRO is normally €7.99/month or €69.99/year. Until 1 December 2026, founding members pay €4.99/month for the first 3 months (then €7.99/month), or €49.99 for the first year (then €69.99/year). After the deadline, new subscribers pay full price from day one.",
+    a: "ÉCHO has a free tier with no time limit. PRO is normally €7.99/month or €69.99/year. Founding members pay €3.99/month or €34.99/year, with that founding price locked in for as long as your subscription remains active.",
   },
   {
     q: "What's included in the free tier?",
-    a: "The free tier includes the daily question and voice recording, on-device transcription via WhisperKit, access to the last 30 days of journal history, up to 3 active time capsules, and 8 weeks of basic emotional insights. Core privacy features — on-device transcription, local encryption — are always free and always on.",
+    a: "The free tier includes the daily question and voice recording, on-device transcription via WhisperKit, access to the last 30 days of journal history, up to 3 active Letters, and limited insights through The Mirror. Core privacy features — on-device transcription, local encryption — are always free and always on.",
   },
   {
     q: "What does PRO unlock?",
-    a: "PRO unlocks your full journal history with no 30-day cap, the complete 8-part persona profile built from your own words, deep emotional pattern analysis across months and years, unlimited time capsules, full-text search across all entries, structured data export, and access to custom themes. PRO also gets early access to new features as they ship.",
+    a: "PRO unlocks your full journal history with no 30-day cap, the complete 8-part persona profile built from your own words, the full Mirror with deep emotional pattern analysis across months and years, unlimited Letters, full-text search across all entries, structured data export, and access to custom themes. PRO also gets early access to new features as they ship.",
   },
   {
-    q: "What are time capsules (Letters)?",
+    q: "What are Letters?",
     a: "Letters let you seal a voice snapshot — your answer to today's question — with a future unlock date you choose. When that date arrives, ÉCHO surfaces the sealed entry side-by-side with your current answer, so you can compare who you were to who you are now. It's a long-form mirror, months or years in the making, built from your own voice.",
   },
   {
@@ -129,7 +129,7 @@ function FAQ() {
       <title>FAQ · ÉCHO</title>
       <meta
         name="description"
-        content="Answers to common questions about ÉCHO: how it works, privacy, pricing, iCloud sync, time capsules, and more."
+        content="Answers to common questions about ÉCHO: how it works, privacy, pricing, iCloud sync, Letters, and more."
       />
       <link rel="canonical" href="https://www.echobyreaclyse.com/faq" />
       <meta property="og:title" content="FAQ — ÉCHO Voice Journal" />

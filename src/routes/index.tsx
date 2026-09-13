@@ -155,7 +155,7 @@ const TAB_INFO: Record<TabId, { eyebrow: string; headline: string; body: string;
     detail: "8-point persona profile updated with every entry.",
   },
   letters: {
-    eyebrow: "06 — Time Capsule",
+    eyebrow: "06 — Letters",
     headline: "Six months later,\nsame question.",
     body: "ÉCHO seals your words and returns them when enough time has passed. Compare who you were to who you are now.",
     detail: "Letters unlock automatically. No gamification. Just truth.",
@@ -276,7 +276,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "How much does ÉCHO cost?",
-    a: "ÉCHO is free to download and use every day. A subscription unlocks your full journal history, deeper personal insights, and unlimited time capsules. Founding members pay €3.99/month or €34.99/year (regular price: €7.99/month or €69.99/year). Founding member pricing remains active for as long as your subscription stays active.",
+    a: "ÉCHO is free to download and use every day. A subscription unlocks your full journal history, the full Mirror for deeper personal patterns, and unlimited Letters. Founding members pay €3.99/month or €34.99/year (regular price: €7.99/month or €69.99/year). Founding member pricing remains active for as long as your subscription stays active.",
   },
   {
     q: "Do I need to write anything?",
@@ -289,20 +289,18 @@ const FAQ_ITEMS = [
 ];
 
 const FREE_FEATURES = [
-  "Daily question & voice recording",
+  "Daily question & voice recording, up to 30 seconds",
   "On-device transcription (private)",
-  "Last 30 days of journal history",
-  "Up to 3 active time capsules",
-  "8 weeks of basic insights",
+  "Up to 3 active Letters",
+  "The Mirror — limited insights, always free",
 ];
 const PRO_FEATURES = [
-  "Everything in ÉCHO",
-  "Founding member pricing while your subscription remains active",
+  "Everything in ÉCHO, plus:",
+  "Unlimited recording time",
+  "Choose your own question categories",
+  "The full Mirror — deeper patterns, full persona profile",
+  "Unlimited Letters",
   "Priority access at launch",
-  "Opportunity to help shape future features",
-  "Unlimited journal history",
-  "Full persona profile & pattern analysis",
-  "Unlimited time capsule letters",
 ];
 
 // ── iPhone Frame Components ────────────────────────────────────
@@ -2215,6 +2213,40 @@ function HeroVisualMobile() {
   return <SwipeableCardStack />;
 }
 
+// ── Hero floating notes (past → present, "it's an app") ────────
+const HERO_NOTES = [
+  { date: "March 14", quote: "I know I should leave. I just can't make myself do it." },
+  { date: "April 29", quote: "I handed in my notice today. I can't believe I waited so long." },
+];
+
+function HeroNoteCard({ date, quote, compact = false }: { date: string; quote: string; compact?: boolean }) {
+  const { C, isDark } = useLandingTheme();
+  return (
+    <div
+      style={{
+        textAlign: "left",
+        borderRadius: 18,
+        padding: compact ? "14px 16px" : "18px 22px",
+        background: isDark
+          ? "linear-gradient(165deg, rgba(16,26,52,0.92), rgba(8,14,26,0.95))"
+          : "rgba(255,251,244,0.96)",
+        border: `1px solid ${isDark ? "rgba(255,228,184,0.10)" : "rgba(26,15,5,0.06)"}`,
+        boxShadow: isDark
+          ? "0 24px 60px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,246,233,0.05)"
+          : "0 20px 45px rgba(120,70,40,0.16)",
+        backdropFilter: "blur(10px)",
+      }}
+    >
+      <p style={{ fontSize: compact ? 11 : 12, fontWeight: 700, color: C.ember, fontFamily: C.sans, letterSpacing: "0.02em", margin: "0 0 8px" }}>
+        {date}
+      </p>
+      <p style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: compact ? 15 : 18, lineHeight: 1.5, color: C.cream, margin: 0 }}>
+        "{quote}"
+      </p>
+    </div>
+  );
+}
+
 // ── HeroSection ────────────────────────────────────────────────
 function HeroSection() {
   const { C, isDark } = useLandingTheme();
@@ -2270,6 +2302,23 @@ function HeroSection() {
         <div aria-hidden style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "18%", background: `linear-gradient(to top, ${C.bg}, transparent)`, pointerEvents: "none" }} />
         {/* Right */}
         <div aria-hidden style={{ position: "absolute", top: 0, right: 0, bottom: 0, width: "10%", background: `linear-gradient(to left, ${C.bg}, transparent)`, pointerEvents: "none" }} />
+      </motion.div>
+
+      {/* Desktop: floating app notes over the image (past → present) */}
+      <motion.div
+        className="hidden lg:flex"
+        style={{ opacity: imgO, position: "absolute", top: "40%", left: "41%", width: "min(400px, 30vw)", flexDirection: "column", gap: 20, zIndex: 6 }}
+      >
+        <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.0, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}>
+          <FloatCard floatY={[0, -12, 0]} floatRotate={[-1.5, -0.4, -1.5]} duration={7} delay={0.4}>
+            <HeroNoteCard date={HERO_NOTES[0].date} quote={HERO_NOTES[0].quote} />
+          </FloatCard>
+        </motion.div>
+        <motion.div style={{ marginLeft: 44 }} initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.0, delay: 1.0, ease: [0.22, 1, 0.36, 1] }}>
+          <FloatCard floatY={[0, -14, 0]} floatRotate={[1.5, 0.4, 1.5]} duration={8} delay={0.9}>
+            <HeroNoteCard date={HERO_NOTES[1].date} quote={HERO_NOTES[1].quote} />
+          </FloatCard>
+        </motion.div>
       </motion.div>
 
       {/* Left content column */}
@@ -2376,6 +2425,17 @@ function HeroSection() {
           >
             Be among the first to access ÉCHO and the first 1,000 subscribers eligible for founding member pricing.
           </p>
+
+          {/* Mobile: app notes (past → present) — signals "it's an app" */}
+          <div
+            className="hero-fade flex lg:hidden"
+            style={{ flexDirection: "column", gap: 12, marginTop: 34, width: "100%", maxWidth: 340, animationDelay: "0.88s" }}
+          >
+            <HeroNoteCard date={HERO_NOTES[0].date} quote={HERO_NOTES[0].quote} compact />
+            <div style={{ marginLeft: 24 }}>
+              <HeroNoteCard date={HERO_NOTES[1].date} quote={HERO_NOTES[1].quote} compact />
+            </div>
+          </div>
 
 </div>
       </motion.div>
@@ -3230,7 +3290,7 @@ function FounderSection() {
             <span aria-hidden style={{ display: "block", fontFamily: C.serif, fontSize: 52, lineHeight: 0.85, color: C.ember, marginBottom: 10, userSelect: "none" as const, opacity: 0.7 }}>"</span>
 
             <p style={{ fontFamily: C.serif, fontSize: "clamp(1.1rem, 2.2vw, 1.38rem)", color: isDark ? C.cream : "#1A0A02", lineHeight: 1.62, margin: "0 0 20px", fontStyle: "italic" }}>
-              I didn't want another app telling me what I should think. I wanted something that could help me remember what I already knew."
+              I didn't want another app telling me what I should think. I wanted something that could help me hear my own thoughts back."
             </p>
 
             <p style={{ fontFamily: C.sans, fontSize: 13.5, color: C.muted, lineHeight: 1.7, margin: 0, maxWidth: 560 }}>
@@ -3661,22 +3721,22 @@ function TestimonialsPlaceholder() {
 
   const CARDS = [
     {
-      quote: "ÉCHO helps me slow down and actually listen to myself. I didn't realise how much I needed this.",
-      init: "S.", tag: "Joined the beta", location: "FRANCE",
+      quote: "This app made me stop using my Notes app. Recording is waaay easier, plus automatic transcription, and seeing the patterns is what got me.",
+      init: "S.", tag: "Joined the beta", location: "POLAND",
       grad: "linear-gradient(135deg,#C87D5A,#8B4020)",
     },
     {
-      quote: "It's like a conversation with my future self. The reminders always come at the right time.",
-      init: "M.", tag: "Early user", location: "GERMANY",
+      quote: "Recorded a voice note to open in 6 months and completely forgot about it. Opening it made me realise, for the first time, how far I've come.",
+      init: "M.", tag: "Joined the beta", location: "LUXEMBOURG",
       grad: "linear-gradient(135deg,#A0785A,#7B5028)",
     },
     {
-      quote: "Simple, beautiful and so meaningful. ÉCHO helps me see patterns I kept missing.",
+      quote: "I used to record a bunch of voice notes to myself and they'd just sit scattered across my phone. This actually holds them all together and I can see the patterns now.",
       init: "L.", tag: "Joined the beta", location: "LUXEMBOURG",
       grad: "linear-gradient(135deg,#8B6A50,#6A4830)",
     },
     {
-      quote: "I always knew what I needed to do. I just needed to hear myself say it again.",
+      quote: "Finally an app without a built-in AI coach telling me what to do. It just mirrors my own words back at me, and somehow that's enough to figure myself out.",
       init: "A.", tag: "Early user", location: "BELGIUM",
       grad: "linear-gradient(135deg,#C8956A,#9B6A40)",
     },

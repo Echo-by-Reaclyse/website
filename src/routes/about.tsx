@@ -282,7 +282,7 @@ function About() {
 
       <Section title="How it works">
         Each day brings a single reflection question. You record a voice answer; ÉCHO transcribes
-        it on-device using WhisperKit and stores it locally. Over time, the Insights tab builds an
+        it on-device using WhisperKit and stores it locally. Over time, the Mirror builds an
         8-part persona profile from your own words.
       </Section>
 
@@ -292,7 +292,7 @@ function About() {
         to train external models.
       </Section>
 
-      <Section title="Time capsules">
+      <Section title="Letters">
         The Letters feature lets you seal a snapshot of your current voice and thoughts, then
         unlock it on a future date for a side-by-side comparison with who you've become.
       </Section>

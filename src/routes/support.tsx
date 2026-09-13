@@ -62,15 +62,15 @@ function Support() {
         archive is unlimited on the PRO plan; free-tier users can access their most recent 30 days.
       </Section>
 
-      <Section title="Insights & persona">
-        The Insights tab shows emotional trends, recurring themes, and your evolving persona
-        profile — built from your own words over time. New insights appear after each recording
+      <Section title="The Mirror & persona">
+        The Mirror shows emotional trends, recurring themes, and your evolving persona
+        profile — built from your own words over time. New reflections appear after each recording
         session. AI-generated patterns require an internet connection and can be disabled in
         Settings. The persona profile builds gradually — after around ten entries it starts to
         show patterns that are genuinely informative.
       </Section>
 
-      <Section title="Letters (time capsules)">
+      <Section title="Letters">
         Letters let you seal a snapshot of your current voice and unlock it in the future for a
         side-by-side comparison with who you are then. Create a letter in the Letters tab, set an
         unlock date, and ÉCHO will surface it when the time comes. Sealed letters are stored
@@ -120,7 +120,7 @@ function Support() {
 
       <Section title="Offline use">
         The following features work fully offline: recording, on-device transcription, audio
-        playback, journal browsing, and time capsule creation. An internet connection is required
+        playback, journal browsing, and Letter creation. An internet connection is required
         for: AI insight generation, iCloud sync across devices, and question updates from the
         server. If your locally cached question has already loaded, you can record even mid-flight.
         ÉCHO queues any pending sync operations and drains them automatically when connectivity
