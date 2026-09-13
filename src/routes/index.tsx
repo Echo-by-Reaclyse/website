@@ -4387,6 +4387,26 @@ function Landing() {
   const isDark = resolvedTheme === "dark";
   const C = isDark ? C_DARK : C_LIGHT;
 
+  // Scroll to a #hash target on load/navigation (e.g. /#waitlist from the summit
+  // page or footer). Sections mount and animate in, so retry until the element
+  // exists. scrollRestoration is "manual", so nothing scrolls without this.
+  useEffect(() => {
+    const id = window.location.hash.replace("#", "");
+    if (!id) return;
+    let tries = 0;
+    let timer: ReturnType<typeof setTimeout>;
+    const tick = () => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else if (tries++ < 40) {
+        timer = setTimeout(tick, 100);
+      }
+    };
+    timer = setTimeout(tick, 150);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <ThemeCtx.Provider value={{ C, isDark }}>
       <div

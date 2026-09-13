@@ -424,7 +424,7 @@ function Summit() {
 
           {/* Join waitlist — primary CTA */}
           <a
-            href="/early-access"
+            href="/#waitlist"
             aria-label="Join the ÉCHO waitlist"
             style={{
               display: "inline-flex",
@@ -668,9 +668,9 @@ function Summit() {
               alignItems: "center",
             }}
           >
-            {/* TODO ECH-108: replace href with real App Store URL when app ships */}
             <a
-              href="/early-access"
+              href="/#waitlist"
+              aria-label="Join the ÉCHO waitlist"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -691,8 +691,7 @@ function Summit() {
                 ((e.currentTarget as HTMLElement).style.opacity = "1")
               }
             >
-              <AppleLogo size={16} />
-              Join the waitlist
+              Join the waitlist →
             </a>
             <a
               href="https://www.instagram.com/roksanaskubis/"
