@@ -2461,10 +2461,10 @@ function WhyEchoSection() {
   const { C, isDark } = useLandingTheme();
 
   const CARDS = [
-    { text: "The decision you keep reconsidering",          c1: "#3D1A0A", c2: "#7A3218" },
-    { text: "The thought that comes back three months later", c1: "#2A1509", c2: "#5A3018" },
-    { text: "The goal you keep talking about",              c1: "#2C0E05", c2: "#6A2510" },
-    { text: "The version of you who already knew",          c1: "#261508", c2: "#4A2A0A" },
+    { text: "The decision you keep reconsidering",          img: "/card-decision.webp", c1: "#3D1A0A", c2: "#7A3218" },
+    { text: "The thought that comes back three months later", img: "/card-thought.webp", c1: "#2A1509", c2: "#5A3018" },
+    { text: "The goal you keep talking about",              img: "/card-goal.webp", c1: "#2C0E05", c2: "#6A2510" },
+    { text: "The version of you who already knew",          img: "/card-version.webp", c1: "#261508", c2: "#4A2A0A" },
   ];
 
   return (
@@ -2563,11 +2563,20 @@ function WhyEchoSection() {
                 background: `linear-gradient(145deg, ${card.c1} 0%, ${card.c2} 100%)`,
               }}
             >
+              {/* Photo */}
+              <img
+                src={card.img}
+                alt=""
+                aria-hidden
+                loading="lazy"
+                decoding="async"
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+              />
               {/* Top-left scrim for text legibility */}
               <div aria-hidden style={{
                 position: "absolute",
                 inset: 0,
-                background: "linear-gradient(135deg, rgba(0,0,0,0.62) 0%, transparent 58%)",
+                background: "linear-gradient(135deg, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.12) 45%, transparent 62%)",
               }} />
               {/* Caption — top-left */}
               <p style={{
