@@ -7,7 +7,7 @@ export const Route = createFileRoute("/privacy")({
 
 function Privacy() {
   return (
-    <InnerPage title="Privacy Policy" subtitle="Last updated: May 2026">
+    <InnerPage title="Privacy Policy" subtitle="Last updated: September 2026">
       <title>Privacy Policy · ÉCHO</title>
       <meta
         name="description"
@@ -62,12 +62,38 @@ function Privacy() {
         data already in iCloud. Legal basis: your consent (the toggle is off by default).
       </Section>
 
-      <Section title="AI insights (Gemini)">
-        ÉCHO's pattern and insight features send anonymised reflection text to Google Gemini to
-        generate summaries and persona updates. Identifying information (name, email, device ID) is
-        never included in these requests. You can disable AI insights in{" "}
-        <em>Settings → Insights</em> at any time. Legal basis: your consent (you may opt out at any
-        time with no loss of core functionality).
+      <Section title="AI insights — third-party AI (Google Gemini)">
+        ÉCHO uses <strong>Google Gemini</strong>, a third-party AI service provided by Google LLC,
+        to generate post-recording reflections, persona insights, and pattern summaries. This
+        feature is available to <strong>ÉCHO Pro subscribers only</strong> and is triggered
+        explicitly when a subscriber records a reflection.
+        <br />
+        <br />
+        <strong>What is sent:</strong> only the anonymised text transcript of your reflection.
+        Audio is <strong>never</strong> transmitted — transcription is performed entirely on your
+        device using WhisperKit (an on-device model). No name, email address, device identifier,
+        or other personal identifier is included in requests to Google Gemini.
+        <br />
+        <br />
+        <strong>What we do not do:</strong> we never use your reflection text to train AI models,
+        sell it to third parties, or use it for advertising.
+        <br />
+        <br />
+        You can disable AI insights at any time in <em>Settings → Insights</em> with no loss
+        of core journalling functionality. Legal basis: your explicit consent as a Pro subscriber
+        (you may withdraw at any time).
+        <br />
+        <br />
+        For Google's data practices, see the{" "}
+        <a
+          href="https://policies.google.com/privacy"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-ember transition hover:opacity-75"
+        >
+          Google Privacy Policy
+        </a>
+        .
       </Section>
 
       <Section title="Data retention">
@@ -129,7 +155,9 @@ function Privacy() {
         <ul style={{ paddingLeft: 20, margin: "8px 0" }}>
           <li><strong>Apple iCloud (CloudKit)</strong> — optional sync and backup.</li>
           <li>
-            <strong>Google Gemini</strong> — AI insight generation from anonymised text.
+            <strong>Google Gemini</strong> — third-party AI for generating post-recording
+            reflections and insights (Pro subscribers only; anonymised text transcripts only;
+            audio never transmitted).
           </li>
           <li>
             <strong>Apple StoreKit 2</strong> — in-app subscription management, handled natively
