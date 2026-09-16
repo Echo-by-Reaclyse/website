@@ -3410,45 +3410,54 @@ function VideoSection() {
                     border: "none", cursor: "pointer", background: "none", padding: 0,
                     display: "flex", alignItems: "center", justifyContent: "center",
                   }}
+                  onMouseEnter={(e) => {
+                    const btn = e.currentTarget;
+                    const play = btn.querySelector<HTMLDivElement>(".video-play-btn");
+                    if (play) { play.style.transform = "scale(1.08)"; play.style.boxShadow = "0 16px 48px rgba(191,96,64,0.7)"; }
+                  }}
+                  onMouseLeave={(e) => {
+                    const btn = e.currentTarget;
+                    const play = btn.querySelector<HTMLDivElement>(".video-play-btn");
+                    if (play) { play.style.transform = "scale(1)"; play.style.boxShadow = "0 8px 32px rgba(191,96,64,0.45)"; }
+                  }}
                 >
                   {/* YouTube thumbnail */}
                   <img
                     src="https://img.youtube.com/vi/y1nzpZQSXrU/maxresdefault.jpg"
                     alt="ÉCHO — Roksana's story"
-                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                     onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).src = "https://img.youtube.com/vi/y1nzpZQSXrU/hqdefault.jpg";
+                      (e.currentTarget as HTMLImageElement).src = "https://img.youtube.com/vi/y1nzpZQSXrU/sddefault.jpg";
                     }}
                   />
-                  {/* Dark overlay */}
+                  {/* Cinematic vignette — top + bottom gradient */}
+                  <div aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(10,6,4,0.38) 0%, transparent 30%, transparent 55%, rgba(10,6,4,0.72) 100%)", pointerEvents: "none" }} />
+                  {/* Subtle warm tint */}
+                  <div aria-hidden style={{ position: "absolute", inset: 0, background: "rgba(60,18,4,0.22)", pointerEvents: "none" }} />
+
+                  {/* Bottom-left label */}
+                  <div style={{
+                    position: "absolute", bottom: 28, left: 32, textAlign: "left", pointerEvents: "none",
+                  }}>
+                    <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: "clamp(1.1rem, 2vw, 1.55rem)", color: "#FFF6E9", lineHeight: 1.25, margin: 0, textShadow: "0 2px 12px rgba(0,0,0,0.5)" }}>
+                      Roksana's story —<br />
+                      <em style={{ color: "#F4C8A8", fontStyle: "italic" }}>why ÉCHO exists.</em>
+                    </p>
+                  </div>
+
+                  {/* Centre play button */}
                   <div
-                    aria-hidden
-                    style={{
-                      position: "absolute", inset: 0,
-                      background: "linear-gradient(to bottom, rgba(0,0,0,0.12), rgba(0,0,0,0.42))",
-                    }}
-                  />
-                  {/* Play button */}
-                  <div
+                    className="video-play-btn"
                     style={{
                       position: "absolute",
-                      width: 72, height: 72, borderRadius: "50%",
+                      width: 80, height: 80, borderRadius: "50%",
                       background: C.ember,
                       display: "flex", alignItems: "center", justifyContent: "center",
-                      boxShadow: "0 8px 32px rgba(191,96,64,0.5)",
-                      transition: "transform 0.2s, box-shadow 0.2s",
-                    }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLDivElement).style.transform = "scale(1.08)";
-                      (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 40px rgba(191,96,64,0.65)";
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLDivElement).style.transform = "scale(1)";
-                      (e.currentTarget as HTMLDivElement).style.boxShadow = "0 8px 32px rgba(191,96,64,0.5)";
+                      boxShadow: "0 8px 32px rgba(191,96,64,0.45)",
+                      transition: "transform 0.22s ease, box-shadow 0.22s ease",
                     }}
                   >
-                    {/* Triangle play icon */}
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="#FFF6E9" style={{ marginLeft: 3 }}>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="#FFF6E9" style={{ marginLeft: 3 }}>
                       <path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11-6.86a1 1 0 0 0 0-1.72l-11-6.86A1 1 0 0 0 8 5.14z" />
                     </svg>
                   </div>
