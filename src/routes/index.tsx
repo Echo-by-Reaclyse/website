@@ -2307,7 +2307,7 @@ function HeroSection() {
       {/* Desktop: floating app notes over the image (past → present) */}
       <motion.div
         className="hidden lg:flex"
-        style={{ opacity: imgO, position: "absolute", top: "40%", left: "41%", width: "min(400px, 30vw)", flexDirection: "column", gap: 20, zIndex: 6 }}
+        style={{ opacity: imgO, position: "absolute", top: "40%", left: "54%", width: "min(360px, 26vw)", flexDirection: "column", gap: 20, zIndex: 6 }}
       >
         <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.0, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}>
           <FloatCard floatY={[0, -12, 0]} floatRotate={[-1.5, -0.4, -1.5]} duration={7} delay={0.4}>
@@ -2364,7 +2364,9 @@ function HeroSection() {
               lineHeight: 1.1,
               marginBottom: 28,
               color: C.cream,
+              maxWidth: "min(520px, 46vw)",
             }}
+            className="max-lg:!max-w-none"
           >
             <span className="hero-word" style={{ display: "inline-block", animationDelay: "0.12s" }}>
               Everyone's asking AI for answers.
@@ -3306,6 +3308,178 @@ function FounderSection() {
               ÉCHO started as a personal tool — a way to keep track of the thoughts I kept losing. If it helps you too, that's everything.
             </p>
           </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+// ── VideoSection ───────────────────────────────────────────────
+function VideoSection() {
+  const { C, isDark } = useLandingTheme();
+  const [playing, setPlaying] = useState(false);
+
+  return (
+    <section
+      id="video"
+      style={{ position: "relative", padding: "72px 24px 80px", overflow: "hidden" }}
+    >
+      {/* Soft ambient glow */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%,-50%)",
+          width: 800,
+          height: 600,
+          borderRadius: "50%",
+          background: isDark
+            ? "radial-gradient(circle, rgba(191,96,64,0.10), transparent 65%)"
+            : "radial-gradient(circle, rgba(191,96,64,0.07), transparent 65%)",
+          filter: "blur(80px)",
+          pointerEvents: "none",
+        }}
+      />
+
+      <div style={{ maxWidth: 860, margin: "0 auto", position: "relative" }}>
+        <motion.div
+          variants={staggerV(0.1)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VP}
+        >
+          {/* Section label + heading */}
+          <motion.div variants={fadeUp} style={{ textAlign: "center", marginBottom: 40 }}>
+            <p style={{
+              fontSize: 11, textTransform: "uppercase", letterSpacing: "0.24em",
+              color: C.ember, marginBottom: 14, fontFamily: C.sans,
+            }}>
+              — The story
+            </p>
+            <h2 style={{
+              fontFamily: C.serif,
+              fontSize: "clamp(1.9rem, 4vw, 2.9rem)",
+              color: C.cream,
+              lineHeight: 1.12,
+              margin: 0,
+            }}>
+              Hear it from{" "}
+              <em style={{ color: C.ember, fontStyle: "italic" }}>Roksana.</em>
+            </h2>
+          </motion.div>
+
+          {/* Video embed */}
+          <motion.div
+            variants={scaleUp}
+            style={{ position: "relative", borderRadius: 20, overflow: "hidden" }}
+          >
+            {/* Ember border glow */}
+            <div
+              aria-hidden
+              style={{
+                position: "absolute",
+                inset: -1,
+                borderRadius: 21,
+                background: `linear-gradient(135deg, ${C.ember}55, transparent 60%, ${C.ember}33)`,
+                pointerEvents: "none",
+                zIndex: 0,
+              }}
+            />
+            <div
+              style={{
+                position: "relative",
+                zIndex: 1,
+                borderRadius: 20,
+                overflow: "hidden",
+                aspectRatio: "16/9",
+                background: isDark ? "#0A0604" : "#1A0A02",
+                boxShadow: isDark
+                  ? "0 24px 80px rgba(0,0,0,0.6), 0 4px 24px rgba(191,96,64,0.15)"
+                  : "0 24px 80px rgba(26,10,2,0.18), 0 4px 24px rgba(191,96,64,0.1)",
+              }}
+            >
+              {!playing ? (
+                /* Thumbnail + play button overlay */
+                <button
+                  onClick={() => setPlaying(true)}
+                  aria-label="Play video"
+                  style={{
+                    position: "absolute", inset: 0, width: "100%", height: "100%",
+                    border: "none", cursor: "pointer", background: "none", padding: 0,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}
+                >
+                  {/* YouTube thumbnail */}
+                  <img
+                    src="https://img.youtube.com/vi/y1nzpZQSXrU/maxresdefault.jpg"
+                    alt="ÉCHO — Roksana's story"
+                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = "https://img.youtube.com/vi/y1nzpZQSXrU/hqdefault.jpg";
+                    }}
+                  />
+                  {/* Dark overlay */}
+                  <div
+                    aria-hidden
+                    style={{
+                      position: "absolute", inset: 0,
+                      background: "linear-gradient(to bottom, rgba(0,0,0,0.12), rgba(0,0,0,0.42))",
+                    }}
+                  />
+                  {/* Play button */}
+                  <div
+                    style={{
+                      position: "absolute",
+                      width: 72, height: 72, borderRadius: "50%",
+                      background: C.ember,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      boxShadow: "0 8px 32px rgba(191,96,64,0.5)",
+                      transition: "transform 0.2s, box-shadow 0.2s",
+                    }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLDivElement).style.transform = "scale(1.08)";
+                      (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 40px rgba(191,96,64,0.65)";
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLDivElement).style.transform = "scale(1)";
+                      (e.currentTarget as HTMLDivElement).style.boxShadow = "0 8px 32px rgba(191,96,64,0.5)";
+                    }}
+                  >
+                    {/* Triangle play icon */}
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="#FFF6E9" style={{ marginLeft: 3 }}>
+                      <path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11-6.86a1 1 0 0 0 0-1.72l-11-6.86A1 1 0 0 0 8 5.14z" />
+                    </svg>
+                  </div>
+                </button>
+              ) : (
+                <iframe
+                  src="https://www.youtube.com/embed/y1nzpZQSXrU?autoplay=1&rel=0&modestbranding=1&color=white"
+                  title="ÉCHO — Roksana's story"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
+                />
+              )}
+            </div>
+          </motion.div>
+
+          {/* Caption */}
+          <motion.p
+            variants={fadeUp}
+            style={{
+              textAlign: "center",
+              marginTop: 20,
+              fontFamily: C.sans,
+              fontSize: 13,
+              color: C.muted,
+              lineHeight: 1.6,
+              opacity: 0.7,
+            }}
+          >
+            Roksana built ÉCHO to hear her own thoughts more clearly.
+          </motion.p>
         </motion.div>
       </div>
     </section>
@@ -4485,6 +4659,7 @@ function Landing() {
         <MarqueeStrip reversed />
         <FeatureListingSection />
         <FounderSection />
+        <VideoSection />
         <PrivacySection />
         <PricingSection />
         <TestimonialsPlaceholder />
