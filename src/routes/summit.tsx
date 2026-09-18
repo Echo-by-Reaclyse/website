@@ -338,12 +338,47 @@ function Summit() {
           margin: "0 auto",
         }}
       >
-        <Link to="/" style={{ opacity: 0.8, transition: "opacity 0.15s" }}>
+        <Link
+          to="/"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            padding: "0.4rem 0.9rem 0.4rem 0.65rem",
+            borderRadius: 999,
+            border: "1px solid rgba(28,14,6,0.10)",
+            background: "transparent",
+            textDecoration: "none",
+            transition: "border-color 0.18s, background 0.18s",
+          }}
+          onMouseEnter={(e) => {
+            const el = e.currentTarget as HTMLElement;
+            el.style.borderColor = "rgba(191,96,64,0.28)";
+            el.style.background = "rgba(191,96,64,0.05)";
+          }}
+          onMouseLeave={(e) => {
+            const el = e.currentTarget as HTMLElement;
+            el.style.borderColor = "rgba(28,14,6,0.10)";
+            el.style.background = "transparent";
+          }}
+        >
           <img
             src="/logo-main.svg"
             alt="ÉCHO"
-            style={{ height: 20, width: "auto" }}
+            style={{ height: 17, width: "auto", opacity: 0.88 }}
           />
+          <span
+            style={{
+              fontSize: "0.62rem",
+              fontWeight: 600,
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              color: "rgba(28,14,6,0.36)",
+              paddingBottom: 1,
+            }}
+          >
+            by Réaclyse
+          </span>
         </Link>
         <a
           href="https://www.girlsfutureready.org"
