@@ -41,11 +41,13 @@ function Privacy() {
         <br />
         <strong className="text-ink">In the app:</strong> voice recordings and their transcripts,
         daily reflection answers, your persona profile (built locally from your entries), and
-        anonymous usage events (crash reports, feature engagement). Legal basis: performance of the
-        service you signed up for, and our legitimate interest in improving app reliability.
+        anonymous analytics events (feature usage, recording completion, onboarding steps — see
+        "Analytics" below). Legal basis: performance of the service you signed up for, and our
+        legitimate interest in improving app reliability.
         <br />
         <br />
         We never collect advertising identifiers, precise location data, or contact-book contents.
+        We never link analytics data to your name, email, or Apple ID.
       </Section>
 
       <Section title="Voice recordings & transcripts">
@@ -92,6 +94,44 @@ function Privacy() {
           className="text-ember transition hover:opacity-75"
         >
           Google Privacy Policy
+        </a>
+        .
+      </Section>
+
+      <Section title="Analytics">
+        ÉCHO uses <strong>PostHog</strong> (PostHog, Inc., US Cloud) to collect anonymous
+        product-analytics events. This helps us understand which features are used, identify
+        drop-off points in the onboarding flow, and improve the app over time.
+        <br />
+        <br />
+        <strong>What is collected:</strong> anonymous event names (e.g. "recording_saved",
+        "home_viewed", "paywall_shown") with lightweight metadata (e.g. recording duration bucket,
+        recording type). No transcript text, no question content, and no personal identifiers are
+        ever included.
+        <br />
+        <br />
+        <strong>How anonymity is preserved:</strong>
+        <ul style={{ paddingLeft: 20, margin: "8px 0" }}>
+          <li>A random UUID is generated on first install and stored locally — it is never linked to your name, email, or Apple ID.</li>
+          <li>IP addresses are not collected or stored.</li>
+          <li>No cross-app or cross-device tracking occurs.</li>
+        </ul>
+        <br />
+        <strong>Opt-out:</strong> you can disable all analytics at any time via{" "}
+        <em>Settings → Privacy → Analytics</em>. Opting out immediately stops all event
+        transmission and deletes the local anonymous ID. Legal basis: our legitimate interest
+        in improving the reliability and usability of the Service (Art. 6(1)(f) GDPR), balanced
+        against your right to object (see "Your rights" below).
+        <br />
+        <br />
+        For PostHog's data practices, see the{" "}
+        <a
+          href="https://posthog.com/privacy"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-ember transition hover:opacity-75"
+        >
+          PostHog Privacy Policy
         </a>
         .
       </Section>
@@ -158,6 +198,11 @@ function Privacy() {
             <strong>Google Gemini</strong> — third-party AI for generating post-recording
             reflections and insights (Pro subscribers only; anonymised text transcripts only;
             audio never transmitted).
+          </li>
+          <li>
+            <strong>PostHog</strong> — anonymous product analytics (feature usage, onboarding
+            funnel, recording metrics). No PII, no IP address, no transcript content. See
+            "Analytics" above.
           </li>
           <li>
             <strong>Apple StoreKit 2</strong> — in-app subscription management, handled natively

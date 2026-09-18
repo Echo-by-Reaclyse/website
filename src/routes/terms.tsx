@@ -66,7 +66,15 @@ function TermsPage() {
             information;
           </li>
           <li>Browse your personal journal, track patterns, and view your evolving persona;</li>
-          <li>Back up and sync your journal privately via Apple iCloud (optional).</li>
+          <li>Back up and sync your journal privately via Apple iCloud (optional);</li>
+          <li>
+            Benefit from ongoing improvements guided by anonymous, aggregated usage analytics
+            (no personal data, no transcript content — see our{" "}
+            <Link to="/privacy" className="text-ember transition hover:opacity-75">
+              Privacy Policy
+            </Link>{" "}
+            for details).
+          </li>
         </ul>
         <br />
         The Service is provided on an "as is" and "as available" basis. We may modify,
