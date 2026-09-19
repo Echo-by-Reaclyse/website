@@ -3002,12 +3002,14 @@ function FeatureListingSection() {
     tag: string;
     body: string;
     grad: string;
+    screenshot?: string;
     cardContent: React.ReactNode;
   }> = [
     {
       tag: "Record",
       body: "One tap starts it. Just talk — ÉCHO writes it down as you go.",
       grad: "linear-gradient(168deg, #EDE0CC 0%, #D8B87A 50%, #B08040 100%)",
+      screenshot: "/screens/screen-record.webp",
       cardContent: (
         <>
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 30% 20%, rgba(255,245,220,0.55) 0%, transparent 55%)" }} />
@@ -3032,6 +3034,7 @@ function FeatureListingSection() {
       tag: "Reflect",
       body: "Come back to any entry. Read it, or hear it in your own voice — exactly as you said it.",
       grad: "linear-gradient(168deg, #E4D8C0 0%, #C8AE88 50%, #9A7050 100%)",
+      screenshot: "/screens/screen-archive.webp",
       cardContent: (
         <>
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 65% 25%, rgba(255,240,210,0.48) 0%, transparent 52%)" }} />
@@ -3052,6 +3055,7 @@ function FeatureListingSection() {
       tag: "The Mirror",
       body: "The thoughts you keep circling back to, gathered and shown to you — not analyzed, not explained.",
       grad: "linear-gradient(168deg, #D8D0C0 0%, #B4A890 50%, #8A7860 100%)",
+      screenshot: "/screens/screen-mirror.webp",
       cardContent: (
         <>
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 35% 72%, rgba(255,245,225,0.42) 0%, transparent 58%)" }} />
@@ -3066,6 +3070,7 @@ function FeatureListingSection() {
       tag: "Letters",
       body: "Write to a version of yourself who isn't here yet. Set a date. ÉCHO holds it until then.",
       grad: "linear-gradient(168deg, #EAD8B4 0%, #CCB07A 50%, #9E8050 100%)",
+      screenshot: "/screens/screen-letters.webp",
       cardContent: (
         <>
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 52% 18%, rgba(255,248,220,0.52) 0%, transparent 54%)" }} />
@@ -3185,7 +3190,7 @@ function FeatureListingSection() {
                     </span>
                   </div>
 
-                  {/* Image area — styled gradient placeholder with feature content */}
+                  {/* Image area */}
                   <div style={{
                     flex: 1,
                     borderRadius: 16,
@@ -3195,10 +3200,39 @@ function FeatureListingSection() {
                     overflow: "hidden",
                     minHeight: 0,
                   }}>
-                    {/* Bottom vignette */}
-                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.10) 100%)" }} />
-                    {/* Feature-specific overlay content */}
-                    {f.cardContent}
+                    {f.screenshot ? (
+                      <>
+                        <img
+                          src={f.screenshot}
+                          alt=""
+                          loading="lazy"
+                          decoding="async"
+                          style={{
+                            position: "absolute",
+                            inset: 0,
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                            objectPosition: "top center",
+                          }}
+                        />
+                        {/* Fade bottom edge into card background */}
+                        <div style={{
+                          position: "absolute",
+                          bottom: 0, left: 0, right: 0,
+                          height: "28%",
+                          background: isDark
+                            ? "linear-gradient(to bottom, transparent, rgba(35,24,16,0.94))"
+                            : "linear-gradient(to bottom, transparent, rgba(254,252,248,0.92))",
+                          pointerEvents: "none",
+                        }} />
+                      </>
+                    ) : (
+                      <>
+                        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.10) 100%)" }} />
+                        {f.cardContent}
+                      </>
+                    )}
                   </div>
 
                   {/* Description */}
