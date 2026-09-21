@@ -3527,14 +3527,22 @@ function VideoSection() {
 
 // ── PrivacySection ─────────────────────────────────────────────
 const PRIVACY_BG_ICONS = [
-  /* phone outline — Your voice */
-  <svg key="phone" viewBox="0 0 56 100" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ width: "100%", height: "100%" }}>
-    <rect x="2" y="2" width="52" height="96" rx="10" />
-    <circle cx="28" cy="88" r="4" fill="currentColor" stroke="none" opacity="0.6" />
-    <line x1="18" y1="14" x2="38" y2="14" strokeWidth="2.5" strokeLinecap="round" />
+  /* microphone — Your voice stays private */
+  <svg key="mic" viewBox="0 0 60 96" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: "100%", height: "100%" }}>
+    {/* capsule body */}
+    <rect x="14" y="2" width="32" height="54" rx="16" />
+    {/* sound waves / grille lines */}
+    <line x1="22" y1="24" x2="38" y2="24" strokeWidth="1.8" opacity="0.7" />
+    <line x1="22" y1="32" x2="38" y2="32" strokeWidth="1.8" opacity="0.7" />
+    {/* stand neck */}
+    <line x1="30" y1="56" x2="30" y2="76" strokeWidth="3" />
+    {/* pickup arc */}
+    <path d="M10 40 Q10 70 30 70 Q50 70 50 40" strokeWidth="2.5" fill="none" />
+    {/* base */}
+    <line x1="16" y1="80" x2="44" y2="80" strokeWidth="3" />
   </svg>,
   /* lined document — Your words */
-  <svg key="doc" viewBox="0 0 72 90" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ width: "100%", height: "100%" }}>
+  <svg key="doc" viewBox="0 0 72 90" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ width: "100%", height: "100%" }}>
     <rect x="2" y="2" width="68" height="86" rx="8" />
     <line x1="14" y1="28" x2="58" y2="28" />
     <line x1="14" y1="42" x2="58" y2="42" />
@@ -3543,15 +3551,10 @@ const PRIVACY_BG_ICONS = [
   </svg>,
   /* scattered stars — European by design */
   <svg key="stars" viewBox="0 0 90 90" fill="currentColor" stroke="none" style={{ width: "100%", height: "100%" }}>
-    {/* large star top-right */}
     <polygon points="72,4 75,14 86,14 77,20 80,30 72,24 63,30 66,20 58,14 69,14" />
-    {/* medium star mid-right */}
     <polygon points="82,42 84,49 91,49 85,53 87,60 82,56 76,60 78,53 72,49 80,49" />
-    {/* medium star top-left area */}
     <polygon points="30,8 32,15 40,15 34,19 36,26 30,22 24,26 26,19 20,15 28,15" />
-    {/* small star bottom-mid */}
     <polygon points="55,62 57,67 62,67 58,70 60,75 55,72 50,75 52,70 48,67 53,67" />
-    {/* small star bottom-left */}
     <polygon points="18,72 20,77 25,77 21,80 23,85 18,82 13,85 15,80 11,77 16,77" />
   </svg>,
 ];
@@ -3674,7 +3677,7 @@ function PrivacySection() {
                   bottom: -24,
                   width: 210,
                   height: 210,
-                  color: isDark ? "rgba(191,96,64,0.13)" : "rgba(191,96,64,0.12)",
+                  color: isDark ? "rgba(191,96,64,0.32)" : "rgba(191,96,64,0.22)",
                   pointerEvents: "none",
                 }}
               >
@@ -3697,11 +3700,11 @@ function PrivacySection() {
               {/* Heading */}
               <h3 style={{
                 fontFamily: C.serif,
-                fontSize: "clamp(1.7rem, 3vw, 2.1rem)",
+                fontSize: "clamp(1.9rem, 3.2vw, 2.4rem)",
                 color: C.cream,
                 marginBottom: 16,
-                lineHeight: 1.15,
-                letterSpacing: "0",
+                lineHeight: 1.12,
+                letterSpacing: "-0.01em",
               }}>
                 {p.title}
               </h3>
