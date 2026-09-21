@@ -248,16 +248,19 @@ const SIDE_CARDS = [
 
 const PRIVACY = [
   {
-    title: "Your voice stays private",
-    body: "Audio is processed on your device and never uploaded. Your journal entries exist only where you choose to keep them.",
+    eyebrow: "Your voice",
+    title: "Your voice stays private.",
+    body: "Processed on your device. Your audio never leaves it.",
   },
   {
-    title: "Your entries belong to you",
-    body: "Delete your reflections whenever you want. No lock-in, no data held hostage. Your words, your rules.",
+    eyebrow: "Your words",
+    title: "Your entries belong to you.",
+    body: "Delete them whenever you want. No lock-in, no data held hostage.",
   },
   {
-    title: "European by design",
-    body: "Built in Luxembourg and designed around GDPR from day one. Privacy is architecture here, not a setting.",
+    eyebrow: "European by design",
+    title: "Built for your privacy.",
+    body: "Built in Luxembourg and designed around GDPR from day one.",
   },
 ];
 
@@ -3508,21 +3511,46 @@ function VideoSection() {
             </div>
           </motion.div>
 
-          {/* Caption */}
-          <motion.p
-            variants={fadeUp}
+          {/* Quote card — Roksana's quote, placed below the video */}
+          <motion.div
+            variants={scaleUp}
             style={{
-              textAlign: "center",
-              marginTop: 20,
-              fontFamily: C.sans,
-              fontSize: 13,
-              color: C.muted,
-              lineHeight: 1.6,
-              opacity: 0.7,
+              marginTop: 36,
+              padding: "32px 32px 28px",
+              background: isDark ? "rgba(255,246,233,0.04)" : "rgba(255,246,233,0.92)",
+              border: `1px solid ${isDark ? "rgba(191,96,64,0.18)" : "rgba(191,96,64,0.12)"}`,
+              borderRadius: 24,
+              position: "relative",
+              overflow: "hidden",
             }}
           >
-            Roksana built ÉCHO to hear her own thoughts more clearly.
-          </motion.p>
+            <div aria-hidden style={{ position: "absolute", inset: "0 0 auto 0", height: 2, background: `linear-gradient(90deg, transparent, ${C.ember}55, transparent)` }} />
+
+            <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 24 }}>
+              <div style={{
+                width: 46, height: 46, borderRadius: "50%", flexShrink: 0,
+                background: "linear-gradient(135deg, #C87D5A, #8B3D1A)",
+                boxShadow: "0 3px 12px rgba(191,96,64,0.22)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+              }}>
+                <span style={{ fontFamily: C.serif, fontSize: 18, color: "#FFF6E9", fontStyle: "italic" }}>R</span>
+              </div>
+              <div>
+                <p style={{ margin: 0, fontFamily: C.sans, fontSize: 14, fontWeight: 700, color: isDark ? C.cream : "#2A1008" }}>Roksana</p>
+                <p style={{ margin: 0, fontFamily: C.sans, fontSize: 12, color: C.muted }}>Founder of ÉCHO</p>
+              </div>
+            </div>
+
+            <span aria-hidden style={{ display: "block", fontFamily: C.serif, fontSize: 48, lineHeight: 0.85, color: C.ember, marginBottom: 10, userSelect: "none" as const, opacity: 0.7 }}>"</span>
+
+            <p style={{ fontFamily: C.serif, fontSize: "clamp(1.05rem, 2.1vw, 1.3rem)", color: isDark ? C.cream : "#1A0A02", lineHeight: 1.62, margin: "0 0 18px", fontStyle: "italic" }}>
+              I didn't want another app telling me what I should think. I wanted something that could help me hear my own thoughts back."
+            </p>
+
+            <p style={{ fontFamily: C.sans, fontSize: 13.5, color: C.muted, lineHeight: 1.7, margin: 0, maxWidth: 520 }}>
+              ÉCHO started as a personal tool — a way to keep track of the thoughts I kept losing. If it helps you too, that's everything.
+            </p>
+          </motion.div>
         </motion.div>
       </div>
     </section>
@@ -3530,18 +3558,33 @@ function VideoSection() {
 }
 
 // ── PrivacySection ─────────────────────────────────────────────
-const PRIVACY_ICONS = [
-  <Smartphone key="smartphone" size={22} strokeWidth={1.5} />,
-  <ShieldCheck key="shield" size={22} strokeWidth={1.5} />,
-  <EyeOff key="eye" size={22} strokeWidth={1.5} />,
+const PRIVACY_BG_ICONS = [
+  /* phone/mic — Your voice */
+  <svg key="phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" style={{ width: "100%", height: "100%" }}>
+    <rect x="5" y="2" width="14" height="20" rx="3" />
+    <circle cx="12" cy="17" r="1" fill="currentColor" stroke="none" />
+  </svg>,
+  /* document — Your words */
+  <svg key="doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" style={{ width: "100%", height: "100%" }}>
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+    <polyline points="14 2 14 8 20 8" />
+    <line x1="8" y1="13" x2="16" y2="13" />
+    <line x1="8" y1="17" x2="13" y2="17" />
+  </svg>,
+  /* EU stars — European by design */
+  <svg key="stars" viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{ width: "100%", height: "100%" }}>
+    <path d="M12 2l.5 1.5H14l-1.2.9.5 1.6L12 5l-1.3 1 .5-1.6L10 3.5h1.5L12 2z"/>
+    <path d="M19 5l.4 1.2h1.2l-1 .7.4 1.2-1-.7-1 .7.4-1.2-1-.7h1.2L19 5z"/>
+    <path d="M5 5l.4 1.2H6.6l-1 .7.4 1.2-1-.7-1 .7.4-1.2-1-.7H4.6L5 5z"/>
+    <path d="M22 12l.4 1.2h1.2l-1 .7.4 1.2-1-.7-1 .7.4-1.2-1-.7h1.2L22 12z"/>
+    <path d="M2 12l.4 1.2h1.2l-1 .7.4 1.2-1-.7-1 .7.4-1.2-1-.7H2.6L2 12z"/>
+    <path d="M19 19l.4 1.2h1.2l-1 .7.4 1.2-1-.7-1 .7.4-1.2-1-.7h1.2L19 19z"/>
+    <path d="M5 19l.4 1.2H6.6l-1 .7.4 1.2-1-.7-1 .7.4-1.2-1-.7H4.6L5 19z"/>
+  </svg>,
 ];
 
 function PrivacySection() {
   const { C, isDark } = useLandingTheme();
-
-  const iconColor = isDark ? "rgba(191,96,64,0.8)" : "rgba(168,75,42,0.75)";
-  const iconBg = isDark ? "rgba(191,96,64,0.10)" : "rgba(168,75,42,0.08)";
-  const iconBorder = isDark ? "rgba(191,96,64,0.2)" : "rgba(168,75,42,0.15)";
 
   return (
     <section
@@ -3637,55 +3680,67 @@ function PrivacySection() {
               key={i}
               variants={scaleUp}
               style={{
-                padding: "28px 24px",
+                padding: "28px 28px 32px",
                 background: C.card,
                 border: `1px solid ${C.border}`,
                 borderRadius: 20,
                 backdropFilter: "blur(8px)",
-                transition:
-                  "border-color 0.25s ease, transform 0.28s cubic-bezier(0.34,1.56,0.64,1)",
+                position: "relative",
+                overflow: "hidden",
+                transition: "border-color 0.25s ease, transform 0.28s cubic-bezier(0.34,1.56,0.64,1)",
                 cursor: "default",
               }}
-              whileHover={{
-                y: -5,
-                transition: { duration: 0.28 },
-              }}
+              whileHover={{ y: -5, transition: { duration: 0.28 } }}
             >
+              {/* Large faded background icon */}
               <div
+                aria-hidden
                 style={{
-                  width: 44,
-                  height: 44,
-                  borderRadius: 12,
-                  background: iconBg,
-                  border: `1px solid ${iconBorder}`,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginBottom: 18,
-                  color: iconColor,
+                  position: "absolute",
+                  right: -16,
+                  bottom: -16,
+                  width: 130,
+                  height: 130,
+                  color: isDark ? "rgba(191,96,64,0.10)" : "rgba(191,96,64,0.09)",
+                  pointerEvents: "none",
                 }}
               >
-                {PRIVACY_ICONS[i]}
+                {PRIVACY_BG_ICONS[i]}
               </div>
-              <h3
-                style={{
-                  fontFamily: C.serif,
-                  fontSize: 17,
-                  color: C.cream,
-                  marginBottom: 10,
-                  letterSpacing: "0",
-                }}
-              >
+
+              {/* Eyebrow */}
+              <p style={{
+                fontFamily: C.sans,
+                fontSize: 10,
+                fontWeight: 700,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase" as const,
+                color: C.ember,
+                marginBottom: 14,
+              }}>
+                {p.eyebrow}
+              </p>
+
+              {/* Heading */}
+              <h3 style={{
+                fontFamily: C.serif,
+                fontSize: "clamp(1.25rem, 2.4vw, 1.6rem)",
+                color: C.cream,
+                marginBottom: 14,
+                lineHeight: 1.2,
+                letterSpacing: "0",
+              }}>
                 {p.title}
               </h3>
-              <p
-                style={{
-                  fontSize: 14,
-                  color: C.muted,
-                  lineHeight: 1.65,
-                  fontFamily: C.sans,
-                }}
-              >
+
+              {/* Body */}
+              <p style={{
+                fontSize: 14,
+                color: C.muted,
+                lineHeight: 1.65,
+                fontFamily: C.sans,
+                maxWidth: 260,
+              }}>
                 {p.body}
               </p>
             </motion.div>
@@ -4695,13 +4750,11 @@ function Landing() {
         <HeroSection />
         <MarqueeStrip />
         <WhyEchoSection />
-        <HowItWorksSection />
         <div id="story">
           <InteractivePhoneSection />
         </div>
         <MarqueeStrip reversed />
         <FeatureListingSection />
-        <FounderSection />
         <VideoSection />
         <PrivacySection />
         <PricingSection />
