@@ -3407,38 +3407,32 @@ function VideoSection() {
             </h2>
           </motion.div>
 
-          {/* Video embed */}
+          {/* Unified video + quote card */}
           <motion.div
             variants={scaleUp}
-            style={{ position: "relative", borderRadius: 20, overflow: "hidden" }}
+            style={{
+              borderRadius: 24,
+              overflow: "hidden",
+              border: `1px solid ${isDark ? "rgba(191,96,64,0.18)" : "rgba(191,96,64,0.12)"}`,
+              background: isDark ? "rgba(255,246,233,0.03)" : "rgba(255,246,233,0.92)",
+              boxShadow: isDark
+                ? "0 24px 80px rgba(0,0,0,0.55), 0 4px 24px rgba(191,96,64,0.12)"
+                : "0 24px 80px rgba(26,10,2,0.14), 0 4px 24px rgba(191,96,64,0.08)",
+              position: "relative",
+            }}
           >
-            {/* Ember border glow */}
-            <div
-              aria-hidden
-              style={{
-                position: "absolute",
-                inset: -1,
-                borderRadius: 21,
-                background: `linear-gradient(135deg, ${C.ember}55, transparent 60%, ${C.ember}33)`,
-                pointerEvents: "none",
-                zIndex: 0,
-              }}
-            />
+            {/* Ember top-edge accent */}
+            <div aria-hidden style={{ position: "absolute", inset: "0 0 auto 0", height: 2, background: `linear-gradient(90deg, transparent, ${C.ember}55, transparent)`, zIndex: 2, pointerEvents: "none" }} />
+
+            {/* Video — full bleed, square bottom edge flush with quote */}
             <div
               style={{
                 position: "relative",
-                zIndex: 1,
-                borderRadius: 20,
-                overflow: "hidden",
                 aspectRatio: "16/9",
                 background: isDark ? "#0A0604" : "#1A0A02",
-                boxShadow: isDark
-                  ? "0 24px 80px rgba(0,0,0,0.6), 0 4px 24px rgba(191,96,64,0.15)"
-                  : "0 24px 80px rgba(26,10,2,0.18), 0 4px 24px rgba(191,96,64,0.1)",
               }}
             >
               {!playing ? (
-                /* Thumbnail + play button overlay */
                 <button
                   onClick={() => setPlaying(true)}
                   aria-label="Play video"
@@ -3448,41 +3442,28 @@ function VideoSection() {
                     display: "flex", alignItems: "center", justifyContent: "center",
                   }}
                   onMouseEnter={(e) => {
-                    const btn = e.currentTarget;
-                    const play = btn.querySelector<HTMLDivElement>(".video-play-btn");
+                    const play = e.currentTarget.querySelector<HTMLDivElement>(".video-play-btn");
                     if (play) { play.style.transform = "scale(1.08)"; play.style.boxShadow = "0 16px 48px rgba(191,96,64,0.7)"; }
                   }}
                   onMouseLeave={(e) => {
-                    const btn = e.currentTarget;
-                    const play = btn.querySelector<HTMLDivElement>(".video-play-btn");
+                    const play = e.currentTarget.querySelector<HTMLDivElement>(".video-play-btn");
                     if (play) { play.style.transform = "scale(1)"; play.style.boxShadow = "0 8px 32px rgba(191,96,64,0.45)"; }
                   }}
                 >
-                  {/* YouTube thumbnail */}
                   <img
                     src="https://img.youtube.com/vi/y1nzpZQSXrU/maxresdefault.jpg"
                     alt="ÉCHO — Roksana's story"
                     style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-                    onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).src = "https://img.youtube.com/vi/y1nzpZQSXrU/sddefault.jpg";
-                    }}
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = "https://img.youtube.com/vi/y1nzpZQSXrU/sddefault.jpg"; }}
                   />
-                  {/* Cinematic vignette — top + bottom gradient */}
                   <div aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(10,6,4,0.38) 0%, transparent 30%, transparent 55%, rgba(10,6,4,0.72) 100%)", pointerEvents: "none" }} />
-                  {/* Subtle warm tint */}
                   <div aria-hidden style={{ position: "absolute", inset: 0, background: "rgba(60,18,4,0.22)", pointerEvents: "none" }} />
-
-                  {/* Bottom-left label */}
-                  <div style={{
-                    position: "absolute", bottom: 28, left: 32, textAlign: "left", pointerEvents: "none",
-                  }}>
+                  <div style={{ position: "absolute", bottom: 28, left: 32, textAlign: "left", pointerEvents: "none" }}>
                     <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: "clamp(1.1rem, 2vw, 1.55rem)", color: "#FFF6E9", lineHeight: 1.25, margin: 0, textShadow: "0 2px 12px rgba(0,0,0,0.5)" }}>
                       Roksana's story —<br />
                       <em style={{ color: "#F4C8A8", fontStyle: "italic" }}>why ÉCHO exists.</em>
                     </p>
                   </div>
-
-                  {/* Centre play button */}
                   <div
                     className="video-play-btn"
                     style={{
@@ -3509,47 +3490,34 @@ function VideoSection() {
                 />
               )}
             </div>
-          </motion.div>
 
-          {/* Quote card — Roksana's quote, placed below the video */}
-          <motion.div
-            variants={scaleUp}
-            style={{
-              marginTop: 36,
-              padding: "32px 32px 28px",
-              background: isDark ? "rgba(255,246,233,0.04)" : "rgba(255,246,233,0.92)",
-              border: `1px solid ${isDark ? "rgba(191,96,64,0.18)" : "rgba(191,96,64,0.12)"}`,
-              borderRadius: 24,
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            <div aria-hidden style={{ position: "absolute", inset: "0 0 auto 0", height: 2, background: `linear-gradient(90deg, transparent, ${C.ember}55, transparent)` }} />
+            {/* Quote — flush below video, inside the same card */}
+            <div style={{ padding: "28px 32px 32px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 20 }}>
+                <div style={{
+                  width: 44, height: 44, borderRadius: "50%", flexShrink: 0,
+                  background: "linear-gradient(135deg, #C87D5A, #8B3D1A)",
+                  boxShadow: "0 3px 12px rgba(191,96,64,0.22)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                }}>
+                  <span style={{ fontFamily: C.serif, fontSize: 17, color: "#FFF6E9", fontStyle: "italic" }}>R</span>
+                </div>
+                <div>
+                  <p style={{ margin: 0, fontFamily: C.sans, fontSize: 14, fontWeight: 700, color: isDark ? C.cream : "#2A1008" }}>Roksana</p>
+                  <p style={{ margin: 0, fontFamily: C.sans, fontSize: 12, color: C.muted }}>Founder of ÉCHO</p>
+                </div>
+              </div>
 
-            <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 24 }}>
-              <div style={{
-                width: 46, height: 46, borderRadius: "50%", flexShrink: 0,
-                background: "linear-gradient(135deg, #C87D5A, #8B3D1A)",
-                boxShadow: "0 3px 12px rgba(191,96,64,0.22)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-              }}>
-                <span style={{ fontFamily: C.serif, fontSize: 18, color: "#FFF6E9", fontStyle: "italic" }}>R</span>
-              </div>
-              <div>
-                <p style={{ margin: 0, fontFamily: C.sans, fontSize: 14, fontWeight: 700, color: isDark ? C.cream : "#2A1008" }}>Roksana</p>
-                <p style={{ margin: 0, fontFamily: C.sans, fontSize: 12, color: C.muted }}>Founder of ÉCHO</p>
-              </div>
+              <span aria-hidden style={{ display: "block", fontFamily: C.serif, fontSize: 44, lineHeight: 0.85, color: C.ember, marginBottom: 10, userSelect: "none" as const, opacity: 0.6 }}>"</span>
+
+              <p style={{ fontFamily: C.serif, fontSize: "clamp(1.05rem, 2.1vw, 1.3rem)", color: isDark ? C.cream : "#1A0A02", lineHeight: 1.62, margin: "0 0 16px", fontStyle: "italic" }}>
+                I didn't want another app telling me what I should think. I wanted something that could help me hear my own thoughts back."
+              </p>
+
+              <p style={{ fontFamily: C.sans, fontSize: 13.5, color: C.muted, lineHeight: 1.7, margin: 0 }}>
+                ÉCHO started as a personal tool — a way to keep track of the thoughts I kept losing. If it helps you too, that's everything.
+              </p>
             </div>
-
-            <span aria-hidden style={{ display: "block", fontFamily: C.serif, fontSize: 48, lineHeight: 0.85, color: C.ember, marginBottom: 10, userSelect: "none" as const, opacity: 0.7 }}>"</span>
-
-            <p style={{ fontFamily: C.serif, fontSize: "clamp(1.05rem, 2.1vw, 1.3rem)", color: isDark ? C.cream : "#1A0A02", lineHeight: 1.62, margin: "0 0 18px", fontStyle: "italic" }}>
-              I didn't want another app telling me what I should think. I wanted something that could help me hear my own thoughts back."
-            </p>
-
-            <p style={{ fontFamily: C.sans, fontSize: 13.5, color: C.muted, lineHeight: 1.7, margin: 0, maxWidth: 520 }}>
-              ÉCHO started as a personal tool — a way to keep track of the thoughts I kept losing. If it helps you too, that's everything.
-            </p>
           </motion.div>
         </motion.div>
       </div>
