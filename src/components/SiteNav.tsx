@@ -25,9 +25,10 @@ interface SiteNavProps {
   hideThemeToggle?: boolean;
   hideBanner?: boolean;
   logoSrc?: string;
+  disableLogoLink?: boolean;
 }
 
-export function SiteNav({ links, cta, hideThemeToggle, hideBanner, logoSrc }: SiteNavProps) {
+export function SiteNav({ links, cta, hideThemeToggle, hideBanner, logoSrc, disableLogoLink }: SiteNavProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -77,24 +78,30 @@ export function SiteNav({ links, cta, hideThemeToggle, hideBanner, logoSrc }: Si
         }}
       >
         {/* Logo */}
-        <Link to="/" style={{ textDecoration: "none", flexShrink: 0, display: "flex", alignItems: "flex-end", gap: 8 }}>
-          <img src={logoSrc ?? "/logo-main.svg"} alt="ÉCHO" style={{ height: 22, width: "auto", opacity: 0.92 }} />
-          <span
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: 11,
-              textTransform: "uppercase",
-              letterSpacing: "0.18em",
-              color: "var(--muted-foreground)",
-              paddingBottom: 2,
-              opacity: scrolled ? 0 : 1,
-              transition: "opacity 0.25s",
-            }}
-            className="hidden sm:block"
-          >
-            by RÉACLYSE
-          </span>
-        </Link>
+        {disableLogoLink ? (
+          <div style={{ flexShrink: 0, display: "flex", alignItems: "flex-end", gap: 8 }}>
+            <img src={logoSrc ?? "/logo-main.svg"} alt="ÉCHO" style={{ height: 22, width: "auto", opacity: 0.92 }} />
+          </div>
+        ) : (
+          <Link to="/" style={{ textDecoration: "none", flexShrink: 0, display: "flex", alignItems: "flex-end", gap: 8 }}>
+            <img src={logoSrc ?? "/logo-main.svg"} alt="ÉCHO" style={{ height: 22, width: "auto", opacity: 0.92 }} />
+            <span
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: 11,
+                textTransform: "uppercase",
+                letterSpacing: "0.18em",
+                color: "var(--muted-foreground)",
+                paddingBottom: 2,
+                opacity: scrolled ? 0 : 1,
+                transition: "opacity 0.25s",
+              }}
+              className="hidden sm:block"
+            >
+              by RÉACLYSE
+            </span>
+          </Link>
+        )}
 
         {/* Centre links — hidden on mobile */}
         <nav

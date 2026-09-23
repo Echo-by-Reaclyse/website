@@ -2363,7 +2363,7 @@ function HeroSection() {
   return (
     <section
       ref={ref}
-      style={{ position: "relative", minHeight: "100dvh", overflow: "hidden", display: "flex", alignItems: "center" }}
+      style={{ position: "relative", minHeight: "100dvh", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}
     >
       {/* Mobile: right-side atmospheric panel */}
       <motion.div
@@ -2428,16 +2428,18 @@ function HeroSection() {
       >
         <div
           style={{
-            width: "min(840px, 100%)",
+            width: "min(640px, 100%)",
             paddingTop: 130,
             paddingBottom: 90,
-            paddingLeft: "max(48px, min(8vw, 110px))",
-            paddingRight: "48px",
+            paddingLeft: "clamp(24px, 6vw, 64px)",
+            paddingRight: "clamp(24px, 6vw, 64px)",
             display: "flex",
             flexDirection: "column",
-            alignItems: "flex-start",
+            alignItems: "center",
+            textAlign: "center",
+            margin: "0 auto",
           }}
-          className="max-lg:items-center max-lg:text-center max-lg:!px-6 max-lg:!w-full max-lg:max-w-lg max-lg:mx-auto max-lg:!pt-[72px]"
+          className="max-lg:!pt-[72px]"
         >
 
           {/* Badge */}
@@ -2464,9 +2466,7 @@ function HeroSection() {
               lineHeight: 1.1,
               marginBottom: 28,
               color: C.cream,
-              maxWidth: "min(520px, 46vw)",
             }}
-            className="max-lg:!max-w-none"
           >
             <span className="hero-word" style={{ display: "inline-block", animationDelay: "0.12s" }}>
               Record today.
@@ -2483,7 +2483,6 @@ function HeroSection() {
               fontFamily: C.sans,
               fontSize: "clamp(0.95rem, 1.35vw, 1.06rem)",
               color: C.muted,
-              maxWidth: 420,
               lineHeight: 1.78,
               marginBottom: 36,
               animationDelay: "0.34s",
@@ -2494,8 +2493,8 @@ function HeroSection() {
 
           {/* Hero CTAs */}
           <div
-            className="hero-fade max-lg:justify-center"
-            style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 20, animationDelay: "0.56s", alignItems: "center" }}
+            className="hero-fade"
+            style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center", marginBottom: 20, animationDelay: "0.56s", alignItems: "center" }}
           >
             <button
               onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "start" })}
@@ -2561,12 +2560,10 @@ function HeroSection() {
           {/* Mobile: app notes (past → present) — signals "it's an app" */}
           <div
             className="hero-fade flex lg:hidden"
-            style={{ flexDirection: "column", gap: 12, marginTop: 34, width: "100%", maxWidth: 340, animationDelay: "0.88s" }}
+            style={{ flexDirection: "column", gap: 12, marginTop: 34, width: "100%", maxWidth: 320, animationDelay: "0.88s", alignItems: "center" }}
           >
             <HeroNoteCard date={HERO_NOTES[0].date} quote={HERO_NOTES[0].quote} compact />
-            <div style={{ marginLeft: 24 }}>
-              <HeroNoteCard date={HERO_NOTES[1].date} quote={HERO_NOTES[1].quote} compact />
-            </div>
+            <HeroNoteCard date={HERO_NOTES[1].date} quote={HERO_NOTES[1].quote} compact />
           </div>
 
 </div>
@@ -4910,6 +4907,7 @@ function Landing() {
           hideThemeToggle
           hideBanner
           logoSrc="/logo-main.svg"
+          disableLogoLink
         />
         <div id="main-content" />
         <HeroSection />
