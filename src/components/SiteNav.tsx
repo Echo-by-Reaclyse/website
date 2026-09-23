@@ -24,9 +24,10 @@ interface SiteNavProps {
   cta: NavCTA;
   hideThemeToggle?: boolean;
   hideBanner?: boolean;
+  logoSrc?: string;
 }
 
-export function SiteNav({ links, cta, hideThemeToggle, hideBanner }: SiteNavProps) {
+export function SiteNav({ links, cta, hideThemeToggle, hideBanner, logoSrc }: SiteNavProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -77,7 +78,7 @@ export function SiteNav({ links, cta, hideThemeToggle, hideBanner }: SiteNavProp
       >
         {/* Logo */}
         <Link to="/" style={{ textDecoration: "none", flexShrink: 0, display: "flex", alignItems: "flex-end", gap: 8 }}>
-          <img src="/logo-main.svg" alt="ÉCHO" style={{ height: 22, width: "auto", opacity: 0.92 }} />
+          <img src={logoSrc ?? "/logo-main.svg"} alt="ÉCHO" style={{ height: 22, width: "auto", opacity: 0.92 }} />
           <span
             style={{
               fontFamily: "var(--font-sans)",

@@ -4860,6 +4860,7 @@ function Landing() {
           cta={{ label: "Secure your spot", anchor: "waitlist" }}
           hideThemeToggle
           hideBanner
+          logoSrc="/logo-pink.svg"
         />
         <div id="main-content" />
         <HeroSection />
