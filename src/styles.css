@@ -681,6 +681,14 @@
     0%, 100% { opacity: 1; }
     50%       { opacity: 0.2; }
   }
+  @keyframes ringBreath {
+    0%, 100% { transform: scale(1);    opacity: 1; }
+    50%       { transform: scale(1.5); opacity: 0.5; }
+  }
+  @keyframes orbBreath {
+    0%, 100% { transform: scale(1);    }
+    50%       { transform: scale(1.22); }
+  }
   @keyframes phoneGlow {
     0%, 100% { box-shadow: 0 0 0 2px rgba(191,96,64,0.25), 0 0 28px rgba(191,96,64,0.12); }
     50%       { box-shadow: 0 0 0 3px rgba(191,96,64,0.48), 0 0 52px rgba(191,96,64,0.22); }

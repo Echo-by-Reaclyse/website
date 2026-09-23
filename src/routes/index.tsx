@@ -86,7 +86,7 @@ const JOURNAL_ENTRIES = [
     date: "Today, 9 May",
     duration: "0:47",
     preview:
-      "What I keep avoiding is the conversation about whether I actually want this — not whether I'm capable, but whether...",
+      "What I keep avoiding is the conversation about whether I actually want this, not whether I'm capable, but whether...",
   },
   {
     date: "8 May",
@@ -137,31 +137,31 @@ type TabId = "home" | "archive" | "mirror" | "letters" | "profile";
 
 const TAB_INFO: Record<TabId, { eyebrow: string; headline: string; body: string; detail: string }> = {
   home: {
-    eyebrow: "01 — The Question",
+    eyebrow: "01 · The Question",
     headline: "Every day,\none question.",
     body: "No blank page. No pressure to perform. One question, crafted for honest reflection. Tap. Speak. Done.",
     detail: "Rotates from 200+ questions written for self-reflection.",
   },
   archive: {
-    eyebrow: "04 — The Archive",
+    eyebrow: "04 · The Archive",
     headline: "Every word\nyou've ever said.",
-    body: "Search, browse, revisit. Your complete history of reflections — private, encrypted, yours.",
+    body: "Search, browse, revisit. Your complete history of reflections: private, encrypted, yours.",
     detail: "Up to 30 days free. Unlimited history with subscription.",
   },
   mirror: {
-    eyebrow: "05 — Patterns Emerge",
+    eyebrow: "05 · Patterns Emerge",
     headline: "See yourself\nclearly.",
     body: "Over weeks, ÉCHO builds a picture of your emotional patterns, recurring themes, and growth arc.",
     detail: "8-point persona profile updated with every entry.",
   },
   letters: {
-    eyebrow: "06 — Letters",
+    eyebrow: "06 · Letters",
     headline: "Six months later,\nsame question.",
     body: "ÉCHO seals your words and returns them when enough time has passed. Compare who you were to who you are now.",
     detail: "Letters unlock automatically. No gamification. Just truth.",
   },
   profile: {
-    eyebrow: "07 — Privacy First",
+    eyebrow: "07 · Privacy First",
     headline: "Private\nby design.",
     body: "On-device transcription. Encrypted at rest. No tracking. No advertising identifiers. Ever.",
     detail: "GDPR compliant. iCloud sync optional. Your data is yours.",
@@ -201,7 +201,7 @@ const SIDE_CARDS = [
         <polygon points="22 2 15 22 11 13 2 9 22 2"/>
       </svg>
     ),
-    text: "Fully offline — works in airplane mode",
+    text: "Fully offline. Works in airplane mode.",
   },
   {
     icon: (
@@ -242,7 +242,7 @@ const SIDE_CARDS = [
         <polyline points="12 6 12 12 16 14"/>
       </svg>
     ),
-    text: "Auto time-lock — opens when the moment is right",
+    text: "Auto time-lock. Opens when the moment is right.",
   },
 ];
 
@@ -267,7 +267,7 @@ const PRIVACY = [
 const FAQ_ITEMS = [
   {
     q: "What is ÉCHO?",
-    a: "ÉCHO is a private voice journal for iPhone. Every day, one thoughtful question appears. You speak your answer — no typing, no blank page. Over time, ÉCHO surfaces what you said weeks or months ago so you can hear how your thinking has shifted.",
+    a: "ÉCHO is a private voice journal for iPhone. Every day, one thoughtful question appears. You speak your answer, no typing, no blank page. Over time, ÉCHO surfaces what you said weeks or months ago so you can hear how your thinking has shifted.",
   },
   {
     q: "When does ÉCHO launch?",
@@ -275,7 +275,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "Is my voice data private?",
-    a: "Completely. Your voice is converted to text directly on your iPhone — nothing is ever sent to a server. Your entries are encrypted before they're stored, so nobody can read them, including us. We never sell your data or use it to train AI.",
+    a: "Completely. Your voice is converted to text directly on your iPhone. Nothing is ever sent to a server. Your entries are encrypted before they're stored, so nobody can read them, including us. We never sell your data or use it to train AI.",
   },
   {
     q: "How much does ÉCHO cost?",
@@ -283,11 +283,11 @@ const FAQ_ITEMS = [
   },
   {
     q: "Do I need to write anything?",
-    a: "Not a word. ÉCHO is built for voice. You tap, speak your answer, and you're done — usually in under a minute. The app handles everything else: transcription, storage, and surfacing your past reflections at the right moment.",
+    a: "Not a word. ÉCHO is built for voice. You tap, speak your answer, and you're done, usually in under a minute. The app handles everything else: transcription, storage, and surfacing your past reflections at the right moment.",
   },
   {
     q: "Is ÉCHO available on Android?",
-    a: "ÉCHO is iPhone-only at launch. Android support may follow in a later phase — join the waitlist and we'll let you know as soon as your platform is supported.",
+    a: "ÉCHO is iPhone-only at launch. Android support may follow in a later phase, so join the waitlist and we'll let you know as soon as your platform is supported.",
   },
 ];
 
@@ -295,13 +295,13 @@ const FREE_FEATURES = [
   "Daily question & voice recording, up to 30 seconds",
   "On-device transcription (private)",
   "Up to 3 active Letters",
-  "The Mirror — limited insights, always free",
+  "The Mirror: limited insights, always free",
 ];
 const PRO_FEATURES = [
   "Everything in ÉCHO, plus:",
   "Unlimited recording time",
   "Choose your own question categories",
-  "The full Mirror — deeper patterns, full persona profile",
+  "The full Mirror: deeper patterns, full persona profile",
   "Unlimited Letters",
   "Priority access at launch",
 ];
@@ -729,6 +729,7 @@ function HomeTabScreen({
 }) {
   const [savedMoods, setSavedMoods] = useState<Set<string>>(new Set());
   const [justSaved, setJustSaved] = useState(false);
+  const [recordMode, setRecordMode] = useState<"question" | "free">("question");
   const WAVEFORM_BARS = 24;
   const question = "What thought keeps coming back to you?";
 
@@ -761,37 +762,74 @@ function HomeTabScreen({
             {/* Greeting */}
             <p style={{ fontSize: 13, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif", marginTop: 2 }}>Good morning, Reflector.</p>
 
-            {/* Question card */}
+            {/* Question card with mode toggle */}
             <div style={{ background: "#FFFFFF", borderRadius: 16, padding: "14px", boxShadow: "0 1px 4px rgba(0,0,0,0.08)" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600 }}>Today's Question</p>
-                <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
-                  <span style={{ fontSize: 9, color: "#BF6040" }}>⚡</span>
-                  <span style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>Fear</span>
-                </div>
+              {/* Mode toggle */}
+              <div style={{ display: "flex", background: "rgba(0,0,0,0.07)", borderRadius: 20, padding: 2, marginBottom: 12 }}>
+                {(["Today's question", "Free talk"] as const).map(m => {
+                  const isActive = (recordMode === "question") === (m === "Today's question");
+                  return (
+                    <button
+                      key={m}
+                      onClick={() => setRecordMode(m === "Today's question" ? "question" : "free")}
+                      style={{ flex: 1, padding: "5px 0", border: "none", borderRadius: 17, background: isActive ? "#FFFFFF" : "transparent", color: isActive ? "#1A1A1A" : "rgba(0,0,0,0.45)", fontSize: 10, fontFamily: "Urbanist, sans-serif", fontWeight: isActive ? 600 : 400, cursor: "pointer", WebkitTapHighlightColor: "transparent", boxShadow: isActive ? "0 1px 3px rgba(0,0,0,0.10)" : "none", transition: "all 0.18s ease" }}
+                    >{m}</button>
+                  );
+                })}
               </div>
-              <p style={{ fontSize: 15, color: "#1A1A1A", fontFamily: "'Instrument Serif', Georgia, serif", lineHeight: 1.3, fontStyle: "italic", marginBottom: 10 }}>
-                {question}
-              </p>
-              <div style={{ display: "flex", alignItems: "center", gap: 3, marginBottom: 8 }}>
-                <span style={{ fontSize: 10, color: "#1A1A1A" }}>⚡</span>
-                <span style={{ fontSize: 10, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif" }}>Fear</span>
-              </div>
-              <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                <span style={{ fontSize: 10, color: "#BF6040" }}>↺</span>
-                <span style={{ fontSize: 10, color: "#BF6040", fontFamily: "Urbanist, sans-serif" }}>Get another question</span>
-              </div>
+
+              {recordMode === "question" ? (
+                <>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                    <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600 }}>Today's Question</p>
+                    <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
+                      <span style={{ fontSize: 9, color: "#BF6040" }}>⚡</span>
+                      <span style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>Fear</span>
+                    </div>
+                  </div>
+                  <p style={{ fontSize: 15, color: "#1A1A1A", fontFamily: "'Instrument Serif', Georgia, serif", lineHeight: 1.3, fontStyle: "italic", marginBottom: 10 }}>
+                    {question}
+                  </p>
+                  <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                    <span style={{ fontSize: 10, color: "#BF6040" }}>↺</span>
+                    <span style={{ fontSize: 10, color: "#BF6040", fontFamily: "Urbanist, sans-serif" }}>Get another question</span>
+                  </div>
+                </>
+              ) : (
+                <p style={{ fontSize: 14, color: "rgba(0,0,0,0.40)", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic", lineHeight: 1.45, paddingBottom: 2 }}>
+                  Speak about anything on your mind.
+                </p>
+              )}
             </div>
 
-            {/* Record button */}
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, paddingTop: 4 }}>
-              <div style={{ position: "relative", width: 90, height: 90, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <div style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "rgba(191,96,64,0.12)" }} />
+            {/* Record button — echo rings + glass orb */}
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, paddingTop: 2 }}>
+              <div style={{ position: "relative", width: 140, height: 140, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                {/* Three concentric echo rings */}
+                {[120, 102, 83].map((size, idx) => (
+                  <div key={idx} style={{
+                    position: "absolute",
+                    width: size, height: size,
+                    borderRadius: "50%",
+                    border: `0.75px solid rgba(191,96,64,${[0.10, 0.20, 0.32][idx]})`,
+                    animation: `ringBreath 2.6s ${(idx * 0.1).toFixed(1)}s ease-in-out infinite`,
+                  }} />
+                ))}
+                {/* Glass orb */}
                 <button
                   onClick={() => setHomeState("recording")}
-                  style={{ width: 62, height: 62, borderRadius: "50%", background: "#BF6040", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 16px rgba(191,96,64,0.35)", WebkitTapHighlightColor: "transparent", position: "relative", zIndex: 1 }}
+                  style={{
+                    width: 62, height: 62, borderRadius: "50%",
+                    background: "radial-gradient(circle at 34% 28%, #D4724A 0%, #BF6040 45%, #8C3A20 100%)",
+                    border: "none", cursor: "pointer",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    boxShadow: "0 4px 20px rgba(191,96,64,0.42)",
+                    WebkitTapHighlightColor: "transparent",
+                    position: "relative", zIndex: 1,
+                    animation: "orbBreath 2.6s ease-in-out infinite",
+                  }}
                 >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" style={{ width: 24, height: 24 }}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" style={{ width: 22, height: 22 }}>
                     <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z" />
                     <path d="M19 10v2a7 7 0 01-14 0v-2" />
                     <line x1="12" y1="19" x2="12" y2="23" />
@@ -802,11 +840,7 @@ function HomeTabScreen({
               <p style={{ fontSize: 12, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif" }}>Begin</p>
               <div style={{ display: "flex", alignItems: "center", gap: 4, background: "rgba(191,96,64,0.10)", borderRadius: 20, padding: "4px 10px" }}>
                 <span style={{ fontSize: 11 }}>🔥</span>
-                <span style={{ fontSize: 11, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>0 day record</span>
-              </div>
-              <p style={{ fontSize: 10, color: "rgba(0,0,0,0.4)", fontFamily: "Urbanist, sans-serif", textDecoration: "underline", textDecorationColor: "rgba(0,0,0,0.25)" }}>Can't speak right now? Write instead.</p>
-              <div style={{ border: "1px solid rgba(0,0,0,0.15)", borderRadius: 20, padding: "7px 18px" }}>
-                <p style={{ fontSize: 12, color: "#BF6040", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic" }}>Or just speak freely.</p>
+                <span style={{ fontSize: 11, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>3 day record</span>
               </div>
             </div>
 
@@ -912,13 +946,20 @@ function HomeTabScreen({
               </div>
             </div>
 
-            {/* Stop button */}
+            {/* Stop button — single pulsing ring while recording */}
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, paddingTop: 2 }}>
-              <div style={{ position: "relative", width: 90, height: 90, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <div style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "rgba(191,96,64,0.10)" }} />
+              <div style={{ position: "relative", width: 140, height: 140, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ position: "absolute", width: 90, height: 90, borderRadius: "50%", background: "rgba(191,96,64,0.12)", animation: "tapRipple 1.8s ease-out infinite" }} />
                 <button
                   onClick={() => setHomeState("processing")}
-                  style={{ width: 62, height: 62, borderRadius: "50%", background: "#BF6040", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 16px rgba(191,96,64,0.35)", WebkitTapHighlightColor: "transparent", position: "relative", zIndex: 1 }}
+                  style={{
+                    width: 62, height: 62, borderRadius: "50%",
+                    background: "radial-gradient(circle at 34% 28%, #D4724A 0%, #BF6040 45%, #8C3A20 100%)",
+                    border: "none", cursor: "pointer",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    boxShadow: "0 4px 20px rgba(191,96,64,0.42)",
+                    WebkitTapHighlightColor: "transparent", position: "relative", zIndex: 1,
+                  }}
                 >
                   <div style={{ width: 20, height: 20, borderRadius: 4, background: "white" }} />
                 </button>
@@ -1703,7 +1744,7 @@ function Card1Content() {
       </p>
       <div style={{ padding: "11px 13px", borderRadius: 12, background: "rgba(255,228,184,0.04)", border: "1px solid rgba(255,228,184,0.07)", marginBottom: 16 }}>
         <p style={{ fontSize: 11.5, color: "rgba(255,246,233,0.62)", lineHeight: 1.68, fontFamily: "Inter, sans-serif", overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical" }}>
-          What I keep avoiding is the conversation about whether I actually want this — not whether I'm capable, but whether it's truly what I want.
+          What I keep avoiding is the conversation about whether I actually want this, not whether I'm capable, but whether it's truly what I want.
         </p>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -2250,6 +2291,9 @@ function HeroNoteCard({ date, quote, compact = false }: { date: string; quote: s
   );
 }
 
+// ── Instagram ──────────────────────────────────────────────────
+const ECHO_IG = "https://www.instagram.com/echobyreaclyse/";
+
 // ── HeroSection ────────────────────────────────────────────────
 function HeroSection() {
   const { C, isDark } = useLandingTheme();
@@ -2398,7 +2442,7 @@ function HeroSection() {
           {/* Hero CTAs */}
           <div
             className="hero-fade max-lg:justify-center"
-            style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 20, animationDelay: "0.56s" }}
+            style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 20, animationDelay: "0.56s", alignItems: "center" }}
           >
             <button
               onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "start" })}
@@ -2414,6 +2458,36 @@ function HeroSection() {
             >
               Join the founding waitlist →
             </button>
+            <a
+              href={ECHO_IG}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 7,
+                padding: "13px 22px",
+                borderRadius: 999,
+                border: `1px solid ${isDark ? "rgba(255,228,184,0.22)" : "rgba(26,15,5,0.18)"}`,
+                color: isDark ? C.peach : C.ember,
+                background: "transparent",
+                fontFamily: C.sans,
+                fontSize: 14,
+                fontWeight: 600,
+                textDecoration: "none",
+                letterSpacing: "0.02em",
+                transition: "opacity 0.2s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.7")}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+            >
+              <svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
+              Follow ÉCHO
+            </a>
           </div>
 
           {/* Supporting line */}
@@ -2511,7 +2585,7 @@ function WhyEchoSection() {
             fontFamily: C.sans,
           }}
         >
-          — WHY ÉCHO
+          Why ÉCHO
         </motion.p>
 
         <motion.h2
@@ -2541,7 +2615,7 @@ function WhyEchoSection() {
           viewport={VP}
           style={{ fontSize: "clamp(1rem, 1.6vw, 1.08rem)", color: C.muted, lineHeight: 1.72, fontFamily: C.sans, marginBottom: 40, maxWidth: 540 }}
         >
-          The thoughts you don't want to lose, held gently in one place — so you can return to what matters.
+          The thoughts you don't want to lose, held gently in one place, so you can return to what matters.
         </motion.p>
 
         {/* 2×2 image-led card grid */}
@@ -2613,7 +2687,7 @@ function HowItWorksSection() {
     {
       num: "01",
       title: "Speak",
-      body: "A question waits for you. Answer however it comes out — messy, unfinished, completely yours.",
+      body: "A question waits for you. Answer however it comes out: messy, unfinished, completely yours.",
     },
     {
       num: "02",
@@ -2623,7 +2697,7 @@ function HowItWorksSection() {
     {
       num: "03",
       title: "Hear yourself again",
-      body: "When a thought returns, ÉCHO surfaces what you said before — so you can see what changed and what didn't.",
+      body: "When a thought returns, ÉCHO surfaces what you said before, so you can see what changed and what didn't.",
     },
   ];
 
@@ -2645,7 +2719,7 @@ function HowItWorksSection() {
           style={{ textAlign: "center", marginBottom: 48 }}
         >
           <motion.p variants={fadeUp} style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.24em", color: C.ember, marginBottom: 14, fontFamily: C.sans }}>
-            — How it works
+            How it works
           </motion.p>
           <motion.h2
             variants={fadeUp}
@@ -2857,7 +2931,7 @@ function InteractivePhoneSection() {
           {/* Section headline */}
           <div style={{ textAlign: "center", marginBottom: 4 }}>
             <p style={{ fontSize: 11, color: C.ember, fontFamily: C.sans, letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: 8 }}>
-              — The demo
+              The demo
             </p>
             <h2 style={{ fontFamily: C.serif, fontSize: "clamp(1.8rem, 5vw, 2.6rem)", color: C.cream, lineHeight: 1.12, marginBottom: 0 }}>
               See what ÉCHO{" "}
@@ -2905,7 +2979,7 @@ function InteractivePhoneSection() {
       {/* Section headline */}
       <div style={{ position: "relative", zIndex: 2, textAlign: "center", marginBottom: 52 }}>
         <p style={{ fontSize: 11, color: C.ember, fontFamily: C.sans, letterSpacing: "0.22em", textTransform: "uppercase", marginBottom: 12 }}>
-          — The demo
+          The demo
         </p>
         <h2 style={{ fontFamily: C.serif, fontSize: "clamp(2rem, 4vw, 3.2rem)", color: C.cream, lineHeight: 1.12 }}>
           See what ÉCHO{" "}
@@ -2965,7 +3039,7 @@ function InteractivePhoneSection() {
           </div>
           <div style={{ marginTop: 8, padding: "12px 14px", background: isDark ? "rgba(14,22,44,0.6)" : "rgba(191,96,64,0.04)", borderRadius: 12, border: `1px solid ${isDark ? "rgba(255,228,184,0.07)" : "rgba(191,96,64,0.12)"}`, ...staggerStyle(1, phase) }}>
             <p style={{ fontSize: 12, color: isDark ? "rgba(255,246,233,0.55)" : "rgba(26,15,5,0.5)", fontFamily: C.sans, lineHeight: 1.6, fontStyle: "italic" }}>
-              "Private by design — nothing leaves your device without your permission."
+              "Private by design. Nothing leaves your device without your permission."
             </p>
           </div>
         </div>
@@ -3010,9 +3084,9 @@ function FeatureListingSection() {
   }> = [
     {
       tag: "Record",
-      body: "One tap starts it. Just talk — ÉCHO writes it down as you go.",
+      body: "One tap starts it. Just talk. ÉCHO writes it down as you go.",
       grad: "linear-gradient(168deg, #EDE0CC 0%, #D8B87A 50%, #B08040 100%)",
-      screenshot: "/screens/screen-record.webp",
+      screenshot: "/screens/summit-record.webp",
       cardContent: (
         <>
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 30% 20%, rgba(255,245,220,0.55) 0%, transparent 55%)" }} />
@@ -3035,9 +3109,9 @@ function FeatureListingSection() {
     },
     {
       tag: "Reflect",
-      body: "Come back to any entry. Read it, or hear it in your own voice — exactly as you said it.",
+      body: "Come back to any entry. Read it, or hear it in your own voice, exactly as you said it.",
       grad: "linear-gradient(168deg, #E4D8C0 0%, #C8AE88 50%, #9A7050 100%)",
-      screenshot: "/screens/screen-archive.webp",
+      screenshot: "/screens/summit-archive.webp",
       cardContent: (
         <>
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 65% 25%, rgba(255,240,210,0.48) 0%, transparent 52%)" }} />
@@ -3056,9 +3130,9 @@ function FeatureListingSection() {
     },
     {
       tag: "The Mirror",
-      body: "The thoughts you keep circling back to, gathered and shown to you — not analyzed, not explained.",
+      body: "The thoughts you keep circling back to, gathered and shown to you, not analyzed, not explained.",
       grad: "linear-gradient(168deg, #D8D0C0 0%, #B4A890 50%, #8A7860 100%)",
-      screenshot: "/screens/screen-mirror.webp",
+      screenshot: "/screens/summit-mirror.webp",
       cardContent: (
         <>
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 35% 72%, rgba(255,245,225,0.42) 0%, transparent 58%)" }} />
@@ -3073,7 +3147,7 @@ function FeatureListingSection() {
       tag: "Letters",
       body: "Write to a version of yourself who isn't here yet. Set a date. ÉCHO holds it until then.",
       grad: "linear-gradient(168deg, #EAD8B4 0%, #CCB07A 50%, #9E8050 100%)",
-      screenshot: "/screens/screen-letters.webp",
+      screenshot: "/screens/summit-letters.webp",
       cardContent: (
         <>
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 52% 18%, rgba(255,248,220,0.52) 0%, transparent 54%)" }} />
@@ -3119,7 +3193,7 @@ function FeatureListingSection() {
           style={{ textAlign: "center", marginBottom: 52, padding: "0 24px" }}
         >
           <p style={{ fontSize: 11, textTransform: "uppercase" as const, letterSpacing: "0.24em", color: C.ember, margin: "0 0 14px", fontFamily: C.sans }}>
-            — What's inside
+            What's inside
           </p>
           <h2 style={{ fontFamily: C.serif, fontSize: "clamp(2rem, 7vw, 3.2rem)", color: isDark ? C.cream : "#1A0F05", lineHeight: 1.1, margin: "0 0 14px" }}>
             Four things ÉCHO{" "}
@@ -3167,88 +3241,110 @@ function FeatureListingSection() {
                     cursor: "pointer",
                     display: "flex",
                     flexDirection: "column" as const,
-                    padding: 14,
+                    padding: f.screenshot ? 0 : 14,
                     userSelect: "none" as const,
                     // pivot near bottom so rotation fans like a held deck of cards
                     originX: "50%",
                     originY: "88%",
                   }}
                 >
-                  {/* Top row: counter + tag pill */}
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexShrink: 0 }}>
-                    <span style={{ fontFamily: C.sans, fontSize: 11, color: isDark ? "rgba(255,246,233,0.26)" : "rgba(26,15,5,0.24)", fontWeight: 600, letterSpacing: "0.07em" }}>
-                      {i + 1} / {N}
-                    </span>
-                    <span style={{
-                      padding: "4px 14px",
-                      borderRadius: 999,
-                      border: `1px solid ${isDark ? "rgba(191,96,64,0.28)" : "rgba(191,96,64,0.18)"}`,
-                      background: isDark ? "rgba(191,96,64,0.07)" : "rgba(255,246,233,0.97)",
-                      fontFamily: C.serif,
-                      fontSize: 13,
-                      color: C.ember,
-                      fontStyle: "italic",
-                    }}>
-                      {f.tag}
-                    </span>
-                  </div>
-
-                  {/* Image area */}
-                  <div style={{
-                    flex: 1,
-                    borderRadius: 16,
-                    background: f.grad,
-                    marginBottom: 14,
-                    position: "relative",
-                    overflow: "hidden",
-                    minHeight: 0,
-                  }}>
-                    {f.screenshot ? (
-                      <>
-                        <img
-                          src={f.screenshot}
-                          alt=""
-                          loading="lazy"
-                          decoding="async"
-                          style={{
-                            position: "absolute",
-                            inset: 0,
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                            objectPosition: "top center",
-                          }}
-                        />
-                        {/* Fade bottom edge into card background */}
-                        <div style={{
+                  {f.screenshot ? (
+                    // Full-bleed screenshot card
+                    <>
+                      <img
+                        src={f.screenshot}
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        style={{
                           position: "absolute",
-                          bottom: 0, left: 0, right: 0,
-                          height: "28%",
-                          background: isDark
-                            ? "linear-gradient(to bottom, transparent, rgba(35,24,16,0.94))"
-                            : "linear-gradient(to bottom, transparent, rgba(254,252,248,0.92))",
-                          pointerEvents: "none",
-                        }} />
-                      </>
-                    ) : (
-                      <>
+                          inset: 0,
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          objectPosition: "top center",
+                          borderRadius: 24,
+                        }}
+                      />
+                      {/* Top scrim: counter + tag */}
+                      <div style={{
+                        position: "absolute",
+                        top: 0, left: 0, right: 0,
+                        padding: "16px 16px 52px",
+                        background: "linear-gradient(to bottom, rgba(0,0,0,0.42) 0%, transparent 100%)",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "flex-start",
+                        zIndex: 2,
+                        borderRadius: "24px 24px 0 0",
+                      }}>
+                        <span style={{ fontFamily: C.sans, fontSize: 11, color: "rgba(255,255,255,0.55)", fontWeight: 600, letterSpacing: "0.07em" }}>
+                          {i + 1} / {N}
+                        </span>
+                        <span style={{
+                          padding: "4px 14px",
+                          borderRadius: 999,
+                          border: "1px solid rgba(255,255,255,0.30)",
+                          background: "rgba(255,255,255,0.15)",
+                          backdropFilter: "blur(10px)",
+                          WebkitBackdropFilter: "blur(10px)",
+                          fontFamily: C.serif,
+                          fontSize: 13,
+                          color: "rgba(255,255,255,0.95)",
+                          fontStyle: "italic",
+                        }}>
+                          {f.tag}
+                        </span>
+                      </div>
+                      {/* Bottom scrim: description */}
+                      <div style={{
+                        position: "absolute",
+                        bottom: 0, left: 0, right: 0,
+                        padding: "64px 18px 22px",
+                        background: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.78) 45%, rgba(0,0,0,0.92) 100%)",
+                        zIndex: 2,
+                        borderRadius: "0 0 24px 24px",
+                      }}>
+                        <p style={{
+                          fontFamily: C.sans,
+                          fontSize: 13.5,
+                          color: "rgba(255,255,255,0.95)",
+                          lineHeight: 1.6,
+                          margin: 0,
+                        }}>
+                          {f.body}
+                        </p>
+                      </div>
+                    </>
+                  ) : (
+                    // Illustrated card (no screenshot)
+                    <>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexShrink: 0 }}>
+                        <span style={{ fontFamily: C.sans, fontSize: 11, color: isDark ? "rgba(255,246,233,0.26)" : "rgba(26,15,5,0.24)", fontWeight: 600, letterSpacing: "0.07em" }}>
+                          {i + 1} / {N}
+                        </span>
+                        <span style={{
+                          padding: "4px 14px",
+                          borderRadius: 999,
+                          border: `1px solid ${isDark ? "rgba(191,96,64,0.28)" : "rgba(191,96,64,0.18)"}`,
+                          background: isDark ? "rgba(191,96,64,0.07)" : "rgba(255,246,233,0.97)",
+                          fontFamily: C.serif,
+                          fontSize: 13,
+                          color: C.ember,
+                          fontStyle: "italic",
+                        }}>
+                          {f.tag}
+                        </span>
+                      </div>
+                      <div style={{ flex: 1, borderRadius: 16, background: f.grad, marginBottom: 14, position: "relative", overflow: "hidden", minHeight: 0 }}>
                         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.10) 100%)" }} />
                         {f.cardContent}
-                      </>
-                    )}
-                  </div>
-
-                  {/* Description */}
-                  <p style={{
-                    fontFamily: C.sans,
-                    fontSize: 13.5,
-                    color: isDark ? "rgba(255,246,233,0.75)" : "rgba(26,15,5,0.70)",
-                    lineHeight: 1.68,
-                    margin: 0,
-                    flexShrink: 0,
-                  }}>
-                    {f.body}
-                  </p>
+                      </div>
+                      <p style={{ fontFamily: C.sans, fontSize: 13.5, color: isDark ? "rgba(255,246,233,0.75)" : "rgba(26,15,5,0.70)", lineHeight: 1.68, margin: 0, flexShrink: 0 }}>
+                        {f.body}
+                      </p>
+                    </>
+                  )}
                 </motion.div>
               );
             })}
@@ -3393,7 +3489,7 @@ function VideoSection() {
               fontSize: 11, textTransform: "uppercase", letterSpacing: "0.24em",
               color: C.ember, marginBottom: 14, fontFamily: C.sans,
             }}>
-              — The story
+              The story
             </p>
             <h2 style={{
               fontFamily: C.serif,
@@ -3460,7 +3556,7 @@ function VideoSection() {
                   <div aria-hidden style={{ position: "absolute", inset: 0, background: "rgba(60,18,4,0.22)", pointerEvents: "none" }} />
                   <div style={{ position: "absolute", bottom: 28, left: 32, textAlign: "left", pointerEvents: "none" }}>
                     <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: "clamp(1.1rem, 2vw, 1.55rem)", color: "#FFF6E9", lineHeight: 1.25, margin: 0, textShadow: "0 2px 12px rgba(0,0,0,0.5)" }}>
-                      Roksana's story —<br />
+                      Roksana's story:<br />
                       <em style={{ color: "#F4C8A8", fontStyle: "italic" }}>why ÉCHO exists.</em>
                     </p>
                   </div>
@@ -3493,7 +3589,7 @@ function VideoSection() {
 
             {/* Quote — flush below video, inside the same card */}
             <div style={{ padding: "28px 32px 32px" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 20 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 20, justifyContent: "space-between" }}>
                 <div style={{
                   width: 44, height: 44, borderRadius: "50%", flexShrink: 0,
                   background: "linear-gradient(135deg, #C87D5A, #8B3D1A)",
@@ -3502,10 +3598,63 @@ function VideoSection() {
                 }}>
                   <span style={{ fontFamily: C.serif, fontSize: 17, color: "#FFF6E9", fontStyle: "italic" }}>R</span>
                 </div>
-                <div>
+                <div style={{ flex: 1 }}>
                   <p style={{ margin: 0, fontFamily: C.sans, fontSize: 14, fontWeight: 700, color: isDark ? C.cream : "#2A1008" }}>Roksana</p>
-                  <p style={{ margin: 0, fontFamily: C.sans, fontSize: 12, color: C.muted }}>Founder of ÉCHO</p>
+                  <a
+                    href={ECHO_IG}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 4,
+                      fontFamily: C.sans,
+                      fontSize: 12,
+                      color: C.muted,
+                      textDecoration: "none",
+                      transition: "color 0.15s",
+                    }}
+                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = C.ember)}
+                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = C.muted)}
+                  >
+                    <svg width={11} height={11} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                    </svg>
+                    Founder of ÉCHO
+                  </a>
                 </div>
+                <a
+                  href={ECHO_IG}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 6,
+                    padding: "7px 14px",
+                    borderRadius: 999,
+                    border: `1px solid ${isDark ? "rgba(191,96,64,0.30)" : "rgba(191,96,64,0.22)"}`,
+                    background: "transparent",
+                    color: C.ember,
+                    fontFamily: C.sans,
+                    fontSize: 12,
+                    fontWeight: 600,
+                    textDecoration: "none",
+                    flexShrink: 0,
+                    transition: "background 0.15s, border-color 0.15s",
+                  }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = isDark ? "rgba(191,96,64,0.10)" : "rgba(191,96,64,0.06)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
+                >
+                  <svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                  </svg>
+                  Follow on Instagram
+                </a>
               </div>
 
               <span aria-hidden style={{ display: "block", fontFamily: C.serif, fontSize: 44, lineHeight: 0.85, color: C.ember, marginBottom: 10, userSelect: "none" as const, opacity: 0.6 }}>"</span>
@@ -3515,7 +3664,7 @@ function VideoSection() {
               </p>
 
               <p style={{ fontFamily: C.sans, fontSize: 13.5, color: C.muted, lineHeight: 1.7, margin: 0 }}>
-                ÉCHO started as a personal tool — a way to keep track of the thoughts I kept losing. If it helps you too, that's everything.
+                ÉCHO started as a personal tool: a way to keep track of the thoughts I kept losing. If it helps you too, that's everything.
               </p>
             </div>
           </motion.div>
