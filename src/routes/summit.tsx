@@ -19,32 +19,30 @@ export const Route = createFileRoute("/summit")({
 });
 
 // Girls Future Ready Foundation accent pink — replaces terracotta on the summit page
-const GFR_PINK = "#CF3D88";
-
 // ── Theme ──────────────────────────────────────────────────────
 const C_DARK = {
   bg: "#0A1220",
   cream: "rgba(255,246,233,0.92)",
   muted: "rgba(255,246,233,0.45)",
-  peach: "rgba(255,218,234,0.65)",
-  ember: GFR_PINK,
+  peach: "rgba(255,228,184,0.65)",
+  ember: "#BF6040",
   card: "rgba(14,50,114,0.35)",
-  border: "rgba(255,218,234,0.09)",
+  border: "rgba(255,228,184,0.09)",
   serif: "'Instrument Serif', Georgia, 'Times New Roman', serif",
   sans: "Urbanist, ui-sans-serif, system-ui, sans-serif",
   navBg: "rgba(10,18,32,0.82)",
 };
 const C_LIGHT = {
-  bg: "#FEF5F8",
-  cream: "rgba(26,5,15,0.9)",
-  muted: "rgba(26,5,15,0.5)",
-  peach: "rgba(207,61,136,0.85)",
-  ember: GFR_PINK,
-  card: "rgba(207,61,136,0.07)",
-  border: "rgba(26,5,15,0.1)",
+  bg: "#FFF6E9",
+  cream: "rgba(26,15,5,0.9)",
+  muted: "rgba(26,15,5,0.5)",
+  peach: "rgba(191,96,64,0.85)",
+  ember: "#BF6040",
+  card: "rgba(191,96,64,0.07)",
+  border: "rgba(26,15,5,0.1)",
   serif: "'Instrument Serif', Georgia, 'Times New Roman', serif",
   sans: "Urbanist, ui-sans-serif, system-ui, sans-serif",
-  navBg: "rgba(254,245,248,0.88)",
+  navBg: "rgba(255,246,233,0.88)",
 };
 type ThemeColors = typeof C_DARK;
 
@@ -180,11 +178,11 @@ const TAB_RIGHT_BULLETS: Record<TabId, string[]> = {
 };
 
 const TAB_AMBIENT: Record<TabId, { dark: string; light: string }> = {
-  home:    { dark: "rgba(207,61,136,0.10)",  light: "rgba(207,61,136,0.07)" },
-  archive: { dark: "rgba(207,61,136,0.10)",  light: "rgba(207,61,136,0.07)" },
-  mirror:  { dark: "rgba(207,61,136,0.10)",  light: "rgba(207,61,136,0.06)" },
-  letters: { dark: "rgba(207,61,136,0.10)",  light: "rgba(207,61,136,0.06)" },
-  profile: { dark: "rgba(207,61,136,0.10)",  light: "rgba(207,61,136,0.06)" },
+  home:    { dark: "rgba(191,96,64,0.10)",  light: "rgba(191,96,64,0.07)" },
+  archive: { dark: "rgba(191,96,64,0.10)",  light: "rgba(191,96,64,0.07)" },
+  mirror:  { dark: "rgba(191,96,64,0.10)",  light: "rgba(191,96,64,0.06)" },
+  letters: { dark: "rgba(191,96,64,0.10)",  light: "rgba(191,96,64,0.06)" },
+  profile: { dark: "rgba(191,96,64,0.10)",  light: "rgba(191,96,64,0.06)" },
 };
 
 const SIDE_CARDS = [
@@ -416,7 +414,7 @@ function WaveBars({ active }: { active: boolean }) {
             width: 3,
             height: 14,
             borderRadius: 2,
-            background: active ? "#CF3D88" : "rgba(207,61,136,0.22)",
+            background: active ? "#BF6040" : "rgba(191,96,64,0.22)",
             transformOrigin: "center",
             ...(active
               ? {
@@ -458,7 +456,7 @@ function IPhoneFrame({ children }: { children: React.ReactNode }) {
           height: 60,
           borderRadius: "50%",
           background:
-            "radial-gradient(ellipse, rgba(207,61,136,0.35), transparent 70%)",
+            "radial-gradient(ellipse, rgba(191,96,64,0.35), transparent 70%)",
           filter: "blur(20px)",
           pointerEvents: "none",
         }}
@@ -1782,7 +1780,7 @@ function Card1Content() {
       borderRadius: 28,
       background: "linear-gradient(165deg, rgba(16,26,52,0.97) 0%, rgba(6,10,18,0.99) 100%)",
       border: "1px solid rgba(255,228,184,0.12)",
-      boxShadow: "0 64px 110px rgba(0,0,0,0.7), 0 0 60px rgba(207,61,136,0.09), inset 0 1px 0 rgba(255,246,233,0.07)",
+      boxShadow: "0 64px 110px rgba(0,0,0,0.7), 0 0 60px rgba(191,96,64,0.09), inset 0 1px 0 rgba(255,246,233,0.07)",
       backdropFilter: "blur(14px)",
     }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
@@ -1804,7 +1802,7 @@ function Card1Content() {
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
         <div style={{ flex: 1, display: "flex", alignItems: "center", gap: 1.5, height: 18 }}>
           {WAVE_HEIGHTS.slice(0, 26).map((h, i) => (
-            <div key={i} style={{ width: 2.5, height: Math.max(2, Math.round(h * 0.5)), borderRadius: 1.5, background: `rgba(207,61,136,${0.32 + (i % 4) * 0.1})` }} />
+            <div key={i} style={{ width: 2.5, height: Math.max(2, Math.round(h * 0.5)), borderRadius: 1.5, background: `rgba(191,96,64,${0.32 + (i % 4) * 0.1})` }} />
           ))}
         </div>
         <span style={{ fontSize: 9, color: "rgba(255,228,184,0.32)", fontFamily: "Inter, sans-serif", flexShrink: 0 }}>0:47</span>
@@ -1829,14 +1827,14 @@ function Card2Content() {
           "I don't know if I'm brave enough to leave..."
         </p>
       </div>
-      <div style={{ height: 1, background: "linear-gradient(90deg, rgba(207,61,136,0.28), transparent)", margin: "0 0 14px" }} />
+      <div style={{ height: 1, background: "linear-gradient(90deg, rgba(191,96,64,0.28), transparent)", margin: "0 0 14px" }} />
       <div style={{ marginBottom: 14 }}>
-        <p style={{ fontSize: 8, textTransform: "uppercase" as const, letterSpacing: "0.22em", color: "rgba(207,61,136,0.72)", marginBottom: 8, fontFamily: "Inter, sans-serif" }}>Today, you know</p>
+        <p style={{ fontSize: 8, textTransform: "uppercase" as const, letterSpacing: "0.22em", color: "rgba(191,96,64,0.72)", marginBottom: 8, fontFamily: "Inter, sans-serif" }}>Today, you know</p>
         <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 16, color: "rgba(255,246,233,0.94)", letterSpacing: "0" }}>You were. You did.</p>
       </div>
-      <div style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "4px 10px", borderRadius: 999, background: "rgba(207,61,136,0.1)", border: "1px solid rgba(207,61,136,0.22)" }}>
-        <svg width={7} height={8} viewBox="0 0 8 9" fill="none" aria-hidden><path d="M4 0.5L0.5 2.2V5.5c0 1.8 1.5 3.2 3.5 3.5C6 8.7 7.5 7.3 7.5 5.5V2.2L4 0.5z" fill="rgba(207,61,136,0.25)" stroke="rgba(207,61,136,0.65)" strokeWidth="0.7" /></svg>
-        <span style={{ fontSize: 8, color: "rgba(207,61,136,0.82)", letterSpacing: "0.14em", textTransform: "uppercase" as const, fontFamily: "Inter, sans-serif" }}>Unlocked · 6 months</span>
+      <div style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "4px 10px", borderRadius: 999, background: "rgba(191,96,64,0.1)", border: "1px solid rgba(191,96,64,0.22)" }}>
+        <svg width={7} height={8} viewBox="0 0 8 9" fill="none" aria-hidden><path d="M4 0.5L0.5 2.2V5.5c0 1.8 1.5 3.2 3.5 3.5C6 8.7 7.5 7.3 7.5 5.5V2.2L4 0.5z" fill="rgba(191,96,64,0.25)" stroke="rgba(191,96,64,0.65)" strokeWidth="0.7" /></svg>
+        <span style={{ fontSize: 8, color: "rgba(191,96,64,0.82)", letterSpacing: "0.14em", textTransform: "uppercase" as const, fontFamily: "Inter, sans-serif" }}>Unlocked · 6 months</span>
       </div>
     </div>
   );
@@ -1844,8 +1842,8 @@ function Card2Content() {
 
 function Card3Content() {
   const TRAITS = [
-    { label: "Emotional range", pct: 82, color: "#CF3D88" },
-    { label: "Growth trajectory", pct: 71, color: "#CF3D88" },
+    { label: "Emotional range", pct: 82, color: "#BF6040" },
+    { label: "Growth trajectory", pct: 71, color: "#BF6040" },
     { label: "Avoidance patterns", pct: 45, color: "#6B8FC7" },
   ];
   return (
@@ -1889,7 +1887,7 @@ function Card4Content() {
                    1.7, 1.5, 2.2, 1.8, 2.3, 1.6, 1.9, 2.1];
 
   return (
-    <div style={{ padding: "20px 22px", borderRadius: 24, background: "linear-gradient(165deg, rgba(16,26,52,0.97) 0%, rgba(6,10,18,0.99) 100%)", border: "1px solid rgba(207,61,136,0.18)", boxShadow: "0 44px 80px rgba(0,0,0,0.58), 0 0 40px rgba(207,61,136,0.07), inset 0 1px 0 rgba(255,246,233,0.06)", backdropFilter: "blur(12px)" }}>
+    <div style={{ padding: "20px 22px", borderRadius: 24, background: "linear-gradient(165deg, rgba(16,26,52,0.97) 0%, rgba(6,10,18,0.99) 100%)", border: "1px solid rgba(191,96,64,0.18)", boxShadow: "0 44px 80px rgba(0,0,0,0.58), 0 0 40px rgba(191,96,64,0.07), inset 0 1px 0 rgba(255,246,233,0.06)", backdropFilter: "blur(12px)" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
         <span style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase" as const, color: "rgba(255,228,184,0.32)" }}>ÉCHO</span>
         <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
@@ -1913,7 +1911,7 @@ function Card4Content() {
                 height: Math.max(4, Math.round(h * 0.72)),
                 borderRadius: 1.5,
                 transformOrigin: "bottom",
-                background: `rgba(207,61,136,${0.35 + maxScale * 0.5})`,
+                background: `rgba(191,96,64,${0.35 + maxScale * 0.5})`,
                 ["--bar-max" as string]: maxScale.toFixed(2),
                 animation: `barDance ${BAR_DURS[i]}s ${(i * 0.06).toFixed(2)}s ease-in-out infinite alternate`,
               }}
@@ -2133,8 +2131,8 @@ function SwipeableCardStack() {
         }}
       >
         <svg viewBox="0 0 28 14" fill="none" style={{ width: 28 }}>
-          <path d="M1 7h10M7 3l-6 4 6 4" stroke="#CF3D88" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M27 7H17M21 3l6 4-6 4" stroke="#CF3D88" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M1 7h10M7 3l-6 4 6 4" stroke="#BF6040" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M27 7H17M21 3l6 4-6 4" stroke="#BF6040" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
         <span style={{ fontSize: 12, color: "rgba(255,246,233,0.85)", fontFamily: "Urbanist, sans-serif", fontWeight: 500, letterSpacing: "0.1em" }}>
           swipe to explore
@@ -2195,12 +2193,12 @@ function HeroWaveLines({ opacity }: { opacity: MotionValue<number> }) {
         {/* Wave A — warm ember, lowest */}
         <g style={{ animation: "wave-drift-a 10s ease-in-out infinite" }}>
           <path d="M-50,590 C150,545 300,635 500,590 C700,545 820,610 950,575"
-            stroke="rgba(207,61,136,0.10)" strokeWidth="1.4" fill="none" strokeLinecap="round" />
+            stroke="rgba(191,96,64,0.10)" strokeWidth="1.4" fill="none" strokeLinecap="round" />
         </g>
         {/* Wave B — ember, mid-low */}
         <g style={{ animation: "wave-drift-b 13s ease-in-out infinite" }}>
           <path d="M-50,465 C120,425 280,510 480,468 C680,425 810,495 950,458"
-            stroke="rgba(207,61,136,0.065)" strokeWidth="1.1" fill="none" strokeLinecap="round" />
+            stroke="rgba(191,96,64,0.065)" strokeWidth="1.1" fill="none" strokeLinecap="round" />
         </g>
         {/* Wave C — cool blue, center */}
         <g style={{ animation: "wave-drift-c 16s ease-in-out infinite" }}>
@@ -2210,7 +2208,7 @@ function HeroWaveLines({ opacity }: { opacity: MotionValue<number> }) {
         {/* Wave D — ember, upper */}
         <g style={{ animation: "wave-drift-a 19s ease-in-out infinite reverse" }}>
           <path d="M-50,228 C130,192 280,268 490,226 C700,184 820,248 950,216"
-            stroke="rgba(207,61,136,0.038)" strokeWidth="0.9" fill="none" strokeLinecap="round" />
+            stroke="rgba(191,96,64,0.038)" strokeWidth="0.9" fill="none" strokeLinecap="round" />
         </g>
         {/* Wave E — blue, top */}
         <g style={{ animation: "wave-drift-b 23s ease-in-out infinite reverse" }}>
@@ -2243,7 +2241,7 @@ function HeroVisual({ bg, scrollYProgress }: { bg: string; scrollYProgress: Moti
     <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
 
       {/* Decorative É — faint editorial texture */}
-      <motion.div aria-hidden style={{ opacity: bgO, position: "absolute", top: "0%", right: "-4%", fontFamily: "'Instrument Serif', Georgia, serif", fontSize: "clamp(240px, 28vw, 420px)", lineHeight: 1, fontStyle: "italic", userSelect: "none", pointerEvents: "none", color: "rgba(207,61,136,0.028)", letterSpacing: "-0.05em" }}>
+      <motion.div aria-hidden style={{ opacity: bgO, position: "absolute", top: "0%", right: "-4%", fontFamily: "'Instrument Serif', Georgia, serif", fontSize: "clamp(240px, 28vw, 420px)", lineHeight: 1, fontStyle: "italic", userSelect: "none", pointerEvents: "none", color: "rgba(191,96,64,0.028)", letterSpacing: "-0.05em" }}>
         É
       </motion.div>
 
@@ -2251,7 +2249,7 @@ function HeroVisual({ bg, scrollYProgress }: { bg: string; scrollYProgress: Moti
       <HeroWaveLines opacity={bgO} />
 
       {/* Ambient glows */}
-      <motion.div aria-hidden style={{ opacity: bgO, position: "absolute", top: "35%", left: "18%", width: 480, height: 480, borderRadius: "50%", background: "radial-gradient(circle, rgba(207,61,136,0.09), transparent 65%)", filter: "blur(100px)", pointerEvents: "none" }} />
+      <motion.div aria-hidden style={{ opacity: bgO, position: "absolute", top: "35%", left: "18%", width: 480, height: 480, borderRadius: "50%", background: "radial-gradient(circle, rgba(191,96,64,0.09), transparent 65%)", filter: "blur(100px)", pointerEvents: "none" }} />
       <motion.div aria-hidden style={{ opacity: bgO, position: "absolute", top: "8%",  right: "8%",  width: 200, height: 200, borderRadius: "50%", background: "radial-gradient(circle, rgba(27,77,168,0.10),  transparent 65%)", filter: "blur(60px)",  pointerEvents: "none" }} />
 
       {/* Card 2: time capsule — upper right */}
@@ -2270,14 +2268,14 @@ function HeroVisual({ bg, scrollYProgress }: { bg: string; scrollYProgress: Moti
             <div style={{ borderRadius: 20, padding: "16px 18px", background: "linear-gradient(165deg, rgba(14,22,44,0.84), rgba(6,10,18,0.90))", border: "1px solid rgba(255,228,184,0.05)", boxShadow: "0 18px 40px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,246,233,0.04)", backdropFilter: "blur(10px)", transition: "box-shadow 0.35s ease" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                  <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#CF3D88", animation: "featBlink 1.1s ease-in-out infinite" }} />
-                  <span style={{ fontSize: 8, textTransform: "uppercase" as const, letterSpacing: "0.2em", color: "rgba(207,61,136,0.8)", fontFamily: "Inter, sans-serif" }}>Rec</span>
+                  <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#BF6040", animation: "featBlink 1.1s ease-in-out infinite" }} />
+                  <span style={{ fontSize: 8, textTransform: "uppercase" as const, letterSpacing: "0.2em", color: "rgba(191,96,64,0.8)", fontFamily: "Inter, sans-serif" }}>Rec</span>
                 </div>
                 <span style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 11, color: "rgba(255,246,233,0.45)", letterSpacing: "0.04em" }}>{mins}:{secs}</span>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 1.5, height: 22, marginBottom: 9 }}>
                 {WAVE_HEIGHTS.slice(0, 20).map((h, i) => (
-                  <div key={i} style={{ width: 2.5, height: Math.max(3, Math.round(h * 0.65)), borderRadius: 1.5, background: "rgba(207,61,136,0.45)" }} />
+                  <div key={i} style={{ width: 2.5, height: Math.max(3, Math.round(h * 0.65)), borderRadius: 1.5, background: "rgba(191,96,64,0.45)" }} />
                 ))}
               </div>
               <p style={{ fontSize: 8.5, color: "rgba(255,228,184,0.2)", fontFamily: "Inter, sans-serif", letterSpacing: "0.1em" }}>3 May 2026</p>
@@ -2447,12 +2445,12 @@ function HeroSection() {
             <span style={{
               display: "inline-flex", alignItems: "center", gap: 8,
               padding: "6px 18px", borderRadius: 999,
-              border: `1px solid ${isDark ? "rgba(255,228,184,0.2)" : "rgba(207,61,136,0.28)"}`,
-              background: isDark ? "rgba(255,228,184,0.05)" : "rgba(207,61,136,0.06)",
+              border: `1px solid ${isDark ? "rgba(255,228,184,0.2)" : "rgba(191,96,64,0.28)"}`,
+              background: isDark ? "rgba(255,228,184,0.05)" : "rgba(191,96,64,0.06)",
               fontSize: 11, textTransform: "uppercase" as const, letterSpacing: "0.2em",
               color: C.muted, fontFamily: C.sans,
             }}>
-              <span className="badge-dot" style={{ width: 7, height: 7, borderRadius: "50%", background: GFR_PINK, display: "inline-block" }} />
+              <span className="badge-dot" style={{ width: 7, height: 7, borderRadius: "50%", background: C.ember, display: "inline-block" }} />
               For Girls Future Ready Attendees · First 1,000
             </span>
           </div>
@@ -2473,7 +2471,7 @@ function HeroSection() {
             <span className="hero-word" style={{ display: "inline-block", animationDelay: "0.12s" }}>
               Record today.
             </span>{" "}
-            <em style={{ color: GFR_PINK, fontStyle: "italic", display: "block", marginTop: 4 }}>
+            <em style={{ color: C.ember, fontStyle: "italic", display: "block", marginTop: 4 }}>
               Hear yourself again.
             </em>
           </h1>
@@ -2619,8 +2617,8 @@ function WhyEchoSection() {
         height: 600,
         borderRadius: "50%",
         background: isDark
-          ? "radial-gradient(circle, rgba(207,61,136,0.07), transparent 65%)"
-          : "radial-gradient(circle, rgba(207,61,136,0.05), transparent 65%)",
+          ? "radial-gradient(circle, rgba(191,96,64,0.07), transparent 65%)"
+          : "radial-gradient(circle, rgba(191,96,64,0.05), transparent 65%)",
         filter: "blur(60px)",
         pointerEvents: "none",
       }} />
@@ -2799,7 +2797,7 @@ function HowItWorksSection() {
               style={{
                 padding: "28px 26px 26px",
                 background: isDark ? "rgba(255,246,233,0.04)" : "rgba(255,246,233,0.9)",
-                border: `1px solid ${isDark ? "rgba(255,228,184,0.09)" : "rgba(207,61,136,0.1)"}`,
+                border: `1px solid ${isDark ? "rgba(255,228,184,0.09)" : "rgba(191,96,64,0.1)"}`,
                 borderRadius: 20,
                 position: "relative",
               }}
@@ -3070,9 +3068,9 @@ function InteractivePhoneSection() {
             <IPhoneFrame>{phoneContent}</IPhoneFrame>
           </div>
           {!hasInteracted && (
-            <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 14px", borderRadius: 20, background: "rgba(207,61,136,0.12)", border: "1px solid rgba(207,61,136,0.28)", animation: "tapBadgePulse 2s ease-in-out infinite" }}>
-              <Pointer size={13} color="#CF3D88" strokeWidth={1.8} />
-              <span style={{ fontSize: 11, color: "#CF3D88", fontFamily: "Urbanist, sans-serif", fontWeight: 500, letterSpacing: "0.04em" }}>Tap to explore</span>
+            <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 14px", borderRadius: 20, background: "rgba(191,96,64,0.12)", border: "1px solid rgba(191,96,64,0.28)", animation: "tapBadgePulse 2s ease-in-out infinite" }}>
+              <Pointer size={13} color="#BF6040" strokeWidth={1.8} />
+              <span style={{ fontSize: 11, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 500, letterSpacing: "0.04em" }}>Tap to explore</span>
             </div>
           )}
         </div>
@@ -3092,7 +3090,7 @@ function InteractivePhoneSection() {
               ))}
             </div>
           </div>
-          <div style={{ marginTop: 8, padding: "12px 14px", background: isDark ? "rgba(14,22,44,0.6)" : "rgba(207,61,136,0.04)", borderRadius: 12, border: `1px solid ${isDark ? "rgba(255,228,184,0.07)" : "rgba(207,61,136,0.12)"}`, ...staggerStyle(1, phase) }}>
+          <div style={{ marginTop: 8, padding: "12px 14px", background: isDark ? "rgba(14,22,44,0.6)" : "rgba(191,96,64,0.04)", borderRadius: 12, border: `1px solid ${isDark ? "rgba(255,228,184,0.07)" : "rgba(191,96,64,0.12)"}`, ...staggerStyle(1, phase) }}>
             <p style={{ fontSize: 12, color: isDark ? "rgba(255,246,233,0.55)" : "rgba(26,15,5,0.5)", fontFamily: C.sans, lineHeight: 1.6, fontStyle: "italic" }}>
               "Private by design. Nothing leaves your device without your permission."
             </p>
@@ -3290,7 +3288,7 @@ function FeatureListingSection() {
                     background: "rgba(255,255,255,0.06)",
                     backdropFilter: "blur(12px)",
                     WebkitBackdropFilter: "blur(12px)",
-                    border: `1.5px solid rgba(207,61,136,0.35)`,
+                    border: `1.5px solid rgba(191,96,64,0.35)`,
                     boxShadow: d === 0
                       ? "0 24px 64px rgba(0,0,0,0.16), 0 4px 16px rgba(0,0,0,0.06)"
                       : "0 6px 20px rgba(0,0,0,0.08)",
@@ -3315,8 +3313,8 @@ function FeatureListingSection() {
                         <span style={{
                           padding: "4px 14px",
                           borderRadius: 999,
-                          border: `1px solid ${isDark ? "rgba(207,61,136,0.28)" : "rgba(207,61,136,0.18)"}`,
-                          background: isDark ? "rgba(207,61,136,0.07)" : "rgba(254,245,248,0.97)",
+                          border: `1px solid ${isDark ? "rgba(191,96,64,0.28)" : "rgba(191,96,64,0.18)"}`,
+                          background: isDark ? "rgba(191,96,64,0.07)" : "rgba(254,245,248,0.97)",
                           fontFamily: C.serif,
                           fontSize: 13,
                           color: C.ember,
@@ -3325,7 +3323,7 @@ function FeatureListingSection() {
                           {f.tag}
                         </span>
                       </div>
-                      <div style={{ flex: 1, borderRadius: 16, overflow: "hidden", minHeight: 0, marginBottom: 14, border: `1.5px solid rgba(207,61,136,0.22)` }}>
+                      <div style={{ flex: 1, borderRadius: 16, overflow: "hidden", minHeight: 0, marginBottom: 14, border: `1.5px solid rgba(191,96,64,0.22)` }}>
                         <img
                           src={f.screenshot}
                           alt=""
@@ -3354,8 +3352,8 @@ function FeatureListingSection() {
                         <span style={{
                           padding: "4px 14px",
                           borderRadius: 999,
-                          border: `1px solid ${isDark ? "rgba(207,61,136,0.28)" : "rgba(207,61,136,0.18)"}`,
-                          background: isDark ? "rgba(207,61,136,0.07)" : "rgba(255,246,233,0.97)",
+                          border: `1px solid ${isDark ? "rgba(191,96,64,0.28)" : "rgba(191,96,64,0.18)"}`,
+                          background: isDark ? "rgba(191,96,64,0.07)" : "rgba(255,246,233,0.97)",
                           fontFamily: C.serif,
                           fontSize: 13,
                           color: C.ember,
@@ -3392,7 +3390,7 @@ function FeatureListingSection() {
                   width: i === active ? 22 : 6,
                   height: 6,
                   borderRadius: 99,
-                  background: i === active ? C.ember : isDark ? "rgba(207,61,136,0.22)" : "rgba(207,61,136,0.18)",
+                  background: i === active ? C.ember : isDark ? "rgba(191,96,64,0.22)" : "rgba(191,96,64,0.18)",
                   transition: "width 0.28s ease, background 0.28s ease",
                 }} />
               </button>
@@ -3434,7 +3432,7 @@ function FounderSection() {
               background: isDark
                 ? "rgba(255,246,233,0.04)"
                 : "rgba(255,246,233,0.92)",
-              border: `1px solid ${isDark ? "rgba(207,61,136,0.18)" : "rgba(207,61,136,0.12)"}`,
+              border: `1px solid ${isDark ? "rgba(191,96,64,0.18)" : "rgba(191,96,64,0.12)"}`,
               borderRadius: 24,
               position: "relative",
               overflow: "hidden",
@@ -3447,8 +3445,8 @@ function FounderSection() {
             <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 28 }}>
               <div style={{
                 width: 52, height: 52, borderRadius: "50%", flexShrink: 0,
-                background: "linear-gradient(135deg, #DA6BAC, #8E1F5E)",
-                boxShadow: "0 3px 12px rgba(207,61,136,0.22)",
+                background: "linear-gradient(135deg, #D4724A, #6A2A10)",
+                boxShadow: "0 3px 12px rgba(191,96,64,0.22)",
                 display: "flex", alignItems: "center", justifyContent: "center",
               }}>
                 <span style={{ fontFamily: C.serif, fontSize: 20, color: "#FFF6E9", fontStyle: "italic" }}>R</span>
@@ -3497,8 +3495,8 @@ function VideoSection() {
           height: 600,
           borderRadius: "50%",
           background: isDark
-            ? "radial-gradient(circle, rgba(207,61,136,0.10), transparent 65%)"
-            : "radial-gradient(circle, rgba(207,61,136,0.07), transparent 65%)",
+            ? "radial-gradient(circle, rgba(191,96,64,0.10), transparent 65%)"
+            : "radial-gradient(circle, rgba(191,96,64,0.07), transparent 65%)",
           filter: "blur(80px)",
           pointerEvents: "none",
         }}
@@ -3537,11 +3535,11 @@ function VideoSection() {
             style={{
               borderRadius: 24,
               overflow: "hidden",
-              border: `1px solid ${isDark ? "rgba(207,61,136,0.18)" : "rgba(207,61,136,0.12)"}`,
+              border: `1px solid ${isDark ? "rgba(191,96,64,0.18)" : "rgba(191,96,64,0.12)"}`,
               background: isDark ? "rgba(255,246,233,0.03)" : "rgba(255,246,233,0.92)",
               boxShadow: isDark
-                ? "0 24px 80px rgba(0,0,0,0.55), 0 4px 24px rgba(207,61,136,0.12)"
-                : "0 24px 80px rgba(26,10,2,0.14), 0 4px 24px rgba(207,61,136,0.08)",
+                ? "0 24px 80px rgba(0,0,0,0.55), 0 4px 24px rgba(191,96,64,0.12)"
+                : "0 24px 80px rgba(26,10,2,0.14), 0 4px 24px rgba(191,96,64,0.08)",
               position: "relative",
             }}
           >
@@ -3567,11 +3565,11 @@ function VideoSection() {
                   }}
                   onMouseEnter={(e) => {
                     const play = e.currentTarget.querySelector<HTMLDivElement>(".video-play-btn");
-                    if (play) { play.style.transform = "scale(1.08)"; play.style.boxShadow = "0 16px 48px rgba(207,61,136,0.7)"; }
+                    if (play) { play.style.transform = "scale(1.08)"; play.style.boxShadow = "0 16px 48px rgba(191,96,64,0.7)"; }
                   }}
                   onMouseLeave={(e) => {
                     const play = e.currentTarget.querySelector<HTMLDivElement>(".video-play-btn");
-                    if (play) { play.style.transform = "scale(1)"; play.style.boxShadow = "0 8px 32px rgba(207,61,136,0.45)"; }
+                    if (play) { play.style.transform = "scale(1)"; play.style.boxShadow = "0 8px 32px rgba(191,96,64,0.45)"; }
                   }}
                 >
                   <img
@@ -3595,7 +3593,7 @@ function VideoSection() {
                       width: 80, height: 80, borderRadius: "50%",
                       background: C.ember,
                       display: "flex", alignItems: "center", justifyContent: "center",
-                      boxShadow: "0 8px 32px rgba(207,61,136,0.45)",
+                      boxShadow: "0 8px 32px rgba(191,96,64,0.45)",
                       transition: "transform 0.22s ease, box-shadow 0.22s ease",
                     }}
                   >
@@ -3620,8 +3618,8 @@ function VideoSection() {
               <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 20, justifyContent: "space-between" }}>
                 <div style={{
                   width: 44, height: 44, borderRadius: "50%", flexShrink: 0,
-                  background: "linear-gradient(135deg, #DA6BAC, #8E1F5E)",
-                  boxShadow: "0 3px 12px rgba(207,61,136,0.22)",
+                  background: "linear-gradient(135deg, #D4724A, #6A2A10)",
+                  boxShadow: "0 3px 12px rgba(191,96,64,0.22)",
                   display: "flex", alignItems: "center", justifyContent: "center",
                 }}>
                   <span style={{ fontFamily: C.serif, fontSize: 17, color: "#FFF6E9", fontStyle: "italic" }}>R</span>
@@ -3663,7 +3661,7 @@ function VideoSection() {
                     gap: 6,
                     padding: "7px 14px",
                     borderRadius: 999,
-                    border: `1px solid ${isDark ? "rgba(207,61,136,0.30)" : "rgba(207,61,136,0.22)"}`,
+                    border: `1px solid ${isDark ? "rgba(191,96,64,0.30)" : "rgba(191,96,64,0.22)"}`,
                     background: "transparent",
                     color: C.ember,
                     fontFamily: C.sans,
@@ -3673,7 +3671,7 @@ function VideoSection() {
                     flexShrink: 0,
                     transition: "background 0.15s, border-color 0.15s",
                   }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = isDark ? "rgba(207,61,136,0.10)" : "rgba(207,61,136,0.06)"; }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = isDark ? "rgba(191,96,64,0.10)" : "rgba(191,96,64,0.06)"; }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
                 >
                   <svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -3759,8 +3757,8 @@ function PrivacySection() {
           height: 700,
           borderRadius: "50%",
           background: isDark
-            ? "radial-gradient(circle, rgba(207,61,136,0.09), transparent 65%)"
-            : "radial-gradient(circle, rgba(207,61,136,0.07), transparent 65%)",
+            ? "radial-gradient(circle, rgba(191,96,64,0.09), transparent 65%)"
+            : "radial-gradient(circle, rgba(191,96,64,0.07), transparent 65%)",
           filter: "blur(60px)",
           pointerEvents: "none",
         }}
@@ -3854,7 +3852,7 @@ function PrivacySection() {
                   bottom: -24,
                   width: 210,
                   height: 210,
-                  color: isDark ? "rgba(207,61,136,0.32)" : "rgba(207,61,136,0.22)",
+                  color: isDark ? "rgba(191,96,64,0.32)" : "rgba(191,96,64,0.22)",
                   pointerEvents: "none",
                 }}
               >
@@ -4064,19 +4062,19 @@ function PricingSection() {
             position: "relative",
             overflow: "hidden",
             borderRadius: 28,
-            border: `1px solid ${isDark ? "rgba(207,61,136,0.4)" : "rgba(168,75,42,0.32)"}`,
-            background: isDark ? "rgba(207,61,136,0.07)" : "rgba(207,61,136,0.05)",
+            border: `1px solid ${isDark ? "rgba(191,96,64,0.4)" : "rgba(168,75,42,0.32)"}`,
+            background: isDark ? "rgba(191,96,64,0.07)" : "rgba(191,96,64,0.05)",
             padding: "32px 28px",
             backdropFilter: "blur(8px)",
             textAlign: "left",
             display: "flex",
             flexDirection: "column",
             boxShadow: isDark
-              ? "0 0 80px rgba(207,61,136,0.12), 0 24px 60px rgba(0,0,0,0.3), inset 0 0 40px rgba(207,61,136,0.04)"
-              : "0 8px 48px rgba(207,61,136,0.14), 0 2px 12px rgba(0,0,0,0.06)",
+              ? "0 0 80px rgba(191,96,64,0.12), 0 24px 60px rgba(0,0,0,0.3), inset 0 0 40px rgba(191,96,64,0.04)"
+              : "0 8px 48px rgba(191,96,64,0.14), 0 2px 12px rgba(0,0,0,0.06)",
           }}
         >
-          <div aria-hidden style={{ position: "absolute", inset: "0 0 auto 0", height: 1, background: "linear-gradient(90deg, transparent 0%, rgba(207,61,136,0.7) 50%, transparent 100%)" }} />
+          <div aria-hidden style={{ position: "absolute", inset: "0 0 auto 0", height: 1, background: "linear-gradient(90deg, transparent 0%, rgba(191,96,64,0.7) 50%, transparent 100%)" }} />
 
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, marginBottom: 20 }}>
             <p style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.2em", color: C.muted, fontFamily: C.sans }}>
@@ -4151,8 +4149,8 @@ function TestimonialsPlaceholder() {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   // Warm translucent cards — no stark white
-  const cardBg = isDark ? "rgba(207,61,136,0.06)" : "rgba(207,61,136,0.04)";
-  const cardBd = isDark ? "rgba(255,228,184,0.09)" : "rgba(207,61,136,0.10)";
+  const cardBg = isDark ? "rgba(191,96,64,0.06)" : "rgba(191,96,64,0.04)";
+  const cardBd = isDark ? "rgba(255,228,184,0.09)" : "rgba(191,96,64,0.10)";
   const qColor = isDark ? C.cream : "#1A0F05";
 
   const CARDS = [
@@ -4187,8 +4185,8 @@ function TestimonialsPlaceholder() {
   const tagPill = (label: string) => (
     <span style={{
       padding: "2px 10px", borderRadius: 99,
-      background: isDark ? "rgba(255,228,184,0.08)" : "rgba(207,61,136,0.06)",
-      border: `1px solid ${isDark ? "rgba(255,228,184,0.16)" : "rgba(207,61,136,0.14)"}`,
+      background: isDark ? "rgba(255,228,184,0.08)" : "rgba(191,96,64,0.06)",
+      border: `1px solid ${isDark ? "rgba(255,228,184,0.16)" : "rgba(191,96,64,0.14)"}`,
       fontSize: 10, fontFamily: C.sans, color: C.ember,
       letterSpacing: "0.04em", whiteSpace: "nowrap" as const,
     }}>{label}</span>
@@ -4200,7 +4198,7 @@ function TestimonialsPlaceholder() {
       aria-label={label}
       style={{
         width: 34, height: 34, borderRadius: "50%",
-        background: isDark ? "rgba(255,228,184,0.07)" : "rgba(207,61,136,0.06)",
+        background: isDark ? "rgba(255,228,184,0.07)" : "rgba(191,96,64,0.06)",
         border: `1px solid ${cardBd}`,
         cursor: "pointer", color: C.ember, fontSize: 20,
         display: "flex", alignItems: "center", justifyContent: "center",
@@ -4213,8 +4211,8 @@ function TestimonialsPlaceholder() {
     <section id="testimonials" style={{ position: "relative", padding: "80px 0 88px", overflowX: "clip", overflowY: "visible" }}>
 
       {/* Ambient blobs */}
-      <div aria-hidden style={{ position: "absolute", top: -60, right: -80, width: 420, height: 420, borderRadius: "50%", background: isDark ? "radial-gradient(circle,rgba(207,61,136,0.07) 0%,transparent 70%)" : "radial-gradient(circle,rgba(207,61,136,0.08) 0%,transparent 70%)", filter: "blur(60px)", pointerEvents: "none" }} />
-      <div aria-hidden style={{ position: "absolute", bottom: 80, left: -100, width: 300, height: 300, borderRadius: "50%", background: isDark ? "radial-gradient(circle,rgba(207,61,136,0.05) 0%,transparent 70%)" : "radial-gradient(circle,rgba(207,61,136,0.06) 0%,transparent 70%)", filter: "blur(50px)", pointerEvents: "none" }} />
+      <div aria-hidden style={{ position: "absolute", top: -60, right: -80, width: 420, height: 420, borderRadius: "50%", background: isDark ? "radial-gradient(circle,rgba(191,96,64,0.07) 0%,transparent 70%)" : "radial-gradient(circle,rgba(191,96,64,0.08) 0%,transparent 70%)", filter: "blur(60px)", pointerEvents: "none" }} />
+      <div aria-hidden style={{ position: "absolute", bottom: 80, left: -100, width: 300, height: 300, borderRadius: "50%", background: isDark ? "radial-gradient(circle,rgba(191,96,64,0.05) 0%,transparent 70%)" : "radial-gradient(circle,rgba(191,96,64,0.06) 0%,transparent 70%)", filter: "blur(50px)", pointerEvents: "none" }} />
 
       {/* No horizontal padding — carousel goes edge-to-edge; sub-elements set their own inset */}
       <div style={{ maxWidth: 960, margin: "0 auto" }}>
@@ -4284,7 +4282,7 @@ function TestimonialsPlaceholder() {
                 style={{ width: 24, height: 14, display: "flex", alignItems: "center", justifyContent: "center", background: "none", border: "none", cursor: "pointer", padding: 0 }}>
                 <div style={{
                   width: i === active ? 22 : 6, height: 6, borderRadius: 99,
-                  background: i === active ? C.ember : (isDark ? "rgba(255,228,184,0.22)" : "rgba(207,61,136,0.22)"),
+                  background: i === active ? C.ember : (isDark ? "rgba(255,228,184,0.22)" : "rgba(191,96,64,0.22)"),
                   transition: "width 0.25s ease, background 0.25s ease",
                 }} />
               </button>
@@ -4298,7 +4296,7 @@ function TestimonialsPlaceholder() {
           style={{ padding: "0 16px", marginBottom: 44 }}>
         <div style={{
             borderRadius: 24,
-            background: isDark ? "rgba(255,246,233,0.04)" : "rgba(207,61,136,0.035)",
+            background: isDark ? "rgba(255,246,233,0.04)" : "rgba(191,96,64,0.035)",
             border: `1px solid ${cardBd}`,
             padding: "32px 28px 26px",
           }}>
@@ -4322,14 +4320,14 @@ function TestimonialsPlaceholder() {
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={VP}
           style={{ padding: "0 16px" }}>
         <div style={{
-            borderTop: `1px solid ${isDark ? "rgba(255,228,184,0.09)" : "rgba(207,61,136,0.12)"}`,
+            borderTop: `1px solid ${isDark ? "rgba(255,228,184,0.09)" : "rgba(191,96,64,0.12)"}`,
             paddingTop: 22,
             display: "flex", flexWrap: "wrap" as const, justifyContent: "space-between", alignItems: "center", gap: 14,
           }}>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <div style={{ display: "flex" }}>
               {[
-                "linear-gradient(135deg,#DA6BAC,#8B4020)",
+                "linear-gradient(135deg,#D4724A,#8B4020)",
                 "linear-gradient(135deg,#A0785A,#7B5028)",
                 "linear-gradient(135deg,#C8956A,#9B6A40)",
               ].map((grad, i) => (
@@ -4343,7 +4341,7 @@ function TestimonialsPlaceholder() {
               ))}
               <div style={{
                 width: 30, height: 30, borderRadius: "50%",
-                background: isDark ? "rgba(255,246,233,0.10)" : "rgba(207,61,136,0.08)",
+                background: isDark ? "rgba(255,246,233,0.10)" : "rgba(191,96,64,0.08)",
                 border: `2px solid ${isDark ? "#0A1220" : "#FFF6E9"}`,
                 marginLeft: -10, flexShrink: 0,
                 display: "flex", alignItems: "center", justifyContent: "center",
@@ -4437,8 +4435,8 @@ function FAQSection() {
             gap: 10,
             padding: "12px 22px",
             borderRadius: 999,
-            border: `1px solid ${isDark ? "rgba(207,61,136,0.28)" : "rgba(207,61,136,0.20)"}`,
-            background: isDark ? "rgba(207,61,136,0.06)" : "rgba(207,61,136,0.05)",
+            border: `1px solid ${isDark ? "rgba(191,96,64,0.28)" : "rgba(191,96,64,0.20)"}`,
+            background: isDark ? "rgba(191,96,64,0.06)" : "rgba(191,96,64,0.05)",
             fontFamily: C.sans,
             fontSize: 14,
             color: C.ember,
@@ -4456,7 +4454,7 @@ function FAQSection() {
             width: 20,
             height: 20,
             borderRadius: "50%",
-            border: `1px solid rgba(207,61,136,0.35)`,
+            border: `1px solid rgba(191,96,64,0.35)`,
             fontSize: 14,
             lineHeight: 1,
             transform: expanded ? "rotate(45deg)" : "rotate(0deg)",
@@ -4481,11 +4479,11 @@ function FAQSection() {
                 key={i}
                 style={{
                   borderRadius: 18,
-                  border: `1px solid ${open === i ? (isDark ? "rgba(207,61,136,0.32)" : "rgba(168,75,42,0.28)") : C.border}`,
+                  border: `1px solid ${open === i ? (isDark ? "rgba(191,96,64,0.32)" : "rgba(168,75,42,0.28)") : C.border}`,
                   background:
                     open === i
-                      ? isDark ? "rgba(207,61,136,0.07)" : "rgba(207,61,136,0.04)"
-                      : isDark ? "rgba(14,50,114,0.18)" : "rgba(207,61,136,0.03)",
+                      ? isDark ? "rgba(191,96,64,0.07)" : "rgba(191,96,64,0.04)"
+                      : isDark ? "rgba(14,50,114,0.18)" : "rgba(191,96,64,0.03)",
                   transition: "border-color 0.2s ease, background 0.2s ease",
                 }}
               >
@@ -4517,8 +4515,8 @@ function FAQSection() {
                         width: 26,
                         height: 26,
                         borderRadius: "50%",
-                        border: `1px solid ${open === i ? "rgba(207,61,136,0.55)" : C.border}`,
-                        background: open === i ? "rgba(207,61,136,0.18)" : "rgba(207,61,136,0.05)",
+                        border: `1px solid ${open === i ? "rgba(191,96,64,0.55)" : C.border}`,
+                        background: open === i ? "rgba(191,96,64,0.18)" : "rgba(191,96,64,0.05)",
                         color: open === i ? C.ember : C.muted,
                         display: "flex",
                         alignItems: "center",
@@ -4584,7 +4582,7 @@ function WaitlistSection() {
           width: 560,
           height: 560,
           borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(207,61,136,0.12), transparent 70%)",
+          background: "radial-gradient(circle, rgba(191,96,64,0.12), transparent 70%)",
           filter: "blur(60px)",
           pointerEvents: "none",
           animation: "glowPulse 5s ease-in-out infinite",
@@ -4624,7 +4622,7 @@ function WaitlistSection() {
           }}
         >
           You met ÉCHO today.{" "}
-          <em style={{ color: GFR_PINK, fontStyle: "italic" }}>
+          <em style={{ color: C.ember, fontStyle: "italic" }}>
             Don't leave without it.
           </em>
         </motion.h2>
@@ -4670,9 +4668,9 @@ function WaitlistSection() {
                 gap: 6,
                 padding: "5px 14px",
                 borderRadius: 999,
-                border: `1px solid ${isDark ? "rgba(207,61,136,0.18)" : "rgba(168,75,42,0.16)"}`,
+                border: `1px solid ${isDark ? "rgba(191,96,64,0.18)" : "rgba(168,75,42,0.16)"}`,
                 background: isDark
-                  ? "rgba(207,61,136,0.05)"
+                  ? "rgba(191,96,64,0.05)"
                   : "rgba(168,75,42,0.04)",
                 fontSize: 11,
                 letterSpacing: "0.1em",
@@ -4837,16 +4835,16 @@ function Landing() {
           transition: "background 0.4s ease, color 0.4s ease",
           minHeight: "100vh",
           overflowX: "clip",
-          // Override global CSS tokens so all components use GFR pink instead of terracotta
-          ["--ember" as string]: GFR_PINK,
-          ["--ember-bright" as string]: "#DA6BAC",
-          ["--peach" as string]: GFR_PINK,
-          ["--accent" as string]: GFR_PINK,
-          ["--primary" as string]: GFR_PINK,
-          ["--ring" as string]: GFR_PINK,
-          ["--gradient-ember" as string]: `linear-gradient(135deg, #8E1F5E 0%, ${GFR_PINK} 50%, #DA6BAC 100%)`,
-          ["--shadow-ember" as string]: `0 20px 60px -20px rgba(207,61,136,0.45)`,
-          ["--shadow-glow" as string]: `0 0 80px rgba(207,61,136,0.18)`,
+          // Brand tokens — same as landing page (terracotta)
+          ["--ember" as string]: "#BF6040",
+          ["--ember-bright" as string]: "#D4724A",
+          ["--peach" as string]: "rgba(255,228,184,0.65)",
+          ["--accent" as string]: "#BF6040",
+          ["--primary" as string]: "#BF6040",
+          ["--ring" as string]: "#BF6040",
+          ["--gradient-ember" as string]: "linear-gradient(135deg, #6A2A10 0%, #BF6040 50%, #D4724A 100%)",
+          ["--shadow-ember" as string]: "0 20px 60px -20px rgba(191,96,64,0.45)",
+          ["--shadow-glow" as string]: "0 0 80px rgba(191,96,64,0.18)",
           ["--nav-bg" as string]: "rgba(10,18,32,0.88)",
           ["--background" as string]: "#0A1220",
           ["--ink" as string]: "#FFF6E9",
@@ -4911,7 +4909,7 @@ function Landing() {
           cta={{ label: "Secure your spot", anchor: "waitlist" }}
           hideThemeToggle
           hideBanner
-          logoSrc="/logo-pink.svg"
+          logoSrc="/logo-main.svg"
         />
         <div id="main-content" />
         <HeroSection />
