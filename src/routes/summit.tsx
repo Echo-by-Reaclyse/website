@@ -2364,6 +2364,7 @@ function HeroSection() {
     <section
       ref={ref}
       style={{ position: "relative", minHeight: "100dvh", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}
+      className="lg:!justify-start"
     >
       {/* Mobile: right-side atmospheric panel */}
       <motion.div
@@ -2439,7 +2440,7 @@ function HeroSection() {
             textAlign: "center",
             margin: "0 auto",
           }}
-          className="max-lg:!pt-[72px]"
+          className="max-lg:!pt-[72px] lg:!text-left lg:!items-start lg:!mx-0 lg:!w-auto lg:!max-w-[480px] lg:!pl-16 lg:!pr-6"
         >
 
           {/* Badge */}
@@ -2495,6 +2496,7 @@ function HeroSection() {
           <div
             className="hero-fade"
             style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center", marginBottom: 20, animationDelay: "0.56s", alignItems: "center" }}
+            className="lg:!justify-start"
           >
             <button
               onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "start" })}
