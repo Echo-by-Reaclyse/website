@@ -4796,8 +4796,11 @@ function Landing() {
           ["--gradient-ember" as string]: `linear-gradient(135deg, #8E1F5E 0%, ${GFR_PINK} 50%, #DA6BAC 100%)`,
           ["--shadow-ember" as string]: `0 20px 60px -20px rgba(207,61,136,0.45)`,
           ["--shadow-glow" as string]: `0 0 80px rgba(207,61,136,0.18)`,
-          ["--nav-bg" as string]: isDark ? "rgba(10,18,32,0.88)" : "rgba(254,245,248,0.88)",
-          ["--background" as string]: isDark ? "#0A1220" : "#FEF5F8",
+          ["--nav-bg" as string]: "rgba(10,18,32,0.88)",
+          ["--background" as string]: "#0A1220",
+          ["--ink" as string]: "#FFF6E9",
+          ["--muted-foreground" as string]: "rgba(255,246,233,0.65)",
+          ["--border" as string]: "rgba(255,228,184,0.10)",
         }}
       >
         <title>ÉCHO × Girls Future Ready Summit</title>
