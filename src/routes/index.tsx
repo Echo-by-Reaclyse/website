@@ -802,17 +802,21 @@ function HomeTabScreen({
               )}
             </div>
 
-            {/* Record button — echo rings + glass orb */}
+            {/* Record button — glass orb with specular highlights + echo rings */}
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, paddingTop: 2 }}>
               <div style={{ position: "relative", width: 140, height: 140, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                {/* Three concentric echo rings */}
-                {[120, 102, 83].map((size, idx) => (
+                {/* Three concentric echo rings — hairlines, opacity ramp outward */}
+                {[
+                  { size: 82, opacity: 0.30 },
+                  { size: 101, opacity: 0.18 },
+                  { size: 121, opacity: 0.09 },
+                ].map(({ size, opacity }, idx) => (
                   <div key={idx} style={{
                     position: "absolute",
                     width: size, height: size,
                     borderRadius: "50%",
-                    border: `0.75px solid rgba(191,96,64,${[0.10, 0.20, 0.32][idx]})`,
-                    animation: `ringBreath 2.6s ${(idx * 0.1).toFixed(1)}s ease-in-out infinite`,
+                    border: `0.9px solid rgba(191,96,64,${opacity})`,
+                    animation: `ringBreath 2.6s ${(idx * 0.05).toFixed(2)}s ease-in-out infinite`,
                   }} />
                 ))}
                 {/* Glass orb */}
@@ -820,20 +824,30 @@ function HomeTabScreen({
                   onClick={() => setHomeState("recording")}
                   style={{
                     width: 62, height: 62, borderRadius: "50%",
-                    background: "radial-gradient(circle at 34% 28%, #D4724A 0%, #BF6040 45%, #8C3A20 100%)",
+                    background: "radial-gradient(circle at 34% 28%, #D4724A 0%, #BF6040 45%, #6A2A10 100%)",
                     border: "none", cursor: "pointer",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    boxShadow: "0 4px 20px rgba(191,96,64,0.42)",
-                    WebkitTapHighlightColor: "transparent",
                     position: "relative", zIndex: 1,
+                    boxShadow: "0 6px 24px rgba(191,96,64,0.44), inset 0 -2px 4px rgba(0,0,0,0.22)",
+                    WebkitTapHighlightColor: "transparent",
                     animation: "orbBreath 2.6s ease-in-out infinite",
+                    overflow: "hidden",
                   }}
                 >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" style={{ width: 22, height: 22 }}>
-                    <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z" />
-                    <path d="M19 10v2a7 7 0 01-14 0v-2" />
-                    <line x1="12" y1="19" x2="12" y2="23" />
-                    <line x1="8" y1="23" x2="16" y2="23" />
+                  {/* Broad soft cap highlight */}
+                  <div style={{ position: "absolute", top: "8%", left: "50%", transform: "translateX(-50%)", width: "62%", height: "44%", borderRadius: "50%", background: "rgba(255,255,255,0.36)", filter: "blur(3.5px)", pointerEvents: "none" }} />
+                  {/* Tight catchlight arc — 1 o'clock to 3 o'clock */}
+                  <svg viewBox="0 0 62 62" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}>
+                    <path d="M 39.8 8.7 A 24 24 0 0 1 54.6 26.5" stroke="rgba(255,255,255,0.58)" strokeWidth="3.0" strokeLinecap="round" fill="none" />
+                  </svg>
+                  {/* Bounce light lower-left */}
+                  <div style={{ position: "absolute", bottom: "18%", left: "8%", width: "38%", height: "28%", borderRadius: "50%", background: "rgba(220,130,85,0.28)", filter: "blur(5px)", pointerEvents: "none" }} />
+                  {/* Mic icon */}
+                  <svg viewBox="0 0 24 24" fill="none" strokeLinecap="round"
+                    style={{ width: 22, height: 22, position: "relative", zIndex: 2, display: "block", margin: "auto" }}>
+                    <rect x="9" y="2" width="6" height="12" rx="3" fill="rgba(255,255,255,0.92)" />
+                    <path d="M19 10v2a7 7 0 01-14 0v-2" stroke="rgba(255,255,255,0.92)" strokeWidth="1.9" />
+                    <line x1="12" y1="19" x2="12" y2="23" stroke="rgba(255,255,255,0.92)" strokeWidth="1.9" />
+                    <line x1="8" y1="23" x2="16" y2="23" stroke="rgba(255,255,255,0.92)" strokeWidth="1.9" />
                   </svg>
                 </button>
               </div>
@@ -894,7 +908,7 @@ function HomeTabScreen({
                 <span style={{ marginLeft: "auto", fontSize: 13, color: "#1A1A1A", fontFamily: "monospace", letterSpacing: "0.05em" }}>{formatTime(recordingSeconds)}</span>
               </div>
               {/* Waveform bars — hardcoded speech envelope, VU-meter animation */}
-              <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", height: 64, gap: 1 }}>
+              <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", height: 80, gap: 1.5 }}>
                 {(() => {
                   // Realistic speech amplitude: 3 phrases separated by pauses
                   // Each value = peak height (0–1) for that bar column
@@ -930,8 +944,8 @@ function HomeTabScreen({
                         <div
                           style={{
                             width: "100%",
-                            height: `${Math.max(3, Math.round(maxH * 64))}px`,
-                            background: isSpeech ? "#BF6040" : "rgba(191,96,64,0.38)",
+                            height: `${Math.max(3, Math.round(maxH * 80))}px`,
+                            background: isSpeech ? "#BF6040" : "rgba(191,96,64,0.30)",
                             borderRadius: 3,
                             transformOrigin: "bottom",
                             ["--bar-max" as string]: maxH.toFixed(3),
@@ -946,22 +960,39 @@ function HomeTabScreen({
               </div>
             </div>
 
-            {/* Stop button — single pulsing ring while recording */}
+            {/* Stop button — 3 amplitude rings pulsing outward */}
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, paddingTop: 2 }}>
               <div style={{ position: "relative", width: 140, height: 140, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <div style={{ position: "absolute", width: 90, height: 90, borderRadius: "50%", background: "rgba(191,96,64,0.12)", animation: "tapRipple 1.8s ease-out infinite" }} />
+                {[
+                  { size: 82, opacity: 0.50, dur: 1.8, delay: 0.0 },
+                  { size: 101, opacity: 0.32, dur: 1.8, delay: 0.3 },
+                  { size: 121, opacity: 0.18, dur: 1.8, delay: 0.6 },
+                ].map(({ size, opacity, dur, delay }, idx) => (
+                  <div key={idx} style={{
+                    position: "absolute",
+                    width: size, height: size,
+                    borderRadius: "50%",
+                    border: `1px solid rgba(191,96,64,${opacity})`,
+                    animation: `ringPulse ${dur}s ${delay}s ease-out infinite`,
+                  }} />
+                ))}
                 <button
                   onClick={() => setHomeState("processing")}
                   style={{
                     width: 62, height: 62, borderRadius: "50%",
-                    background: "radial-gradient(circle at 34% 28%, #D4724A 0%, #BF6040 45%, #8C3A20 100%)",
+                    background: "radial-gradient(circle at 34% 28%, #D4724A 0%, #BF6040 45%, #6A2A10 100%)",
                     border: "none", cursor: "pointer",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    boxShadow: "0 4px 20px rgba(191,96,64,0.42)",
-                    WebkitTapHighlightColor: "transparent", position: "relative", zIndex: 1,
+                    position: "relative", zIndex: 1,
+                    boxShadow: "0 6px 28px rgba(191,96,64,0.52), inset 0 -2px 4px rgba(0,0,0,0.22)",
+                    WebkitTapHighlightColor: "transparent",
+                    overflow: "hidden",
                   }}
                 >
-                  <div style={{ width: 20, height: 20, borderRadius: 4, background: "white" }} />
+                  <div style={{ position: "absolute", top: "8%", left: "50%", transform: "translateX(-50%)", width: "62%", height: "44%", borderRadius: "50%", background: "rgba(255,255,255,0.36)", filter: "blur(3.5px)", pointerEvents: "none" }} />
+                  <svg viewBox="0 0 62 62" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}>
+                    <path d="M 39.8 8.7 A 24 24 0 0 1 54.6 26.5" stroke="rgba(255,255,255,0.58)" strokeWidth="3.0" strokeLinecap="round" fill="none" />
+                  </svg>
+                  <div style={{ width: 20, height: 20, borderRadius: 5, background: "white", position: "relative", zIndex: 2, margin: "auto", marginTop: 21 }} />
                 </button>
               </div>
               <p style={{ fontSize: 12, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif" }}>Tap to stop</p>
@@ -1366,74 +1397,121 @@ function MirrorTabScreen({ mirrorKey }: { mirrorKey: number }) {
 }
 
 function LettersTabScreen() {
-  const PROMPTS = [
-    "Where do I see myself in a year?",
-    "What's weighing on me right now?",
-    "What would I tell my past self?",
-  ];
+  const [activeFilter, setActiveFilter] = useState<"All" | "Sealed" | "Delivered">("All");
 
   return (
-    <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "#F0EBE3", overflow: "hidden" }}>
-      <div style={{ flex: 1, overflowY: "auto", padding: "44px 16px 12px", scrollbarWidth: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+    <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "#EDE8E0", overflow: "hidden" }}>
+      <div style={{ flex: 1, overflowY: "auto", padding: "44px 14px 12px", scrollbarWidth: "none", display: "flex", flexDirection: "column", gap: 10 }}>
 
         {/* Title */}
         <div style={{ marginTop: 2 }}>
           <p style={{ fontSize: 22, color: "#1A1A1A", fontFamily: "'Instrument Serif', Georgia, serif", fontWeight: 400, marginBottom: 2 }}>Letters</p>
-          <p style={{ fontSize: 12, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif" }}>Messages to your future self</p>
+          <p style={{ fontSize: 12, color: "rgba(0,0,0,0.42)", fontFamily: "Urbanist, sans-serif" }}>Messages to your future self.</p>
         </div>
 
-        {/* Envelope illustration */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", paddingTop: 8, paddingBottom: 4 }}>
-          <div style={{ position: "relative", width: 110, height: 110, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            {/* Outer circle */}
-            <div style={{ position: "absolute", width: 110, height: 110, borderRadius: "50%", background: "rgba(191,96,64,0.08)" }} />
-            {/* Middle circle */}
-            <div style={{ position: "absolute", width: 82, height: 82, borderRadius: "50%", background: "rgba(191,96,64,0.10)" }} />
-            {/* Envelope */}
-            <div style={{ position: "relative", width: 54, height: 40, zIndex: 1 }}>
-              <svg viewBox="0 0 54 40" fill="none" style={{ width: 54, height: 40 }}>
-                <rect x="1" y="1" width="52" height="38" rx="4" fill="white" stroke="rgba(191,96,64,0.2)" strokeWidth="1" />
-                <polyline points="1,5 27,22 53,5" stroke="rgba(191,96,64,0.25)" strokeWidth="1.2" fill="none" />
-                <line x1="1" y1="39" x2="20" y2="22" stroke="rgba(191,96,64,0.15)" strokeWidth="1" />
-                <line x1="53" y1="39" x2="34" y2="22" stroke="rgba(191,96,64,0.15)" strokeWidth="1" />
-              </svg>
-              {/* Seal */}
-              <div style={{ position: "absolute", bottom: -8, left: "50%", transform: "translateX(-50%)", width: 18, height: 18, borderRadius: "50%", background: "#BF6040", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <span style={{ fontSize: 9, color: "white", fontFamily: "Urbanist, sans-serif", fontWeight: 700 }}>R</span>
+        {/* Progress stepper */}
+        <div style={{ display: "flex", alignItems: "center", gap: 0, paddingTop: 2 }}>
+          {["Choose a date", "Record", "Seal"].map((step, i) => {
+            const isActive = i === 1;
+            const isDone = i < 1;
+            return (
+              <div key={step} style={{ display: "flex", alignItems: "center", flex: i < 2 ? 1 : "none" }}>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
+                  <div style={{ width: 7, height: 7, borderRadius: "50%", background: (isActive || isDone) ? "#BF6040" : "rgba(0,0,0,0.18)", flexShrink: 0 }} />
+                  <span style={{ fontSize: 9, color: isActive ? "#BF6040" : "rgba(0,0,0,0.35)", fontFamily: "Urbanist, sans-serif", fontWeight: isActive ? 600 : 400, whiteSpace: "nowrap" }}>{step}</span>
+                </div>
+                {i < 2 && <div style={{ flex: 1, height: 1, background: isDone ? "#BF6040" : "rgba(0,0,0,0.14)", marginBottom: 14, opacity: 0.6 }} />}
               </div>
-            </div>
+            );
+          })}
+        </div>
+
+        {/* Envelope with halo */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingTop: 4, paddingBottom: 2 }}>
+          <div style={{ position: "relative", width: 148, height: 108, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            {/* Warm glow halo beneath */}
+            <div style={{ position: "absolute", bottom: 0, left: "50%", transform: "translateX(-50%)", width: 110, height: 32, borderRadius: "50%", background: "rgba(191,96,64,0.18)", filter: "blur(16px)" }} />
+            {/* Envelope SVG — faithful to the app's letterPaper colors */}
+            <svg viewBox="0 0 148 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: 148, height: 100, position: "relative", zIndex: 1, filter: "drop-shadow(0 4px 12px rgba(191,96,64,0.14))" }}>
+              {/* Envelope body */}
+              <rect x="3" y="20" width="142" height="76" rx="6" fill="#FDF6EC" />
+              <rect x="3" y="20" width="142" height="76" rx="6" stroke="rgba(191,96,64,0.18)" strokeWidth="0.8" />
+              {/* Back V-fold lines from bottom corners to center */}
+              <line x1="3" y1="96" x2="60" y2="56" stroke="#D4C5A9" strokeWidth="0.7" opacity="0.7" />
+              <line x1="145" y1="96" x2="88" y2="56" stroke="#D4C5A9" strokeWidth="0.7" opacity="0.7" />
+              {/* Flap — warm cream slightly darker */}
+              <path d="M3 26 L74 60 L145 26 L145 20 C145 17 142 14 139 14 L9 14 C6 14 3 17 3 20 Z" fill="#F5EDE0" />
+              <path d="M3 26 L74 60 L145 26 L145 20 C145 17 142 14 139 14 L9 14 C6 14 3 17 3 20 Z" stroke="rgba(191,96,64,0.14)" strokeWidth="0.7" />
+              {/* Flap fold crease lines */}
+              <line x1="3" y1="26" x2="74" y2="60" stroke="rgba(191,96,64,0.10)" strokeWidth="0.8" />
+              <line x1="145" y1="26" x2="74" y2="60" stroke="rgba(191,96,64,0.10)" strokeWidth="0.8" />
+              {/* Wax seal — outer circle */}
+              <circle cx="74" cy="60" r="14" fill="#BF6040" />
+              {/* Wax seal — inner aged ring */}
+              <circle cx="74" cy="60" r="11.5" fill="#A84B2A" />
+              {/* É letter */}
+              <text x="74" y="65.5" textAnchor="middle" fill="rgba(255,255,255,0.92)" fontSize="12" fontFamily="'Instrument Serif', Georgia, serif" fontStyle="italic" fontWeight="400">É</text>
+            </svg>
           </div>
+          <p style={{ fontSize: 11, color: "rgba(0,0,0,0.38)", fontFamily: "Urbanist, sans-serif", marginTop: 6 }}>Tap to record your first letter</p>
         </div>
 
-        {/* Empty state text */}
-        <div style={{ textAlign: "center", paddingTop: 4 }}>
-          <p style={{ fontSize: 18, color: "#1A1A1A", fontFamily: "'Instrument Serif', Georgia, serif", fontWeight: 400, marginBottom: 6 }}>No letters yet.</p>
-          <p style={{ fontSize: 12, color: "rgba(0,0,0,0.5)", fontFamily: "Urbanist, sans-serif", lineHeight: 1.5, maxWidth: 220, margin: "0 auto" }}>The words you say today become wisdom tomorrow.</p>
+        {/* "Next letter opens in" countdown card */}
+        <div style={{ background: "#120F0D", borderRadius: 14, padding: "12px 14px" }}>
+          <p style={{ fontSize: 9, color: "rgba(255,246,233,0.40)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 4 }}>NEXT LETTER OPENS IN</p>
+          <p style={{ fontSize: 26, color: "#FFF6E9", fontFamily: "'Instrument Serif', Georgia, serif", fontWeight: 400, lineHeight: 1.1, marginBottom: 3 }}>11 hours</p>
+          <p style={{ fontSize: 11, color: "rgba(255,246,233,0.50)", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic" }}>Sound of my ending</p>
         </div>
 
-        {/* Prompts */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 8, paddingTop: 4 }}>
-          <p style={{ fontSize: 10, color: "rgba(0,0,0,0.35)", fontFamily: "Urbanist, sans-serif", textAlign: "center" }}>start with a question</p>
-          {PROMPTS.map(prompt => (
-            <div
-              key={prompt}
-              style={{ background: "#FFFFFF", borderRadius: 20, padding: "10px 16px", boxShadow: "0 1px 3px rgba(0,0,0,0.07)", textAlign: "center", cursor: "pointer" }}
-            >
-              <p style={{ fontSize: 12, color: "#1A1A1A", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic" }}>{prompt}</p>
+        {/* Tab filter */}
+        <div style={{ display: "flex", background: "rgba(0,0,0,0.08)", borderRadius: 22, padding: 2 }}>
+          {(["All", "Sealed", "Delivered"] as const).map(f => {
+            const isA = f === activeFilter;
+            return (
+              <button key={f} onClick={() => setActiveFilter(f)} style={{ flex: 1, padding: "5px 0", border: "none", borderRadius: 19, background: isA ? "#BF6040" : "transparent", color: isA ? "white" : "rgba(0,0,0,0.42)", fontSize: 10, fontFamily: "Urbanist, sans-serif", fontWeight: isA ? 600 : 400, cursor: "pointer", WebkitTapHighlightColor: "transparent", transition: "all 0.18s ease" }}>{f}</button>
+            );
+          })}
+        </div>
+
+        {/* Section header */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+          <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 600 }}>SEALED LETTERS (2)</p>
+          <p style={{ fontSize: 11, color: "rgba(0,0,0,0.32)", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic" }}>Thoughts waiting.</p>
+        </div>
+
+        {/* Letter cards */}
+        {[
+          { title: "Sound of my ending", opens: "Opens in 11h", date: "Dec 21" },
+          { title: "What I want to tell myself", opens: "Opens in 3 days", date: "Dec 24" },
+        ].map((letter, i) => (
+          <div key={i} style={{ background: "#FFFFFF", borderRadius: 14, padding: "11px 14px", boxShadow: "0 1px 4px rgba(0,0,0,0.06)", display: "flex", alignItems: "center", gap: 10 }}>
+            {/* Mini envelope */}
+            <div style={{ width: 34, height: 26, flexShrink: 0 }}>
+              <svg viewBox="0 0 34 26" fill="none" style={{ width: 34, height: 26 }}>
+                <rect x="0.5" y="0.5" width="33" height="25" rx="3" fill="#FDF6EC" stroke="rgba(191,96,64,0.22)" strokeWidth="0.8" />
+                <polyline points="0.5,4 17,14 33.5,4" stroke="rgba(191,96,64,0.22)" strokeWidth="0.8" fill="none" />
+                <circle cx="17" cy="14" r="5" fill="#BF6040" />
+                <text x="17" y="17.5" textAnchor="middle" fill="rgba(255,255,255,0.9)" fontSize="5.5" fontFamily="'Instrument Serif', Georgia, serif" fontStyle="italic">É</text>
+              </svg>
             </div>
-          ))}
-        </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <p style={{ fontSize: 12, color: "#1A1A1A", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic", marginBottom: 2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{letter.title}</p>
+              <p style={{ fontSize: 10, color: "#BF6040", fontFamily: "Urbanist, sans-serif" }}>{letter.opens}</p>
+            </div>
+            <span style={{ fontSize: 10, color: "rgba(0,0,0,0.28)", fontFamily: "Urbanist, sans-serif", flexShrink: 0 }}>{letter.date}</span>
+          </div>
+        ))}
 
       </div>
 
       {/* CTA button pinned at bottom */}
-      <div style={{ padding: "0 16px 10px", flexShrink: 0 }}>
-        <button style={{ width: "100%", padding: "13px", borderRadius: 14, background: "#BF6040", border: "none", color: "white", fontSize: 14, fontFamily: "Urbanist, sans-serif", fontWeight: 600, cursor: "pointer", WebkitTapHighlightColor: "transparent", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" style={{ width: 16, height: 16 }}>
-            <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z" />
-            <path d="M19 10v2a7 7 0 01-14 0v-2" />
+      <div style={{ padding: "0 14px 10px", flexShrink: 0 }}>
+        <button style={{ width: "100%", padding: "13px", borderRadius: 14, background: "#BF6040", border: "none", color: "white", fontSize: 13, fontFamily: "Urbanist, sans-serif", fontWeight: 600, cursor: "pointer", WebkitTapHighlightColor: "transparent", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
+          <svg viewBox="0 0 24 24" style={{ width: 15, height: 15 }}>
+            <rect x="9" y="2" width="6" height="12" rx="3" fill="white" />
+            <path d="M19 10v2a7 7 0 01-14 0v-2" stroke="white" strokeWidth="2" strokeLinecap="round" fill="none" />
           </svg>
-          Write your first letter
+          Record a letter
         </button>
       </div>
     </div>

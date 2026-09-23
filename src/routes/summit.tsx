@@ -118,11 +118,11 @@ const JOURNAL_ENTRIES = [
 ];
 
 const INSIGHTS_TRAITS = [
-  { label: "Emotional range", value: 0.82, color: "#CF3D88" },
+  { label: "Emotional range", value: 0.82, color: "#BF6040" },
   { label: "Avoidance patterns", value: 0.45, color: "#6B8FC7" },
-  { label: "Growth trajectory", value: 0.71, color: "#CF3D88" },
+  { label: "Growth trajectory", value: 0.71, color: "#BF6040" },
   { label: "Decision clarity", value: 0.63, color: "#8FA8D4" },
-  { label: "Authenticity index", value: 0.88, color: "#CF3D88" },
+  { label: "Authenticity index", value: 0.88, color: "#BF6040" },
 ];
 
 const WAVE_HEIGHTS = Array.from(
@@ -690,10 +690,10 @@ function PhoneTabBar({
               gap: 2,
               padding: "5px 2px 4px",
               border: "none",
-              background: active ? "rgba(207,61,136,0.12)" : "none",
+              background: active ? "rgba(191,96,64,0.12)" : "none",
               borderRadius: active ? 12 : 0,
               cursor: "pointer",
-              color: active ? "#CF3D88" : "#1A1A1A",
+              color: active ? "#BF6040" : "#1A1A1A",
               transition: "color 0.2s ease, background 0.2s ease",
               WebkitTapHighlightColor: "transparent",
               userSelect: "none",
@@ -784,18 +784,18 @@ function HomeTabScreen({
               {recordMode === "question" ? (
                 <>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                    <p style={{ fontSize: 9, color: "#CF3D88", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600 }}>Today's Question</p>
+                    <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600 }}>Today's Question</p>
                     <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
-                      <span style={{ fontSize: 9, color: "#CF3D88" }}>⚡</span>
-                      <span style={{ fontSize: 9, color: "#CF3D88", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>Fear</span>
+                      <span style={{ fontSize: 9, color: "#BF6040" }}>⚡</span>
+                      <span style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>Fear</span>
                     </div>
                   </div>
                   <p style={{ fontSize: 15, color: "#1A1A1A", fontFamily: "'Instrument Serif', Georgia, serif", lineHeight: 1.3, fontStyle: "italic", marginBottom: 10 }}>
                     {question}
                   </p>
                   <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                    <span style={{ fontSize: 10, color: "#CF3D88" }}>↺</span>
-                    <span style={{ fontSize: 10, color: "#CF3D88", fontFamily: "Urbanist, sans-serif" }}>Get another question</span>
+                    <span style={{ fontSize: 10, color: "#BF6040" }}>↺</span>
+                    <span style={{ fontSize: 10, color: "#BF6040", fontFamily: "Urbanist, sans-serif" }}>Get another question</span>
                   </div>
                 </>
               ) : (
@@ -805,17 +805,21 @@ function HomeTabScreen({
               )}
             </div>
 
-            {/* Record button — echo rings + glass orb */}
+            {/* Record button — glass orb with specular highlights + echo rings */}
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, paddingTop: 2 }}>
               <div style={{ position: "relative", width: 140, height: 140, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                {/* Three concentric echo rings */}
-                {[120, 102, 83].map((size, idx) => (
+                {/* Three concentric echo rings — terracotta, opacity ramp outward */}
+                {[
+                  { size: 82, opacity: 0.30 },
+                  { size: 101, opacity: 0.18 },
+                  { size: 121, opacity: 0.09 },
+                ].map(({ size, opacity }, idx) => (
                   <div key={idx} style={{
                     position: "absolute",
                     width: size, height: size,
                     borderRadius: "50%",
-                    border: `0.75px solid rgba(207,61,136,${[0.10, 0.20, 0.32][idx]})`,
-                    animation: `ringBreath 2.6s ${(idx * 0.1).toFixed(1)}s ease-in-out infinite`,
+                    border: `0.9px solid rgba(191,96,64,${opacity})`,
+                    animation: `ringBreath 2.6s ${(idx * 0.05).toFixed(2)}s ease-in-out infinite`,
                   }} />
                 ))}
                 {/* Glass orb */}
@@ -823,33 +827,39 @@ function HomeTabScreen({
                   onClick={() => setHomeState("recording")}
                   style={{
                     width: 62, height: 62, borderRadius: "50%",
-                    background: "radial-gradient(circle at 34% 28%, #DA6BAC 0%, #CF3D88 45%, #8E1F5E 100%)",
+                    background: "radial-gradient(circle at 34% 28%, #D4724A 0%, #BF6040 45%, #6A2A10 100%)",
                     border: "none", cursor: "pointer",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    boxShadow: "0 4px 20px rgba(207,61,136,0.42)",
-                    WebkitTapHighlightColor: "transparent",
                     position: "relative", zIndex: 1,
+                    boxShadow: "0 6px 24px rgba(191,96,64,0.44), inset 0 -2px 4px rgba(0,0,0,0.22)",
+                    WebkitTapHighlightColor: "transparent",
                     animation: "orbBreath 2.6s ease-in-out infinite",
+                    overflow: "hidden",
                   }}
                 >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" style={{ width: 22, height: 22 }}>
-                    <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z" />
-                    <path d="M19 10v2a7 7 0 01-14 0v-2" />
-                    <line x1="12" y1="19" x2="12" y2="23" />
-                    <line x1="8" y1="23" x2="16" y2="23" />
+                  <div style={{ position: "absolute", top: "8%", left: "50%", transform: "translateX(-50%)", width: "62%", height: "44%", borderRadius: "50%", background: "rgba(255,255,255,0.36)", filter: "blur(3.5px)", pointerEvents: "none" }} />
+                  <svg viewBox="0 0 62 62" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}>
+                    <path d="M 39.8 8.7 A 24 24 0 0 1 54.6 26.5" stroke="rgba(255,255,255,0.58)" strokeWidth="3.0" strokeLinecap="round" fill="none" />
+                  </svg>
+                  <div style={{ position: "absolute", bottom: "18%", left: "8%", width: "38%", height: "28%", borderRadius: "50%", background: "rgba(220,130,85,0.28)", filter: "blur(5px)", pointerEvents: "none" }} />
+                  <svg viewBox="0 0 24 24" fill="none" strokeLinecap="round"
+                    style={{ width: 22, height: 22, position: "relative", zIndex: 2, display: "block", margin: "auto" }}>
+                    <rect x="9" y="2" width="6" height="12" rx="3" fill="rgba(255,255,255,0.92)" />
+                    <path d="M19 10v2a7 7 0 01-14 0v-2" stroke="rgba(255,255,255,0.92)" strokeWidth="1.9" />
+                    <line x1="12" y1="19" x2="12" y2="23" stroke="rgba(255,255,255,0.92)" strokeWidth="1.9" />
+                    <line x1="8" y1="23" x2="16" y2="23" stroke="rgba(255,255,255,0.92)" strokeWidth="1.9" />
                   </svg>
                 </button>
               </div>
               <p style={{ fontSize: 12, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif" }}>Begin</p>
-              <div style={{ display: "flex", alignItems: "center", gap: 4, background: "rgba(207,61,136,0.10)", borderRadius: 20, padding: "4px 10px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 4, background: "rgba(191,96,64,0.10)", borderRadius: 20, padding: "4px 10px" }}>
                 <span style={{ fontSize: 11 }}>🔥</span>
-                <span style={{ fontSize: 11, color: "#CF3D88", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>3 day record</span>
+                <span style={{ fontSize: 11, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>3 day record</span>
               </div>
             </div>
 
             {/* The Mirror preview card */}
             <div style={{ background: "#FFFFFF", borderRadius: 16, padding: "14px", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
-              <p style={{ fontSize: 9, color: "#CF3D88", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600, marginBottom: 10 }}>The Mirror</p>
+              <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600, marginBottom: 10 }}>The Mirror</p>
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                 {[
                   "You return to the theme of control in 6 of your last 10 entries.",
@@ -857,14 +867,14 @@ function HomeTabScreen({
                   "You mention your family in nearly every reflection this month.",
                 ].map((line, i) => (
                   <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 6 }}>
-                    <span style={{ fontSize: 6, color: "#CF3D88", marginTop: 4, flexShrink: 0 }}>●</span>
+                    <span style={{ fontSize: 6, color: "#BF6040", marginTop: 4, flexShrink: 0 }}>●</span>
                     <span style={{ fontSize: 11, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif", lineHeight: 1.4 }}>{line}</span>
                   </div>
                 ))}
               </div>
               <div style={{ marginTop: 12, display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "0.5px solid rgba(0,0,0,0.07)", paddingTop: 10 }}>
-                <span style={{ fontSize: 12, color: "#CF3D88", fontFamily: "Urbanist, sans-serif", fontWeight: 500 }}>Look closer</span>
-                <span style={{ fontSize: 14, color: "#CF3D88" }}>→</span>
+                <span style={{ fontSize: 12, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 500 }}>Look closer</span>
+                <span style={{ fontSize: 14, color: "#BF6040" }}>→</span>
               </div>
             </div>
           </>
@@ -877,7 +887,7 @@ function HomeTabScreen({
             {/* Question card — stays visible during recording */}
             <div style={{ background: "#FFFFFF", borderRadius: 16, padding: "14px", boxShadow: "0 1px 4px rgba(0,0,0,0.08)" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                <p style={{ fontSize: 9, color: "#CF3D88", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600 }}>Today's Question</p>
+                <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600 }}>Today's Question</p>
               </div>
               <p style={{ fontSize: 14, color: "#1A1A1A", fontFamily: "'Instrument Serif', Georgia, serif", lineHeight: 1.3, fontStyle: "italic", marginBottom: 8 }}>
                 {question}
@@ -892,40 +902,31 @@ function HomeTabScreen({
             <div style={{ background: "#FFFFFF", borderRadius: 16, padding: "12px 14px 14px", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
               {/* Recording row */}
               <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 12 }}>
-                <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#CF3D88", animation: "recDot 1s ease-in-out infinite", flexShrink: 0 }} />
+                <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#BF6040", animation: "recDot 1s ease-in-out infinite", flexShrink: 0 }} />
                 <span style={{ fontSize: 11, color: "#555", fontFamily: "Urbanist, sans-serif" }}>Recording...</span>
                 <span style={{ marginLeft: "auto", fontSize: 13, color: "#1A1A1A", fontFamily: "monospace", letterSpacing: "0.05em" }}>{formatTime(recordingSeconds)}</span>
               </div>
               {/* Waveform bars — hardcoded speech envelope, VU-meter animation */}
-              <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", height: 64, gap: 1 }}>
+              <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", height: 80, gap: 1.5 }}>
                 {(() => {
-                  // Realistic speech amplitude: 3 phrases separated by pauses
-                  // Each value = peak height (0–1) for that bar column
                   const AMP = [
-                    // Phrase 1 — short word
                     0.12, 0.38, 0.72, 0.90, 0.82, 0.52, 0.24,
-                    // Pause
                     0.05, 0.06,
-                    // Phrase 2 — longer phrase, two syllable peaks
                     0.18, 0.52, 0.88, 0.98, 0.90, 0.82, 0.96, 0.88, 0.68, 0.45, 0.25, 0.11,
-                    // Pause
                     0.05, 0.06, 0.05,
-                    // Phrase 3 — medium phrase, trailing off
                     0.14, 0.44, 0.78, 0.95, 0.90, 0.75, 0.88, 0.94, 0.78, 0.52, 0.28, 0.12,
-                    // Trailing silence
                     0.06, 0.05,
-                  ]; // 7+2+12+3+12+2 = 38
+                  ];
                   return AMP.map((amp, i) => {
                     const isSpeech = amp > 0.12;
                     const maxH = amp;
                     const minH = isSpeech ? Math.max(0.03, amp * 0.05) : amp * 0.80;
-                    // Each speech bar has an independent pseudo-random phase offset
                     const phaseDelay = isSpeech
                       ? (Math.abs(Math.sin(i * 13.7 + 2.4)) * 0.65).toFixed(2)
                       : (Math.abs(Math.sin(i * 4.1)) * 0.5).toFixed(2);
                     const dur = isSpeech
-                      ? (0.52 + (i % 6) * 0.055).toFixed(2)   // 0.52–0.80 s
-                      : (4.5 + (i % 3) * 0.4).toFixed(2);      // 4.5–5.3 s
+                      ? (0.52 + (i % 6) * 0.055).toFixed(2)
+                      : (4.5 + (i % 3) * 0.4).toFixed(2);
                     const anim = isSpeech ? "barMeter" : "barDance";
                     const timing = isSpeech ? "cubic-bezier(0.25,0,0.15,1)" : "ease-in-out";
                     return (
@@ -933,8 +934,8 @@ function HomeTabScreen({
                         <div
                           style={{
                             width: "100%",
-                            height: `${Math.max(3, Math.round(maxH * 64))}px`,
-                            background: isSpeech ? "#CF3D88" : "rgba(207,61,136,0.38)",
+                            height: `${Math.max(3, Math.round(maxH * 80))}px`,
+                            background: isSpeech ? "#BF6040" : "rgba(191,96,64,0.30)",
                             borderRadius: 3,
                             transformOrigin: "bottom",
                             ["--bar-max" as string]: maxH.toFixed(3),
@@ -949,22 +950,39 @@ function HomeTabScreen({
               </div>
             </div>
 
-            {/* Stop button — single pulsing ring while recording */}
+            {/* Stop button — 3 amplitude rings pulsing outward */}
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, paddingTop: 2 }}>
               <div style={{ position: "relative", width: 140, height: 140, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <div style={{ position: "absolute", width: 90, height: 90, borderRadius: "50%", background: "rgba(207,61,136,0.12)", animation: "tapRipple 1.8s ease-out infinite" }} />
+                {[
+                  { size: 82, opacity: 0.50, dur: 1.8, delay: 0.0 },
+                  { size: 101, opacity: 0.32, dur: 1.8, delay: 0.3 },
+                  { size: 121, opacity: 0.18, dur: 1.8, delay: 0.6 },
+                ].map(({ size, opacity, dur, delay }, idx) => (
+                  <div key={idx} style={{
+                    position: "absolute",
+                    width: size, height: size,
+                    borderRadius: "50%",
+                    border: `1px solid rgba(191,96,64,${opacity})`,
+                    animation: `ringPulse ${dur}s ${delay}s ease-out infinite`,
+                  }} />
+                ))}
                 <button
                   onClick={() => setHomeState("processing")}
                   style={{
                     width: 62, height: 62, borderRadius: "50%",
-                    background: "radial-gradient(circle at 34% 28%, #DA6BAC 0%, #CF3D88 45%, #8E1F5E 100%)",
+                    background: "radial-gradient(circle at 34% 28%, #D4724A 0%, #BF6040 45%, #6A2A10 100%)",
                     border: "none", cursor: "pointer",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    boxShadow: "0 4px 20px rgba(207,61,136,0.42)",
-                    WebkitTapHighlightColor: "transparent", position: "relative", zIndex: 1,
+                    position: "relative", zIndex: 1,
+                    boxShadow: "0 6px 28px rgba(191,96,64,0.52), inset 0 -2px 4px rgba(0,0,0,0.22)",
+                    WebkitTapHighlightColor: "transparent",
+                    overflow: "hidden",
                   }}
                 >
-                  <div style={{ width: 20, height: 20, borderRadius: 4, background: "white" }} />
+                  <div style={{ position: "absolute", top: "8%", left: "50%", transform: "translateX(-50%)", width: "62%", height: "44%", borderRadius: "50%", background: "rgba(255,255,255,0.36)", filter: "blur(3.5px)", pointerEvents: "none" }} />
+                  <svg viewBox="0 0 62 62" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}>
+                    <path d="M 39.8 8.7 A 24 24 0 0 1 54.6 26.5" stroke="rgba(255,255,255,0.58)" strokeWidth="3.0" strokeLinecap="round" fill="none" />
+                  </svg>
+                  <div style={{ width: 20, height: 20, borderRadius: 5, background: "white", position: "relative", zIndex: 2, margin: "auto", marginTop: 21 }} />
                 </button>
               </div>
               <p style={{ fontSize: 12, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif" }}>Tap to stop</p>
@@ -982,7 +1000,7 @@ function HomeTabScreen({
                     width: 8,
                     height: 8,
                     borderRadius: "50%",
-                    background: "#CF3D88",
+                    background: "#BF6040",
                     animation: `dotBounce 1.1s ${(i * 0.18).toFixed(2)}s ease-in-out infinite`,
                   }}
                 />
@@ -999,17 +1017,17 @@ function HomeTabScreen({
             <p style={{ fontSize: 13, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif", marginTop: 2 }}>Good morning, Reflector.</p>
             {/* Transcribed entry */}
             <div style={{ background: "#FFFFFF", borderRadius: 14, padding: "12px 14px", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
-              <p style={{ fontSize: 9, color: "#CF3D88", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 8 }}>Today's entry</p>
+              <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 8 }}>Today's entry</p>
               <p style={{ fontSize: 12, color: "#1A1A1A", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic", lineHeight: 1.55 }}>
                 "Everyone's life seems to be turning into something while mine still feels like a draft. I keep waiting for the version of me who has it figured out to show up."
               </p>
             </div>
             {/* 3 weeks later surfaced memory */}
-            <div style={{ background: "rgba(207,61,136,0.07)", borderRadius: 14, padding: "12px 14px", border: "1px solid rgba(207,61,136,0.2)" }}>
+            <div style={{ background: "rgba(191,96,64,0.07)", borderRadius: 14, padding: "12px 14px", border: "1px solid rgba(191,96,64,0.2)" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 8 }}>
-                <span style={{ fontSize: 9, color: "#CF3D88", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.18em", textTransform: "uppercase" }}>3 weeks ago</span>
+                <span style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.18em", textTransform: "uppercase" }}>3 weeks ago</span>
               </div>
-              <p style={{ fontSize: 12, color: "#CF3D88", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic", lineHeight: 1.55 }}>
+              <p style={{ fontSize: 12, color: "#BF6040", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic", lineHeight: 1.55 }}>
                 "What if she's already here?"
               </p>
             </div>
@@ -1019,7 +1037,7 @@ function HomeTabScreen({
                 width: "100%",
                 padding: "12px",
                 borderRadius: 12,
-                background: justSaved ? "rgba(52,199,89,0.15)" : "#CF3D88",
+                background: justSaved ? "rgba(52,199,89,0.15)" : "#BF6040",
                 border: justSaved ? "1px solid rgba(52,199,89,0.4)" : "none",
                 color: justSaved ? "#34C759" : "white",
                 fontSize: 13,
@@ -1117,7 +1135,7 @@ function ArchiveTabScreen() {
                   </p>
                   <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
                     {tags.map(tag => (
-                      <span key={tag} style={{ fontSize: 10, padding: "3px 8px", borderRadius: 20, background: "rgba(207,61,136,0.10)", color: "#CF3D88", fontFamily: "Urbanist, sans-serif", fontWeight: 500 }}>{tag}</span>
+                      <span key={tag} style={{ fontSize: 10, padding: "3px 8px", borderRadius: 20, background: "rgba(191,96,64,0.10)", color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 500 }}>{tag}</span>
                     ))}
                   </div>
                 </div>
@@ -1130,9 +1148,9 @@ function ArchiveTabScreen() {
         {calView === "calendar" && <div style={{ background: "#FFFFFF", borderRadius: 16, padding: "14px 12px", boxShadow: "0 1px 4px rgba(0,0,0,0.07)" }}>
           {/* Month nav */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-            <button style={{ background: "none", border: "none", cursor: "pointer", color: "#CF3D88", fontSize: 16, padding: "0 4px", WebkitTapHighlightColor: "transparent" }}>‹</button>
+            <button style={{ background: "none", border: "none", cursor: "pointer", color: "#BF6040", fontSize: 16, padding: "0 4px", WebkitTapHighlightColor: "transparent" }}>‹</button>
             <p style={{ fontSize: 14, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>May 2026</p>
-            <button style={{ background: "none", border: "none", cursor: "pointer", color: "#CF3D88", fontSize: 16, padding: "0 4px", WebkitTapHighlightColor: "transparent" }}>›</button>
+            <button style={{ background: "none", border: "none", cursor: "pointer", color: "#BF6040", fontSize: 16, padding: "0 4px", WebkitTapHighlightColor: "transparent" }}>›</button>
           </div>
 
           {/* Day headers */}
@@ -1168,11 +1186,11 @@ function ArchiveTabScreen() {
                       alignItems: "center",
                       justifyContent: "center",
                       position: "relative",
-                      background: recorded ? "#CF3D88" : "transparent",
+                      background: recorded ? "#BF6040" : "transparent",
                       border: tapable
-                        ? "1.5px dashed rgba(207,61,136,0.55)"
+                        ? "1.5px dashed rgba(191,96,64,0.55)"
                         : isToday
-                        ? "1.5px solid #CF3D88"
+                        ? "1.5px solid #BF6040"
                         : "none",
                     }}
                   >
@@ -1180,10 +1198,10 @@ function ArchiveTabScreen() {
                       fontSize: 11,
                       fontFamily: "Urbanist, sans-serif",
                       fontWeight: isToday || recorded ? 600 : 400,
-                      color: recorded ? "#FFFFFF" : isToday ? "#CF3D88" : "#1A1A1A",
+                      color: recorded ? "#FFFFFF" : isToday ? "#BF6040" : "#1A1A1A",
                     }}>{day}</span>
                     {tapable && (
-                      <span style={{ position: "absolute", fontSize: 8, color: "rgba(207,61,136,0.55)", bottom: -1, right: -1, lineHeight: 1 }}>+</span>
+                      <span style={{ position: "absolute", fontSize: 8, color: "rgba(191,96,64,0.55)", bottom: -1, right: -1, lineHeight: 1 }}>+</span>
                     )}
                   </div>
                 </div>
@@ -1194,11 +1212,11 @@ function ArchiveTabScreen() {
           {/* Legend */}
           <div style={{ display: "flex", gap: 14, marginTop: 10, justifyContent: "center" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-              <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#CF3D88" }} />
+              <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#BF6040" }} />
               <span style={{ fontSize: 10, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif" }}>Recorded</span>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-              <div style={{ width: 8, height: 8, borderRadius: "50%", border: "1.5px dashed rgba(207,61,136,0.55)" }} />
+              <div style={{ width: 8, height: 8, borderRadius: "50%", border: "1.5px dashed rgba(191,96,64,0.55)" }} />
               <span style={{ fontSize: 10, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif" }}>Tap to fill</span>
             </div>
           </div>
@@ -1269,7 +1287,7 @@ function MirrorTabScreen({ mirrorKey }: { mirrorKey: number }) {
                 style={{
                   width: "100%",
                   height: `${Math.round(maxH * 46)}px`,
-                  background: "#CF3D88",
+                  background: "#BF6040",
                   borderRadius: 2,
                   transformOrigin: "bottom",
                   ["--bar-max" as string]: maxH.toFixed(3),
@@ -1300,7 +1318,7 @@ function MirrorTabScreen({ mirrorKey }: { mirrorKey: number }) {
 
         {/* Most used words */}
         <div style={{ background: "#FFFFFF", borderRadius: 16, padding: "14px", boxShadow: "0 1px 4px rgba(0,0,0,0.07)" }}>
-          <p style={{ fontSize: 9, color: "#CF3D88", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600, marginBottom: 12 }}>Your Most Used Words</p>
+          <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600, marginBottom: 12 }}>Your Most Used Words</p>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {WORDS.map(({ word, count, max }) => (
               <div key={word}>
@@ -1312,7 +1330,7 @@ function MirrorTabScreen({ mirrorKey }: { mirrorKey: number }) {
                   <span style={{ fontSize: 11, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif" }}>{count}</span>
                 </div>
                 <div style={{ height: 5, background: "rgba(0,0,0,0.07)", borderRadius: 3, overflow: "hidden" }}>
-                  <div style={{ height: "100%", width: `${(count / max) * 100}%`, background: "#CF3D88", borderRadius: 3 }} />
+                  <div style={{ height: "100%", width: `${(count / max) * 100}%`, background: "#BF6040", borderRadius: 3 }} />
                 </div>
               </div>
             ))}
@@ -1322,13 +1340,13 @@ function MirrorTabScreen({ mirrorKey }: { mirrorKey: number }) {
         {/* Emotional landscape */}
         <div style={{ background: "#FFFFFF", borderRadius: 16, padding: "14px", boxShadow: "0 1px 4px rgba(0,0,0,0.07)" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 12 }}>
-            <p style={{ fontSize: 9, color: "#CF3D88", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600 }}>Emotional Landscape</p>
+            <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600 }}>Emotional Landscape</p>
             <span style={{ fontSize: 10, color: "rgba(0,0,0,0.35)", fontFamily: "Urbanist, sans-serif" }}>This week</span>
           </div>
           {[
-            { label: "Reflection", value: 0.82, color: "#CF3D88" },
+            { label: "Reflection", value: 0.82, color: "#BF6040" },
             { label: "Clarity", value: 0.65, color: "#8FA8D4" },
-            { label: "Growth", value: 0.71, color: "#CF3D88" },
+            { label: "Growth", value: 0.71, color: "#BF6040" },
           ].map(({ label, value, color }) => (
             <div key={label} style={{ marginBottom: 8 }}>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
@@ -1345,20 +1363,20 @@ function MirrorTabScreen({ mirrorKey }: { mirrorKey: number }) {
         {/* Thought connections */}
         <div style={{ background: "#FFFFFF", borderRadius: 16, padding: "14px", boxShadow: "0 1px 4px rgba(0,0,0,0.07)", display: "flex", gap: 12, alignItems: "flex-start" }}>
           <svg viewBox="0 0 40 40" fill="none" style={{ width: 36, height: 36, flexShrink: 0 }}>
-            <circle cx="20" cy="20" r="4" fill="#CF3D88" opacity="0.9" />
-            <circle cx="8" cy="12" r="3" fill="#CF3D88" opacity="0.5" />
-            <circle cx="32" cy="10" r="3" fill="#CF3D88" opacity="0.5" />
-            <circle cx="10" cy="30" r="3" fill="#CF3D88" opacity="0.5" />
-            <circle cx="30" cy="30" r="2.5" fill="#CF3D88" opacity="0.4" />
-            <line x1="20" y1="20" x2="8" y2="12" stroke="#CF3D88" strokeWidth="1" opacity="0.4" />
-            <line x1="20" y1="20" x2="32" y2="10" stroke="#CF3D88" strokeWidth="1" opacity="0.4" />
-            <line x1="20" y1="20" x2="10" y2="30" stroke="#CF3D88" strokeWidth="1" opacity="0.4" />
-            <line x1="20" y1="20" x2="30" y2="30" stroke="#CF3D88" strokeWidth="1" opacity="0.3" />
-            <line x1="8" y1="12" x2="10" y2="30" stroke="#CF3D88" strokeWidth="0.8" opacity="0.25" />
+            <circle cx="20" cy="20" r="4" fill="#BF6040" opacity="0.9" />
+            <circle cx="8" cy="12" r="3" fill="#BF6040" opacity="0.5" />
+            <circle cx="32" cy="10" r="3" fill="#BF6040" opacity="0.5" />
+            <circle cx="10" cy="30" r="3" fill="#BF6040" opacity="0.5" />
+            <circle cx="30" cy="30" r="2.5" fill="#BF6040" opacity="0.4" />
+            <line x1="20" y1="20" x2="8" y2="12" stroke="#BF6040" strokeWidth="1" opacity="0.4" />
+            <line x1="20" y1="20" x2="32" y2="10" stroke="#BF6040" strokeWidth="1" opacity="0.4" />
+            <line x1="20" y1="20" x2="10" y2="30" stroke="#BF6040" strokeWidth="1" opacity="0.4" />
+            <line x1="20" y1="20" x2="30" y2="30" stroke="#BF6040" strokeWidth="1" opacity="0.3" />
+            <line x1="8" y1="12" x2="10" y2="30" stroke="#BF6040" strokeWidth="0.8" opacity="0.25" />
           </svg>
           <div>
-            <p style={{ fontSize: 9, color: "#CF3D88", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600, marginBottom: 4 }}>Thought Connections</p>
-            <p style={{ fontSize: 16, color: "#CF3D88", fontFamily: "Urbanist, sans-serif", fontWeight: 700, lineHeight: 1 }}>3 <span style={{ fontSize: 12, fontWeight: 400, color: "#1A1A1A" }}>connections</span></p>
+            <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600, marginBottom: 4 }}>Thought Connections</p>
+            <p style={{ fontSize: 16, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 700, lineHeight: 1 }}>3 <span style={{ fontSize: 12, fontWeight: 400, color: "#1A1A1A" }}>connections</span></p>
             <p style={{ fontSize: 10, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif", lineHeight: 1.4, marginTop: 4 }}>Your memories are linked across themes, moods, and people.</p>
           </div>
         </div>
@@ -1369,74 +1387,107 @@ function MirrorTabScreen({ mirrorKey }: { mirrorKey: number }) {
 }
 
 function LettersTabScreen() {
-  const PROMPTS = [
-    "Where do I see myself in a year?",
-    "What's weighing on me right now?",
-    "What would I tell my past self?",
-  ];
+  const [activeFilter, setActiveFilter] = useState<"All" | "Sealed" | "Delivered">("All");
 
   return (
-    <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "#F0EBE3", overflow: "hidden" }}>
-      <div style={{ flex: 1, overflowY: "auto", padding: "44px 16px 12px", scrollbarWidth: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+    <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "#EDE8E0", overflow: "hidden" }}>
+      <div style={{ flex: 1, overflowY: "auto", padding: "44px 14px 12px", scrollbarWidth: "none", display: "flex", flexDirection: "column", gap: 10 }}>
 
-        {/* Title */}
         <div style={{ marginTop: 2 }}>
           <p style={{ fontSize: 22, color: "#1A1A1A", fontFamily: "'Instrument Serif', Georgia, serif", fontWeight: 400, marginBottom: 2 }}>Letters</p>
-          <p style={{ fontSize: 12, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif" }}>Messages to your future self</p>
+          <p style={{ fontSize: 12, color: "rgba(0,0,0,0.42)", fontFamily: "Urbanist, sans-serif" }}>Messages to your future self.</p>
         </div>
 
-        {/* Envelope illustration */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", paddingTop: 8, paddingBottom: 4 }}>
-          <div style={{ position: "relative", width: 110, height: 110, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            {/* Outer circle */}
-            <div style={{ position: "absolute", width: 110, height: 110, borderRadius: "50%", background: "rgba(207,61,136,0.08)" }} />
-            {/* Middle circle */}
-            <div style={{ position: "absolute", width: 82, height: 82, borderRadius: "50%", background: "rgba(207,61,136,0.10)" }} />
-            {/* Envelope */}
-            <div style={{ position: "relative", width: 54, height: 40, zIndex: 1 }}>
-              <svg viewBox="0 0 54 40" fill="none" style={{ width: 54, height: 40 }}>
-                <rect x="1" y="1" width="52" height="38" rx="4" fill="white" stroke="rgba(207,61,136,0.2)" strokeWidth="1" />
-                <polyline points="1,5 27,22 53,5" stroke="rgba(207,61,136,0.25)" strokeWidth="1.2" fill="none" />
-                <line x1="1" y1="39" x2="20" y2="22" stroke="rgba(207,61,136,0.15)" strokeWidth="1" />
-                <line x1="53" y1="39" x2="34" y2="22" stroke="rgba(207,61,136,0.15)" strokeWidth="1" />
-              </svg>
-              {/* Seal */}
-              <div style={{ position: "absolute", bottom: -8, left: "50%", transform: "translateX(-50%)", width: 18, height: 18, borderRadius: "50%", background: "#CF3D88", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <span style={{ fontSize: 9, color: "white", fontFamily: "Urbanist, sans-serif", fontWeight: 700 }}>R</span>
+        {/* Progress stepper */}
+        <div style={{ display: "flex", alignItems: "center", gap: 0, paddingTop: 2 }}>
+          {["Choose a date", "Record", "Seal"].map((step, i) => {
+            const isActive = i === 1;
+            const isDone = i < 1;
+            return (
+              <div key={step} style={{ display: "flex", alignItems: "center", flex: i < 2 ? 1 : "none" }}>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
+                  <div style={{ width: 7, height: 7, borderRadius: "50%", background: (isActive || isDone) ? "#BF6040" : "rgba(0,0,0,0.18)", flexShrink: 0 }} />
+                  <span style={{ fontSize: 9, color: isActive ? "#BF6040" : "rgba(0,0,0,0.35)", fontFamily: "Urbanist, sans-serif", fontWeight: isActive ? 600 : 400, whiteSpace: "nowrap" }}>{step}</span>
+                </div>
+                {i < 2 && <div style={{ flex: 1, height: 1, background: isDone ? "#BF6040" : "rgba(0,0,0,0.14)", marginBottom: 14, opacity: 0.6 }} />}
               </div>
-            </div>
+            );
+          })}
+        </div>
+
+        {/* Envelope with halo */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingTop: 4, paddingBottom: 2 }}>
+          <div style={{ position: "relative", width: 148, height: 108, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ position: "absolute", bottom: 0, left: "50%", transform: "translateX(-50%)", width: 110, height: 32, borderRadius: "50%", background: "rgba(191,96,64,0.18)", filter: "blur(16px)" }} />
+            <svg viewBox="0 0 148 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: 148, height: 100, position: "relative", zIndex: 1, filter: "drop-shadow(0 4px 12px rgba(191,96,64,0.14))" }}>
+              <rect x="3" y="20" width="142" height="76" rx="6" fill="#FDF6EC" />
+              <rect x="3" y="20" width="142" height="76" rx="6" stroke="rgba(191,96,64,0.18)" strokeWidth="0.8" />
+              <line x1="3" y1="96" x2="60" y2="56" stroke="#D4C5A9" strokeWidth="0.7" opacity="0.7" />
+              <line x1="145" y1="96" x2="88" y2="56" stroke="#D4C5A9" strokeWidth="0.7" opacity="0.7" />
+              <path d="M3 26 L74 60 L145 26 L145 20 C145 17 142 14 139 14 L9 14 C6 14 3 17 3 20 Z" fill="#F5EDE0" />
+              <path d="M3 26 L74 60 L145 26 L145 20 C145 17 142 14 139 14 L9 14 C6 14 3 17 3 20 Z" stroke="rgba(191,96,64,0.14)" strokeWidth="0.7" />
+              <line x1="3" y1="26" x2="74" y2="60" stroke="rgba(191,96,64,0.10)" strokeWidth="0.8" />
+              <line x1="145" y1="26" x2="74" y2="60" stroke="rgba(191,96,64,0.10)" strokeWidth="0.8" />
+              <circle cx="74" cy="60" r="14" fill="#BF6040" />
+              <circle cx="74" cy="60" r="11.5" fill="#A84B2A" />
+              <text x="74" y="65.5" textAnchor="middle" fill="rgba(255,255,255,0.92)" fontSize="12" fontFamily="'Instrument Serif', Georgia, serif" fontStyle="italic" fontWeight="400">É</text>
+            </svg>
           </div>
+          <p style={{ fontSize: 11, color: "rgba(0,0,0,0.38)", fontFamily: "Urbanist, sans-serif", marginTop: 6 }}>Tap to record your first letter</p>
         </div>
 
-        {/* Empty state text */}
-        <div style={{ textAlign: "center", paddingTop: 4 }}>
-          <p style={{ fontSize: 18, color: "#1A1A1A", fontFamily: "'Instrument Serif', Georgia, serif", fontWeight: 400, marginBottom: 6 }}>No letters yet.</p>
-          <p style={{ fontSize: 12, color: "rgba(0,0,0,0.5)", fontFamily: "Urbanist, sans-serif", lineHeight: 1.5, maxWidth: 220, margin: "0 auto" }}>The words you say today become wisdom tomorrow.</p>
+        {/* Countdown card */}
+        <div style={{ background: "#120F0D", borderRadius: 14, padding: "12px 14px" }}>
+          <p style={{ fontSize: 9, color: "rgba(255,246,233,0.40)", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 4 }}>NEXT LETTER OPENS IN</p>
+          <p style={{ fontSize: 26, color: "#FFF6E9", fontFamily: "'Instrument Serif', Georgia, serif", fontWeight: 400, lineHeight: 1.1, marginBottom: 3 }}>11 hours</p>
+          <p style={{ fontSize: 11, color: "rgba(255,246,233,0.50)", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic" }}>Sound of my ending</p>
         </div>
 
-        {/* Prompts */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 8, paddingTop: 4 }}>
-          <p style={{ fontSize: 10, color: "rgba(0,0,0,0.35)", fontFamily: "Urbanist, sans-serif", textAlign: "center" }}>start with a question</p>
-          {PROMPTS.map(prompt => (
-            <div
-              key={prompt}
-              style={{ background: "#FFFFFF", borderRadius: 20, padding: "10px 16px", boxShadow: "0 1px 3px rgba(0,0,0,0.07)", textAlign: "center", cursor: "pointer" }}
-            >
-              <p style={{ fontSize: 12, color: "#1A1A1A", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic" }}>{prompt}</p>
+        {/* Tab filter */}
+        <div style={{ display: "flex", background: "rgba(0,0,0,0.08)", borderRadius: 22, padding: 2 }}>
+          {(["All", "Sealed", "Delivered"] as const).map(f => {
+            const isA = f === activeFilter;
+            return (
+              <button key={f} onClick={() => setActiveFilter(f)} style={{ flex: 1, padding: "5px 0", border: "none", borderRadius: 19, background: isA ? "#BF6040" : "transparent", color: isA ? "white" : "rgba(0,0,0,0.42)", fontSize: 10, fontFamily: "Urbanist, sans-serif", fontWeight: isA ? 600 : 400, cursor: "pointer", WebkitTapHighlightColor: "transparent", transition: "all 0.18s ease" }}>{f}</button>
+            );
+          })}
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+          <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 600 }}>SEALED LETTERS (2)</p>
+          <p style={{ fontSize: 11, color: "rgba(0,0,0,0.32)", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic" }}>Thoughts waiting.</p>
+        </div>
+
+        {[
+          { title: "Sound of my ending", opens: "Opens in 11h", date: "Dec 21" },
+          { title: "What I want to tell myself", opens: "Opens in 3 days", date: "Dec 24" },
+        ].map((letter, i) => (
+          <div key={i} style={{ background: "#FFFFFF", borderRadius: 14, padding: "11px 14px", boxShadow: "0 1px 4px rgba(0,0,0,0.06)", display: "flex", alignItems: "center", gap: 10 }}>
+            <div style={{ width: 34, height: 26, flexShrink: 0 }}>
+              <svg viewBox="0 0 34 26" fill="none" style={{ width: 34, height: 26 }}>
+                <rect x="0.5" y="0.5" width="33" height="25" rx="3" fill="#FDF6EC" stroke="rgba(191,96,64,0.22)" strokeWidth="0.8" />
+                <polyline points="0.5,4 17,14 33.5,4" stroke="rgba(191,96,64,0.22)" strokeWidth="0.8" fill="none" />
+                <circle cx="17" cy="14" r="5" fill="#BF6040" />
+                <text x="17" y="17.5" textAnchor="middle" fill="rgba(255,255,255,0.9)" fontSize="5.5" fontFamily="'Instrument Serif', Georgia, serif" fontStyle="italic">É</text>
+              </svg>
             </div>
-          ))}
-        </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <p style={{ fontSize: 12, color: "#1A1A1A", fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: "italic", marginBottom: 2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{letter.title}</p>
+              <p style={{ fontSize: 10, color: "#BF6040", fontFamily: "Urbanist, sans-serif" }}>{letter.opens}</p>
+            </div>
+            <span style={{ fontSize: 10, color: "rgba(0,0,0,0.28)", fontFamily: "Urbanist, sans-serif", flexShrink: 0 }}>{letter.date}</span>
+          </div>
+        ))}
 
       </div>
 
-      {/* CTA button pinned at bottom */}
-      <div style={{ padding: "0 16px 10px", flexShrink: 0 }}>
-        <button style={{ width: "100%", padding: "13px", borderRadius: 14, background: "#CF3D88", border: "none", color: "white", fontSize: 14, fontFamily: "Urbanist, sans-serif", fontWeight: 600, cursor: "pointer", WebkitTapHighlightColor: "transparent", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" style={{ width: 16, height: 16 }}>
-            <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z" />
-            <path d="M19 10v2a7 7 0 01-14 0v-2" />
+      <div style={{ padding: "0 14px 10px", flexShrink: 0 }}>
+        <button style={{ width: "100%", padding: "13px", borderRadius: 14, background: "#BF6040", border: "none", color: "white", fontSize: 13, fontFamily: "Urbanist, sans-serif", fontWeight: 600, cursor: "pointer", WebkitTapHighlightColor: "transparent", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
+          <svg viewBox="0 0 24 24" style={{ width: 15, height: 15 }}>
+            <rect x="9" y="2" width="6" height="12" rx="3" fill="white" />
+            <path d="M19 10v2a7 7 0 01-14 0v-2" stroke="white" strokeWidth="2" strokeLinecap="round" fill="none" />
           </svg>
-          Write your first letter
+          Record a letter
         </button>
       </div>
     </div>
@@ -1464,7 +1515,7 @@ function ProfileTabScreen() {
           <div style={{ flex: 1 }}>
             <p style={{ fontSize: 14, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif", fontWeight: 600, marginBottom: 1 }}>Jordan L.</p>
             <p style={{ fontSize: 10, color: "rgba(0,0,0,0.45)", fontFamily: "Urbanist, sans-serif", marginBottom: 2 }}>jordan.l@icloud.com</p>
-            <span style={{ fontSize: 10, color: "#CF3D88", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>PRO Member</span>
+            <span style={{ fontSize: 10, color: "#BF6040", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>PRO Member</span>
           </div>
           <svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.3)" strokeWidth="1.5" style={{ width: 16, height: 16 }}>
             <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
@@ -1473,7 +1524,7 @@ function ProfileTabScreen() {
         </div>
 
         {/* Your reflection journey */}
-        <p style={{ fontSize: 9, color: "#CF3D88", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600, marginTop: 2 }}>Your Reflection Journey</p>
+        <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600, marginTop: 2 }}>Your Reflection Journey</p>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
           {[
             { icon: "🔥", value: "0 days", label: "record" },
@@ -1493,7 +1544,7 @@ function ProfileTabScreen() {
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
             <img src="/logo.svg" alt="ÉCHO" style={{ width: 32, height: 32, objectFit: "contain" }} />
             <div style={{ flex: 1 }}>
-              <p style={{ fontSize: 9, color: "#CF3D88", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 600 }}>ÉCHO PRO</p>
+              <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 600 }}>ÉCHO PRO</p>
               <p style={{ fontSize: 12, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>Active subscription</p>
               <p style={{ fontSize: 10, color: "rgba(0,0,0,0.4)", fontFamily: "Urbanist, sans-serif" }}>Renews May 30, 2026</p>
             </div>
@@ -1515,17 +1566,17 @@ function ProfileTabScreen() {
         <p style={{ fontSize: 11, color: "rgba(0,0,0,0.4)", fontFamily: "Urbanist, sans-serif", textAlign: "center" }}>↺ Restore Purchases</p>
 
         {/* iCloud Sync */}
-        <p style={{ fontSize: 9, color: "#CF3D88", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600 }}>iCloud Sync</p>
+        <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600 }}>iCloud Sync</p>
         <div style={{ background: "#FFFFFF", borderRadius: 14, padding: "12px 14px", boxShadow: "0 1px 3px rgba(0,0,0,0.06)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <span style={{ fontSize: 13, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif" }}>Sync to iCloud</span>
           {/* Toggle on */}
-          <div style={{ width: 38, height: 22, borderRadius: 11, background: "#CF3D88", position: "relative", flexShrink: 0 }}>
+          <div style={{ width: 38, height: 22, borderRadius: 11, background: "#BF6040", position: "relative", flexShrink: 0 }}>
             <div style={{ position: "absolute", right: 2, top: 2, width: 18, height: 18, borderRadius: "50%", background: "white", boxShadow: "0 1px 3px rgba(0,0,0,0.2)" }} />
           </div>
         </div>
 
         {/* Preferences */}
-        <p style={{ fontSize: 9, color: "#CF3D88", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600 }}>Preferences</p>
+        <p style={{ fontSize: 9, color: "#BF6040", fontFamily: "Urbanist, sans-serif", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600 }}>Preferences</p>
         <div style={{ background: "#FFFFFF", borderRadius: 14, boxShadow: "0 1px 3px rgba(0,0,0,0.06)", overflow: "hidden" }}>
           {PREF_ROWS.map(({ icon, label, sub }, i) => (
             <div
@@ -1581,7 +1632,7 @@ function GhostHintCursor({ hasInteracted, phoneRef }: { hasInteracted: boolean; 
       }}
     >
       {state === "tapping" && (
-        <div style={{ position: "absolute", width: 36, height: 36, borderRadius: "50%", border: "2px solid rgba(207,61,136,0.5)", animation: "tapRipple 0.5s ease-out forwards" }} />
+        <div style={{ position: "absolute", width: 36, height: 36, borderRadius: "50%", border: "2px solid rgba(191,96,64,0.5)", animation: "tapRipple 0.5s ease-out forwards" }} />
       )}
       <svg viewBox="0 0 32 40" fill="none" style={{ width: 28, height: 35, filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.4))" }}>
         <path d="M8 2C8 1.4 8.4 1 9 1h14c.6 0 1 .4 1 1v20l-3 3-4-2-4 2-3-2-2 1V2z" fill="white" stroke="rgba(0,0,0,0.15)" strokeWidth="1" />
@@ -2402,7 +2453,7 @@ function HeroSection() {
               color: C.muted, fontFamily: C.sans,
             }}>
               <span className="badge-dot" style={{ width: 7, height: 7, borderRadius: "50%", background: GFR_PINK, display: "inline-block" }} />
-              Girls Future Ready Summit · First 1,000 invited
+              For Girls Future Ready Attendees · First 1,000
             </span>
           </div>
 
@@ -2420,10 +2471,10 @@ function HeroSection() {
             className="max-lg:!max-w-none"
           >
             <span className="hero-word" style={{ display: "inline-block", animationDelay: "0.12s" }}>
-              Your voice holds answers
+              Record today.
             </span>{" "}
             <em style={{ color: GFR_PINK, fontStyle: "italic", display: "block", marginTop: 4 }}>
-              you haven't heard yet.
+              Hear yourself again.
             </em>
           </h1>
 
@@ -2440,7 +2491,7 @@ function HeroSection() {
               animationDelay: "0.34s",
             }}
           >
-            You're among the first 1,000 invited. We're on the last step of verification. ÉCHO is coming in days — join the waitlist and follow us on Instagram for the exact moment it drops.
+            The first AI mirror powered by your own voice. You're one of the first 1,000 invited. ÉCHO opens in days. Save your spot and we'll send your download link the moment it's live.
           </p>
 
           {/* Hero CTAs */}
@@ -2460,7 +2511,7 @@ function HeroSection() {
               onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
               onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
             >
-              Secure your spot →
+              Save my spot →
             </button>
             <a
               href={ECHO_IG}
@@ -2506,7 +2557,7 @@ function HeroSection() {
               opacity: 0.75,
             }}
           >
-            Summit attendees go straight to the front. Founding member pricing locked in for the first 1,000.
+            Summit attendees go straight to the front. Founding member pricing locked for the first 1,000.
           </p>
 
           {/* Mobile: app notes (past → present) — signals "it's an app" */}
@@ -2898,10 +2949,10 @@ function InteractivePhoneSection() {
       >
         {/* Ripple rings + tap icon */}
         <div style={{ position: "relative", width: 72, height: 72, display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <div style={{ position: "absolute", inset: -16, borderRadius: "50%", border: "1.5px solid rgba(207,61,136,0.35)", animation: "tapRipple 2s 0s ease-out infinite" }} />
-          <div style={{ position: "absolute", inset: -6, borderRadius: "50%", border: "1.5px solid rgba(207,61,136,0.5)", animation: "tapRipple 2s 0.7s ease-out infinite" }} />
-          <div style={{ width: 72, height: 72, borderRadius: "50%", background: "radial-gradient(circle, rgba(207,61,136,0.22) 0%, rgba(207,61,136,0.06) 70%)", border: "1.5px solid rgba(207,61,136,0.55)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 0 32px rgba(207,61,136,0.2)" }}>
-            <Pointer size={26} color="#CF3D88" strokeWidth={1.6} />
+          <div style={{ position: "absolute", inset: -16, borderRadius: "50%", border: "1.5px solid rgba(191,96,64,0.35)", animation: "tapRipple 2s 0s ease-out infinite" }} />
+          <div style={{ position: "absolute", inset: -6, borderRadius: "50%", border: "1.5px solid rgba(191,96,64,0.5)", animation: "tapRipple 2s 0.7s ease-out infinite" }} />
+          <div style={{ width: 72, height: 72, borderRadius: "50%", background: "radial-gradient(circle, rgba(191,96,64,0.22) 0%, rgba(191,96,64,0.06) 70%)", border: "1.5px solid rgba(191,96,64,0.55)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 0 32px rgba(191,96,64,0.2)" }}>
+            <Pointer size={26} color="#BF6040" strokeWidth={1.6} />
           </div>
         </div>
         <div style={{ textAlign: "center", display: "flex", flexDirection: "column", gap: 5 }}>
@@ -3100,7 +3151,7 @@ function FeatureListingSection() {
           </p>
           {/* Mic button */}
           <div style={{ position: "absolute", top: "52%", left: "50%", transform: "translate(-50%,-50%)", width: 56, height: 56, borderRadius: "50%", background: "rgba(255,255,255,0.88)", boxShadow: "0 6px 20px rgba(0,0,0,0.12)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <div style={{ width: 30, height: 30, borderRadius: "50%", background: "#CF3D88" }} />
+            <div style={{ width: 30, height: 30, borderRadius: "50%", background: "#BF6040" }} />
           </div>
           {/* Soundwave lines */}
           <div style={{ position: "absolute", bottom: "22%", left: "50%", transform: "translateX(-50%)", display: "flex", gap: 4, alignItems: "flex-end" }}>
@@ -4589,7 +4640,7 @@ function WaitlistSection() {
             fontFamily: C.sans,
           }}
         >
-          Spots are limited to the first 1,000. Join the waitlist now and follow on Instagram so you don't miss the launch moment.
+          Save your spot and we'll send your download link the moment it's live. First 1,000 get founding member pricing locked in forever.
         </motion.p>
 
         <motion.div
@@ -4806,7 +4857,7 @@ function Landing() {
         <title>ÉCHO × Girls Future Ready Summit</title>
         <meta
           name="description"
-          content="You're among the first 1,000 invited to ÉCHO — a private voice journal for iPhone that brings your own words back when they matter. Launching soon: join the waitlist and follow on Instagram."
+          content="The first AI mirror powered by your own voice. You're one of the first 1,000 invited. ÉCHO opens in days — save your spot and get your download link the moment it's live."
         />
         <meta name="robots" content="noindex" />
         <link rel="canonical" href="https://www.echobyreaclyse.com/summit" />
