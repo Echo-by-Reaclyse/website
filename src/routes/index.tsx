@@ -4101,22 +4101,18 @@ function TestimonialsPlaceholder() {
     {
       quote: "This app made me stop using my Notes app. Recording is waaay easier, plus automatic transcription, and seeing the patterns is what got me.",
       init: "S.", tag: "Joined the beta", location: "POLAND",
-      photo: "/review-s.webp",
     },
     {
       quote: "Recorded a voice note to open in 6 months and completely forgot about it. Opening it made me realise, for the first time, how far I've come.",
       init: "M.", tag: "Joined the beta", location: "LUXEMBOURG",
-      photo: "/review-m.webp",
     },
     {
       quote: "I used to record a bunch of voice notes to myself and they'd just sit scattered across my phone. This actually holds them all together and I can see the patterns now.",
       init: "L.", tag: "Joined the beta", location: "LUXEMBOURG",
-      photo: "/review-l.webp",
     },
     {
       quote: "Finally an app without a built-in AI coach telling me what to do. It just mirrors my own words back at me, and somehow that's enough to figure myself out.",
       init: "A.", tag: "Early user", location: "BELGIUM",
-      photo: "/review-a.webp",
     },
   ];
 
@@ -4209,7 +4205,6 @@ function TestimonialsPlaceholder() {
                 {card.quote}"
               </p>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <img src={card.photo} alt={card.init} style={{ width: 36, height: 36, borderRadius: "50%", objectFit: "cover", objectPosition: "center top", flexShrink: 0, display: "block" }} />
                 <div>
                   <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
                     <span style={{ fontFamily: C.sans, fontSize: 13, fontWeight: 700, color: qColor }}>{card.init}</span>
@@ -4254,7 +4249,6 @@ function TestimonialsPlaceholder() {
             ÉCHO gives me space to hear myself clearly instead of rushing past my thoughts."
           </p>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <img src="/review-maya.webp" alt="Maya" style={{ width: 44, height: 44, borderRadius: "50%", objectFit: "cover", objectPosition: "center top", flexShrink: 0, display: "block", boxShadow: "0 2px 10px rgba(191,96,64,0.2)" }} />
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 3, flexWrap: "wrap" as const }}>
                 <span style={{ fontFamily: C.sans, fontSize: 14, fontWeight: 700, color: qColor }}>Maya</span>

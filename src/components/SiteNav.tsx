@@ -22,9 +22,11 @@ export interface NavCTA {
 interface SiteNavProps {
   links: NavLink[];
   cta: NavCTA;
+  hideThemeToggle?: boolean;
+  hideBanner?: boolean;
 }
 
-export function SiteNav({ links, cta }: SiteNavProps) {
+export function SiteNav({ links, cta, hideThemeToggle, hideBanner }: SiteNavProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -60,7 +62,7 @@ export function SiteNav({ links, cta }: SiteNavProps) {
         transition: "background 0.3s, backdrop-filter 0.3s, border-color 0.3s",
       }}
     >
-      <SmartAppBanner />
+      {!hideBanner && <SmartAppBanner />}
 
       <div
         style={{
@@ -118,7 +120,7 @@ export function SiteNav({ links, cta }: SiteNavProps) {
 
         {/* Right: ThemeToggle + CTA + hamburger */}
         <div style={{ display: "flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
-          <ThemeToggle />
+          {!hideThemeToggle && <ThemeToggle />}
 
           {/* CTA — hidden on mobile (accessible via hamburger drawer below) */}
           <span className="hidden sm:block">
