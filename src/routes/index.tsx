@@ -2293,6 +2293,7 @@ function HeroNoteCard({ date, quote, compact = false }: { date: string; quote: s
 
 // ── Instagram ──────────────────────────────────────────────────
 const ECHO_IG = "https://www.instagram.com/echobyreaclyse/";
+const ROKSANA_IG = "https://www.instagram.com/roksanaskubis/";
 
 // ── HeroSection ────────────────────────────────────────────────
 function HeroSection() {
@@ -3233,7 +3234,7 @@ function FeatureListingSection() {
                     zIndex: s.z,
                     borderRadius: 24,
                     background: isDark ? "#231810" : "#FEFCF8",
-                    border: `1px solid ${isDark ? "rgba(255,228,184,0.07)" : "rgba(191,96,64,0.08)"}`,
+                    border: `1.5px solid ${isDark ? "rgba(255,228,184,0.22)" : "rgba(191,96,64,0.22)"}`,
                     boxShadow: d === 0
                       ? "0 24px 64px rgba(0,0,0,0.16), 0 4px 16px rgba(0,0,0,0.06)"
                       : "0 6px 20px rgba(0,0,0,0.08)",
@@ -3241,7 +3242,7 @@ function FeatureListingSection() {
                     cursor: "pointer",
                     display: "flex",
                     flexDirection: "column" as const,
-                    padding: f.screenshot ? 0 : 14,
+                    padding: 14,
                     userSelect: "none" as const,
                     // pivot near bottom so rotation fans like a held deck of cards
                     originX: "50%",
@@ -3249,72 +3250,43 @@ function FeatureListingSection() {
                   }}
                 >
                   {f.screenshot ? (
-                    // Full-bleed screenshot card
+                    // Framed screenshot card — image contained, description below
                     <>
-                      <img
-                        src={f.screenshot}
-                        alt=""
-                        loading="lazy"
-                        decoding="async"
-                        style={{
-                          position: "absolute",
-                          inset: 0,
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "cover",
-                          objectPosition: "top center",
-                          borderRadius: 24,
-                        }}
-                      />
-                      {/* Top scrim: counter + tag */}
-                      <div style={{
-                        position: "absolute",
-                        top: 0, left: 0, right: 0,
-                        padding: "16px 16px 52px",
-                        background: "linear-gradient(to bottom, rgba(0,0,0,0.42) 0%, transparent 100%)",
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "flex-start",
-                        zIndex: 2,
-                        borderRadius: "24px 24px 0 0",
-                      }}>
-                        <span style={{ fontFamily: C.sans, fontSize: 11, color: "rgba(255,255,255,0.55)", fontWeight: 600, letterSpacing: "0.07em" }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexShrink: 0 }}>
+                        <span style={{ fontFamily: C.sans, fontSize: 11, color: isDark ? "rgba(255,246,233,0.26)" : "rgba(26,15,5,0.24)", fontWeight: 600, letterSpacing: "0.07em" }}>
                           {i + 1} / {N}
                         </span>
                         <span style={{
                           padding: "4px 14px",
                           borderRadius: 999,
-                          border: "1px solid rgba(255,255,255,0.30)",
-                          background: "rgba(255,255,255,0.15)",
-                          backdropFilter: "blur(10px)",
-                          WebkitBackdropFilter: "blur(10px)",
+                          border: `1px solid ${isDark ? "rgba(191,96,64,0.28)" : "rgba(191,96,64,0.18)"}`,
+                          background: isDark ? "rgba(191,96,64,0.07)" : "rgba(255,246,233,0.97)",
                           fontFamily: C.serif,
                           fontSize: 13,
-                          color: "rgba(255,255,255,0.95)",
+                          color: C.ember,
                           fontStyle: "italic",
                         }}>
                           {f.tag}
                         </span>
                       </div>
-                      {/* Bottom scrim: description */}
-                      <div style={{
-                        position: "absolute",
-                        bottom: 0, left: 0, right: 0,
-                        padding: "64px 18px 22px",
-                        background: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.78) 45%, rgba(0,0,0,0.92) 100%)",
-                        zIndex: 2,
-                        borderRadius: "0 0 24px 24px",
-                      }}>
-                        <p style={{
-                          fontFamily: C.sans,
-                          fontSize: 13.5,
-                          color: "rgba(255,255,255,0.95)",
-                          lineHeight: 1.6,
-                          margin: 0,
-                        }}>
-                          {f.body}
-                        </p>
+                      <div style={{ flex: 1, borderRadius: 16, overflow: "hidden", minHeight: 0, marginBottom: 14, border: `1.5px solid ${isDark ? "rgba(255,228,184,0.14)" : "rgba(191,96,64,0.14)"}` }}>
+                        <img
+                          src={f.screenshot}
+                          alt=""
+                          loading="lazy"
+                          decoding="async"
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                            objectPosition: "top center",
+                            display: "block",
+                          }}
+                        />
                       </div>
+                      <p style={{ fontFamily: C.sans, fontSize: 13.5, color: isDark ? "rgba(255,246,233,0.75)" : "rgba(26,15,5,0.70)", lineHeight: 1.68, margin: 0, flexShrink: 0 }}>
+                        {f.body}
+                      </p>
                     </>
                   ) : (
                     // Illustrated card (no screenshot)
@@ -3601,7 +3573,7 @@ function VideoSection() {
                 <div style={{ flex: 1 }}>
                   <p style={{ margin: 0, fontFamily: C.sans, fontSize: 14, fontWeight: 700, color: isDark ? C.cream : "#2A1008" }}>Roksana</p>
                   <a
-                    href={ECHO_IG}
+                    href={ROKSANA_IG}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
@@ -3626,7 +3598,7 @@ function VideoSection() {
                   </a>
                 </div>
                 <a
-                  href={ECHO_IG}
+                  href={ROKSANA_IG}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
@@ -4873,11 +4845,11 @@ function Landing() {
         />
         <div id="main-content" />
         <HeroSection />
-        <MarqueeStrip />
-        <WhyEchoSection />
         <div id="story">
           <InteractivePhoneSection />
         </div>
+        <MarqueeStrip />
+        <WhyEchoSection />
         <MarqueeStrip reversed />
         <FeatureListingSection />
         <VideoSection />
