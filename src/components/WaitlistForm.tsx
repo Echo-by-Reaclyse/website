@@ -148,7 +148,7 @@ export function WaitlistForm({
           onChange={(e) => setEmail(e.target.value)}
           placeholder="your@email.com"
           onFocus={() => { if (!formStarted) { setFormStarted(true); trackFormStart(variant); } }}
-          className="min-w-0 flex-1 bg-transparent px-4 py-2.5 text-[15px] text-foreground placeholder:text-muted-foreground/45 outline-none"
+          className="min-w-0 flex-1 bg-transparent px-4 py-2.5 text-[15px] text-foreground placeholder:text-muted-foreground/60 outline-none"
         />
         <button
           type="submit"
