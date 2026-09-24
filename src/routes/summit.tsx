@@ -2477,6 +2477,19 @@ function HeroSection() {
             </em>
           </h1>
 
+          {/* Mobile: app notes (past → present) — tilted, irregular offset */}
+          <div
+            className="hero-fade flex lg:hidden"
+            style={{ flexDirection: "column", gap: 10, marginBottom: 28, width: "100%", animationDelay: "0.34s" }}
+          >
+            <div style={{ alignSelf: "flex-start", transform: "rotate(-1.8deg)", width: "82%", marginLeft: "-4px" }}>
+              <HeroNoteCard date={HERO_NOTES[0].date} quote={HERO_NOTES[0].quote} compact />
+            </div>
+            <div style={{ alignSelf: "flex-end", transform: "rotate(1.4deg)", width: "82%", marginRight: "-4px" }}>
+              <HeroNoteCard date={HERO_NOTES[1].date} quote={HERO_NOTES[1].quote} compact />
+            </div>
+          </div>
+
           {/* Body */}
           <p
             className="hero-fade"
@@ -2486,24 +2499,11 @@ function HeroSection() {
               color: C.muted,
               lineHeight: 1.78,
               marginBottom: 36,
-              animationDelay: "0.34s",
+              animationDelay: "0.50s",
             }}
           >
             The first AI mirror powered by your own voice. You're one of the first 1,000 invited. ÉCHO opens in days. Save your spot and we'll send your download link the moment it's live.
           </p>
-
-          {/* Mobile: app notes (past → present) — tilted, irregular offset */}
-          <div
-            className="hero-fade flex lg:hidden"
-            style={{ flexDirection: "column", gap: 10, marginTop: 28, marginBottom: 28, width: "100%", animationDelay: "0.50s" }}
-          >
-            <div style={{ alignSelf: "flex-start", transform: "rotate(-1.8deg)", width: "82%", marginLeft: "-4px" }}>
-              <HeroNoteCard date={HERO_NOTES[0].date} quote={HERO_NOTES[0].quote} compact />
-            </div>
-            <div style={{ alignSelf: "flex-end", transform: "rotate(1.4deg)", width: "82%", marginRight: "-4px" }}>
-              <HeroNoteCard date={HERO_NOTES[1].date} quote={HERO_NOTES[1].quote} compact />
-            </div>
-          </div>
 
           {/* Hero CTAs */}
           <div
