@@ -12,9 +12,11 @@ const emailSchema = z.string().trim().toLowerCase().email("Invalid email address
 
 export function WaitlistForm({
   variant = "hero",
+  source = "landing",
   onSuccess,
 }: {
   variant?: "hero" | "footer";
+  source?: "landing" | "summit";
   onSuccess?: () => void;
 }) {
   const [email, setEmail] = useState("");
@@ -54,7 +56,7 @@ export function WaitlistForm({
       const res = await fetch(`${apiBase}/subscribe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: parsed.data, locale, source: "landing", hp, consent: true, utm }),
+        body: JSON.stringify({ email: parsed.data, locale, source, hp, consent: true, utm }),
       });
       const body = await res.json().catch(() => ({})) as { error?: string; position?: number; total?: number };
       if (!res.ok) {

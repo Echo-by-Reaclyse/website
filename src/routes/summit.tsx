@@ -4648,7 +4648,7 @@ function WaitlistSection() {
           variants={scaleUp}
           style={{ maxWidth: 480, margin: "0 auto 32px" }}
         >
-          <WaitlistForm variant="hero" />
+          <WaitlistForm variant="hero" source="summit" />
         </motion.div>
 
         {/* Trust badges */}
