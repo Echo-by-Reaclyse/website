@@ -2492,11 +2492,23 @@ function HeroSection() {
             The first AI mirror powered by your own voice. You're one of the first 1,000 invited. ÉCHO opens in days. Save your spot and we'll send your download link the moment it's live.
           </p>
 
+          {/* Mobile: app notes (past → present) — tilted, irregular offset */}
+          <div
+            className="hero-fade flex lg:hidden"
+            style={{ flexDirection: "column", gap: 10, marginTop: 28, marginBottom: 28, width: "100%", animationDelay: "0.50s" }}
+          >
+            <div style={{ alignSelf: "flex-start", transform: "rotate(-1.8deg)", width: "82%", marginLeft: "-4px" }}>
+              <HeroNoteCard date={HERO_NOTES[0].date} quote={HERO_NOTES[0].quote} compact />
+            </div>
+            <div style={{ alignSelf: "flex-end", transform: "rotate(1.4deg)", width: "82%", marginRight: "-4px" }}>
+              <HeroNoteCard date={HERO_NOTES[1].date} quote={HERO_NOTES[1].quote} compact />
+            </div>
+          </div>
+
           {/* Hero CTAs */}
           <div
-            className="hero-fade"
+            className="hero-fade lg:!justify-start"
             style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center", marginBottom: 20, animationDelay: "0.56s", alignItems: "center" }}
-            className="lg:!justify-start"
           >
             <button
               onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "start" })}
@@ -2559,14 +2571,6 @@ function HeroSection() {
             Summit attendees go straight to the front. Founding member pricing locked for the first 1,000.
           </p>
 
-          {/* Mobile: app notes (past → present) — signals "it's an app" */}
-          <div
-            className="hero-fade flex lg:hidden"
-            style={{ flexDirection: "column", gap: 12, marginTop: 34, width: "100%", maxWidth: 320, animationDelay: "0.88s", alignItems: "center" }}
-          >
-            <HeroNoteCard date={HERO_NOTES[0].date} quote={HERO_NOTES[0].quote} compact />
-            <HeroNoteCard date={HERO_NOTES[1].date} quote={HERO_NOTES[1].quote} compact />
-          </div>
 
 </div>
       </motion.div>

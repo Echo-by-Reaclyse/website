@@ -2518,6 +2518,19 @@ function HeroSection() {
             A private voice journal that remembers what you said, notices the thoughts you return to, and brings your own words back when they matter.
           </p>
 
+          {/* Mobile: app notes (past → present) — tilted, irregular offset */}
+          <div
+            className="hero-fade flex lg:hidden"
+            style={{ flexDirection: "column", gap: 10, marginTop: 28, marginBottom: 28, width: "100%", animationDelay: "0.50s" }}
+          >
+            <div style={{ alignSelf: "flex-start", transform: "rotate(-1.8deg)", width: "82%", marginLeft: "-4px" }}>
+              <HeroNoteCard date={HERO_NOTES[0].date} quote={HERO_NOTES[0].quote} compact />
+            </div>
+            <div style={{ alignSelf: "flex-end", transform: "rotate(1.4deg)", width: "82%", marginRight: "-4px" }}>
+              <HeroNoteCard date={HERO_NOTES[1].date} quote={HERO_NOTES[1].quote} compact />
+            </div>
+          </div>
+
           {/* Hero CTAs */}
           <div
             className="hero-fade max-lg:justify-center"
@@ -2584,16 +2597,6 @@ function HeroSection() {
             Be among the first to access ÉCHO and the first 1,000 subscribers eligible for founding member pricing.
           </p>
 
-          {/* Mobile: app notes (past → present) — signals "it's an app" */}
-          <div
-            className="hero-fade flex lg:hidden"
-            style={{ flexDirection: "column", gap: 12, marginTop: 34, width: "100%", maxWidth: 340, animationDelay: "0.88s" }}
-          >
-            <HeroNoteCard date={HERO_NOTES[0].date} quote={HERO_NOTES[0].quote} compact />
-            <div style={{ marginLeft: 24 }}>
-              <HeroNoteCard date={HERO_NOTES[1].date} quote={HERO_NOTES[1].quote} compact />
-            </div>
-          </div>
 
 </div>
       </motion.div>
