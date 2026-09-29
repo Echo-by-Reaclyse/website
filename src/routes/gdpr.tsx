@@ -466,7 +466,7 @@ function GDPRPage() {
             stored.
           </li>
           <li>
-            <strong>Resend:</strong> Transactional email delivery for waitlist
+            <strong>Resend:</strong> Transactional email delivery for
             notifications. Email addresses processed in accordance with Resend's DPA.
           </li>
           <li>

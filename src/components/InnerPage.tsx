@@ -1,6 +1,6 @@
 import { SiteNav } from "./SiteNav";
 import { SiteFooter } from "./SiteFooter";
-import { APP_STORE_LINK_PROPS } from "@/lib/app-store";
+import { APP_STORE_LINK_PROPS, APP_STORE_URL } from "@/lib/app-store";
 
 interface InnerPageProps {
   title: string;
@@ -14,7 +14,7 @@ const NAV_LINKS = [
   { label: "FAQ", to: "/faq" },
 ];
 
-const NAV_CTA = { label: "Join waitlist", to: "/" };
+const NAV_CTA = { label: "Download on the App Store", href: APP_STORE_URL };
 
 export function InnerPage({ title, subtitle, children }: InnerPageProps) {
   return (
@@ -29,7 +29,7 @@ export function InnerPage({ title, subtitle, children }: InnerPageProps) {
         )}
         <div className="mt-10 space-y-8">{children}</div>
 
-        {/* Waitlist CTA — ECH-111 */}
+        {/* App Store CTA */}
         <div
           style={{
             marginTop: "4rem",

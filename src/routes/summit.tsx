@@ -4773,7 +4773,6 @@ function Landing() {
           ]}
           cta={{ label: "Download on the App Store", href: APP_STORE_URL }}
           hideThemeToggle
-          hideBanner
           logoSrc="/logo-main.svg"
           disableLogoLink
         />

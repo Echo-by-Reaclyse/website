@@ -58,7 +58,7 @@ export function trackFormStart(formId: string): void {
   gtag("event", "form_start", { form_id: formId });
 }
 
-/** User successfully submitted the waitlist form. */
+/** User successfully submitted a form. */
 export function trackFormSubmit(formId: string): void {
   gtag("event", "form_submit", { form_id: formId });
 }

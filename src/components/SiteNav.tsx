@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { ThemeToggle } from "./ThemeToggle";
-import { SmartAppBanner } from "./SmartAppBanner";
 
 export interface NavLink {
   label: string;
@@ -25,12 +24,11 @@ interface SiteNavProps {
   links: NavLink[];
   cta: NavCTA;
   hideThemeToggle?: boolean;
-  hideBanner?: boolean;
   logoSrc?: string;
   disableLogoLink?: boolean;
 }
 
-export function SiteNav({ links, cta, hideThemeToggle, hideBanner, logoSrc, disableLogoLink }: SiteNavProps) {
+export function SiteNav({ links, cta, hideThemeToggle, logoSrc, disableLogoLink }: SiteNavProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -66,8 +64,6 @@ export function SiteNav({ links, cta, hideThemeToggle, hideBanner, logoSrc, disa
         transition: "background 0.3s, backdrop-filter 0.3s, border-color 0.3s",
       }}
     >
-      {!hideBanner && <SmartAppBanner />}
-
       <div
         style={{
           maxWidth: 1100,
