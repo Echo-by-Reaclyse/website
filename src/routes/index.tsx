@@ -14,7 +14,6 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { useTheme as useGlobalTheme } from "@/components/ThemeProvider";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
-import { WaitlistForm } from "@/components/WaitlistForm";
 import { APP_STORE_URL, APP_STORE_LINK_PROPS } from "@/lib/app-store";
 
 export const Route = createFileRoute("/")({
@@ -4337,7 +4336,7 @@ function TestimonialsPlaceholder() {
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 3, flexWrap: "wrap" as const }}>
                 <span style={{ fontFamily: C.sans, fontSize: 14, fontWeight: 700, color: qColor }}>Maya</span>
-                {tagPill("Early waitlist")}
+                {tagPill("Early member")}
               </div>
               <span style={{ fontFamily: C.sans, fontSize: 12, color: C.muted }}>Marketing Director, 28</span>
             </div>
@@ -4380,7 +4379,7 @@ function TestimonialsPlaceholder() {
             </div>
             <div>
               <span style={{ fontFamily: C.serif, fontSize: 22, fontWeight: 700, color: C.ember }}>1,000+</span>
-              <span style={{ fontFamily: C.sans, fontSize: 11, color: C.muted, marginLeft: 6, textTransform: "uppercase" as const, letterSpacing: "0.07em" }}>people on the waitlist</span>
+              <span style={{ fontFamily: C.sans, fontSize: 11, color: C.muted, marginLeft: 6, textTransform: "uppercase" as const, letterSpacing: "0.07em" }}>early members</span>
             </div>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -4584,147 +4583,6 @@ function FAQSection() {
   );
 }
 
-// ── WaitlistSection ────────────────────────────────────────────
-function WaitlistSection() {
-  const { C, isDark } = useLandingTheme();
-
-  return (
-    <section
-      id="waitlist"
-      style={{
-        position: "relative",
-        padding: "72px 24px 88px",
-        textAlign: "center",
-        overflow: "hidden",
-      }}
-    >
-      {/* Ambient ember glow */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%,-50%)",
-          width: 560,
-          height: 560,
-          borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(191,96,64,0.12), transparent 70%)",
-          filter: "blur(60px)",
-          pointerEvents: "none",
-          animation: "glowPulse 5s ease-in-out infinite",
-        }}
-      />
-
-      <motion.div
-        variants={staggerV(0.1)}
-        initial="hidden"
-        whileInView="visible"
-        viewport={VP}
-        style={{ position: "relative" }}
-      >
-        <motion.p
-          variants={fadeUp}
-          style={{
-            fontSize: 11,
-            textTransform: "uppercase",
-            letterSpacing: "0.24em",
-            color: C.ember,
-            marginBottom: 20,
-            fontFamily: C.sans,
-          }}
-        >
-          — Join the waitlist
-        </motion.p>
-
-        <motion.h2
-          variants={fadeUp}
-          style={{
-            fontFamily: C.serif,
-            fontSize: "clamp(2.2rem, 5.5vw, 4rem)",
-            letterSpacing: "0",
-            color: C.cream,
-            lineHeight: 1.08,
-            marginBottom: 20,
-          }}
-        >
-          Your answers might{" "}
-          <em style={{ color: C.ember, fontStyle: "italic" }}>
-            already be there.
-          </em>
-        </motion.h2>
-
-        <motion.p
-          variants={fadeUp}
-          style={{
-            fontSize: 17,
-            color: C.muted,
-            maxWidth: 440,
-            margin: "0 auto 44px",
-            lineHeight: 1.68,
-            fontFamily: C.sans,
-          }}
-        >
-          ÉCHO helps you keep them long enough to hear them again.
-        </motion.p>
-
-        <motion.div
-          variants={scaleUp}
-          style={{ maxWidth: 480, margin: "0 auto 32px" }}
-        >
-          <WaitlistForm variant="hero" />
-        </motion.div>
-
-        {/* Trust badges */}
-        <motion.div
-          variants={fadeUp}
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 10,
-          }}
-        >
-          {["On-device only", "Encrypted", "Zero data sharing"].map((b) => (
-            <span
-              key={b}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                padding: "5px 14px",
-                borderRadius: 999,
-                border: `1px solid ${isDark ? "rgba(191,96,64,0.18)" : "rgba(168,75,42,0.16)"}`,
-                background: isDark
-                  ? "rgba(191,96,64,0.05)"
-                  : "rgba(168,75,42,0.04)",
-                fontSize: 11,
-                letterSpacing: "0.1em",
-                color: C.muted,
-                fontFamily: C.sans,
-                textTransform: "uppercase",
-              }}
-            >
-              <span
-                style={{
-                  width: 5,
-                  height: 5,
-                  borderRadius: "50%",
-                  background: C.ember,
-                  opacity: 0.7,
-                  flexShrink: 0,
-                }}
-              />
-              {b}
-            </span>
-          ))}
-        </motion.div>
-      </motion.div>
-    </section>
-  );
-}
-
 // ── Footer ─────────────────────────────────────────────────────
 function Footer() {
   const { C, isDark } = useLandingTheme();
@@ -4835,7 +4693,7 @@ function Landing() {
   const isDark = resolvedTheme === "dark";
   const C = isDark ? C_DARK : C_LIGHT;
 
-  // Scroll to a #hash target on load/navigation (e.g. /#waitlist from the summit
+  // Scroll to a #hash target on load/navigation (e.g. /#privacy from the summit
   // page or footer). Sections mount and animate in, so retry until the element
   // exists. scrollRestoration is "manual", so nothing scrolls without this.
   useEffect(() => {
@@ -4936,7 +4794,6 @@ function Landing() {
         <PricingSection />
         <TestimonialsPlaceholder />
         <FAQSection />
-        <WaitlistSection />
         <SiteFooter />
       </div>
     </ThemeCtx.Provider>
