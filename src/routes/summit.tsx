@@ -280,7 +280,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "How much does ÉCHO cost?",
-    a: "ÉCHO is free to download and use every day. A subscription unlocks your full journal history, the full Mirror for deeper personal patterns, and unlimited Letters. Founding members pay €3.99/month or €34.99/year (regular price: €7.99/month or €69.99/year). Founding member pricing remains active for as long as your subscription stays active.",
+    a: "ÉCHO is free to download and use every day. A subscription unlocks your full journal history, the full Mirror for deeper personal patterns, and unlimited Letters. PRO is €7.99/month or €59.99/year. Founding-member pricing brings that down to €3.99/month for your first 12 months, or €34.99 for your first year; it renews at the standard price after that.",
   },
   {
     q: "Do I need to write anything?",
@@ -2569,7 +2569,7 @@ function HeroSection() {
               opacity: 0.75,
             }}
           >
-            Summit attendees go straight to the front. Founding member pricing locked for the first 1,000.
+            Summit attendees, this one is for you. Founding-member pricing on your first year.
           </p>
 
 
@@ -4096,7 +4096,7 @@ function PricingSection() {
           <div style={{ marginBottom: 32 }}>
             {/* Crossed-out regular price */}
             <p style={{ fontFamily: C.sans, fontSize: 14, color: C.muted, textDecoration: "line-through", opacity: 0.5, margin: "0 0 6px" }}>
-              €69.99 / yr
+              €59.99 / yr
             </p>
             {/* Founding member price */}
             <div style={{ display: "flex", alignItems: "baseline", gap: 6, marginBottom: 6 }}>
@@ -4107,7 +4107,7 @@ function PricingSection() {
               €2.92&thinsp;/&thinsp;mo · billed annually
             </p>
             <p style={{ fontSize: 12, color: C.muted, fontFamily: C.sans, margin: 0 }}>
-              Founding member pricing remains active for as long as your subscription stays active.
+              Applies to your first year, then renews at €59.99/year.
             </p>
           </div>
 

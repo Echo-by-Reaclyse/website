@@ -34,11 +34,6 @@ function Privacy() {
       </Section>
 
       <Section title="What we collect">
-        <strong className="text-ink">On the waitlist:</strong> email address, browser locale, and
-        the referring page — used only to notify you at launch. Legal basis: consent (you
-        submitted the form).
-        <br />
-        <br />
         <strong className="text-ink">In the app:</strong> voice recordings and their transcripts,
         daily reflection answers, your persona profile (built locally from your entries), and
         anonymous analytics events (feature usage, recording completion, onboarding steps — see
@@ -138,8 +133,7 @@ function Privacy() {
 
       <Section title="Data retention">
         Your in-app data is stored on your device and, optionally, in iCloud. It is retained until
-        you delete it or close your account. Waitlist email addresses are deleted within 30 days
-        after launch notifications are sent. We do not retain voice recordings on our servers at
+        you delete it or close your account. We do not retain voice recordings on our servers at
         any point.
       </Section>
 
@@ -213,7 +207,7 @@ function Privacy() {
             questions. No user reflection data is stored.
           </li>
           <li>
-            <strong>Resend</strong> — transactional email delivery for waitlist communications.
+            <strong>Resend</strong> — transactional email delivery.
           </li>
           <li><strong>Vercel</strong> — website and API hosting.</li>
         </ul>
