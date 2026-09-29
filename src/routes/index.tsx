@@ -2595,7 +2595,7 @@ function HeroSection() {
               opacity: 0.75,
             }}
           >
-            Free on the App Store, for iPhone. Your first year at founding-member pricing.
+            Free to download. Founding-member pricing on your first year.
           </p>
 
 

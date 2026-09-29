@@ -37,7 +37,7 @@ export function SiteFooter() {
             <img src="/logo-main.svg" alt="ÉCHO" style={{ height: 20, width: "auto", opacity: 0.85 }} />
           </Link>
           <p className="font-sans text-xs text-muted-foreground" style={{ lineHeight: 1.65, maxWidth: 200, margin: 0 }}>
-            A private voice journal for iPhone. Launching 2026.
+            A private voice journal for iPhone.
           </p>
         </div>
 
@@ -90,7 +90,7 @@ export function SiteFooter() {
             Get ÉCHO
           </p>
           <p className="font-sans text-sm text-muted-foreground" style={{ margin: 0, lineHeight: 1.55 }}>
-            Free on the App Store, for iPhone.
+            Free on the App Store.
           </p>
           <a
             {...APP_STORE_LINK_PROPS}

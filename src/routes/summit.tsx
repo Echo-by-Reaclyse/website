@@ -2502,7 +2502,7 @@ function HeroSection() {
               animationDelay: "0.50s",
             }}
           >
-            The first AI mirror powered by your own voice. ÉCHO is live on the App Store, free to download — and your first year is at founding-member pricing.
+            The first AI mirror powered by your own voice. Free on the App Store, with founding-member pricing on your first year.
           </p>
 
           {/* Hero CTAs */}
