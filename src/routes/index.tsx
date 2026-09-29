@@ -287,7 +287,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "Is ÉCHO available on Android?",
-    a: "ÉCHO is iPhone-only for now. Android support may follow in a later phase — join the list below and we'll let you know as soon as your platform is supported.",
+    a: "ÉCHO is iPhone-only for now. Android support may follow in a later phase.",
   },
 ];
 
