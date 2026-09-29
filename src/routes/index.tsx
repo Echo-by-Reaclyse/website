@@ -15,6 +15,7 @@ import { useTheme as useGlobalTheme } from "@/components/ThemeProvider";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { WaitlistForm } from "@/components/WaitlistForm";
+import { APP_STORE_URL, APP_STORE_LINK_PROPS } from "@/lib/app-store";
 
 export const Route = createFileRoute("/")({
   component: Landing,
@@ -271,7 +272,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "When does ÉCHO launch?",
-    a: "ÉCHO launches on the iOS App Store in 2026, starting with European markets: France, Germany, Spain, Italy, Luxembourg, Belgium, the Netherlands, Austria, and Switzerland. Join the waitlist to be first in line and unlock early-access pricing.",
+    a: "ÉCHO is live on the iOS App Store, free to download. It works worldwide, with the interface available in 13 languages. A PRO subscription unlocks the deeper features, and your first year is at founding-member pricing.",
   },
   {
     q: "Is my voice data private?",
@@ -287,7 +288,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "Is ÉCHO available on Android?",
-    a: "ÉCHO is iPhone-only at launch. Android support may follow in a later phase, so join the waitlist and we'll let you know as soon as your platform is supported.",
+    a: "ÉCHO is iPhone-only for now. Android support may follow in a later phase — join the list below and we'll let you know as soon as your platform is supported.",
   },
 ];
 
@@ -2477,7 +2478,7 @@ function HeroSection() {
               color: C.muted, fontFamily: C.sans,
             }}>
               <span className="badge-dot" style={{ width: 7, height: 7, borderRadius: "50%", background: C.ember, display: "inline-block" }} />
-              Private voice journal · Coming first to iPhone
+              Private voice journal · Now on iPhone
             </span>
           </div>
 
@@ -2536,9 +2537,10 @@ function HeroSection() {
             className="hero-fade max-lg:justify-center"
             style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 20, animationDelay: "0.56s", alignItems: "center" }}
           >
-            <button
-              onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+            <a
+              {...APP_STORE_LINK_PROPS}
               style={{
+                display: "inline-block", textDecoration: "none",
                 padding: "13px 28px", borderRadius: 999,
                 background: C.ember, color: "#FFF6E9",
                 fontFamily: C.sans, fontSize: 14, fontWeight: 600,
@@ -2548,8 +2550,8 @@ function HeroSection() {
               onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
               onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
             >
-              Join the founding waitlist →
-            </button>
+              Download on the App Store →
+            </a>
             <a
               href={ECHO_IG}
               target="_blank"
@@ -2594,7 +2596,7 @@ function HeroSection() {
               opacity: 0.75,
             }}
           >
-            Be among the first to access ÉCHO and the first 1,000 subscribers eligible for founding member pricing.
+            Free on the App Store, for iPhone. Your first year at founding-member pricing.
           </p>
 
 
@@ -4056,9 +4058,10 @@ function PricingSection() {
             ))}
           </ul>
 
-          <button
-            onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+          <a
+            {...APP_STORE_LINK_PROPS}
             style={{
+              textDecoration: "none",
               display: "block",
               width: "100%",
               textAlign: "center",
@@ -4076,8 +4079,8 @@ function PricingSection() {
               cursor: "pointer",
             }}
           >
-            Get notified at launch
-          </button>
+            Download free
+          </a>
         </motion.div>
 
         {/* Unfold — pro tier */}
@@ -4140,10 +4143,11 @@ function PricingSection() {
             ))}
           </ul>
 
-          <button
-            onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+          <a
+            {...APP_STORE_LINK_PROPS}
             className="btn-ember"
             style={{
+              textDecoration: "none",
               display: "block",
               width: "100%",
               textAlign: "center",
@@ -4159,8 +4163,8 @@ function PricingSection() {
               border: "none",
             }}
           >
-            Join waitlist — founding price
-          </button>
+            Download — founding price
+          </a>
         </motion.div>
       </motion.div>
     </section>
@@ -4865,7 +4869,7 @@ function Landing() {
         <title>ÉCHO — Private Voice Journal for iPhone</title>
         <meta
           name="description"
-          content="ÉCHO is a private voice journal for iPhone. One question a day, your voice recorded and encrypted on-device. Weeks later, ÉCHO surfaces what you said before the doubt set in. Launching on iOS in Europe 2026."
+          content="ÉCHO is a private voice journal for iPhone. One question a day, your voice recorded and encrypted on-device. Weeks later, ÉCHO surfaces what you said before the doubt set in. Free on the App Store."
         />
         <link rel="canonical" href="https://www.echobyreaclyse.com/" />
         <script
@@ -4916,7 +4920,7 @@ function Landing() {
             { label: "FAQ", anchor: "faq" },
             { label: "Blog", to: "/blog" },
           ]}
-          cta={{ label: "Join the founding waitlist", anchor: "waitlist" }}
+          cta={{ label: "Download on the App Store", href: APP_STORE_URL }}
         />
         <div id="main-content" />
         <HeroSection />

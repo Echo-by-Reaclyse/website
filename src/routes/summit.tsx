@@ -13,6 +13,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { SiteNav } from "@/components/SiteNav";
 import { WaitlistForm } from "@/components/WaitlistForm";
+import { APP_STORE_URL, APP_STORE_LINK_PROPS } from "@/lib/app-store";
 
 export const Route = createFileRoute("/summit")({
   component: Landing,
@@ -272,7 +273,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "When does ÉCHO launch?",
-    a: "ÉCHO launches on the iOS App Store in 2026, starting with European markets: France, Germany, Spain, Italy, Luxembourg, Belgium, the Netherlands, Austria, and Switzerland. Join the waitlist to be first in line and unlock early-access pricing.",
+    a: "ÉCHO is live on the iOS App Store, free to download. It works worldwide, with the interface available in 13 languages. A PRO subscription unlocks the deeper features, and your first year is at founding-member pricing.",
   },
   {
     q: "Is my voice data private?",
@@ -288,7 +289,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "Is ÉCHO available on Android?",
-    a: "ÉCHO is iPhone-only at launch. Android support may follow in a later phase, so join the waitlist and we'll let you know as soon as your platform is supported.",
+    a: "ÉCHO is iPhone-only for now. Android support may follow in a later phase — join the list below and we'll let you know as soon as your platform is supported.",
   },
 ];
 
@@ -2502,7 +2503,7 @@ function HeroSection() {
               animationDelay: "0.50s",
             }}
           >
-            The first AI mirror powered by your own voice. You're one of the first 1,000 invited. ÉCHO opens in days. Save your spot and we'll send your download link the moment it's live.
+            The first AI mirror powered by your own voice. ÉCHO is live on the App Store, free to download — and your first year is at founding-member pricing.
           </p>
 
           {/* Hero CTAs */}
@@ -2510,9 +2511,10 @@ function HeroSection() {
             className="hero-fade lg:!justify-start"
             style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center", marginBottom: 20, animationDelay: "0.56s", alignItems: "center" }}
           >
-            <button
-              onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+            <a
+              {...APP_STORE_LINK_PROPS}
               style={{
+                display: "inline-block", textDecoration: "none",
                 padding: "13px 28px", borderRadius: 999,
                 background: C.ember, color: "#FFF6E9",
                 fontFamily: C.sans, fontSize: 14, fontWeight: 600,
@@ -2522,8 +2524,8 @@ function HeroSection() {
               onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
               onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
             >
-              Save my spot →
-            </button>
+              Download on the App Store →
+            </a>
             <a
               href={ECHO_IG}
               target="_blank"
@@ -4034,9 +4036,10 @@ function PricingSection() {
             ))}
           </ul>
 
-          <button
-            onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+          <a
+            {...APP_STORE_LINK_PROPS}
             style={{
+              textDecoration: "none",
               display: "block",
               width: "100%",
               textAlign: "center",
@@ -4054,8 +4057,8 @@ function PricingSection() {
               cursor: "pointer",
             }}
           >
-            Get notified at launch
-          </button>
+            Download free
+          </a>
         </motion.div>
 
         {/* Unfold — pro tier */}
@@ -4118,10 +4121,11 @@ function PricingSection() {
             ))}
           </ul>
 
-          <button
-            onClick={() => document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+          <a
+            {...APP_STORE_LINK_PROPS}
             className="btn-ember"
             style={{
+              textDecoration: "none",
               display: "block",
               width: "100%",
               textAlign: "center",
@@ -4137,8 +4141,8 @@ function PricingSection() {
               border: "none",
             }}
           >
-            Join waitlist — founding price
-          </button>
+            Download — founding price
+          </a>
         </motion.div>
       </motion.div>
     </section>
@@ -4641,7 +4645,7 @@ function WaitlistSection() {
             fontFamily: C.sans,
           }}
         >
-          Save your spot and we'll send your download link the moment it's live. First 1,000 get founding member pricing locked in forever.
+          ÉCHO is free on the App Store. Want the occasional note on what we're building, and first word when Android lands? Leave your email.
         </motion.p>
 
         <motion.div
@@ -4858,7 +4862,7 @@ function Landing() {
         <title>ÉCHO × Girls Future Ready Summit</title>
         <meta
           name="description"
-          content="The first AI mirror powered by your own voice. You're one of the first 1,000 invited. ÉCHO opens in days — save your spot and get your download link the moment it's live."
+          content="The first AI mirror powered by your own voice. ÉCHO is live on the App Store, free to download, with founding-member pricing on your first year."
         />
         <meta name="robots" content="noindex" />
         <link rel="canonical" href="https://www.echobyreaclyse.com/summit" />
@@ -4909,7 +4913,7 @@ function Landing() {
             { label: "Privacy", anchor: "privacy" },
             { label: "FAQ", anchor: "faq" },
           ]}
-          cta={{ label: "Secure your spot", anchor: "waitlist" }}
+          cta={{ label: "Download on the App Store", href: APP_STORE_URL }}
           hideThemeToggle
           hideBanner
           logoSrc="/logo-main.svg"

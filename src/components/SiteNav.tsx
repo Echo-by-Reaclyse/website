@@ -17,6 +17,8 @@ export interface NavCTA {
   to?: string;
   /** Scroll to this anchor id (without #) — renders as a button */
   anchor?: string;
+  /** External destination (the App Store listing) — renders as an anchor. */
+  href?: string;
 }
 
 interface SiteNavProps {
@@ -132,7 +134,11 @@ export function SiteNav({ links, cta, hideThemeToggle, hideBanner, logoSrc, disa
 
           {/* CTA — hidden on mobile (accessible via hamburger drawer below) */}
           <span className="hidden sm:block">
-            {cta.to ? (
+            {cta.href ? (
+              <a href={cta.href} target="_blank" rel="noopener noreferrer" className="site-nav-cta">
+                {cta.label}
+              </a>
+            ) : cta.to ? (
               <Link to={cta.to} className="site-nav-cta">
                 {cta.label}
               </Link>
@@ -202,7 +208,17 @@ export function SiteNav({ links, cta, hideThemeToggle, hideBanner, logoSrc, disa
           )}
           {/* CTA in mobile drawer */}
           <div style={{ marginTop: 8 }}>
-            {cta.to ? (
+            {cta.href ? (
+              <a
+                href={cta.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="site-nav-cta"
+                onClick={() => setMenuOpen(false)}
+              >
+                {cta.label}
+              </a>
+            ) : cta.to ? (
               <Link to={cta.to} className="site-nav-cta" onClick={() => setMenuOpen(false)}>
                 {cta.label}
               </Link>

@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { APP_STORE_LINK_PROPS } from "@/lib/app-store";
 
 const FOOTER_PRODUCT = [
   { label: "FAQ", to: "/faq" },
@@ -89,10 +90,10 @@ export function SiteFooter() {
             Get ÉCHO
           </p>
           <p className="font-sans text-sm text-muted-foreground" style={{ margin: 0, lineHeight: 1.55 }}>
-            Coming to the App Store in 2026.
+            Free on the App Store, for iPhone.
           </p>
           <a
-            href="/#waitlist"
+            {...APP_STORE_LINK_PROPS}
             className="font-sans text-sm font-semibold"
             style={{
               color: "#BF6040",
@@ -101,12 +102,8 @@ export function SiteFooter() {
             }}
             onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.7")}
             onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-            onClick={(e) => {
-              const el = document.getElementById("waitlist");
-              if (el) { e.preventDefault(); el.scrollIntoView({ behavior: "smooth", block: "start" }); }
-            }}
           >
-            Join the waitlist →
+            Download on the App Store →
           </a>
         </div>
       </div>

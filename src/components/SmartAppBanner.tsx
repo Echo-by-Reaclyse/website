@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "@tanstack/react-router";
+import { APP_STORE_LINK_PROPS } from "@/lib/app-store";
 
 const DISMISSED_KEY = "echo_app_banner_dismissed";
 
-// ECH-108: Pre-launch smart app banner for mobile visitors.
+// ECH-108: smart app banner for mobile visitors.
 // Rendered inside SiteNav (which is position:fixed), so it naturally
 // stacks above the nav row without any extra positioning.
-// TODO: When app is on the App Store, replace the CTA with a real App Store link.
+// Was a pre-launch banner pointing at the waitlist; 1.0 went live 29 Sep 2026
+// and it now links to the listing.
 export function SmartAppBanner() {
   const [visible, setVisible] = useState(false);
   const bannerRef = useRef<HTMLDivElement>(null);
@@ -125,13 +126,13 @@ export function SmartAppBanner() {
             marginTop: 1,
           }}
         >
-          Private voice journal · Coming to iOS
+          Private voice journal · On the App Store
         </p>
       </div>
 
       {/* CTA */}
-      <Link
-        to="/"
+      <a
+        {...APP_STORE_LINK_PROPS}
         style={{
           display: "inline-flex",
           alignItems: "center",
@@ -147,14 +148,9 @@ export function SmartAppBanner() {
           whiteSpace: "nowrap",
           letterSpacing: "0.01em",
         }}
-        onClick={() => {
-          setTimeout(() => {
-            document.getElementById("waitlist")?.scrollIntoView({ behavior: "smooth", block: "start" });
-          }, 100);
-        }}
       >
-        Join waitlist
-      </Link>
+        Get
+      </a>
     </div>
   );
 }
