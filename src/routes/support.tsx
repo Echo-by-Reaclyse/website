@@ -137,11 +137,11 @@ function Support() {
       </Section>
 
       <Section title="Supported languages">
-        Transcription is powered by WhisperKit, which supports English, French, German, Spanish,
-        Italian, and Portuguese at launch. The model runs on-device, so no audio is sent to a
-        server during transcription regardless of language. The app interface is in English at
-        launch; localised versions of the UI are planned for the main European markets and will
-        follow the transcription language availability closely.
+        Transcription currently runs in English only. WhisperKit can handle other languages and
+        the groundwork is in place, but we have kept it to English while we are confident in the
+        accuracy — a transcript you cannot trust is worse than none. The model runs on-device, so
+        no audio is sent to a server during transcription. The app interface itself is localised
+        into 13 languages and follows your device setting.
       </Section>
 
       <Section title="Troubleshooting">

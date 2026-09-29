@@ -11,12 +11,12 @@ const faqs = [
     a: "ÉCHO is a private voice journal for iPhone. Each day, one reflection question appears — you speak your answer, and ÉCHO transcribes it on-device, stores it encrypted, and builds a longitudinal picture of your thinking over time. Weeks or months later, it surfaces what you said before the doubt set in. It's evidence-based self-reflection, without the blank page.",
   },
   {
-    q: "When does ÉCHO launch?",
-    a: "ÉCHO is launching in 2026, starting with European markets including France, Germany, Spain, Italy, Luxembourg, Belgium, the Netherlands, Austria, and Switzerland. A broader global rollout will follow shortly after. Join the waitlist to be notified the moment it's available in your region.",
+    q: "Is ÉCHO available now?",
+    a: "Yes. ÉCHO is on the iOS App Store, free to download.",
   },
   {
-    q: "How do I join the waitlist?",
-    a: "Enter your email address on the homepage at echobyreaclyse.com. Waitlist members are the first to know when ÉCHO launches and will receive an exclusive founding-member pricing offer that won't be available after general release.",
+    q: "What is founding-member pricing?",
+    a: "A reduced rate on your first year of PRO, applied automatically when you subscribe. It is an introductory offer, so it runs for one year and then renews at the standard price.",
   },
   {
     q: "Which devices does ÉCHO run on?",
@@ -24,7 +24,7 @@ const faqs = [
   },
   {
     q: "Is ÉCHO available in my country?",
-    a: "At launch, ÉCHO will be available in France, Germany, Spain, Italy, Luxembourg, Belgium, the Netherlands, Austria, and Switzerland. A global rollout to additional markets will follow once the launch is stable. Join the waitlist — we'll notify you as soon as your region is live.",
+    a: "ÉCHO is available worldwide on the iOS App Store. The interface is localised into 13 languages; recording, transcription and your journal all work the same everywhere.",
   },
   {
     q: "How does transcription work?",

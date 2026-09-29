@@ -1,6 +1,7 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { InnerPage } from "@/components/InnerPage";
 import { getPost } from "@/lib/blog-posts";
+import { APP_STORE_LINK_PROPS } from "@/lib/app-store";
 
 function formatDate(iso: string) {
   const d = new Date(iso);
@@ -110,16 +111,16 @@ function BlogPost() {
       </div>
 
       <div className="mt-16 border-t border-border pt-10">
-        <p className="font-display text-2xl text-ink mb-2">Try ÉCHO when it launches.</p>
+        <p className="font-display text-2xl text-ink mb-2">Try ÉCHO.</p>
         <p className="font-sans text-sm text-muted-foreground mb-4">
-          Join the waitlist for early access and founding-member pricing.
+          Free to download for iPhone, with founding-member pricing on your first year.
         </p>
-        <Link
-          to="/"
+        <a
+          {...APP_STORE_LINK_PROPS}
           className="font-sans text-sm text-ember hover:opacity-75 transition-opacity"
         >
-          Join the waitlist →
-        </Link>
+          Download on the App Store →
+        </a>
       </div>
     </InnerPage>
   );

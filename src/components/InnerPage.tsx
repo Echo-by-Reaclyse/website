@@ -1,6 +1,6 @@
-import { Link } from "@tanstack/react-router";
 import { SiteNav } from "./SiteNav";
 import { SiteFooter } from "./SiteFooter";
+import { APP_STORE_LINK_PROPS } from "@/lib/app-store";
 
 interface InnerPageProps {
   title: string;
@@ -60,10 +60,10 @@ export function InnerPage({ title, subtitle, children }: InnerPageProps) {
               marginBottom: "1.25rem",
             }}
           >
-            ÉCHO is launching in 2026. Join the waitlist for early access and founding-member pricing.
+            ÉCHO is on the App Store, free to download for iPhone.
           </p>
-          <Link
-            to="/"
+          <a
+            {...APP_STORE_LINK_PROPS}
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -82,8 +82,8 @@ export function InnerPage({ title, subtitle, children }: InnerPageProps) {
             onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.82")}
             onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
           >
-            Join the waitlist →
-          </Link>
+            Download on the App Store →
+          </a>
         </div>
       </main>
 
