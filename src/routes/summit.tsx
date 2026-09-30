@@ -3136,14 +3136,16 @@ function FeatureListingSection() {
     tag: string;
     body: string;
     grad: string;
-    screenshot?: string;
+    screenshotLight?: string;
+    screenshotDark?: string;
     cardContent: React.ReactNode;
   }> = [
     {
       tag: "Record",
       body: "One tap starts it. Just talk. ÉCHO writes it down as you go.",
       grad: "linear-gradient(168deg, #EDE0CC 0%, #D8B87A 50%, #B08040 100%)",
-      screenshot: "/screens/summit-record.webp",
+      screenshotLight: "/screens/record-light.webp",
+      screenshotDark: "/screens/summit-record.webp",
       cardContent: (
         <>
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 30% 20%, rgba(255,245,220,0.55) 0%, transparent 55%)" }} />
@@ -3168,7 +3170,8 @@ function FeatureListingSection() {
       tag: "Reflect",
       body: "Come back to any entry. Read it, or hear it in your own voice, exactly as you said it.",
       grad: "linear-gradient(168deg, #E4D8C0 0%, #C8AE88 50%, #9A7050 100%)",
-      screenshot: "/screens/summit-archive.webp",
+      screenshotLight: "/screens/archive-light.webp",
+      screenshotDark: "/screens/summit-archive.webp",
       cardContent: (
         <>
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 65% 25%, rgba(255,240,210,0.48) 0%, transparent 52%)" }} />
@@ -3189,7 +3192,8 @@ function FeatureListingSection() {
       tag: "The Mirror",
       body: "The thoughts you keep circling back to, gathered and shown to you, not analyzed, not explained.",
       grad: "linear-gradient(168deg, #D8D0C0 0%, #B4A890 50%, #8A7860 100%)",
-      screenshot: "/screens/summit-mirror.webp",
+      screenshotLight: "/screens/mirror-light.webp",
+      screenshotDark: "/screens/summit-mirror.webp",
       cardContent: (
         <>
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 35% 72%, rgba(255,245,225,0.42) 0%, transparent 58%)" }} />
@@ -3204,7 +3208,8 @@ function FeatureListingSection() {
       tag: "Letters",
       body: "Write to a version of yourself who isn't here yet. Set a date. ÉCHO holds it until then.",
       grad: "linear-gradient(168deg, #EAD8B4 0%, #CCB07A 50%, #9E8050 100%)",
-      screenshot: "/screens/summit-letters.webp",
+      screenshotLight: "/screens/letters-light.webp",
+      screenshotDark: "/screens/summit-letters.webp",
       cardContent: (
         <>
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 52% 18%, rgba(255,248,220,0.52) 0%, transparent 54%)" }} />
@@ -3307,7 +3312,7 @@ function FeatureListingSection() {
                     originY: "88%",
                   }}
                 >
-                  {f.screenshot ? (
+                  {(isDark ? f.screenshotDark : f.screenshotLight) ? (
                     // Framed screenshot card — image contained, description below
                     <>
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexShrink: 0 }}>
@@ -3329,7 +3334,7 @@ function FeatureListingSection() {
                       </div>
                       <div style={{ flex: 1, borderRadius: 16, overflow: "hidden", minHeight: 0, marginBottom: 14, border: `1.5px solid rgba(191,96,64,0.22)` }}>
                         <img
-                          src={f.screenshot}
+                          src={isDark ? f.screenshotDark : f.screenshotLight}
                           alt=""
                           loading="lazy"
                           decoding="async"
