@@ -6,4 +6,4 @@ Disallow: /thank-you
 Sitemap: https://www.echobyreaclyse.com/sitemap.xml
 
 # LLM guidance
-LLMs-txt: https://www.echobyreaclyse.com/llms.txt
+# llms.txt: https://www.echobyreaclyse.com/llms.txt

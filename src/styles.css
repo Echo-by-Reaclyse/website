@@ -628,8 +628,8 @@
     50%       { transform: scaleY(1);   opacity: 1;   }
   }
   @keyframes featBarFill {
-    from { width: 0; }
-    to   { width: var(--bar-target); }
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
   }
   @keyframes featBlink {
     0%, 100% { opacity: 1; }
@@ -662,8 +662,8 @@
     40%           { transform: translateY(-7px); opacity: 1;   }
   }
   @keyframes traitFill {
-    from { width: 0%; }
-    to   { width: var(--trait-target); }
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
   }
   @keyframes envFloat {
     0%, 100% { transform: translateY(0px); }
@@ -695,8 +695,8 @@
     100% { transform: scale(0.88); opacity: 0.85; }
   }
   @keyframes phoneGlow {
-    0%, 100% { box-shadow: 0 0 0 2px rgba(191,96,64,0.25), 0 0 28px rgba(191,96,64,0.12); }
-    50%       { box-shadow: 0 0 0 3px rgba(191,96,64,0.48), 0 0 52px rgba(191,96,64,0.22); }
+    0%, 100% { filter: drop-shadow(0 0 14px rgba(191,96,64,0.12)); }
+    50%       { filter: drop-shadow(0 0 26px rgba(191,96,64,0.22)); }
   }
   @keyframes tapBadgePulse {
     0%, 100% { opacity: 0.95; transform: translateY(0) scale(1); }
@@ -728,11 +728,11 @@
     [style*="featBlink"], [style*="featPulseScale"] {
       animation: none !important;
       opacity: 1 !important;
-      width: var(--bar-target, 100%) !important;
+      transform: scaleX(1) !important;
     }
     .waveform-bar, .mic-glow-ring, .env-float-card,
     .rec-dot, .hint-label { animation: none !important; }
-    .trait-bar-fill { width: var(--trait-target) !important; animation: none !important; }
+    .trait-bar-fill { transform: scaleX(1) !important; animation: none !important; }
   }
 }
 

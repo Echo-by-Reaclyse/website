@@ -678,6 +678,7 @@ function PhoneTabBar({
           <button
             key={id}
             onClick={() => onTabChange(id)}
+            aria-label={label}
             style={{
               flex: 1,
               display: "flex",
@@ -822,6 +823,7 @@ function HomeTabScreen({
                 {/* Glass orb */}
                 <button
                   onClick={() => setHomeState("recording")}
+                  aria-label="Start recording"
                   style={{
                     width: 62, height: 62, borderRadius: "50%",
                     background: "radial-gradient(circle at 34% 28%, #D4724A 0%, #BF6040 45%, #6A2A10 100%)",
@@ -978,6 +980,7 @@ function HomeTabScreen({
                 ))}
                 <button
                   onClick={() => setHomeState("processing")}
+                  aria-label="Stop recording"
                   style={{
                     width: 62, height: 62, borderRadius: "50%",
                     background: "radial-gradient(circle at 34% 28%, #D4724A 0%, #BF6040 45%, #6A2A10 100%)",
@@ -1158,9 +1161,9 @@ function ArchiveTabScreen() {
         {calView === "calendar" && <div style={{ background: "#FFFFFF", borderRadius: 16, padding: "14px 12px", boxShadow: "0 1px 4px rgba(0,0,0,0.07)" }}>
           {/* Month nav */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-            <button style={{ background: "none", border: "none", cursor: "pointer", color: "#BF6040", fontSize: 16, padding: "0 4px", WebkitTapHighlightColor: "transparent" }}>‹</button>
+            <button aria-label="Previous month" style={{ background: "none", border: "none", cursor: "pointer", color: "#BF6040", fontSize: 16, padding: "0 4px", WebkitTapHighlightColor: "transparent" }}>‹</button>
             <p style={{ fontSize: 14, color: "#1A1A1A", fontFamily: "Urbanist, sans-serif", fontWeight: 600 }}>May 2026</p>
-            <button style={{ background: "none", border: "none", cursor: "pointer", color: "#BF6040", fontSize: 16, padding: "0 4px", WebkitTapHighlightColor: "transparent" }}>›</button>
+            <button aria-label="Next month" style={{ background: "none", border: "none", cursor: "pointer", color: "#BF6040", fontSize: 16, padding: "0 4px", WebkitTapHighlightColor: "transparent" }}>›</button>
           </div>
 
           {/* Day headers */}
@@ -2400,6 +2403,7 @@ function HeroSection() {
           src={isDark ? "/hero-lifestyle-dark.webp" : "/hero-lifestyle-light.webp"}
           alt=""
           aria-hidden
+          fetchPriority="high"
           style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "65% center", display: "block", opacity: 0.72 }}
         />
         {/* Heavy left fade — covers most of the panel so text is never overlapped */}
@@ -2418,6 +2422,7 @@ function HeroSection() {
           src={isDark ? "/hero-lifestyle-dark.webp" : "/hero-lifestyle-light.webp"}
           alt=""
           aria-hidden
+          fetchPriority="high"
           style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% center", display: "block" }}
         />
         {/* Left — blend into text column */}
@@ -3419,6 +3424,7 @@ function FeatureListingSection() {
               <button
                 key={i}
                 onClick={() => goto(i)}
+                aria-label={`Go to feature ${i + 1}`}
                 style={{ width: 24, height: 14, display: "flex", alignItems: "center", justifyContent: "center", background: "none", border: "none", cursor: "pointer", padding: 0 }}
               >
                 <div style={{
@@ -4618,6 +4624,8 @@ function Footer() {
           <img
             src="/logo-main.svg"
             alt="ÉCHO"
+            width="65"
+            height="20"
             style={{ height: 20, width: "auto", opacity: isDark ? 0.88 : 0.75 }}
           />
           <span
@@ -4787,20 +4795,21 @@ function Landing() {
           ]}
           cta={{ label: "Download on the App Store", href: APP_STORE_URL }}
         />
-        <div id="main-content" />
-        <HeroSection />
-        <div id="story">
-          <InteractivePhoneSection />
-        </div>
-        <MarqueeStrip />
-        <WhyEchoSection />
-        <MarqueeStrip reversed />
-        <FeatureListingSection />
-        <VideoSection />
-        <PrivacySection />
-        <PricingSection />
-        <TestimonialsPlaceholder />
-        <FAQSection />
+        <main id="main-content">
+          <HeroSection />
+          <div id="story">
+            <InteractivePhoneSection />
+          </div>
+          <MarqueeStrip />
+          <WhyEchoSection />
+          <MarqueeStrip reversed />
+          <FeatureListingSection />
+          <VideoSection />
+          <PrivacySection />
+          <PricingSection />
+          <TestimonialsPlaceholder />
+          <FAQSection />
+        </main>
         <SiteFooter />
       </div>
     </ThemeCtx.Provider>

@@ -205,8 +205,9 @@
       />
     </noscript>
 
-    <!-- Preload hero image (dark is the default theme) -->
-    <link rel="preload" as="image" href="/hero-lifestyle-dark.webp" />
+    <!-- Preload hero image for both themes; Lighthouse tests light mode so both must be preloaded -->
+    <link rel="preload" as="image" href="/hero-lifestyle-dark.webp" media="(prefers-color-scheme: dark)" />
+    <link rel="preload" as="image" href="/hero-lifestyle-light.webp" media="(prefers-color-scheme: light)" />
   </head>
   <body>
     <!-- Meta Pixel noscript fallback (must be in body, not head) -->
