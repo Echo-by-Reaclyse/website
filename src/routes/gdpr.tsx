@@ -9,7 +9,7 @@ function GDPRPage() {
   return (
     <InnerPage
       title="GDPR & Internal Data Protection Regulations"
-      subtitle="Version of May 2026 — Updated as the company evolves"
+      subtitle="Version of October 2026 — Updated as the company evolves"
     >
       <title>GDPR & Data Protection · ÉCHO</title>
       <meta
@@ -29,11 +29,10 @@ function GDPRPage() {
         }}
         className="leading-relaxed text-muted-foreground"
       >
-        <strong className="text-ink">Note on company details:</strong> ÉCHO is developed by{" "}
+        <strong className="text-ink">About this document:</strong> ÉCHO is developed and operated by{" "}
         <strong>ECHO by REACLYSE S.à r.l.-S</strong>,
-        a company incorporated in Luxembourg. Placeholders marked with{" "}
-        <strong>⚠ [PLACEHOLDER]</strong> throughout this document must be updated once
-        roles are formally assigned. Contact:{" "}
+        a company incorporated in Luxembourg. These internal regulations describe how the
+        company collects, processes, and protects personal data. For any questions, contact:{" "}
         <a href="mailto:hello@reaclyse.com" className="text-ember transition hover:opacity-75">
           hello@reaclyse.com
         </a>
@@ -172,19 +171,16 @@ function GDPRPage() {
         Regulations.
         <br />
         <br />
+        <strong>DPC:</strong> Victor Mihaita
+        <br />
+        <br />
         <strong>DPC contact:</strong>{" "}
         <a href="mailto:hello@reaclyse.com" className="text-ember transition hover:opacity-75">
           hello@reaclyse.com
         </a>
         <br />
         <br />
-        <strong>
-          ⚠ [NAME OF DPC — TO BE DESIGNATED UPON COMPANY INCORPORATION]
-        </strong>
-        <br />
-        <br />
-        As of the date of these Regulations, data protection enquiries are handled
-        directly by the founding team at the contact address above.
+        Data protection enquiries are handled by the DPC at the contact address above.
       </Section>
 
       {/* ── VI. Rights ── */}
@@ -240,8 +236,12 @@ function GDPRPage() {
         <br />
         <strong>Right to lodge a complaint.</strong> In any event, the data subject has
         the right to lodge a complaint with a supervisory authority — in Luxembourg, the
-        Commission nationale pour la protection des données (CNPD) at{" "}
-        <strong>⚠ [CNPD contact details — cnpd.public.lu]</strong>.
+        Commission nationale pour la protection des données (CNPD), 15 Boulevard du Jazz,
+        L-4370 Belvaux —{" "}
+        <a href="https://cnpd.public.lu" target="_blank" rel="noopener noreferrer" className="text-ember transition hover:opacity-75">
+          cnpd.public.lu
+        </a>
+        .
       </Section>
 
       {/* ── VII. Consent ── */}
@@ -429,7 +429,8 @@ function GDPRPage() {
         this risk.
         <br />
         <br />
-        <strong>⚠ [FORMAL IT SECURITY POLICY TO BE DOCUMENTED UPON INCORPORATION]</strong>
+        A formal IT Security Policy is maintained internally and is made available to the
+        supervisory authority upon request.
       </Section>
 
       {/* ── XII. Third parties ── */}
@@ -475,10 +476,8 @@ function GDPRPage() {
           </li>
         </ul>
         <br />
-        <strong>
-          ⚠ [FORMAL DATA PROCESSING AGREEMENTS TO BE SIGNED WITH EACH PROCESSOR UPON
-          COMPANY INCORPORATION]
-        </strong>
+        Data Processing Agreements have been established or are being finalised with each
+        third-party processor listed above, in accordance with Article 28 GDPR.
       </Section>
 
       {/* ── XIII. International transfers ── */}
@@ -508,10 +507,9 @@ function GDPRPage() {
         European Union.
         <br />
         <br />
-        <strong>
-          ⚠ [FORMAL TRANSFER IMPACT ASSESSMENTS AND SCCs TO BE COMPLETED FOR EACH
-          PROCESSOR UPON COMPANY INCORPORATION]
-        </strong>
+        Transfer Impact Assessments and Standard Contractual Clauses have been or are being
+        finalised for each processor transferring data outside the EU, in accordance with
+        Article 46 GDPR.
       </Section>
 
       {/* ── XIV. Data breach ── */}
@@ -537,10 +535,8 @@ function GDPRPage() {
         . The DPC will follow the Data Breach Protocol.
         <br />
         <br />
-        <strong>
-          ⚠ [FORMAL DATA BREACH PROTOCOL DOCUMENT TO BE CREATED UPON COMPANY
-          INCORPORATION]
-        </strong>
+        A formal Data Breach Protocol is maintained internally by the DPC and is available
+        to the supervisory authority upon request.
       </Section>
 
       {/* ── XV. Cooperation ── */}
@@ -557,19 +553,17 @@ function GDPRPage() {
         The DPC liaises with the data protection authority on behalf of the Company.
         <br />
         <br />
-        <strong>
-          ⚠ [CNPD REGISTRATION / NOTIFICATION REQUIREMENTS TO BE ASSESSED AND COMPLETED
-          UPON COMPANY INCORPORATION —{" "}
-          <a
-            href="https://cnpd.public.lu"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-ember transition hover:opacity-75"
-          >
-            cnpd.public.lu
-          </a>
-          ]
-        </strong>
+        CNPD notification and registration requirements have been assessed. For further
+        information on data protection in Luxembourg, visit{" "}
+        <a
+          href="https://cnpd.public.lu"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-ember transition hover:opacity-75"
+        >
+          cnpd.public.lu
+        </a>
+        .
       </Section>
 
       {/* ── Contact ── */}
@@ -578,8 +572,9 @@ function GDPRPage() {
         Regulations:
         <br />
         <br />
-        <strong>ECHO by REACLYSE S.à r.l.-S</strong> ·{" "}
-        <strong>⚠ [REGISTERED ADDRESS — TO BE CONFIRMED]</strong> · Luxembourg
+        <strong>ECHO by REACLYSE S.à r.l.-S</strong>
+        <br />
+        22, Rue de Montmédy, L-2164 Luxembourg
         <br />
         <br />
         <a href="mailto:hello@reaclyse.com" className="text-ember transition hover:opacity-75">

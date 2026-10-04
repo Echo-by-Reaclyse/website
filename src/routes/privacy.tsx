@@ -16,9 +16,10 @@ function Privacy() {
       <link rel="canonical" href="https://www.echobyreaclyse.com/privacy" />
 
       <Section title="Data controller">
-        ÉCHO is developed and operated by Réaclyse (legal entity in formation, Luxembourg). As a
-        Luxembourg-based entity, Réaclyse is subject to the General Data Protection Regulation
-        (GDPR, Regulation (EU) 2016/679) and applicable EU data protection law. For any
+        ÉCHO is developed and operated by ECHO by REACLYSE S.à r.l.-S, a company incorporated
+        in Luxembourg. As a Luxembourg-based entity, ECHO by REACLYSE S.à r.l.-S is subject to
+        the General Data Protection Regulation (GDPR, Regulation (EU) 2016/679) and applicable
+        EU data protection law. For any
         data-related enquiries, contact us at{" "}
         <a href="mailto:hello@reaclyse.com" className="text-ember transition hover:opacity-75">
           hello@reaclyse.com
@@ -214,7 +215,7 @@ function Privacy() {
       </Section>
 
       <Section title="Contact">
-        Réaclyse · Luxembourg ·{" "}
+        ECHO by REACLYSE S.à r.l.-S · 22, Rue de Montmédy, L-2164 Luxembourg ·{" "}
         <a href="mailto:hello@reaclyse.com" className="text-ember transition hover:opacity-75">
           hello@reaclyse.com
         </a>
