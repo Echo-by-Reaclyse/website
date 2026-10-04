@@ -32,7 +32,7 @@ const BLOG_POSTS = [
     slug: "voice-journaling-vs-writing",
     title: "Voice Journaling vs. Writing: Why Your Voice Reveals More Than Your Pen",
     description:
-      "We write to look good. We speak to think. Here's why voice journaling consistently surfaces deeper truths than written journaling — and what the research says.",
+      "We write to look good. We speak to think. Here's why voice journaling consistently surfaces deeper truths than written journaling, and what the research says.",
   },
   {
     slug: "daily-reflection-questions",
@@ -44,13 +44,43 @@ const BLOG_POSTS = [
     slug: "build-journaling-habit",
     title: "How to Build a Journaling Habit That Actually Sticks",
     description:
-      "Most journaling habits fail in the first two weeks. Here's why — and what the research on habit formation says about making reflection a daily constant.",
+      "Most journaling habits fail in the first two weeks. Here's why, and what the research on habit formation says about making reflection a daily constant.",
   },
   {
     slug: "best-journaling-apps-iphone-2026",
     title: "Best Journaling Apps for iPhone in 2026",
     description:
       "A clear-eyed comparison of the top journaling apps available on iPhone in 2026: Day One, Reflectly, Rosebud, Journey, and ÉCHO — what each does well and who it's for.",
+  },
+  {
+    slug: "journaling-for-anxiety",
+    title: "Journaling for Anxiety: How Speaking Your Thoughts Breaks the Loop",
+    description:
+      "Anxious minds run in circles. Writing often makes it worse. Here's why speaking out loud is different, and how voice journaling interrupts rumination.",
+  },
+  {
+    slug: "how-to-process-emotions",
+    title: "How to Process Emotions: What It Actually Means to Work Through a Feeling",
+    description:
+      "Most people do not process emotions. They store them or suppress them. Here's what emotional processing actually looks like and how to build the habit.",
+  },
+  {
+    slug: "evening-journaling",
+    title: "Why Journaling at Night Beats Journaling in the Morning",
+    description:
+      "Morning journaling has better marketing. Evening journaling has better evidence. Here's what overnight memory consolidation says about when to reflect.",
+  },
+  {
+    slug: "private-journaling-app",
+    title: "What 'Private' Really Means in a Journaling App (Most Aren't)",
+    description:
+      "Every journaling app claims to be private. Most aren't. Here's what to actually look for: on-device processing, encryption at rest, and AI training policies.",
+  },
+  {
+    slug: "how-to-reflect-on-your-day",
+    title: "How to Reflect on Your Day: The 3-Minute Practice That Actually Works",
+    description:
+      "Most daily reflection advice is either too vague or too time-consuming to maintain. Here's a practical method that works in three minutes.",
   },
 ];
 

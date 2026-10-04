@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420">
+  <defs>
+    <radialGradient id="bg7" cx="70%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#F0E8DE"/>
+      <stop offset="100%" stop-color="#FAF6F1"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="420" fill="url(#bg7)"/>
+
+  <!-- Layered translucent circles (emotion layers metaphor) -->
+  <circle cx="580" cy="200" r="140" fill="#BF6040" fill-opacity="0.05" stroke="#BF6040" stroke-width="0.8" stroke-opacity="0.15"/>
+  <circle cx="580" cy="200" r="100" fill="#BF6040" fill-opacity="0.07" stroke="#BF6040" stroke-width="0.8" stroke-opacity="0.20"/>
+  <circle cx="580" cy="200" r="60" fill="#BF6040" fill-opacity="0.10" stroke="#BF6040" stroke-width="1" stroke-opacity="0.28"/>
+  <circle cx="580" cy="200" r="28" fill="#BF6040" fill-opacity="0.20"/>
+
+  <!-- Small circles drifting out (processing) -->
+  <circle cx="500" cy="130" r="8" fill="#BF6040" fill-opacity="0.22"/>
+  <circle cx="540" cy="100" r="5" fill="#BF6040" fill-opacity="0.14"/>
+  <circle cx="475" cy="155" r="4" fill="#A04E30" fill-opacity="0.18"/>
+  <circle cx="660" cy="280" r="6" fill="#BF6040" fill-opacity="0.16"/>
+
+  <!-- Label -->
+  <line x1="80" y1="98" x2="115" y2="98" stroke="#BF6040" stroke-width="1.5" stroke-opacity="0.6"/>
+  <text x="80" y="86" font-family="Georgia, serif" font-style="italic" font-size="13" fill="#A8907E" letter-spacing="3">SELF-KNOWLEDGE</text>
+
+  <!-- Headline -->
+  <text x="78" y="155" font-family="Georgia, serif" font-style="italic" font-size="44" fill="#1C110A" letter-spacing="-1">How to Process</text>
+  <text x="78" y="207" font-family="Georgia, serif" font-style="italic" font-size="44" fill="#BF6040" letter-spacing="-1">Emotions</text>
+  <text x="80" y="252" font-family="-apple-system, system-ui, sans-serif" font-size="14" fill="#6B5244" opacity="0.75">What it actually means to work through a feeling</text>
+</svg>

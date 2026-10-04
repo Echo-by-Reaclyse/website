@@ -1,6 +1,6 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { InnerPage } from "@/components/InnerPage";
-import { getPost } from "@/lib/blog-posts";
+import { getPost, BLOG_POSTS } from "@/lib/blog-posts";
 import { APP_STORE_LINK_PROPS } from "@/lib/app-store";
 
 function formatDate(iso: string) {
@@ -135,7 +135,45 @@ function BlogPost() {
         ))}
       </div>
 
-      <div className="mt-16 border-t border-border pt-10">
+      {post.relatedSlugs && post.relatedSlugs.length > 0 && (() => {
+        const related = post.relatedSlugs!
+          .map((s) => BLOG_POSTS.find((p) => p.slug === s))
+          .filter(Boolean) as typeof BLOG_POSTS;
+        if (related.length === 0) return null;
+        return (
+          <div className="mt-16 border-t border-border pt-10">
+            <p className="font-sans text-xs text-ember uppercase tracking-widest mb-6">Related articles</p>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {related.map((rel) => (
+                <Link
+                  key={rel.slug}
+                  to="/blog/$slug"
+                  params={{ slug: rel.slug }}
+                  className="block group border border-border rounded-xl overflow-hidden hover:shadow-sm transition-shadow"
+                >
+                  <img
+                    src={`/blog-covers/${rel.slug}.svg`}
+                    alt={rel.title}
+                    width={400}
+                    height={210}
+                    className="w-full object-cover border-b border-border"
+                    style={{ height: 100 }}
+                    loading="lazy"
+                  />
+                  <div className="p-4">
+                    <p className="font-sans text-xs text-muted-foreground mb-1">{rel.readingTime}</p>
+                    <p className="font-display text-base text-ink leading-snug group-hover:opacity-80 transition-opacity">
+                      {rel.title}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        );
+      })()}
+
+      <div className="mt-12 border-t border-border pt-10">
         <p className="font-display text-2xl text-ink mb-2">Try ÉCHO.</p>
         <p className="font-sans text-sm text-muted-foreground mb-4">
           Free to download for iPhone, with founding-member pricing on your first year.
