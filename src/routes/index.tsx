@@ -3361,7 +3361,7 @@ function FeatureListingSection() {
                       <div style={{ flex: 1, borderRadius: 16, overflow: "hidden", minHeight: 0, marginBottom: 14, border: isDark ? "none" : "1.5px solid rgba(191,96,64,0.14)" }}>
                         <img
                           src={isDark ? f.screenshotDark : f.screenshotLight}
-                          alt=""
+                          alt={`ÉCHO ${f.tag} — iPhone app screen`}
                           loading="lazy"
                           decoding="async"
                           style={{

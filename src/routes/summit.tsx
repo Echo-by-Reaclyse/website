@@ -4727,7 +4727,6 @@ function Landing() {
           name="description"
           content="The first AI mirror powered by your own voice. ÉCHO is live on the App Store, free to download, with founding-member pricing on your first year."
         />
-        <meta name="robots" content="noindex" />
         <link rel="canonical" href="https://www.echobyreaclyse.com/summit" />
         <script
           type="application/ld+json"

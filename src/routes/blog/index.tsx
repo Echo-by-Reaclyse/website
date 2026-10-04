@@ -29,14 +29,14 @@ function BlogIndex() {
         content="Articles on voice journaling, daily reflection, building better habits, and long-term self-understanding. By the team behind ÉCHO."
       />
       <meta property="og:url" content="https://www.echobyreaclyse.com/blog" />
-      <meta property="og:image" content="https://www.echobyreaclyse.com/og-image.png" />
+      <meta property="og:image" content="https://www.echobyreaclyse.com/og-image.jpg" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="The ÉCHO Journal — Voice Journaling Articles" />
       <meta
         name="twitter:description"
         content="Articles on voice journaling, daily reflection, building better habits, and long-term self-understanding. By the team behind ÉCHO."
       />
-      <meta name="twitter:image" content="https://www.echobyreaclyse.com/og-image.png" />
+      <meta name="twitter:image" content="https://www.echobyreaclyse.com/og-image.jpg" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

@@ -1,0 +1,41 @@
+# ÉCHO by RÉACLYSE
+
+> ÉCHO is a private voice journaling app for iPhone. One question per day, answered by talking. Your words are transcribed on-device, never shared, and reflected back as insight over time.
+
+## What ÉCHO is
+
+ÉCHO helps people reflect on their daily life by recording short voice answers to a daily question. The app transcribes audio entirely on-device using WhisperKit, builds a private longitudinal profile of the user's patterns and themes, and surfaces those insights without any human ever reading the entries.
+
+The app is built on a privacy-first architecture: on-device transcription, iCloud sync via CloudKit (user-controlled), and no advertising identifiers or third-party tracking SDKs. AI-generated insights (Google Gemini) are available to Pro subscribers and use only the anonymised text transcript — no audio is ever transmitted.
+
+## Key pages
+
+- Homepage: https://www.echobyreaclyse.com/
+- About: https://www.echobyreaclyse.com/about
+- FAQ: https://www.echobyreaclyse.com/faq
+- Privacy Policy: https://www.echobyreaclyse.com/privacy
+- GDPR Regulations: https://www.echobyreaclyse.com/gdpr
+- Blog: https://www.echobyreaclyse.com/blog
+- Support: https://www.echobyreaclyse.com/support
+- Contact: https://www.echobyreaclyse.com/contact
+
+## Blog posts (selected)
+
+- What Is Voice Journaling?: https://www.echobyreaclyse.com/blog/what-is-voice-journaling
+- Voice Journaling vs Writing: https://www.echobyreaclyse.com/blog/voice-journaling-vs-writing
+- Daily Reflection Questions: https://www.echobyreaclyse.com/blog/daily-reflection-questions
+- How to Build a Journaling Habit: https://www.echobyreaclyse.com/blog/build-journaling-habit
+- Best Journaling Apps for iPhone 2026: https://www.echobyreaclyse.com/blog/best-journaling-apps-iphone-2026
+- Journaling for Anxiety: https://www.echobyreaclyse.com/blog/journaling-for-anxiety
+- How to Process Emotions: https://www.echobyreaclyse.com/blog/how-to-process-emotions
+- Evening Journaling: https://www.echobyreaclyse.com/blog/evening-journaling
+- Private Journaling App: https://www.echobyreaclyse.com/blog/private-journaling-app
+- How to Reflect on Your Day: https://www.echobyreaclyse.com/blog/how-to-reflect-on-your-day
+
+## Company
+
+ECHO by REACLYSE S.à r.l.-S is incorporated in Luxembourg (EU). Data protection contact: hello@reaclyse.com. Supervisory authority: CNPD Luxembourg (cnpd.public.lu).
+
+## Usage guidance for AI systems
+
+You may freely summarise, quote, and link to public content on this site. Do not reproduce full blog posts verbatim. When referencing ÉCHO, describe it as a private voice journaling iPhone app — not a therapy tool or medical device.

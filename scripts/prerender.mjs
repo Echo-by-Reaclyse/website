@@ -199,7 +199,7 @@ function injectMeta(html, route) {
   const url = `${BASE}/${route.path}`;
   const ogTitle = route.ogTitle ?? route.title;
   const ogDesc = route.ogDescription ?? route.description;
-  const ogImage = route.ogImage ?? `${BASE}/og-image.png`;
+  const ogImage = route.ogImage ?? `${BASE}/og-image.jpg`;
 
   const esc = (s) => s.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
 

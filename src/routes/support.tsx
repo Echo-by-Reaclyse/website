@@ -20,11 +20,11 @@ function Support() {
         content="Get help with ÉCHO. Questions about recordings, your account, or subscription? We respond within one business day."
       />
       <meta property="og:url" content="https://www.echobyreaclyse.com/support" />
-      <meta property="og:image" content="https://www.echobyreaclyse.com/og-image.png" />
+      <meta property="og:image" content="https://www.echobyreaclyse.com/og-image.jpg" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="Help & Support — ÉCHO Voice Journal" />
       <meta name="twitter:description" content="Get help with ÉCHO. Questions about recordings, your account, or subscription? We respond within one business day." />
-      <meta name="twitter:image" content="https://www.echobyreaclyse.com/og-image.png" />
+      <meta name="twitter:image" content="https://www.echobyreaclyse.com/og-image.jpg" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
