@@ -459,15 +459,15 @@
 
   /* ── Hero entrance animations (CSS — run before hydration) ── */
   @keyframes heroWordUp {
-    from { opacity: 0; transform: translateY(60px); }
+    from { opacity: 0; transform: translateY(36px); }
     to   { opacity: 1; transform: translateY(0); }
   }
   @keyframes heroFadeUp {
-    from { opacity: 0; transform: translateY(22px); }
+    from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
   }
   @keyframes heroScaleIn {
-    from { opacity: 0; transform: scale(0.86) translateY(12px); }
+    from { opacity: 0; transform: scale(0.90) translateY(8px); }
     to   { opacity: 1; transform: scale(1) translateY(0); }
   }
 
@@ -569,11 +569,11 @@
   }
 
   /* ── Hero utility classes ── */
-  .nav-entrance  { animation: heroFadeUp  0.6s  cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
-  .hero-badge    { animation: heroScaleIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both; }
+  .nav-entrance  { animation: heroFadeUp  0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
+  .hero-badge    { animation: heroScaleIn 0.4s  cubic-bezier(0.22, 1, 0.36, 1) 0.06s both; }
   .hero-word     { display: inline-block;
-                   animation: heroWordUp  0.92s cubic-bezier(0.22, 1, 0.36, 1) both; }
-  .hero-fade     { animation: heroFadeUp  0.8s  cubic-bezier(0.22, 1, 0.36, 1) both; }
+                   animation: heroWordUp  0.5s  cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .hero-fade     { animation: heroFadeUp  0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
   .badge-dot     { animation: dotPulse    1.8s  ease-in-out infinite; }
   .phone-float   { animation: phoneFloat  5s    ease-in-out infinite;
                    will-change: transform; }
