@@ -28,11 +28,11 @@ function BlogPost() {
       <meta property="og:title" content={`${post.title} — ÉCHO Journal`} />
       <meta property="og:description" content={post.description} />
       <meta property="og:url" content={`https://www.echobyreaclyse.com/blog/${post.slug}`} />
-      <meta property="og:image" content="https://www.echobyreaclyse.com/og-image.png" />
+      <meta property="og:image" content={`https://www.echobyreaclyse.com/blog-covers/${post.slug}.svg`} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={`${post.title} — ÉCHO Journal`} />
       <meta name="twitter:description" content={post.description} />
-      <meta name="twitter:image" content="https://www.echobyreaclyse.com/og-image.png" />
+      <meta name="twitter:image" content={`https://www.echobyreaclyse.com/blog-covers/${post.slug}.svg`} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -42,6 +42,12 @@ function BlogPost() {
             headline: post.title,
             description: post.description,
             datePublished: post.date,
+            image: {
+              "@type": "ImageObject",
+              url: `https://www.echobyreaclyse.com/blog-covers/${post.slug}.svg`,
+              width: 800,
+              height: 420,
+            },
             author: {
               "@type": "Organization",
               name: "ÉCHO by RÉACLYSE",
@@ -50,9 +56,19 @@ function BlogPost() {
             publisher: {
               "@type": "Organization",
               name: "ÉCHO by RÉACLYSE",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://www.echobyreaclyse.com/logo.svg",
+                width: 56,
+                height: 57,
+              },
               url: "https://www.echobyreaclyse.com",
             },
             url: `https://www.echobyreaclyse.com/blog/${post.slug}`,
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": `https://www.echobyreaclyse.com/blog/${post.slug}`,
+            },
           }),
         }}
       />
@@ -92,6 +108,15 @@ function BlogPost() {
       >
         ← Back to The ÉCHO Journal
       </Link>
+
+      <img
+        src={`/blog-covers/${post.slug}.svg`}
+        alt={post.title}
+        width={800}
+        height={420}
+        className="w-full rounded-xl border border-border mt-8 object-cover"
+        style={{ maxHeight: 280 }}
+      />
 
       <div className="mt-10 space-y-10">
         {post.sections.map((section, i) => (

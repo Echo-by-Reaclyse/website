@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FAF6F1"/>
+      <stop offset="100%" stop-color="#F2EBE3"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="420" fill="url(#bg2)"/>
+
+  <!-- Right panel fill -->
+  <rect x="420" y="0" width="380" height="420" fill="#BF6040" opacity="0.05"/>
+
+  <!-- Vertical divider -->
+  <line x1="420" y1="60" x2="420" y2="360" stroke="#BF6040" stroke-width="1" opacity="0.25"/>
+  <circle cx="420" cy="210" r="5" fill="#BF6040" opacity="0.4"/>
+
+  <!-- Left: writing lines (handwriting motif) -->
+  <g opacity="0.18">
+    <path d="M80,155 Q140,148 200,155 Q250,162 300,155" fill="none" stroke="#6B5244" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M80,175 Q150,170 220,175 Q270,180 340,175" fill="none" stroke="#6B5244" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M80,195 Q130,190 190,195 Q240,200 320,195" fill="none" stroke="#6B5244" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M80,215 Q160,210 240,215 Q290,220 360,215" fill="none" stroke="#6B5244" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M80,235 Q120,230 180,235 Q250,240 310,235" fill="none" stroke="#6B5244" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M80,255 Q140,250 200,255 Q260,260 330,255" fill="none" stroke="#6B5244" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+  <!-- Pen tip icon -->
+  <path d="M148,108 l24,-24 l12,12 l-24,24 z" fill="none" stroke="#6B5244" stroke-width="1.5" opacity="0.35"/>
+  <path d="M148,108 l-8,20 l20,-8 z" fill="#6B5244" opacity="0.25"/>
+
+  <!-- Left label -->
+  <text x="80" y="340" font-family="-apple-system, system-ui, sans-serif" font-size="11" fill="#6B5244" letter-spacing="2" opacity="0.6">WRITING</text>
+
+  <!-- Right: waveform bars -->
+  <g transform="translate(445,155)">
+    <rect x="0"   y="24" width="5" height="12" rx="2.5" fill="#BF6040" opacity="0.40"/>
+    <rect x="11"  y="18" width="5" height="24" rx="2.5" fill="#BF6040" opacity="0.55"/>
+    <rect x="22"  y="8"  width="5" height="44" rx="2.5" fill="#BF6040" opacity="0.75"/>
+    <rect x="33"  y="2"  width="5" height="56" rx="2.5" fill="#BF6040" opacity="0.90"/>
+    <rect x="44"  y="10" width="5" height="40" rx="2.5" fill="#BF6040" opacity="0.80"/>
+    <rect x="55"  y="20" width="5" height="20" rx="2.5" fill="#BF6040" opacity="0.58"/>
+    <rect x="66"  y="5"  width="5" height="50" rx="2.5" fill="#BF6040" opacity="0.85"/>
+    <rect x="77"  y="15" width="5" height="30" rx="2.5" fill="#BF6040" opacity="0.68"/>
+    <rect x="88"  y="22" width="5" height="16" rx="2.5" fill="#BF6040" opacity="0.48"/>
+    <rect x="99"  y="12" width="5" height="36" rx="2.5" fill="#BF6040" opacity="0.72"/>
+    <rect x="110" y="19" width="5" height="22" rx="2.5" fill="#BF6040" opacity="0.55"/>
+    <rect x="121" y="28" width="5" height="4"  rx="2.5" fill="#BF6040" opacity="0.35"/>
+    <rect x="132" y="14" width="5" height="32" rx="2.5" fill="#BF6040" opacity="0.65"/>
+    <rect x="143" y="7"  width="5" height="46" rx="2.5" fill="#BF6040" opacity="0.82"/>
+    <rect x="154" y="18" width="5" height="24" rx="2.5" fill="#BF6040" opacity="0.55"/>
+    <rect x="165" y="25" width="5" height="10" rx="2.5" fill="#BF6040" opacity="0.40"/>
+    <rect x="176" y="14" width="5" height="32" rx="2.5" fill="#BF6040" opacity="0.65"/>
+    <rect x="187" y="3"  width="5" height="54" rx="2.5" fill="#BF6040" opacity="0.88"/>
+    <rect x="198" y="21" width="5" height="18" rx="2.5" fill="#BF6040" opacity="0.52"/>
+    <rect x="209" y="26" width="5" height="8"  rx="2.5" fill="#BF6040" opacity="0.38"/>
+  </g>
+
+  <!-- Right label -->
+  <text x="445" y="340" font-family="-apple-system, system-ui, sans-serif" font-size="11" fill="#BF6040" letter-spacing="2" opacity="0.7">VOICE</text>
+
+  <!-- Main text -->
+  <text x="80" y="86" font-family="Georgia, serif" font-style="italic" font-size="13" fill="#A8907E" letter-spacing="3">VS.</text>
+  <text x="80" y="52" font-family="Georgia, serif" font-style="italic" font-size="32" fill="#1C110A">Voice Journaling vs.</text>
+  <text x="80" y="88" font-family="Georgia, serif" font-style="italic" font-size="32" fill="#1C110A">Writing</text>
+
+  <!-- Decorative line -->
+  <line x1="80" y1="38" x2="108" y2="38" stroke="#BF6040" stroke-width="1.5" opacity="0.6"/>
+</svg>

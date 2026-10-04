@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420">
+  <defs>
+    <radialGradient id="bg4" cx="70%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#F2EBE3"/>
+      <stop offset="100%" stop-color="#FAF6F1"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="420" fill="url(#bg4)"/>
+
+  <!-- Habit tracker grid (right side) — 7 cols × 5 rows -->
+  <g transform="translate(440, 120)">
+    <!-- Row 1 -->
+    <rect x="0"   y="0"  width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="34"  y="0"  width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="68"  y="0"  width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="102" y="0"  width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="136" y="0"  width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="170" y="0"  width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="204" y="0"  width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <!-- Row 2 -->
+    <rect x="0"   y="34" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="34"  y="34" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="68"  y="34" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="102" y="34" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="136" y="34" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="170" y="34" width="26" height="26" rx="6" fill="#EDE4DA" stroke="#BF6040" stroke-width="1" opacity="0.60"/>
+    <rect x="204" y="34" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <!-- Row 3 -->
+    <rect x="0"   y="68" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="34"  y="68" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="68"  y="68" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="102" y="68" width="26" height="26" rx="6" fill="#EDE4DA" stroke="#BF6040" stroke-width="1" opacity="0.55"/>
+    <rect x="136" y="68" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="170" y="68" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="204" y="68" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <!-- Row 4 -->
+    <rect x="0"   y="102" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="34"  y="102" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="68"  y="102" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="102" y="102" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="136" y="102" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="170" y="102" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="204" y="102" width="26" height="26" rx="6" fill="#EDE4DA" stroke="#BF6040" stroke-width="1" opacity="0.50"/>
+    <!-- Row 5 (partial — habit building) -->
+    <rect x="0"   y="136" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="34"  y="136" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="68"  y="136" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="102" y="136" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
+    <rect x="136" y="136" width="26" height="26" rx="6" fill="#EDE4DA" stroke="#BF6040" stroke-width="1.5" opacity="0.70"/>
+    <rect x="170" y="136" width="26" height="26" rx="6" fill="#EDE4DA" stroke="#BF6040" stroke-width="1" opacity="0.40"/>
+    <rect x="204" y="136" width="26" height="26" rx="6" fill="#EDE4DA" stroke="#BF6040" stroke-width="1" opacity="0.30"/>
+
+    <!-- Check marks on filled cells (last row hint) -->
+    <text x="13" y="154" font-family="system-ui" font-size="14" fill="white" opacity="0.5" text-anchor="middle">✓</text>
+    <text x="47" y="154" font-family="system-ui" font-size="14" fill="white" opacity="0.5" text-anchor="middle">✓</text>
+    <text x="81" y="154" font-family="system-ui" font-size="14" fill="white" opacity="0.5" text-anchor="middle">✓</text>
+    <text x="115" y="154" font-family="system-ui" font-size="14" fill="white" opacity="0.5" text-anchor="middle">✓</text>
+  </g>
+
+  <!-- Streak counter badge -->
+  <rect x="440" y="308" width="100" height="38" rx="10" fill="#BF6040" opacity="0.12"/>
+  <text x="491" y="325" font-family="-apple-system, system-ui, sans-serif" font-size="11" fill="#BF6040" text-anchor="middle" font-weight="600" letter-spacing="1">28 DAY</text>
+  <text x="491" y="340" font-family="-apple-system, system-ui, sans-serif" font-size="11" fill="#BF6040" text-anchor="middle" font-weight="600" letter-spacing="1">STREAK</text>
+
+  <!-- Main headline -->
+  <line x1="80" y1="96" x2="118" y2="96" stroke="#BF6040" stroke-width="1.5" opacity="0.6"/>
+  <text x="80" y="84" font-family="Georgia, serif" font-style="italic" font-size="13" fill="#A8907E" letter-spacing="3">HABIT BUILDING</text>
+  <text x="78" y="152" font-family="Georgia, serif" font-style="italic" font-size="50" fill="#1C110A" letter-spacing="-1">Build a habit</text>
+  <text x="78" y="204" font-family="Georgia, serif" font-style="italic" font-size="30" fill="#BF6040">that actually sticks</text>
+  <text x="80" y="248" font-family="-apple-system, system-ui, sans-serif" font-size="14" fill="#6B5244" opacity="0.8">The science of journaling consistency</text>
+</svg>
