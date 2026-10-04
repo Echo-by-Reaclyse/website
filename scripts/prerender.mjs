@@ -158,15 +158,6 @@ const ROUTES = [
     ogDescription:
       "How we collect, process, and protect your data. In accordance with GDPR (EU) 2016/679.",
   },
-  {
-    path: "summit",
-    title: "ÉCHO × Girls Future Ready Summit",
-    description:
-      "The first AI mirror powered by your own voice. ÉCHO is live on the App Store, free to download, with founding-member pricing on your first year.",
-    ogTitle: "ÉCHO × Girls Future Ready Summit",
-    ogDescription:
-      "ÉCHO — private voice journal, live on the App Store.",
-  },
   // Blog listing
   {
     path: "blog",

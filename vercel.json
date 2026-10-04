@@ -25,6 +25,9 @@
       ]
     }
   ],
+  "redirects": [
+    { "source": "/summit", "destination": "/", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
