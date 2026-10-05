@@ -3614,10 +3614,9 @@ function VideoSection() {
                   }}
                 >
                   <img
-                    src="https://img.youtube.com/vi/y1nzpZQSXrU/maxresdefault.jpg"
+                    src="/yt-roksana.jpg"
                     alt="ÉCHO — Roksana's story"
                     style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = "https://img.youtube.com/vi/y1nzpZQSXrU/sddefault.jpg"; }}
                   />
                   <div aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(10,6,4,0.38) 0%, transparent 30%, transparent 55%, rgba(10,6,4,0.72) 100%)", pointerEvents: "none" }} />
                   <div aria-hidden style={{ position: "absolute", inset: 0, background: "rgba(60,18,4,0.22)", pointerEvents: "none" }} />
@@ -3645,7 +3644,7 @@ function VideoSection() {
                 </button>
               ) : (
                 <iframe
-                  src="https://www.youtube.com/embed/y1nzpZQSXrU?autoplay=1&rel=0&modestbranding=1&color=white"
+                  src="https://www.youtube-nocookie.com/embed/y1nzpZQSXrU?autoplay=1&rel=0&modestbranding=1&color=white"
                   title="ÉCHO — Roksana's story"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
