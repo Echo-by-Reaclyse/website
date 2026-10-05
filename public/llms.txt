@@ -10,27 +10,27 @@ The app is built on a privacy-first architecture: on-device transcription, iClou
 
 ## Key pages
 
-- Homepage: https://www.echobyreaclyse.com/
-- About: https://www.echobyreaclyse.com/about
-- FAQ: https://www.echobyreaclyse.com/faq
-- Privacy Policy: https://www.echobyreaclyse.com/privacy
-- GDPR Regulations: https://www.echobyreaclyse.com/gdpr
-- Blog: https://www.echobyreaclyse.com/blog
-- Support: https://www.echobyreaclyse.com/support
-- Contact: https://www.echobyreaclyse.com/contact
+- [Homepage](https://www.echobyreaclyse.com/)
+- [About](https://www.echobyreaclyse.com/about)
+- [FAQ](https://www.echobyreaclyse.com/faq)
+- [Privacy Policy](https://www.echobyreaclyse.com/privacy)
+- [GDPR Regulations](https://www.echobyreaclyse.com/gdpr)
+- [Blog](https://www.echobyreaclyse.com/blog)
+- [Support](https://www.echobyreaclyse.com/support)
+- [Contact](https://www.echobyreaclyse.com/contact)
 
 ## Blog posts (selected)
 
-- What Is Voice Journaling?: https://www.echobyreaclyse.com/blog/what-is-voice-journaling
-- Voice Journaling vs Writing: https://www.echobyreaclyse.com/blog/voice-journaling-vs-writing
-- Daily Reflection Questions: https://www.echobyreaclyse.com/blog/daily-reflection-questions
-- How to Build a Journaling Habit: https://www.echobyreaclyse.com/blog/build-journaling-habit
-- Best Journaling Apps for iPhone 2026: https://www.echobyreaclyse.com/blog/best-journaling-apps-iphone-2026
-- Journaling for Anxiety: https://www.echobyreaclyse.com/blog/journaling-for-anxiety
-- How to Process Emotions: https://www.echobyreaclyse.com/blog/how-to-process-emotions
-- Evening Journaling: https://www.echobyreaclyse.com/blog/evening-journaling
-- Private Journaling App: https://www.echobyreaclyse.com/blog/private-journaling-app
-- How to Reflect on Your Day: https://www.echobyreaclyse.com/blog/how-to-reflect-on-your-day
+- [What Is Voice Journaling?](https://www.echobyreaclyse.com/blog/what-is-voice-journaling)
+- [Voice Journaling vs Writing](https://www.echobyreaclyse.com/blog/voice-journaling-vs-writing)
+- [Daily Reflection Questions](https://www.echobyreaclyse.com/blog/daily-reflection-questions)
+- [How to Build a Journaling Habit](https://www.echobyreaclyse.com/blog/build-journaling-habit)
+- [Best Journaling Apps for iPhone 2026](https://www.echobyreaclyse.com/blog/best-journaling-apps-iphone-2026)
+- [Journaling for Anxiety](https://www.echobyreaclyse.com/blog/journaling-for-anxiety)
+- [How to Process Emotions](https://www.echobyreaclyse.com/blog/how-to-process-emotions)
+- [Evening Journaling](https://www.echobyreaclyse.com/blog/evening-journaling)
+- [Private Journaling App](https://www.echobyreaclyse.com/blog/private-journaling-app)
+- [How to Reflect on Your Day](https://www.echobyreaclyse.com/blog/how-to-reflect-on-your-day)
 
 ## Company
 

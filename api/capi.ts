@@ -73,11 +73,12 @@ export default async function handler(req: Req, res: Res) {
     const data = await response.json();
 
     if (!response.ok) {
-      return res.status(502).json({ error: "Meta CAPI error", detail: data });
+      // Return 200 — client ignores the response; a 5xx here pollutes browser console
+      return res.status(200).json({ ok: false, error: "Meta CAPI error", detail: data });
     }
 
     return res.status(200).json({ ok: true });
   } catch {
-    return res.status(502).json({ error: "Failed to reach Meta CAPI" });
+    return res.status(200).json({ ok: false, error: "Failed to reach Meta CAPI" });
   }
 }
