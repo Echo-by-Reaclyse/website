@@ -17,9 +17,10 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
+          "vendor-react": ["react", "react-dom"],
           "vendor-router": ["@tanstack/react-router"],
           "vendor-query": ["@tanstack/react-query"],
-          "vendor-ui": ["sonner", "clsx", "tailwind-merge", "class-variance-authority"],
+          "vendor-ui": ["sonner", "clsx", "tailwind-merge", "class-variance-authority", "lucide-react"],
         },
       },
     },

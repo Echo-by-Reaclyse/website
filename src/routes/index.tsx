@@ -3614,7 +3614,7 @@ function VideoSection() {
                   }}
                 >
                   <img
-                    src="/yt-roksana.jpg"
+                    src="/yt-roksana.webp"
                     alt="ÉCHO — Roksana's story"
                     style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   />

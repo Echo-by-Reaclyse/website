@@ -1,0 +1,185 @@
+import { createLazyFileRoute, Link } from "@tanstack/react-router";
+import { InnerPage } from "@/components/InnerPage";
+import { BLOG_POSTS } from "@/lib/blog-posts";
+import { APP_STORE_LINK_PROPS } from "@/lib/app-store";
+
+export const Route = createLazyFileRoute("/blog/$slug")({
+  component: BlogPost,
+});
+
+function formatDate(iso: string) {
+  const d = new Date(iso);
+  return d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+}
+
+function BlogPost() {
+  const post = Route.useLoaderData();
+
+  return (
+    <InnerPage title={post.title} subtitle={`${post.author} · ${formatDate(post.date)} · ${post.readingTime}`}>
+      <title>{post.title} — ÉCHO Journal</title>
+      <meta name="description" content={post.description} />
+      <link rel="canonical" href={`https://www.echobyreaclyse.com/blog/${post.slug}`} />
+      <meta property="og:title" content={`${post.title} — ÉCHO Journal`} />
+      <meta property="og:description" content={post.description} />
+      <meta property="og:url" content={`https://www.echobyreaclyse.com/blog/${post.slug}`} />
+      <meta property="og:image" content={`https://www.echobyreaclyse.com/blog-covers/${post.slug}.svg`} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={`${post.title} — ÉCHO Journal`} />
+      <meta name="twitter:description" content={post.description} />
+      <meta name="twitter:image" content={`https://www.echobyreaclyse.com/blog-covers/${post.slug}.svg`} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: post.title,
+            description: post.description,
+            datePublished: post.date,
+            image: {
+              "@type": "ImageObject",
+              url: `https://www.echobyreaclyse.com/blog-covers/${post.slug}.svg`,
+              width: 800,
+              height: 420,
+            },
+            author: {
+              "@type": "Organization",
+              name: "ÉCHO by RÉACLYSE",
+              url: "https://www.echobyreaclyse.com",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "ÉCHO by RÉACLYSE",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://www.echobyreaclyse.com/logo.svg",
+                width: 56,
+                height: 57,
+              },
+              url: "https://www.echobyreaclyse.com",
+            },
+            url: `https://www.echobyreaclyse.com/blog/${post.slug}`,
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": `https://www.echobyreaclyse.com/blog/${post.slug}`,
+            },
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.echobyreaclyse.com/",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Blog",
+                item: "https://www.echobyreaclyse.com/blog",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: post.title,
+                item: `https://www.echobyreaclyse.com/blog/${post.slug}`,
+              },
+            ],
+          }),
+        }}
+      />
+
+      <Link
+        to="/blog"
+        className="font-sans text-sm text-ember hover:opacity-75 transition-opacity"
+      >
+        ← Back to The ÉCHO Journal
+      </Link>
+
+      <img
+        src={`/blog-covers/${post.slug}.svg`}
+        alt={post.title}
+        width={800}
+        height={420}
+        className="w-full rounded-xl border border-border mt-8 object-cover"
+        style={{ maxHeight: 280 }}
+      />
+
+      <div className="mt-10 space-y-10">
+        {post.sections.map((section, i) => (
+          <section key={i}>
+            {section.heading && (
+              <h2 className="font-display text-3xl text-ink mb-3 leading-tight">{section.heading}</h2>
+            )}
+            <div className="space-y-4">
+              {section.body.split("\n\n").map((para, j) => (
+                <p key={j} className="font-sans leading-relaxed text-muted-foreground">
+                  {para}
+                </p>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+
+      {post.relatedSlugs && post.relatedSlugs.length > 0 && (() => {
+        const related = post.relatedSlugs!
+          .map((s) => BLOG_POSTS.find((p) => p.slug === s))
+          .filter(Boolean) as typeof BLOG_POSTS;
+        if (related.length === 0) return null;
+        return (
+          <div className="mt-16 border-t border-border pt-10">
+            <p className="font-sans text-xs text-ember uppercase tracking-widest mb-6">Related articles</p>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {related.map((rel) => (
+                <Link
+                  key={rel.slug}
+                  to="/blog/$slug"
+                  params={{ slug: rel.slug }}
+                  className="block group border border-border rounded-xl overflow-hidden hover:shadow-sm transition-shadow"
+                >
+                  <img
+                    src={`/blog-covers/${rel.slug}.svg`}
+                    alt={rel.title}
+                    width={400}
+                    height={210}
+                    className="w-full object-cover border-b border-border"
+                    style={{ height: 100 }}
+                    loading="lazy"
+                  />
+                  <div className="p-4">
+                    <p className="font-sans text-xs text-muted-foreground mb-1">{rel.readingTime}</p>
+                    <p className="font-display text-base text-ink leading-snug group-hover:opacity-80 transition-opacity">
+                      {rel.title}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        );
+      })()}
+
+      <div className="mt-12 border-t border-border pt-10">
+        <p className="font-display text-2xl text-ink mb-2">Try ÉCHO.</p>
+        <p className="font-sans text-sm text-muted-foreground mb-4">
+          Free to download for iPhone, with founding-member pricing on your first year.
+        </p>
+        <a
+          {...APP_STORE_LINK_PROPS}
+          className="font-sans text-sm text-ember hover:opacity-75 transition-opacity"
+        >
+          Download on the App Store →
+        </a>
+      </div>
+    </InnerPage>
+  );
+}
