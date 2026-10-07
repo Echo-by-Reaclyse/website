@@ -10,7 +10,7 @@
  * app's Share sheet in 1.0; do not copy it from anywhere.
  */
 export const APP_STORE_URL =
-  "https://apps.apple.com/us/app/écho-by-réaclyse-ai-mirror/id6806377088";
+  "https://apps.apple.com/app/écho-by-réaclyse-ai-mirror/id6806377088";
 
 /** Props every outbound App Store link needs, so none of them forget `rel`. */
 export const APP_STORE_LINK_PROPS = {

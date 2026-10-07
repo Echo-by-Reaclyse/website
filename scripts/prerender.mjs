@@ -2,11 +2,15 @@
  * Post-build prerender script.
  *
  * After `vite build`, this script generates route-specific index.html files
- * in dist/ so that each URL serves the correct <title>, <meta description>,
- * OG tags, and canonical link in the initial HTML response — without waiting
- * for React to hydrate. Vercel serves a static file that matches the request
- * path before falling back to the SPA rewrite, so this "wins" for crawlers
- * and social-preview bots that don't execute JS.
+ * in dist/ so that each URL serves:
+ *   - correct <title>, <meta description>, OG tags, canonical link
+ *   - full article text already in the HTML (for Bing / AI crawlers / no-JS)
+ *   - og:type "article" on blog posts (not "website")
+ *   - og:image as a valid JPG (SVG not supported by Facebook / X / WhatsApp)
+ *   - FAQ structured data on articles with question–answer sections
+ *
+ * React's createRoot() replaces the pre-rendered body on hydration, so users
+ * always see the styled app. Crawlers that don't run JS see the plain HTML.
  */
 
 import { readFileSync, mkdirSync, writeFileSync } from "fs";
@@ -17,72 +21,15 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const distDir = join(__dirname, "../dist");
 
 // ---------------------------------------------------------------------------
+// Blog post data — emitted as dist/blog-posts.json by the Vite exportBlogData
+// plugin in vite.config.ts so this script (plain .mjs) can read it without TS.
+// ---------------------------------------------------------------------------
+const BLOG_POSTS = JSON.parse(readFileSync(join(distDir, "blog-posts.json"), "utf8"));
+
+// ---------------------------------------------------------------------------
 // Route manifest — title / description / ogTitle / ogDescription / url
 // ---------------------------------------------------------------------------
 const BASE = "https://www.echobyreaclyse.com";
-
-const BLOG_POSTS = [
-  {
-    slug: "what-is-voice-journaling",
-    title: "What Is Voice Journaling? A Beginner's Complete Guide",
-    description:
-      "Discover what voice journaling is, how it differs from traditional journaling, and why speaking your thoughts reveals more than writing them ever could.",
-  },
-  {
-    slug: "voice-journaling-vs-writing",
-    title: "Voice Journaling vs. Writing: Why Your Voice Reveals More Than Your Pen",
-    description:
-      "We write to look good. We speak to think. Here's why voice journaling consistently surfaces deeper truths than written journaling, and what the research says.",
-  },
-  {
-    slug: "daily-reflection-questions",
-    title: "5 Daily Reflection Questions That Actually Change How You Think",
-    description:
-      "Not all reflection prompts are equal. These five questions are designed to disrupt habitual thinking and surface the insights you're not looking for.",
-  },
-  {
-    slug: "build-journaling-habit",
-    title: "How to Build a Journaling Habit That Actually Sticks",
-    description:
-      "Most journaling habits fail in the first two weeks. Here's why, and what the research on habit formation says about making reflection a daily constant.",
-  },
-  {
-    slug: "best-journaling-apps-iphone-2026",
-    title: "Best Journaling Apps for iPhone in 2026",
-    description:
-      "A clear-eyed comparison of the top journaling apps available on iPhone in 2026: Day One, Reflectly, Rosebud, Journey, and ÉCHO — what each does well and who it's for.",
-  },
-  {
-    slug: "journaling-for-anxiety",
-    title: "Journaling for Anxiety: How Speaking Your Thoughts Breaks the Loop",
-    description:
-      "Anxious minds run in circles. Writing often makes it worse. Here's why speaking out loud is different, and how voice journaling interrupts rumination.",
-  },
-  {
-    slug: "how-to-process-emotions",
-    title: "How to Process Emotions: What It Actually Means to Work Through a Feeling",
-    description:
-      "Most people do not process emotions. They store them or suppress them. Here's what emotional processing actually looks like and how to build the habit.",
-  },
-  {
-    slug: "evening-journaling",
-    title: "Why Journaling at Night Beats Journaling in the Morning",
-    description:
-      "Morning journaling has better marketing. Evening journaling has better evidence. Here's what overnight memory consolidation says about when to reflect.",
-  },
-  {
-    slug: "private-journaling-app",
-    title: "What 'Private' Really Means in a Journaling App (Most Aren't)",
-    description:
-      "Every journaling app claims to be private. Most aren't. Here's what to actually look for: on-device processing, encryption at rest, and AI training policies.",
-  },
-  {
-    slug: "how-to-reflect-on-your-day",
-    title: "How to Reflect on Your Day: The 3-Minute Practice That Actually Works",
-    description:
-      "Most daily reflection advice is either too vague or too time-consuming to maintain. Here's a practical method that works in three minutes.",
-  },
-];
 
 const ROUTES = [
   // Inner pages
@@ -168,22 +115,106 @@ const ROUTES = [
     ogDescription:
       "Articles on voice journaling, daily reflection, building better habits, and long-term self-understanding.",
   },
-  // Blog posts
+  // Blog posts — derived from BLOG_POSTS data
   ...BLOG_POSTS.map((p) => ({
     path: `blog/${p.slug}`,
     title: `${p.title} — ÉCHO Journal`,
     description: p.description,
     ogTitle: `${p.title} — ÉCHO Journal`,
     ogDescription: p.description,
-    ogImage: `${BASE}/blog-covers/${p.slug}.svg`,
+    // OG image: use the global og-image.jpg — social platforms don't render SVG.
+    // Individual per-post PNG covers can replace this once generated.
+    ogImage: `${BASE}/og-image.jpg`,
+    ogType: "article",
+    post: p,
   })),
 ];
 
 // ---------------------------------------------------------------------------
-// HTML mutation helpers
+// HTML helpers
 // ---------------------------------------------------------------------------
-function replaceTag(html, pattern, replacement) {
-  return html.replace(pattern, replacement);
+
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+/**
+ * Render a blog post's content as plain HTML to inject into <div id="root">.
+ * React's createRoot() replaces this on hydration; it exists solely for
+ * crawlers that don't execute JavaScript.
+ */
+function renderArticleHtml(post) {
+  const sectionsHtml = post.sections
+    .map((section) => {
+      const heading = section.heading
+        ? `<h2>${escHtml(section.heading)}</h2>`
+        : "";
+      const paragraphs = section.body
+        .split("\n\n")
+        .map((p) => `<p>${escHtml(p.trim())}</p>`)
+        .join("");
+      return `<section>${heading}${paragraphs}</section>`;
+    })
+    .join("");
+
+  return (
+    `<article>` +
+    `<h1>${escHtml(post.title)}</h1>` +
+    `<p>${escHtml(post.description)}</p>` +
+    sectionsHtml +
+    `</article>`
+  );
+}
+
+/**
+ * Build FAQ JSON-LD for a blog post.
+ *
+ * Two patterns are detected:
+ *   1. Section heading ends with "?" → heading is the question, body is the answer.
+ *   2. Section heading is "Common questions" → body contains paragraphs of the
+ *      form "Question text? Answer text." that are parsed into individual pairs.
+ *
+ * Returns null when no qualifying sections are found.
+ */
+function buildFaqSchema(post) {
+  const items = [];
+
+  for (const section of post.sections) {
+    if (!section.heading) continue;
+
+    if (section.heading.toLowerCase() === "common questions") {
+      // Parse "Q? A." pairs from separate paragraphs
+      for (const para of section.body.split("\n\n")) {
+        const trimmed = para.trim();
+        const qMark = trimmed.indexOf("?");
+        if (qMark !== -1) {
+          const question = trimmed.slice(0, qMark + 1).trim();
+          const answer = trimmed.slice(qMark + 1).trim();
+          if (question && answer) {
+            items.push({ question, answer });
+          }
+        }
+      }
+    } else if (section.heading.trimEnd().endsWith("?")) {
+      items.push({ question: section.heading, answer: section.body });
+    }
+  }
+
+  if (items.length === 0) return null;
+
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
+  });
 }
 
 function injectMeta(html, route) {
@@ -191,6 +222,7 @@ function injectMeta(html, route) {
   const ogTitle = route.ogTitle ?? route.title;
   const ogDesc = route.ogDescription ?? route.description;
   const ogImage = route.ogImage ?? `${BASE}/og-image.jpg`;
+  const ogType = route.ogType ?? "website";
 
   const esc = (s) => s.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
 
@@ -213,6 +245,12 @@ function injectMeta(html, route) {
   html = html.replace(
     /<link rel="canonical" href="[^"]*"/,
     `<link rel="canonical" href="${url}"`
+  );
+
+  // OG type (website by default, article for blog posts)
+  html = html.replace(
+    /<meta property="og:type" content="[^"]*"/,
+    `<meta property="og:type" content="${ogType}"`
   );
 
   // OG tags
@@ -246,6 +284,24 @@ function injectMeta(html, route) {
     /<meta name="twitter:image" content="[^"]*"/,
     `<meta name="twitter:image" content="${ogImage}"`
   );
+
+  // Inject article body content into <div id="root"> so crawlers read the text
+  if (route.post) {
+    const articleHtml = renderArticleHtml(route.post);
+    html = html.replace(
+      /<div id="root"><\/div>/,
+      `<div id="root">${articleHtml}</div>`
+    );
+
+    // Inject FAQ schema if the article has FAQ sections
+    const faqSchema = buildFaqSchema(route.post);
+    if (faqSchema) {
+      html = html.replace(
+        "</head>",
+        `<script type="application/ld+json">${faqSchema}</script>\n</head>`
+      );
+    }
+  }
 
   return html;
 }
