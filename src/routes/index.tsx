@@ -279,7 +279,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "How much does ÉCHO cost?",
-    a: "ÉCHO is free to download and use every day. A subscription unlocks your full journal history, the full Mirror for deeper personal patterns, and unlimited Letters. PRO is €7.99/month or €59.99/year. Founding-member pricing brings that down to €3.99/month for your first 12 months, or €34.99 for your first year; it renews at the standard price after that.",
+    a: "ÉCHO is free to download and use every day. A subscription unlocks your full journal history, the full Mirror for deeper personal patterns, and unlimited Letters. PRO is €8.99/month or €69.99/year. Founding-member pricing brings that down to €3.99/month for your first 12 months, or €39.99 for your first year; it renews at the standard price after that.",
   },
   {
     q: "Do I need to write anything?",
@@ -4130,18 +4130,15 @@ function PricingSection() {
           <div style={{ marginBottom: 32 }}>
             {/* Crossed-out regular price */}
             <p style={{ fontFamily: C.sans, fontSize: 14, color: C.muted, textDecoration: "line-through", opacity: 0.5, margin: "0 0 6px" }}>
-              €59.99 / yr
+              €69.99 / yr
             </p>
             {/* Founding member price */}
             <div style={{ display: "flex", alignItems: "baseline", gap: 6, marginBottom: 6 }}>
-              <span style={{ fontFamily: C.serif, fontSize: "clamp(2.4rem, 5vw, 3.2rem)", color: C.ember, letterSpacing: "-0.02em" }}>€34.99</span>
+              <span style={{ fontFamily: C.serif, fontSize: "clamp(2.4rem, 5vw, 3.2rem)", color: C.ember, letterSpacing: "-0.02em" }}>€39.99</span>
               <span style={{ fontSize: 15, color: C.muted, fontFamily: C.sans }}>/&thinsp;yr</span>
             </div>
-            <p style={{ fontSize: 12, color: C.muted, fontFamily: C.sans, margin: "0 0 10px" }}>
-              €2.92&thinsp;/&thinsp;mo · billed annually
-            </p>
             <p style={{ fontSize: 12, color: C.muted, fontFamily: C.sans, margin: 0 }}>
-              Applies to your first year, then renews at €59.99/year.
+              Applies to your first year, then renews at €69.99/year.
             </p>
           </div>
 
