@@ -122,9 +122,7 @@ const ROUTES = [
     description: p.description,
     ogTitle: `${p.title} — ÉCHO Journal`,
     ogDescription: p.description,
-    // OG image: use the global og-image.jpg — social platforms don't render SVG.
-    // Individual per-post PNG covers can replace this once generated.
-    ogImage: `${BASE}/og-image.jpg`,
+      ogImage: `${BASE}/blog-og/${p.slug}.png`,
     ogType: "article",
     post: p,
   })),
@@ -140,6 +138,40 @@ function escHtml(str) {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+}
+
+/**
+ * Render the /blog listing as plain HTML to inject into <div id="root">.
+ * Gives crawlers a full list of article links without running JS.
+ */
+function renderBlogListingHtml(posts) {
+  const items = posts
+    .map((post) => {
+      const formatted = new Date(post.date).toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      });
+      return (
+        `<article>` +
+        `<a href="/blog/${escHtml(post.slug)}">` +
+        `<img src="/blog-covers/${escHtml(post.slug)}.svg" alt="${escHtml(post.title)}" width="800" height="420" loading="lazy">` +
+        `<h2>${escHtml(post.title)}</h2>` +
+        `<p>${escHtml(post.description)}</p>` +
+        `<p>${escHtml(post.author)} · ${formatted} · ${escHtml(post.readingTime)}</p>` +
+        `</a>` +
+        `</article>`
+      );
+    })
+    .join("");
+
+  return (
+    `<main>` +
+    `<h1>The ÉCHO Journal</h1>` +
+    `<p>Thoughts on reflection, voice, and building a healthier inner life.</p>` +
+    items +
+    `</main>`
+  );
 }
 
 /**
@@ -161,11 +193,31 @@ function renderArticleHtml(post) {
     })
     .join("");
 
+  let relatedHtml = "";
+  if (post.relatedSlugs && post.relatedSlugs.length > 0) {
+    const relatedPosts = post.relatedSlugs
+      .map((s) => BLOG_POSTS.find((p) => p.slug === s))
+      .filter(Boolean);
+    if (relatedPosts.length > 0) {
+      const links = relatedPosts
+        .map(
+          (rel) =>
+            `<a href="/blog/${escHtml(rel.slug)}">` +
+            `<h3>${escHtml(rel.title)}</h3>` +
+            `<p>${escHtml(rel.description)}</p>` +
+            `</a>`
+        )
+        .join("");
+      relatedHtml = `<section><h2>Related articles</h2>${links}</section>`;
+    }
+  }
+
   return (
     `<article>` +
     `<h1>${escHtml(post.title)}</h1>` +
     `<p>${escHtml(post.description)}</p>` +
     sectionsHtml +
+    relatedHtml +
     `</article>`
   );
 }
@@ -285,7 +337,28 @@ function injectMeta(html, route) {
     `<meta name="twitter:image" content="${ogImage}"`
   );
 
-  // Inject article body content into <div id="root"> so crawlers read the text
+  // Inject blog listing into #root for /blog so crawlers see all article links
+  if (route.path === "blog") {
+    const listingHtml = renderBlogListingHtml(BLOG_POSTS);
+    html = html.replace(
+      /<div id="root"><\/div>/,
+      `<div id="root">${listingHtml}</div>`
+    );
+    const blogBreadcrumb = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${BASE}/` },
+        { "@type": "ListItem", position: 2, name: "Blog", item: `${BASE}/blog` },
+      ],
+    });
+    html = html.replace(
+      "</head>",
+      `<script type="application/ld+json">${blogBreadcrumb}</script>\n</head>`
+    );
+  }
+
+  // Inject article body + structured data for blog post pages
   if (route.post) {
     const articleHtml = renderArticleHtml(route.post);
     html = html.replace(
@@ -293,14 +366,65 @@ function injectMeta(html, route) {
       `<div id="root">${articleHtml}</div>`
     );
 
-    // Inject FAQ schema if the article has FAQ sections
+    const schemas = [];
+
+    // BlogPosting schema
+    schemas.push(
+      JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: route.post.title,
+        description: route.post.description,
+        datePublished: route.post.date,
+        image: {
+          "@type": "ImageObject",
+          url: ogImage,
+          width: 800,
+          height: 420,
+        },
+        author: {
+          "@type": "Organization",
+          name: "ÉCHO by RÉACLYSE",
+          url: BASE,
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "ÉCHO by RÉACLYSE",
+          logo: {
+            "@type": "ImageObject",
+            url: `${BASE}/logo.svg`,
+            width: 56,
+            height: 57,
+          },
+          url: BASE,
+        },
+        url,
+        mainEntityOfPage: { "@type": "WebPage", "@id": url },
+      })
+    );
+
+    // BreadcrumbList schema
+    schemas.push(
+      JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${BASE}/` },
+          { "@type": "ListItem", position: 2, name: "Blog", item: `${BASE}/blog` },
+          { "@type": "ListItem", position: 3, name: route.post.title, item: url },
+        ],
+      })
+    );
+
+    // FAQ schema if the article has FAQ sections
     const faqSchema = buildFaqSchema(route.post);
-    if (faqSchema) {
-      html = html.replace(
-        "</head>",
-        `<script type="application/ld+json">${faqSchema}</script>\n</head>`
-      );
-    }
+    if (faqSchema) schemas.push(faqSchema);
+
+    html = html.replace(
+      "</head>",
+      schemas.map((s) => `<script type="application/ld+json">${s}</script>`).join("\n") +
+        "\n</head>"
+    );
   }
 
   return html;
