@@ -23,6 +23,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as BlogVoiceJournalingPromptsRouteImport } from './routes/blog/voice-journaling-prompts'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as AdminQuestionsRouteImport } from './routes/admin/questions'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
@@ -99,6 +100,14 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const BlogVoiceJournalingPromptsRoute =
+  BlogVoiceJournalingPromptsRouteImport.update({
+    id: '/voice-journaling-prompts',
+    path: '/voice-journaling-prompts',
+    getParentRoute: () => BlogRoute,
+  } as any).lazy(() =>
+    import('./routes/blog/voice-journaling-prompts.lazy').then((d) => d.Route),
+  )
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -147,6 +156,7 @@ export interface FileRoutesByFullPath {
   '/admin/login': typeof AdminLoginRoute
   '/admin/questions': typeof AdminQuestionsRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/blog/voice-journaling-prompts': typeof BlogVoiceJournalingPromptsRoute
   '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
 }
@@ -166,6 +176,7 @@ export interface FileRoutesByTo {
   '/admin/login': typeof AdminLoginRoute
   '/admin/questions': typeof AdminQuestionsRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/blog/voice-journaling-prompts': typeof BlogVoiceJournalingPromptsRoute
   '/admin': typeof AdminIndexRoute
   '/blog': typeof BlogIndexRoute
 }
@@ -188,6 +199,7 @@ export interface FileRoutesById {
   '/admin/login': typeof AdminLoginRoute
   '/admin/questions': typeof AdminQuestionsRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/blog/voice-journaling-prompts': typeof BlogVoiceJournalingPromptsRoute
   '/admin/': typeof AdminIndexRoute
   '/blog/': typeof BlogIndexRoute
 }
@@ -211,6 +223,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/questions'
     | '/blog/$slug'
+    | '/blog/voice-journaling-prompts'
     | '/admin/'
     | '/blog/'
   fileRoutesByTo: FileRoutesByTo
@@ -230,6 +243,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/questions'
     | '/blog/$slug'
+    | '/blog/voice-journaling-prompts'
     | '/admin'
     | '/blog'
   id:
@@ -251,6 +265,7 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/admin/questions'
     | '/blog/$slug'
+    | '/blog/voice-journaling-prompts'
     | '/admin/'
     | '/blog/'
   fileRoutesById: FileRoutesById
@@ -370,6 +385,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/blog/voice-journaling-prompts': {
+      id: '/blog/voice-journaling-prompts'
+      path: '/voice-journaling-prompts'
+      fullPath: '/blog/voice-journaling-prompts'
+      preLoaderRoute: typeof BlogVoiceJournalingPromptsRouteImport
+      parentRoute: typeof BlogRoute
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/$slug'
@@ -428,11 +450,13 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface BlogRouteChildren {
   BlogSlugRoute: typeof BlogSlugRoute
+  BlogVoiceJournalingPromptsRoute: typeof BlogVoiceJournalingPromptsRoute
   BlogIndexRoute: typeof BlogIndexRoute
 }
 
 const BlogRouteChildren: BlogRouteChildren = {
   BlogSlugRoute: BlogSlugRoute,
+  BlogVoiceJournalingPromptsRoute: BlogVoiceJournalingPromptsRoute,
   BlogIndexRoute: BlogIndexRoute,
 }
 

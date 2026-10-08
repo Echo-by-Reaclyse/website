@@ -3,26 +3,70 @@ export interface BlogSection {
   body: string;
 }
 
+export type BlogTopic = "voice" | "prompts" | "reflect" | "privacy";
+
+export interface CardVisual {
+  type: "prompt" | "steps" | "compare" | "week" | "night" | "checklist" | "three-words" | "image";
+  text?: string;
+  kicker?: string;
+  variant?: string;
+  labels?: string[];
+  items?: string[];
+  needs?: string;
+}
+
 export interface BlogPost {
   slug: string;
   title: string;
+  searchTitle: string;
   description: string;
+  excerpt: string;
   date: string;
   readingTime: string;
   author: string;
+  topic: BlogTopic;
+  cardVisual: CardVisual;
+  inShort?: string;
   sections: BlogSection[];
   relatedSlugs?: string[];
 }
 
+export const TOPIC_LABELS: Record<BlogTopic, string> = {
+  voice: "Voice journaling",
+  prompts: "Prompts & routines",
+  reflect: "Self-reflection",
+  privacy: "Privacy & choosing an app",
+};
+
 export const BLOG_POSTS: BlogPost[] = [
   {
-    slug: "what-is-voice-journaling",
-    title: "What Is Voice Journaling? A Beginner's Complete Guide",
+    slug: "voice-journaling-prompts",
+    title: "35 voice journaling prompts to answer out loud",
+    searchTitle: "35 Voice Journaling Prompts to Answer Out Loud | ÉCHO Journal",
     description:
-      "Discover what voice journaling is, how it differs from traditional journaling, and why speaking your thoughts reveals more than writing them ever could.",
-    date: "2026-05-12",
-    readingTime: "7 min read",
+      "35 short voice journaling prompts in seven groups: evening, anxious days, gratitude, big decisions, self-discovery, relationships and your future self. Copy one and start.",
+    excerpt: "Seven groups of short questions for evenings, anxious days, decisions and more. Copy one and begin.",
+    date: "2026-10-08",
+    readingTime: "5 min read",
     author: "The ÉCHO Team",
+    topic: "prompts",
+    cardVisual: { type: "prompt", text: "Who made today easier?", kicker: "PROMPT 11 OF 35" },
+    sections: [],
+  },
+  {
+    slug: "what-is-voice-journaling",
+    title: "What is voice journaling? A simple way to start",
+    searchTitle: "What Is Voice Journaling? A Simple Way to Start | ÉCHO Journal",
+    description:
+      "What voice journaling is, how to make your first recording, what to say, what to do when words don't come, and what to check before choosing an app.",
+    excerpt: "What it is, how to make your first recording, what to say, and what to do when the words don't come.",
+    date: "2026-05-12",
+    readingTime: "6 min read",
+    author: "The ÉCHO Team",
+    topic: "voice",
+    cardVisual: { type: "steps", labels: ["Speak", "Listen", "Revisit"] },
+    inShort:
+      "Voice journaling is speaking your thoughts into a recording, usually for a few minutes, often in answer to one question. You can start with your phone's built-in recorder: pick a quiet moment, ask yourself one question, talk until you have said what you need to, and listen back another day.",
     relatedSlugs: ["voice-journaling-vs-writing", "build-journaling-habit", "how-to-reflect-on-your-day"],
     sections: [
       {
@@ -56,12 +100,18 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "voice-journaling-vs-writing",
-    title: "Voice Journaling vs. Writing: Why Your Voice Reveals More Than Your Pen",
+    title: "Voice journaling or writing? How to choose what suits you",
+    searchTitle: "Voice journaling or writing? How to choose what suits you | ÉCHO Journal",
     description:
-      "We write to look good. We speak to think. Here's why voice journaling consistently surfaces deeper truths than written journaling, and what the research says.",
+      "Speaking and writing each have strengths. A practical look at when each one helps, with no single right answer.",
+    excerpt: "Speaking and writing each have strengths. A practical look at when each one helps, with no single right answer.",
     date: "2026-05-19",
     readingTime: "6 min read",
     author: "The ÉCHO Team",
+    topic: "voice",
+    cardVisual: { type: "compare" },
+    inShort:
+      "Voice journaling and writing both have real benefits. Voice is faster and produces more honest first responses; writing allows more careful thinking. Most people find both useful for different things. The format that you actually maintain consistently matters more than which one is theoretically superior.",
     relatedSlugs: ["what-is-voice-journaling", "how-to-process-emotions", "how-to-reflect-on-your-day"],
     sections: [
       {
@@ -91,12 +141,18 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "daily-reflection-questions",
-    title: "5 Daily Reflection Questions That Actually Change How You Think",
+    title: "5 daily reflection questions worth asking",
+    searchTitle: "5 daily reflection questions worth asking | ÉCHO Journal",
     description:
-      "Not all reflection prompts are equal. These five questions are designed to disrupt habitual thinking and surface the insights you're not looking for.",
+      "Five questions that go past \"how was your day\", and how to use them without turning reflection into homework.",
+    excerpt: "Five questions that go past \"how was your day\", and how to use them without turning reflection into homework.",
     date: "2026-05-26",
     readingTime: "8 min read",
     author: "The ÉCHO Team",
+    topic: "prompts",
+    cardVisual: { type: "prompt", text: "What was I wrong about today?", kicker: "FROM THE ARTICLE" },
+    inShort:
+      "Five questions that angle toward what you did not notice at the time: what you were wrong about, what you wanted to say but didn't, what you are avoiding, who you thought about, and what you know now that you did not this morning.",
     relatedSlugs: ["how-to-reflect-on-your-day", "journaling-for-anxiety", "build-journaling-habit"],
     sections: [
       {
@@ -130,12 +186,17 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "build-journaling-habit",
-    title: "How to Build a Journaling Habit That Actually Sticks",
-    description:
-      "Most journaling habits fail in the first two weeks. Here's why, and what the research on habit formation says about making reflection a daily constant.",
+    title: "How to build a journaling habit you can keep",
+    searchTitle: "How to build a journaling habit you can keep | ÉCHO Journal",
+    description: "Small anchors, short sessions, and what to do after you miss a day.",
+    excerpt: "Small anchors, short sessions, and what to do after you miss a day.",
     date: "2026-06-03",
     readingTime: "6 min read",
     author: "The ÉCHO Team",
+    topic: "prompts",
+    cardVisual: { type: "week" },
+    inShort:
+      "Most journaling habits fail because they require too many decisions to start. The fix is an anchor: attach reflection to something you already do reliably. Keep sessions to two minutes. If you miss a day, do not miss the next one.",
     relatedSlugs: ["what-is-voice-journaling", "how-to-reflect-on-your-day", "evening-journaling"],
     sections: [
       {
@@ -165,12 +226,18 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "best-journaling-apps-iphone-2026",
-    title: "Best Journaling Apps for iPhone in 2026",
+    title: "Journaling apps for iPhone compared (2026)",
+    searchTitle: "Journaling apps for iPhone compared (2026) | ÉCHO Journal",
     description:
-      "A clear-eyed comparison of the top journaling apps available on iPhone in 2026: Day One, Reflectly, Rosebud, Journey, and ÉCHO — what each does well and who it's for.",
+      "Day One, Reflectly, Rosebud, Journey and ÉCHO: what each one does, who it suits, and how we compared them.",
+    excerpt: "Day One, Reflectly, Rosebud, Journey and ÉCHO: what each one does, who it suits, and how we compared them.",
     date: "2026-06-10",
     readingTime: "9 min read",
     author: "The ÉCHO Team",
+    topic: "privacy",
+    cardVisual: { type: "image", needs: "Approved, current screenshots of the compared apps, side by side" },
+    inShort:
+      "Five iPhone journaling apps compared: Day One (best for written journaling), Reflectly (best for guided check-ins), Rosebud (best for AI-assisted reflection), Journey (best for cross-platform), and ÉCHO (built specifically for daily spoken reflection with on-device privacy). ÉCHO is our product; take the comparison with that in mind.",
     relatedSlugs: ["what-is-voice-journaling", "private-journaling-app", "build-journaling-habit"],
     sections: [
       {
@@ -204,20 +271,21 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "journaling-for-anxiety",
-    title: "Journaling for Anxiety: How Speaking Your Thoughts Breaks the Loop",
-    description:
-      "Anxious minds run in circles. Writing often makes it worse, giving the loop more material to work with. Here's why speaking out loud is different, and how voice journaling interrupts rumination.",
+    title: "Journaling on anxious days: what to try, and its limits",
+    searchTitle: "Journaling on anxious days: what to try, and its limits | ÉCHO Journal",
+    description: "Gentle ways to put a worry into words, and when to reach out for support instead.",
+    excerpt: "Gentle ways to put a worry into words, and when to reach out for support instead.",
     date: "2026-07-01",
     readingTime: "8 min read",
     author: "The ÉCHO Team",
+    topic: "reflect",
+    cardVisual: { type: "prompt", variant: "blue", text: "What exactly are you worried about?", kicker: "TRY ASKING" },
+    inShort:
+      "Speaking a worry out loud can help interrupt the loop of anxious thinking. Voice journaling works for everyday anxiety; it is not a substitute for professional support. If anxiety is frequent or significantly affecting your life, speak to a GP or mental health professional first.",
     relatedSlugs: ["how-to-process-emotions", "evening-journaling", "how-to-reflect-on-your-day"],
     sections: [
       {
-        body: "Anxiety produces a specific kind of thought: the loop. The same concern circulates, gaining no new information, arriving at no resolution, returning slightly worse than it left. Most advice about anxiety suggests journaling as a remedy. Write it out. Get it on the page. The recommendation is well-intentioned but incomplete.\n\nFor many people with anxious minds, writing makes it worse. Give an anxious thought a blank page and it finds more material to work with. The editing process that writing involves, the rereading, the crossing out, the search for the right word, is itself a form of rumination. You do not exit the loop. You decorate it.",
-      },
-      {
-        heading: "Why writing sometimes amplifies anxiety",
-        body: "Writing requires revisiting the thought repeatedly. Each sentence is a decision. Is this the right word? Does this capture what I mean? That process of refinement is useful for many things. For anxiety, it keeps the thought in active working memory longer than it needs to be.\n\nThe scientific term for what happens in anxious rumination is perseverative cognition: the mind returning to a concern without generating new responses to it. Writing, because it is slow and iterative, can extend this perseveration rather than interrupting it.\n\nThis is not universal. Some people find writing genuinely clarifying. But there is a subgroup of anxious minds, particularly those with high verbal-analytical tendencies, for whom writing simply provides more surface area for the anxiety to inhabit.",
+        body: "Anxiety produces a specific kind of thought: the loop. The same concern circulates, gaining no new information, arriving at no resolution, returning slightly worse than it left. Most advice about anxiety suggests journaling as a remedy. Write it out. Get it on the page. The recommendation is well-intentioned but incomplete.\n\nFor many people with anxious minds, writing can extend the loop rather than break it. Give an anxious thought a blank page and it sometimes finds more material to work with. The editing process that writing involves, the rereading, the crossing out, the search for the right word, can in some cases resemble rumination. Speaking the thought out loud, by contrast, externalises it in a different way.",
       },
       {
         heading: "What verbal externalisation actually does",
@@ -233,7 +301,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         heading: "What voice journaling cannot do",
-        body: "Voice journaling is not therapy. It does not address the structural causes of anxiety, the sleep debt, the unresolved conflict, the work situation that needs to change. It does not provide the challenge and response of talking with a skilled therapist who can gently question your catastrophising. It does not prescribe medication or teach systematic relaxation techniques.\n\nIf your anxiety is severe, frequent, or significantly affecting your daily life, the right first step is a conversation with a GP or mental health professional, not an app. ÉCHO is a reflection tool for people who want to understand themselves better. It is not a clinical intervention.\n\nWhat it is, within those limits, is a consistent way to observe your own anxious patterns over time. To notice that the anxiety spikes on Sunday evenings. That it almost always circles back to the same two topics. That it has, so far, never produced the outcome it was warning you about. Patterns like these are only visible across time, and time is what a consistent voice journal gives you.",
+        body: "Voice journaling is not therapy. It does not address the structural causes of anxiety, the sleep debt, the unresolved conflict, the work situation that needs to change. It does not provide the challenge and response of talking with a skilled therapist who can gently question your catastrophising. It does not prescribe medication or teach systematic relaxation techniques.\n\nIf your anxiety is severe, frequent, or significantly affecting your daily life, the right first step is a conversation with a GP or mental health professional, not an app. ÉCHO is a reflection tool for people who want to understand themselves better. It is not a clinical intervention. For crisis support, please see our resources page.",
       },
       {
         heading: "Building the practice",
@@ -243,12 +311,17 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "how-to-process-emotions",
-    title: "How to Process Emotions: What It Actually Means to Work Through a Feeling",
-    description:
-      "Most people do not process emotions. They store them or suppress them. Here's what emotional processing actually looks like, why speaking it out loud works differently than writing, and how to build the habit.",
+    title: "How to process emotions: what it means to work through a feeling",
+    searchTitle: "How to process emotions: what it means to work through a feeling | ÉCHO Journal",
+    description: "The difference between feeling something and working through it, with a simple three-step approach.",
+    excerpt: "The difference between feeling something and working through it, with a simple three-step approach.",
     date: "2026-07-15",
     readingTime: "7 min read",
     author: "The ÉCHO Team",
+    topic: "reflect",
+    cardVisual: { type: "three-words", labels: ["Notice", "Name", "Respond"] },
+    inShort:
+      "Processing an emotion means externalising it in some form — through words, voice, or movement — until it loses its charge. Three steps that help: name the feeling precisely, trace it to its source (not its narrative extension), then say what you actually want.",
     relatedSlugs: ["journaling-for-anxiety", "voice-journaling-vs-writing", "daily-reflection-questions"],
     sections: [
       {
@@ -260,7 +333,7 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         heading: "Why talking works differently from thinking",
-        body: "When you think about an emotion, you experience it from the inside. The thought and the feeling share the same space. This is why rumination, sustained internal attention on a difficult feeling, tends to amplify rather than resolve it.\n\nWhen you speak about an emotion out loud, even to yourself, something shifts. Speaking forces you to find words for what you are experiencing, and the act of labelling an emotion appears to reduce its intensity. This is sometimes called affect labelling, and its effects are measurable on brain scans, not just self-reported. The more precisely you can name what you are feeling, the less charge it carries.",
+        body: "When you think about an emotion, you experience it from the inside. The thought and the feeling share the same space. This is why rumination, sustained internal attention on a difficult feeling, tends to amplify rather than resolve it.\n\nWhen you speak about an emotion out loud, even to yourself, something shifts. Speaking forces you to find words for what you are experiencing, and the act of labelling an emotion appears to reduce its intensity. This is sometimes called affect labelling, and its effects are measurable, not just self-reported. The more precisely you can name what you are feeling, the less charge it carries.",
       },
       {
         heading: "A three-step process that works",
@@ -282,16 +355,21 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "evening-journaling",
-    title: "Why Journaling at Night Beats Journaling in the Morning",
-    description:
-      "Morning journaling has better marketing. Evening journaling has better evidence. Here's what the research on overnight memory consolidation says, and why the day's last reflection might be its most important one.",
+    title: "Evening journaling: what it's good for",
+    searchTitle: "Evening journaling: what it's good for | ÉCHO Journal",
+    description: "What an end-of-day reflection can capture, how it compares with mornings, and how to fit it in.",
+    excerpt: "What an end-of-day reflection can capture, how it compares with mornings, and how to fit it in.",
     date: "2026-08-05",
     readingTime: "6 min read",
     author: "The ÉCHO Team",
+    topic: "prompts",
+    cardVisual: { type: "night", text: "The last few minutes of the day" },
+    inShort:
+      "Evening journaling captures the felt experience of the day before sleep processes and edits it. Morning journaling captures the rested, more considered version. Both have genuine uses. If you can only do one, evenings capture something that is unavailable by morning.",
     relatedSlugs: ["how-to-reflect-on-your-day", "build-journaling-habit", "journaling-for-anxiety"],
     sections: [
       {
-        body: "Morning journaling has good marketing. It is associated with famous people and productive routines, the 5am practice, the pages written before the day intrudes. The appeal is real: your mind is quiet, the day has not happened yet, you are writing from potential rather than experience.\n\nEvening journaling has better evidence. And it produces something morning journaling structurally cannot: a record of what actually happened, captured before sleep processes and reorganises it.",
+        body: "Morning journaling has good marketing. It is associated with famous people and productive routines, the 5am practice, the pages written before the day intrudes. The appeal is real: your mind is quiet, the day has not happened yet, you are writing from potential rather than experience.\n\nEvening journaling has a different advantage: it produces something morning journaling structurally cannot: a record of what actually happened, captured before sleep processes and reorganises it.",
       },
       {
         heading: "What sleep actually does to your memories",
@@ -315,18 +393,33 @@ export const BLOG_POSTS: BlogPost[] = [
       },
       {
         heading: "Combining both",
-        body: "Morning and evening journaling address different things and are not mutually exclusive. Morning journaling is better for intention-setting, creative thinking, and working through decisions from a rested mind. Evening journaling is better for capturing experience, noticing emotional patterns, and building an honest record of what your days actually contain.\n\nIf you are going to choose one, the evidence favours evening. Not because mornings are the wrong time to reflect, but because the material that evening journaling captures is uniquely available at that moment and gone by morning. You can always reflect on yesterday. You cannot recover how it actually felt.",
+        body: "Morning and evening journaling address different things and are not mutually exclusive. Morning journaling is better for intention-setting, creative thinking, and working through decisions from a rested mind. Evening journaling is better for capturing experience, noticing emotional patterns, and building an honest record of what your days actually contain.\n\nIf you are going to choose one, evenings capture something that is uniquely available at that moment and gone by morning. You can always reflect on yesterday. You cannot recover how it actually felt.",
       },
     ],
   },
   {
     slug: "private-journaling-app",
-    title: "What 'Private' Really Means in a Journaling App (Most Aren't)",
+    title: "What \"private\" means in a journaling app, and what to check",
+    searchTitle: "What “private” means in a journaling app, and what to check | ÉCHO Journal",
     description:
-      "Every journaling app claims to be private. Most aren't, at least not in any meaningful sense. Here's what to actually look for: on-device processing, encryption at rest, and whether your data trains their AI.",
+      "Questions to ask about recording, transcription, storage, AI processing and deletion before you trust an app with your thoughts.",
+    excerpt:
+      "Questions to ask about recording, transcription, storage, AI processing and deletion before you trust an app with your thoughts.",
     date: "2026-08-19",
     readingTime: "7 min read",
     author: "The ÉCHO Team",
+    topic: "privacy",
+    cardVisual: {
+      type: "checklist",
+      items: [
+        "Where is the recording stored?",
+        "Where is it transcribed?",
+        "Is AI used, and on what?",
+        "Can I delete everything?",
+      ],
+    },
+    inShort:
+      "Genuine privacy in a journaling app requires: on-device transcription (no audio leaves the device), encryption at rest you control, no use of your data to train AI models, and a real right to deletion. Most apps that use the word \"private\" do not meet all four criteria.",
     relatedSlugs: ["what-is-voice-journaling", "best-journaling-apps-iphone-2026", "build-journaling-habit"],
     sections: [
       {
@@ -356,12 +449,17 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "how-to-reflect-on-your-day",
-    title: "How to Reflect on Your Day: The 3-Minute Practice That Actually Works",
-    description:
-      "Most daily reflection advice is either too vague or too time-consuming to maintain. Here's a practical, research-backed method that works in three minutes, and why it builds differently over time.",
+    title: "How to reflect on your day: a 3-minute practice",
+    searchTitle: "How to reflect on your day: a 3-minute practice | ÉCHO Journal",
+    description: "A short end-of-day routine with three questions, and how reflections add up over time.",
+    excerpt: "A short end-of-day routine with three questions, and how reflections add up over time.",
     date: "2026-09-09",
     readingTime: "6 min read",
     author: "The ÉCHO Team",
+    topic: "reflect",
+    cardVisual: { type: "image", needs: "Real founder material: photo or video still of Roksana recording a reflection" },
+    inShort:
+      "Three minutes, three questions: what moment am I still thinking about, what did I feel that I did not express, and what do I want tomorrow to contain that today did not. The value accumulates across months, not from individual sessions.",
     relatedSlugs: ["daily-reflection-questions", "build-journaling-habit", "evening-journaling"],
     sections: [
       {

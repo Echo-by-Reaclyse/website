@@ -1,69 +1,113 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
-import { InnerPage } from "@/components/InnerPage";
-import { BLOG_POSTS } from "@/lib/blog-posts";
+import { useState, useEffect, useRef } from "react";
+import { BLOG_POSTS, TOPIC_LABELS } from "@/lib/blog-posts";
 import { APP_STORE_LINK_PROPS } from "@/lib/app-store";
+import "@/styles/blog.css";
 
 export const Route = createLazyFileRoute("/blog/$slug")({
   component: BlogPost,
 });
 
 function formatDate(iso: string) {
-  const d = new Date(iso);
-  return d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+  return new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+}
+
+function slugifyHeading(heading: string) {
+  return heading
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
 }
 
 function BlogPost() {
   const post = Route.useLoaderData();
+  const [activeSection, setActiveSection] = useState<string>("");
+  const [tocOpen, setTocOpen] = useState(false);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  const headings = post.sections.filter((s) => s.heading).map((s) => ({
+    id: slugifyHeading(s.heading!),
+    text: s.heading!,
+  }));
+
+  useEffect(() => {
+    if (!headings.length) return;
+    const sectionEls = headings
+      .map(({ id }) => document.getElementById(id))
+      .filter(Boolean) as HTMLElement[];
+
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((e) => e.isIntersecting);
+        if (visible.length > 0) {
+          setActiveSection(visible[0].target.id);
+        }
+      },
+      { rootMargin: "-20% 0px -70% 0px" }
+    );
+    sectionEls.forEach((el) => observerRef.current!.observe(el));
+    return () => observerRef.current?.disconnect();
+  }, [post.slug]);
+
+  const BASE = "https://www.echobyreaclyse.com";
+  const url = `${BASE}/blog/${post.slug}`;
+
+  const relatedPosts = (post.relatedSlugs ?? [])
+    .map((s) => BLOG_POSTS.find((p) => p.slug === s))
+    .filter(Boolean) as typeof BLOG_POSTS;
 
   return (
-    <InnerPage title={post.title} subtitle={`${post.author} · ${formatDate(post.date)} · ${post.readingTime}`}>
-      <title>{post.title} — ÉCHO Journal</title>
+    <div className="blog-scope">
+      {/* Sticky header */}
+      <header className="b-header" role="banner">
+        <div className="b-header-inner">
+          <Link to="/" className="b-logo" aria-label="ÉCHO home">
+            <img src="/logo.svg" alt="ÉCHO" width={32} height={32} />
+            <span>ÉCHO</span>
+          </Link>
+          <nav className="b-nav" aria-label="Site navigation">
+            <Link to="/blog" className="b-nav-link">Journal</Link>
+          </nav>
+          <a {...APP_STORE_LINK_PROPS} className="b-header-cta">
+            Download ÉCHO
+          </a>
+        </div>
+      </header>
+
+      {/* SEO head tags */}
+      <title>{post.searchTitle ?? `${post.title} — ÉCHO Journal`}</title>
       <meta name="description" content={post.description} />
-      <link rel="canonical" href={`https://www.echobyreaclyse.com/blog/${post.slug}`} />
+      <link rel="canonical" href={url} />
       <meta property="og:title" content={`${post.title} — ÉCHO Journal`} />
       <meta property="og:description" content={post.description} />
-      <meta property="og:url" content={`https://www.echobyreaclyse.com/blog/${post.slug}`} />
-      <meta property="og:image" content={`https://www.echobyreaclyse.com/blog-covers/${post.slug}.svg`} />
+      <meta property="og:url" content={url} />
+      <meta property="og:image" content={`${BASE}/blog-og/${post.slug}.png`} />
+      <meta property="og:type" content="article" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={`${post.title} — ÉCHO Journal`} />
       <meta name="twitter:description" content={post.description} />
-      <meta name="twitter:image" content={`https://www.echobyreaclyse.com/blog-covers/${post.slug}.svg`} />
+      <meta name="twitter:image" content={`${BASE}/blog-og/${post.slug}.png`} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "Article",
+            "@type": "BlogPosting",
             headline: post.title,
             description: post.description,
             datePublished: post.date,
-            image: {
-              "@type": "ImageObject",
-              url: `https://www.echobyreaclyse.com/blog-covers/${post.slug}.svg`,
-              width: 800,
-              height: 420,
-            },
-            author: {
-              "@type": "Organization",
-              name: "ÉCHO by RÉACLYSE",
-              url: "https://www.echobyreaclyse.com",
-            },
+            image: { "@type": "ImageObject", url: `${BASE}/blog-og/${post.slug}.png`, width: 800, height: 420 },
+            author: { "@type": "Organization", name: "ÉCHO by RÉACLYSE", url: BASE },
             publisher: {
               "@type": "Organization",
               name: "ÉCHO by RÉACLYSE",
-              logo: {
-                "@type": "ImageObject",
-                url: "https://www.echobyreaclyse.com/logo.svg",
-                width: 56,
-                height: 57,
-              },
-              url: "https://www.echobyreaclyse.com",
+              logo: { "@type": "ImageObject", url: `${BASE}/logo.svg`, width: 56, height: 57 },
+              url: BASE,
             },
-            url: `https://www.echobyreaclyse.com/blog/${post.slug}`,
-            mainEntityOfPage: {
-              "@type": "WebPage",
-              "@id": `https://www.echobyreaclyse.com/blog/${post.slug}`,
-            },
+            url,
+            mainEntityOfPage: { "@type": "WebPage", "@id": url },
           }),
         }}
       />
@@ -74,112 +118,179 @@ function BlogPost() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              {
-                "@type": "ListItem",
-                position: 1,
-                name: "Home",
-                item: "https://www.echobyreaclyse.com/",
-              },
-              {
-                "@type": "ListItem",
-                position: 2,
-                name: "Blog",
-                item: "https://www.echobyreaclyse.com/blog",
-              },
-              {
-                "@type": "ListItem",
-                position: 3,
-                name: post.title,
-                item: `https://www.echobyreaclyse.com/blog/${post.slug}`,
-              },
+              { "@type": "ListItem", position: 1, name: "Home", item: `${BASE}/` },
+              { "@type": "ListItem", position: 2, name: "Blog", item: `${BASE}/blog` },
+              { "@type": "ListItem", position: 3, name: post.title, item: url },
             ],
           }),
         }}
       />
 
-      <Link
-        to="/blog"
-        className="font-sans text-sm text-ember hover:opacity-75 transition-opacity"
-      >
-        ← Back to The ÉCHO Journal
-      </Link>
+      <main>
+        {/* Breadcrumb */}
+        <nav className="b-crumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><Link to="/">Home</Link></li>
+            <li aria-hidden="true">›</li>
+            <li><Link to="/blog">Journal</Link></li>
+            <li aria-hidden="true">›</li>
+            <li aria-current="page">{post.title}</li>
+          </ol>
+        </nav>
 
-      <img
-        src={`/blog-covers/${post.slug}.svg`}
-        alt={post.title}
-        width={800}
-        height={420}
-        className="w-full rounded-xl border border-border mt-8 object-cover"
-        style={{ maxHeight: 280 }}
-      />
+        {/* Article head */}
+        <div className="b-article-head">
+          <span className="b-topic-label">{TOPIC_LABELS[post.topic]}</span>
+          <h1 className="b-article-h1">{post.title}</h1>
+          {post.description && (
+            <p className="b-article-desc">{post.description}</p>
+          )}
+          <div className="b-byline">
+            <span>{post.author}</span>
+            <span aria-hidden="true">·</span>
+            <time dateTime={post.date}>{formatDate(post.date)}</time>
+            <span aria-hidden="true">·</span>
+            <span>{post.readingTime}</span>
+          </div>
+        </div>
 
-      <div className="mt-10 space-y-10">
-        {post.sections.map((section, i) => (
-          <section key={i}>
-            {section.heading && (
-              <h2 className="font-display text-3xl text-ink mb-3 leading-tight">{section.heading}</h2>
+        {/* In short */}
+        {post.inShort && (
+          <div className="b-in-short">
+            <p className="b-in-short-label">In short</p>
+            <p>{post.inShort}</p>
+          </div>
+        )}
+
+        {/* Mobile ToC toggle */}
+        {headings.length > 2 && (
+          <div className="b-toc-mobile">
+            <button
+              type="button"
+              className="b-toc-toggle"
+              aria-expanded={tocOpen}
+              onClick={() => setTocOpen(!tocOpen)}
+            >
+              {tocOpen ? "Hide" : "Show"} contents
+            </button>
+            {tocOpen && (
+              <nav aria-label="Table of contents">
+                <ol className="b-toc-list">
+                  {headings.map(({ id, text }) => (
+                    <li key={id}>
+                      <a
+                        href={`#${id}`}
+                        className={activeSection === id ? "active" : ""}
+                        onClick={() => setTocOpen(false)}
+                      >
+                        {text}
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
             )}
-            <div className="space-y-4">
-              {section.body.split("\n\n").map((para, j) => (
-                <p key={j} className="font-sans leading-relaxed text-muted-foreground">
-                  {para}
-                </p>
-              ))}
-            </div>
-          </section>
-        ))}
-      </div>
+          </div>
+        )}
 
-      {post.relatedSlugs && post.relatedSlugs.length > 0 && (() => {
-        const related = post.relatedSlugs!
-          .map((s) => BLOG_POSTS.find((p) => p.slug === s))
-          .filter(Boolean) as typeof BLOG_POSTS;
-        if (related.length === 0) return null;
-        return (
-          <div className="mt-16 border-t border-border pt-10">
-            <p className="font-sans text-xs text-ember uppercase tracking-widest mb-6">Related articles</p>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {related.map((rel) => (
+        {/* Layout: sidebar ToC + body */}
+        <div className="b-layout">
+          {headings.length > 2 && (
+            <aside className="b-toc" aria-label="Table of contents">
+              <p className="b-toc-heading">Contents</p>
+              <nav>
+                <ol className="b-toc-list">
+                  {headings.map(({ id, text }) => (
+                    <li key={id}>
+                      <a href={`#${id}`} className={activeSection === id ? "active" : ""}>
+                        {text}
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            </aside>
+          )}
+
+          <article className="b-body">
+            {post.sections.map((section, i) => {
+              const id = section.heading ? slugifyHeading(section.heading) : undefined;
+              return (
+                <section key={i} id={id}>
+                  {section.heading && <h2 id={id}>{section.heading}</h2>}
+                  {section.body.split("\n\n").map((para, j) => (
+                    <p key={j}>{para.trim()}</p>
+                  ))}
+                </section>
+              );
+            })}
+          </article>
+        </div>
+
+        {/* Product invite */}
+        <div className="b-invite">
+          <div className="b-invite-inner">
+            <p className="b-invite-kicker">Try ÉCHO</p>
+            <h2 className="b-invite-heading">One question. Spoken. Every day.</h2>
+            <p className="b-invite-body">
+              On-device transcription. No audio leaves your phone. Free to start.
+            </p>
+            <a {...APP_STORE_LINK_PROPS} className="b-invite-cta">
+              Download on the App Store
+            </a>
+          </div>
+        </div>
+
+        {/* Author */}
+        <div className="b-author">
+          <div className="b-author-avatar" aria-hidden="true">É</div>
+          <div className="b-author-info">
+            <p className="b-author-name">{post.author}</p>
+            <p className="b-author-bio">
+              The team behind ÉCHO — a private voice journal for iPhone, built by RÉACLYSE in Luxembourg.
+            </p>
+          </div>
+        </div>
+
+        {/* Related reading */}
+        {relatedPosts.length > 0 && (
+          <section className="b-related" aria-label="Related articles">
+            <h2 className="b-related-heading">Read next</h2>
+            <div className="b-related-grid">
+              {relatedPosts.map((rel) => (
                 <Link
                   key={rel.slug}
                   to="/blog/$slug"
                   params={{ slug: rel.slug }}
-                  className="block group border border-border rounded-xl overflow-hidden hover:shadow-sm transition-shadow"
+                  className="b-related-card"
                 >
-                  <img
-                    src={`/blog-covers/${rel.slug}.svg`}
-                    alt={rel.title}
-                    width={400}
-                    height={210}
-                    className="w-full object-cover border-b border-border"
-                    style={{ height: 100 }}
-                    loading="lazy"
-                  />
-                  <div className="p-4">
-                    <p className="font-sans text-xs text-muted-foreground mb-1">{rel.readingTime}</p>
-                    <p className="font-display text-base text-ink leading-snug group-hover:opacity-80 transition-opacity">
-                      {rel.title}
-                    </p>
-                  </div>
+                  <span className="b-related-label">{TOPIC_LABELS[rel.topic]}</span>
+                  <p className="b-related-title">{rel.title}</p>
+                  <p className="b-related-excerpt">{rel.excerpt}</p>
+                  <span className="b-related-read">{rel.readingTime} →</span>
                 </Link>
               ))}
             </div>
-          </div>
-        );
-      })()}
+          </section>
+        )}
+      </main>
 
-      <div className="mt-12 border-t border-border pt-10">
-        <p className="font-display text-2xl text-ink mb-2">Try ÉCHO.</p>
-        <p className="font-sans text-sm text-muted-foreground mb-4">
-          Free to download for iPhone, with founding-member pricing on your first year.
-        </p>
-        <a
-          {...APP_STORE_LINK_PROPS}
-          className="font-sans text-sm text-ember hover:opacity-75 transition-opacity"
-        >
-          Download on the App Store →
-        </a>
-      </div>
-    </InnerPage>
+      {/* Footer */}
+      <footer className="b-footer">
+        <div className="b-footer-inner">
+          <div className="b-footer-brand">
+            <img src="/logo.svg" alt="ÉCHO" width={24} height={24} />
+            <span>ÉCHO by RÉACLYSE</span>
+          </div>
+          <nav className="b-footer-nav" aria-label="Footer links">
+            <Link to="/privacy" className="b-footer-link">Privacy</Link>
+            <Link to="/terms" className="b-footer-link">Terms</Link>
+            <Link to="/support" className="b-footer-link">Support</Link>
+            <Link to="/contact" className="b-footer-link">Contact</Link>
+          </nav>
+          <p className="b-footer-copy">© {new Date().getFullYear()} ECHO by REACLYSE S.à r.l.-S, Luxembourg</p>
+        </div>
+      </footer>
+    </div>
   );
 }

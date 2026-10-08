@@ -115,14 +115,26 @@ const ROUTES = [
     ogDescription:
       "Articles on voice journaling, daily reflection, building better habits, and long-term self-understanding.",
   },
-  // Blog posts — derived from BLOG_POSTS data
-  ...BLOG_POSTS.map((p) => ({
+  // Prompts page — static route (not via $slug)
+  {
+    path: "blog/voice-journaling-prompts",
+    title: "35 Voice Journaling Prompts to Answer Out Loud | ÉCHO Journal",
+    description:
+      "35 short voice journaling prompts in seven groups: evening, anxious days, gratitude, big decisions, self-discovery, relationships and your future self. Copy one and start.",
+    ogTitle: "35 Voice Journaling Prompts to Answer Out Loud | ÉCHO Journal",
+    ogDescription:
+      "35 short voice journaling prompts in seven groups. Copy one and start.",
+    ogImage: `${BASE}/blog-og/voice-journaling-prompts.png`,
+    ogType: "article",
+  },
+  // Blog posts — derived from BLOG_POSTS data (prompts page handled above as static route)
+  ...BLOG_POSTS.filter((p) => p.slug !== "voice-journaling-prompts").map((p) => ({
     path: `blog/${p.slug}`,
     title: `${p.title} — ÉCHO Journal`,
     description: p.description,
     ogTitle: `${p.title} — ÉCHO Journal`,
     ogDescription: p.description,
-      ogImage: `${BASE}/blog-og/${p.slug}.png`,
+    ogImage: `${BASE}/blog-og/${p.slug}.png`,
     ogType: "article",
     post: p,
   })),
