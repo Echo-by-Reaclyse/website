@@ -77,9 +77,7 @@ function PromptsPage() {
         <nav className="b-crumbs" aria-label="Breadcrumb">
           <ol>
             <li><Link to="/">Home</Link></li>
-            <li aria-hidden="true">›</li>
             <li><Link to="/blog">Journal</Link></li>
-            <li aria-hidden="true">›</li>
             <li aria-current="page">35 Voice Journaling Prompts</li>
           </ol>
         </nav>
@@ -101,16 +99,14 @@ function PromptsPage() {
         </div>
 
         {/* Jump links */}
-        <nav className="b-jump-links" aria-label="Jump to prompt group">
-          <p className="b-jump-label">Jump to:</p>
-          <ol>
+        <section className="b-jump-links">
+          <h2>Jump to:</h2>
+          <nav aria-label="Jump to prompt group">
             {PROMPT_GROUPS.map((g) => (
-              <li key={g.id}>
-                <a href={`#${g.anchor}`}>{g.name}</a>
-              </li>
+              <a key={g.id} href={`#${g.anchor}`}>{g.name}</a>
             ))}
-          </ol>
-        </nav>
+          </nav>
+        </section>
 
         {/* Care note */}
         <div className="b-care-note">

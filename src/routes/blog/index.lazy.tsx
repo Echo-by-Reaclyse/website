@@ -24,80 +24,84 @@ function CardVisualEl({ visual, slug }: { visual: CardVisual; slug: string }) {
   }
   if (visual.type === "steps" && visual.labels) {
     return (
-      <div className="v-steps">
-        {visual.labels.map((label, i) => (
-          <span key={i} className="v-step">
-            <span className="v-step-num">{i + 1}</span>
-            {label}
-          </span>
-        ))}
+      <div className="b-vis-graphic">
+        <div className="b-vis-steps">
+          {visual.labels.map((label, i) => (
+            <>
+              {i > 0 && <div key={`bar-${i}`} className="b-vis-bar" aria-hidden="true" />}
+              <div key={i} className="b-vis-steps-item">
+                <div className="b-vis-step-num">{i + 1}</div>
+                {label}
+              </div>
+            </>
+          ))}
+        </div>
       </div>
     );
   }
   if (visual.type === "compare") {
     return (
-      <div className="v-compare">
-        <div className="v-col">
-          <span className="v-col-head">Writing</span>
-          <span className="v-col-body">Slower, more considered</span>
-          <span className="v-col-body">Edits before you read it back</span>
-        </div>
-        <div className="v-divider" aria-hidden="true" />
-        <div className="v-col">
-          <span className="v-col-head">Voice</span>
-          <span className="v-col-body">Faster, more honest</span>
-          <span className="v-col-body">First thought, unfiltered</span>
+      <div className="b-vis-graphic">
+        <div className="b-vis-compare">
+          <div className="a">
+            <b>Writing</b>
+            Slower, more considered<br />Edits before you read it back
+          </div>
+          <div className="b">
+            <b>Voice</b>
+            Faster, more honest<br />First thought, unfiltered
+          </div>
         </div>
       </div>
     );
   }
   if (visual.type === "week") {
     return (
-      <div className="v-week">
-        {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
-          <span key={i} className={`v-day${i < 5 ? " done" : ""}`}>
-            {d}
-          </span>
-        ))}
-        <span className="v-week-label">Day 5 streak</span>
+      <div className="b-vis-graphic">
+        <div className="b-vis-week">
+          {["M", "T", "W", "T", "F", "S", "S"].map((d, i) => (
+            <div key={i} className="b-vis-week-day">
+              {d}<i className={i < 5 ? "filled" : ""} />
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
   if (visual.type === "night") {
     return (
-      <div className="v-night">
-        <span className="v-night-text">{visual.text}</span>
+      <div className="b-vis-night">
+        {visual.text}
       </div>
     );
   }
   if (visual.type === "checklist" && visual.items) {
     return (
-      <ul className="v-check">
-        {visual.items.map((item, i) => (
-          <li key={i} className="v-check-item">
-            <span className="v-check-box" aria-hidden="true" />
-            {item}
-          </li>
-        ))}
-      </ul>
+      <div className="b-vis-graphic">
+        <ul className="b-vis-check">
+          {visual.items.map((item, i) => (
+            <li key={i}>{item}</li>
+          ))}
+        </ul>
+      </div>
     );
   }
   if (visual.type === "three-words" && visual.labels) {
     return (
-      <div className="v-name">
-        {visual.labels.map((label, i) => (
-          <span key={i} className="v-word">
-            {label}
-          </span>
-        ))}
+      <div className="b-vis-graphic">
+        <div className="b-vis-three-words">
+          {visual.labels.map((label, i) => (
+            <div key={i}>{label}</div>
+          ))}
+        </div>
       </div>
     );
   }
   // prompt (default)
   return (
-    <div className={`v-prompt${visual.variant === "blue" ? " blue" : ""}`}>
-      {visual.kicker && <span className="v-kicker">{visual.kicker}</span>}
-      <p className="v-q">{visual.text}</p>
+    <div className={`b-vis-prompt${visual.variant === "blue" ? " blue" : ""}`}>
+      {visual.kicker && <span className="b-vis-kicker">{visual.kicker}</span>}
+      <q>{visual.text}</q>
     </div>
   );
 }
@@ -208,12 +212,12 @@ function BlogIndex() {
 
           {/* Pathway */}
           <div className="b-pathway" aria-label="How it works">
-            <p className="b-pathway-label">How it works</p>
-            <ol className="b-pathway-steps">
+            <h2>How it works</h2>
+            <ol>
               {pathway.map((item) => (
-                <li key={item.step} className="b-pathway-step">
-                  <span className="b-pathway-num">{item.step}</span>
-                  <span className="b-pathway-text">{item.text}</span>
+                <li key={item.step} className="b-pathway-item">
+                  <span className="b-pathway-n">{item.step}</span>
+                  <span className="b-pathway-t">{item.text}</span>
                 </li>
               ))}
             </ol>

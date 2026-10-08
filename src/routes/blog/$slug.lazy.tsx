@@ -131,9 +131,7 @@ function BlogPost() {
         <nav className="b-crumbs" aria-label="Breadcrumb">
           <ol>
             <li><Link to="/">Home</Link></li>
-            <li aria-hidden="true">›</li>
             <li><Link to="/blog">Journal</Link></li>
-            <li aria-hidden="true">›</li>
             <li aria-current="page">{post.title}</li>
           </ol>
         </nav>
