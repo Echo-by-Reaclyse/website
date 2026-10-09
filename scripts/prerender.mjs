@@ -114,6 +114,7 @@ const ROUTES = [
     ogTitle: "The ÉCHO Journal — Voice Journaling Articles",
     ogDescription:
       "Articles on voice journaling, daily reflection, building better habits, and long-term self-understanding.",
+    ogImage: `${BASE}/og-image.png`,
   },
   // Prompts page — static route (not via $slug)
   {
@@ -150,6 +151,43 @@ function escHtml(str) {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+}
+
+/**
+ * Render the homepage as plain HTML to inject into <div id="root">.
+ * Gives crawlers the app description and links to key sections.
+ */
+function renderHomepageHtml(posts) {
+  const recentLinks = posts
+    .slice(0, 5)
+    .map(
+      (p) =>
+        `<li><a href="/blog/${escHtml(p.slug)}">${escHtml(p.title)}</a></li>`
+    )
+    .join("");
+
+  return (
+    `<main>` +
+    `<h1>ÉCHO — Private Voice Journal for iPhone</h1>` +
+    `<p>One question a day. Your voice, recorded and encrypted on-device. Weeks later, ÉCHO surfaces what you said before the doubt set in. Free on the App Store.</p>` +
+    `<section>` +
+    `<h2>Voice journaling guides</h2>` +
+    `<ul>${recentLinks}</ul>` +
+    `<a href="/blog">Browse all articles</a>` +
+    `</section>` +
+    `<section>` +
+    `<h2>Compare ÉCHO</h2>` +
+    `<ul>` +
+    `<li><a href="/vs/day-one">ÉCHO vs Day One</a></li>` +
+    `<li><a href="/vs/reflectly">ÉCHO vs Reflectly</a></li>` +
+    `<li><a href="/vs/rosebud">ÉCHO vs Rosebud</a></li>` +
+    `<li><a href="/vs/journey">ÉCHO vs Journey</a></li>` +
+    `<li><a href="/vs/chatgpt">ÉCHO vs ChatGPT</a></li>` +
+    `<li><a href="/vs/apple-journal">ÉCHO vs Apple Journal</a></li>` +
+    `</ul>` +
+    `</section>` +
+    `</main>`
+  );
 }
 
 /**
@@ -294,7 +332,7 @@ function injectMeta(html, route) {
   const url = `${BASE}/${route.path}`;
   const ogTitle = route.ogTitle ?? route.title;
   const ogDesc = route.ogDescription ?? route.description;
-  const ogImage = route.ogImage ?? `${BASE}/og-image.jpg`;
+  const ogImage = route.ogImage ?? `${BASE}/og-image.png`;
   const ogType = route.ogType ?? "website";
 
   const esc = (s) => s.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
@@ -457,7 +495,16 @@ function injectMeta(html, route) {
 const baseHtml = readFileSync(join(distDir, "index.html"), "utf8");
 console.log(`[prerender] Base HTML: ${baseHtml.length} bytes`);
 
-let count = 0;
+// Pre-render homepage: inject visible content into dist/index.html so crawlers
+// see links and copy without waiting for JavaScript.
+const homepageHtml = baseHtml.replace(
+  /<div id="root"><\/div>/,
+  `<div id="root">${renderHomepageHtml(BLOG_POSTS)}</div>`
+);
+writeFileSync(join(distDir, "index.html"), homepageHtml, "utf8");
+console.log(`[prerender] / → ${join(distDir, "index.html")}`);
+
+let count = 1; // homepage counts
 for (const route of ROUTES) {
   const outDir = join(distDir, route.path);
   const outFile = join(outDir, "index.html");
