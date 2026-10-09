@@ -68,7 +68,7 @@ function BlogPost() {
             <span>ÉCHO</span>
           </Link>
           <nav className="b-nav" aria-label="Site navigation">
-            <Link to="/blog" className="b-nav-link">Journal</Link>
+            <Link to="/blog" className="b-nav-link active">Journal</Link>
             <Link to="/blog/voice-journaling-prompts" className="b-nav-link">Prompts</Link>
           </nav>
           <a {...APP_STORE_LINK_PROPS} className="b-header-cta">
@@ -99,7 +99,7 @@ function BlogPost() {
             headline: post.title,
             description: post.description,
             datePublished: post.date,
-            image: { "@type": "ImageObject", url: `${BASE}/blog-og/${post.slug}.png`, width: 800, height: 420 },
+            image: { "@type": "ImageObject", url: `${BASE}/blog-og/${post.slug}.png`, width: 1200, height: 630 },
             author: { "@type": "Organization", name: "ÉCHO by RÉACLYSE", url: BASE },
             publisher: {
               "@type": "Organization",
@@ -128,6 +128,7 @@ function BlogPost() {
       />
 
       <main>
+        <div className="b-wrap">
         {/* Breadcrumb */}
         <nav className="b-crumbs" aria-label="Breadcrumb">
           <ol>
@@ -272,6 +273,7 @@ function BlogPost() {
             </div>
           </section>
         )}
+        </div>{/* end b-wrap */}
       </main>
 
       {/* Footer */}

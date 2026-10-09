@@ -50,7 +50,7 @@ export const BLOG_POSTS: BlogPost[] = [
     readingTime: "5 min read",
     author: "The ÉCHO Team",
     topic: "prompts",
-    cardVisual: { type: "prompt", text: "Who made today easier?", kicker: "PROMPT 11 OF 35" },
+    cardVisual: { type: "image" },
     sections: [],
   },
   {
@@ -64,7 +64,7 @@ export const BLOG_POSTS: BlogPost[] = [
     readingTime: "6 min read",
     author: "The ÉCHO Team",
     topic: "voice",
-    cardVisual: { type: "steps", labels: ["Speak", "Listen", "Revisit"] },
+    cardVisual: { type: "image" },
     inShort:
       "Voice journaling is speaking your thoughts into a recording, usually for a few minutes, often in answer to one question. You can start with your phone's built-in recorder: pick a quiet moment, ask yourself one question, talk until you have said what you need to, and listen back another day.",
     relatedSlugs: ["voice-journaling-vs-writing", "build-journaling-habit", "how-to-reflect-on-your-day"],
@@ -109,7 +109,7 @@ export const BLOG_POSTS: BlogPost[] = [
     readingTime: "6 min read",
     author: "The ÉCHO Team",
     topic: "voice",
-    cardVisual: { type: "compare" },
+    cardVisual: { type: "image" },
     inShort:
       "Voice journaling and writing both have real benefits. Voice is faster and produces more honest first responses; writing allows more careful thinking. Most people find both useful for different things. The format that you actually maintain consistently matters more than which one is theoretically superior.",
     relatedSlugs: ["what-is-voice-journaling", "how-to-process-emotions", "how-to-reflect-on-your-day"],
@@ -150,7 +150,7 @@ export const BLOG_POSTS: BlogPost[] = [
     readingTime: "8 min read",
     author: "The ÉCHO Team",
     topic: "prompts",
-    cardVisual: { type: "prompt", text: "What was I wrong about today?", kicker: "FROM THE ARTICLE" },
+    cardVisual: { type: "image" },
     inShort:
       "Five questions that angle toward what you did not notice at the time: what you were wrong about, what you wanted to say but didn't, what you are avoiding, who you thought about, and what you know now that you did not this morning.",
     relatedSlugs: ["how-to-reflect-on-your-day", "journaling-for-anxiety", "build-journaling-habit"],
@@ -194,7 +194,7 @@ export const BLOG_POSTS: BlogPost[] = [
     readingTime: "6 min read",
     author: "The ÉCHO Team",
     topic: "prompts",
-    cardVisual: { type: "week" },
+    cardVisual: { type: "image" },
     inShort:
       "Most journaling habits fail because they require too many decisions to start. The fix is an anchor: attach reflection to something you already do reliably. Keep sessions to two minutes. If you miss a day, do not miss the next one.",
     relatedSlugs: ["what-is-voice-journaling", "how-to-reflect-on-your-day", "evening-journaling"],
@@ -235,7 +235,7 @@ export const BLOG_POSTS: BlogPost[] = [
     readingTime: "9 min read",
     author: "The ÉCHO Team",
     topic: "privacy",
-    cardVisual: { type: "image", needs: "Approved, current screenshots of the compared apps, side by side" },
+    cardVisual: { type: "image" },
     inShort:
       "Five iPhone journaling apps compared: Day One (best for written journaling), Reflectly (best for guided check-ins), Rosebud (best for AI-assisted reflection), Journey (best for cross-platform), and ÉCHO (built specifically for daily spoken reflection with on-device privacy). ÉCHO is our product; take the comparison with that in mind.",
     relatedSlugs: ["what-is-voice-journaling", "private-journaling-app", "build-journaling-habit"],
@@ -279,7 +279,7 @@ export const BLOG_POSTS: BlogPost[] = [
     readingTime: "8 min read",
     author: "The ÉCHO Team",
     topic: "reflect",
-    cardVisual: { type: "prompt", variant: "blue", text: "What exactly are you worried about?", kicker: "TRY ASKING" },
+    cardVisual: { type: "image" },
     inShort:
       "Speaking a worry out loud can help interrupt the loop of anxious thinking. Voice journaling works for everyday anxiety; it is not a substitute for professional support. If anxiety is frequent or significantly affecting your life, speak to a GP or mental health professional first.",
     relatedSlugs: ["how-to-process-emotions", "evening-journaling", "how-to-reflect-on-your-day"],
@@ -319,7 +319,7 @@ export const BLOG_POSTS: BlogPost[] = [
     readingTime: "7 min read",
     author: "The ÉCHO Team",
     topic: "reflect",
-    cardVisual: { type: "three-words", labels: ["Notice", "Name", "Respond"] },
+    cardVisual: { type: "image" },
     inShort:
       "Processing an emotion means externalising it in some form — through words, voice, or movement — until it loses its charge. Three steps that help: name the feeling precisely, trace it to its source (not its narrative extension), then say what you actually want.",
     relatedSlugs: ["journaling-for-anxiety", "voice-journaling-vs-writing", "daily-reflection-questions"],
@@ -363,7 +363,7 @@ export const BLOG_POSTS: BlogPost[] = [
     readingTime: "6 min read",
     author: "The ÉCHO Team",
     topic: "prompts",
-    cardVisual: { type: "night", text: "The last few minutes of the day" },
+    cardVisual: { type: "image" },
     inShort:
       "Evening journaling captures the felt experience of the day before sleep processes and edits it. Morning journaling captures the rested, more considered version. Both have genuine uses. If you can only do one, evenings capture something that is unavailable by morning.",
     relatedSlugs: ["how-to-reflect-on-your-day", "build-journaling-habit", "journaling-for-anxiety"],
@@ -409,15 +409,7 @@ export const BLOG_POSTS: BlogPost[] = [
     readingTime: "7 min read",
     author: "The ÉCHO Team",
     topic: "privacy",
-    cardVisual: {
-      type: "checklist",
-      items: [
-        "Where is the recording stored?",
-        "Where is it transcribed?",
-        "Is AI used, and on what?",
-        "Can I delete everything?",
-      ],
-    },
+    cardVisual: { type: "image" },
     inShort:
       "Genuine privacy in a journaling app requires: on-device transcription (no audio leaves the device), encryption at rest you control, no use of your data to train AI models, and a real right to deletion. Most apps that use the word \"private\" do not meet all four criteria.",
     relatedSlugs: ["what-is-voice-journaling", "best-journaling-apps-iphone-2026", "build-journaling-habit"],
@@ -457,7 +449,7 @@ export const BLOG_POSTS: BlogPost[] = [
     readingTime: "6 min read",
     author: "The ÉCHO Team",
     topic: "reflect",
-    cardVisual: { type: "image", needs: "Real founder material: photo or video still of Roksana recording a reflection" },
+    cardVisual: { type: "image" },
     inShort:
       "Three minutes, three questions: what moment am I still thinking about, what did I feel that I did not express, and what do I want tomorrow to contain that today did not. The value accumulates across months, not from individual sessions.",
     relatedSlugs: ["daily-reflection-questions", "build-journaling-habit", "evening-journaling"],

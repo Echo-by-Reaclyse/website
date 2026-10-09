@@ -1,44 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420">
-  <defs>
-    <radialGradient id="bg8" cx="50%" cy="80%" r="70%">
-      <stop offset="0%" stop-color="#2A1A0E"/>
-      <stop offset="60%" stop-color="#1C110A"/>
-      <stop offset="100%" stop-color="#120C06"/>
-    </radialGradient>
-    <radialGradient id="moon8" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FAF0E0"/>
-      <stop offset="100%" stop-color="#F5E6CC"/>
-    </radialGradient>
-  </defs>
-  <rect width="800" height="420" fill="url(#bg8)"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Background: very dark -->
+  <rect width="800" height="500" fill="#0F1A2C"/>
 
-  <!-- Stars (small dots) -->
-  <circle cx="420" cy="55" r="1.5" fill="#FAF0E0" opacity="0.7"/>
-  <circle cx="490" cy="38" r="1" fill="#FAF0E0" opacity="0.5"/>
-  <circle cx="560" cy="65" r="1.5" fill="#FAF0E0" opacity="0.6"/>
-  <circle cx="620" cy="42" r="1" fill="#FAF0E0" opacity="0.4"/>
-  <circle cx="680" cy="75" r="1.5" fill="#FAF0E0" opacity="0.7"/>
-  <circle cx="700" cy="48" r="1" fill="#FAF0E0" opacity="0.5"/>
-  <circle cx="730" cy="90" r="1.5" fill="#FAF0E0" opacity="0.55"/>
-  <circle cx="460" cy="85" r="1" fill="#FAF0E0" opacity="0.4"/>
-  <circle cx="520" cy="110" r="1.2" fill="#FAF0E0" opacity="0.45"/>
-  <circle cx="650" cy="110" r="1" fill="#FAF0E0" opacity="0.4"/>
-  <circle cx="760" cy="130" r="1.5" fill="#FAF0E0" opacity="0.5"/>
+  <!-- Large solid terracotta circle, upper-right, partially clipped -->
+  <circle cx="720" cy="80" r="220" fill="#BF6040" opacity="0.88"/>
 
-  <!-- Moon -->
-  <circle cx="660" cy="140" r="52" fill="url(#moon8)" opacity="0.9"/>
-  <circle cx="685" cy="118" r="52" fill="#1C110A"/>
+  <!-- Horizontal dividing line -->
+  <line x1="0" y1="280" x2="800" y2="280" stroke="#FFE4B8" stroke-width="0.8" opacity="0.25"/>
 
-  <!-- Horizon glow -->
-  <ellipse cx="400" cy="420" rx="350" ry="80" fill="#BF6040" opacity="0.08"/>
-  <ellipse cx="400" cy="420" rx="200" ry="50" fill="#BF6040" opacity="0.06"/>
+  <!-- Main text in lower half -->
+  <text x="80" y="352" font-family="Georgia,serif" font-style="italic" font-size="52" fill="#FFF6E9" letter-spacing="-0.5">Let the day</text>
+  <text x="80" y="416" font-family="Georgia,serif" font-style="italic" font-size="52" fill="#FFE4B8" letter-spacing="-0.5">settle.</text>
 
-  <!-- Label -->
-  <line x1="80" y1="98" x2="115" y2="98" stroke="#BF6040" stroke-width="1.5" stroke-opacity="0.7"/>
-  <text x="80" y="86" font-family="Georgia, serif" font-style="italic" font-size="13" fill="#BF8060" letter-spacing="3">HABIT</text>
-
-  <!-- Headline -->
-  <text x="78" y="170" font-family="Georgia, serif" font-style="italic" font-size="48" fill="#FAF0E0" letter-spacing="-1">Why Journal</text>
-  <text x="78" y="222" font-family="Georgia, serif" font-style="italic" font-size="48" fill="#BF6040" letter-spacing="-1">at Night</text>
-  <text x="80" y="265" font-family="-apple-system, system-ui, sans-serif" font-size="14" fill="#C8A882" opacity="0.80">Evening journaling beats morning — here's why</text>
+  <!-- Small label at top left -->
+  <text x="80" y="64" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#FFE4B8" letter-spacing="0.18em" font-weight="700" opacity="0.75">EVENING PRACTICE</text>
 </svg>

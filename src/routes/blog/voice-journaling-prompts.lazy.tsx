@@ -74,6 +74,7 @@ function PromptsPage() {
       </header>
 
       <main>
+        <div className="b-wrap">
         {/* Breadcrumb */}
         <nav className="b-crumbs" aria-label="Breadcrumb">
           <ol>
@@ -223,6 +224,7 @@ function PromptsPage() {
             </div>
           </section>
         )}
+        </div>{/* end b-wrap */}
       </main>
 
       {/* Footer */}

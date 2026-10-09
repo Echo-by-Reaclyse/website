@@ -2,6 +2,7 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 import { useState, useMemo } from "react";
 import { BLOG_POSTS, TOPIC_LABELS, type BlogTopic, type CardVisual } from "@/lib/blog-posts";
 import { APP_STORE_LINK_PROPS } from "@/lib/app-store";
+import { CopyButton } from "@/components/blog/CopyButton";
 import "@/styles/blog.css";
 
 export const Route = createLazyFileRoute("/blog/")({
@@ -17,8 +18,8 @@ function formatDate(iso: string) {
 function CardVisualEl({ visual, slug }: { visual: CardVisual; slug: string }) {
   if (visual.type === "image") {
     return (
-      <div className="b-vis-ph">
-        <img src={`/blog-covers/${slug}.svg`} alt="" aria-hidden="true" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+      <div className="b-vis-image">
+        <img src={`/blog-covers/${slug}.svg`} alt="" aria-hidden="true" loading="lazy" />
       </div>
     );
   }
@@ -193,7 +194,7 @@ function BlogIndex() {
                 <a {...APP_STORE_LINK_PROPS} className="b-btn b-btn-dark">
                   Start voice journaling
                 </a>
-                <Link to="/blog/voice-journaling-prompts" className="b-btn b-btn-secondary">
+                <Link to="/blog/voice-journaling-prompts" className="b-text-link">
                   Explore the prompts
                 </Link>
               </div>
@@ -207,9 +208,7 @@ function BlogIndex() {
                 <p style={{ fontSize: "15px", marginBottom: "18px", color: "#D8D2C8" }}>
                   Start there. You do not need to have it all figured out.
                 </p>
-                <a {...APP_STORE_LINK_PROPS} className="b-copy-btn">
-                  Copy this prompt
-                </a>
+                <CopyButton text="What stayed with you today?" label="Copy this prompt" />
                 <p className="b-qcard-note">
                   <Link to="/blog/voice-journaling-prompts">Browse all 35 prompts</Link>
                 </p>

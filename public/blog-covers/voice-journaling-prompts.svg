@@ -1,42 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
   <defs>
-    <radialGradient id="bg1" cx="65%" cy="50%" r="55%">
-      <stop offset="0%" stop-color="#F5EDE0"/>
-      <stop offset="100%" stop-color="#FAF6F1"/>
-    </radialGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FAF3EB"/>
+      <stop offset="100%" stop-color="#F5E8D5"/>
+    </linearGradient>
   </defs>
 
   <!-- Background -->
-  <rect width="800" height="420" fill="url(#bg1)"/>
+  <rect width="800" height="500" fill="url(#bg)"/>
 
-  <!-- Decorative prompt cards (right side) -->
-  <rect x="430" y="54" width="310" height="66" rx="10" fill="#FFF6E9" stroke="#E8D2BB" stroke-width="1" opacity="0.95"/>
-  <text x="452" y="81" font-family="Georgia, serif" font-style="italic" font-size="16" fill="#471A0D" opacity="0.55">01</text>
-  <text x="478" y="81" font-family="Georgia, serif" font-style="italic" font-size="16" fill="#1C110A">What do you want to remember</text>
-  <text x="478" y="103" font-family="Georgia, serif" font-style="italic" font-size="16" fill="#1C110A">from today?</text>
+  <!-- Large faint "35" watermark -->
+  <text x="490" y="420" font-family="Georgia,serif" font-style="italic" font-size="280" fill="#BF6040" opacity="0.07" text-anchor="middle">35</text>
 
-  <rect x="452" y="136" width="310" height="54" rx="10" fill="#FFF6E9" stroke="#E8D2BB" stroke-width="1" opacity="0.80"/>
-  <text x="474" y="159" font-family="Georgia, serif" font-style="italic" font-size="15" fill="#471A0D" opacity="0.55">02</text>
-  <text x="500" y="159" font-family="Georgia, serif" font-style="italic" font-size="15" fill="#1C110A">What did you almost say,</text>
-  <text x="500" y="179" font-family="Georgia, serif" font-style="italic" font-size="15" fill="#1C110A">but didn't?</text>
+  <!-- Paper card -->
+  <rect x="80" y="90" width="360" height="290" rx="12" fill="#FFFFFF" opacity="0.92"/>
+  <rect x="80" y="90" width="360" height="290" rx="12" fill="none" stroke="#E8D5BE" stroke-width="1"/>
 
-  <rect x="472" y="206" width="286" height="44" rx="10" fill="#FFF6E9" stroke="#E8D2BB" stroke-width="1" opacity="0.62"/>
-  <text x="494" y="225" font-family="Georgia, serif" font-style="italic" font-size="14" fill="#471A0D" opacity="0.55">03</text>
-  <text x="518" y="225" font-family="Georgia, serif" font-style="italic" font-size="14" fill="#1C110A">When did you feel most like</text>
-  <text x="518" y="243" font-family="Georgia, serif" font-style="italic" font-size="14" fill="#1C110A">yourself today?</text>
+  <!-- Card content -->
+  <text x="116" y="138" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#BF6040" letter-spacing="0.18em" font-weight="700">ONE QUESTION</text>
+  <line x1="116" y1="150" x2="404" y2="150" stroke="#E8D5BE" stroke-width="1"/>
+  <text x="116" y="210" font-family="Georgia,serif" font-style="italic" font-size="32" fill="#1C110A">What matters</text>
+  <text x="116" y="252" font-family="Georgia,serif" font-style="italic" font-size="32" fill="#1C110A">to you today?</text>
+  <circle cx="116" cy="306" r="3" fill="#BF6040" opacity="0.5"/>
+  <circle cx="130" cy="306" r="3" fill="#BF6040" opacity="0.35"/>
+  <circle cx="144" cy="306" r="3" fill="#BF6040" opacity="0.2"/>
 
-  <rect x="490" y="264" width="258" height="36" rx="10" fill="#FFF6E9" stroke="#E8D2BB" stroke-width="1" opacity="0.42"/>
-  <text x="512" y="286" font-family="Georgia, serif" font-style="italic" font-size="13" fill="#1C110A" opacity="0.7">What can you set down before tomorrow?</text>
+  <!-- Right-side stacked cards (depth effect) -->
+  <rect x="476" y="130" width="268" height="180" rx="10" fill="#FFF6E9" opacity="0.65" transform="rotate(-4, 610, 220)"/>
+  <rect x="484" y="148" width="268" height="180" rx="10" fill="#FFF6E9" opacity="0.45" transform="rotate(-2, 618, 238)"/>
+  <rect x="490" y="164" width="268" height="160" rx="10" fill="#FDF0E4" opacity="0.30" transform="rotate(1, 624, 244)"/>
 
-  <rect x="506" y="314" width="234" height="30" rx="10" fill="#FFF6E9" stroke="#E8D2BB" stroke-width="1" opacity="0.26"/>
-  <text x="528" y="333" font-family="Georgia, serif" font-style="italic" font-size="12" fill="#1C110A" opacity="0.5">What do you want to remember…</text>
-
-  <!-- Left text block -->
-  <text x="80" y="158" font-family="Georgia, serif" font-style="italic" font-size="13" fill="#A8907E" letter-spacing="3">PROMPTS &amp; ROUTINES</text>
-  <text x="78" y="218" font-family="Georgia, serif" font-style="italic" font-size="52" fill="#1C110A" letter-spacing="-1">35 questions</text>
-  <text x="78" y="270" font-family="Georgia, serif" font-style="italic" font-size="52" fill="#BF6040" letter-spacing="-1">to answer out loud</text>
-  <text x="80" y="316" font-family="-apple-system, system-ui, sans-serif" font-size="15" fill="#6B5244" font-weight="400">7 groups · copy and record</text>
-
-  <!-- Decorative line -->
-  <line x1="80" y1="140" x2="120" y2="140" stroke="#BF6040" stroke-width="1.5" opacity="0.6"/>
+  <!-- Label at top left -->
+  <text x="80" y="54" font-family="-apple-system,system-ui,sans-serif" font-size="12" fill="#A8907E" letter-spacing="0.14em" font-weight="600">PROMPTS &amp; PRACTICE</text>
 </svg>

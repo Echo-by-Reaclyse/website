@@ -1,47 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
   <defs>
-    <radialGradient id="bg5" cx="60%" cy="50%" r="55%">
-      <stop offset="0%" stop-color="#EDE4DA"/>
-      <stop offset="100%" stop-color="#FAF6F1"/>
-    </radialGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F2EDE7"/>
+      <stop offset="100%" stop-color="#EAE3DA"/>
+    </linearGradient>
   </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
 
-  <!-- Background -->
-  <rect width="800" height="420" fill="url(#bg5)"/>
+  <!-- Central bordered card -->
+  <rect x="100" y="80" width="600" height="340" rx="14" fill="#FFFFFF" opacity="0.85"/>
+  <!-- Dashed border effect (approximated with rectangles/lines) -->
+  <rect x="100" y="80" width="600" height="340" rx="14" fill="none" stroke="#C4A882" stroke-width="1.5" stroke-dasharray="10,6"/>
 
-  <!-- iPhone silhouette (right) -->
-  <rect x="520" y="60" width="160" height="300" rx="22" fill="white" opacity="0.55" stroke="#BF6040" stroke-width="1" stroke-opacity="0.15"/>
-  <!-- iPhone notch -->
-  <rect x="570" y="68" width="60" height="8" rx="4" fill="#EDE4DA" opacity="0.8"/>
-  <!-- iPhone home indicator -->
-  <rect x="562" y="346" width="76" height="4" rx="2" fill="#BF6040" opacity="0.25"/>
-  <!-- App grid on iPhone screen -->
-  <rect x="540" y="96"  width="36" height="36" rx="8" fill="#BF6040" opacity="0.70"/>
-  <rect x="586" y="96"  width="36" height="36" rx="8" fill="#A04E30" opacity="0.55"/>
-  <rect x="632" y="96"  width="36" height="36" rx="8" fill="#BF6040" opacity="0.35"/>
-  <rect x="540" y="142" width="36" height="36" rx="8" fill="#A04E30" opacity="0.40"/>
-  <rect x="586" y="142" width="36" height="36" rx="8" fill="#BF6040" opacity="0.60"/>
-  <rect x="632" y="142" width="36" height="36" rx="8" fill="#BF6040" opacity="0.25"/>
-  <rect x="540" y="188" width="36" height="36" rx="8" fill="#BF6040" opacity="0.30"/>
-  <rect x="586" y="188" width="36" height="36" rx="8" fill="#A04E30" opacity="0.45"/>
-  <rect x="632" y="188" width="36" height="36" rx="8" fill="#BF6040" opacity="0.55"/>
-  <!-- "ÉCHO" label on first app -->
-  <text x="558" y="119" font-family="Georgia, serif" font-style="italic" font-size="11" fill="white" opacity="0.9" text-anchor="middle">É</text>
+  <!-- Card label -->
+  <text x="400" y="132" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#8B6B58" letter-spacing="0.18em" font-weight="700" text-anchor="middle">COMPARISON</text>
+  <line x1="160" y1="148" x2="640" y2="148" stroke="#EDE5DB" stroke-width="1"/>
 
-  <!-- Star ratings row -->
-  <g transform="translate(530, 258)">
-    <text font-family="system-ui" font-size="18" fill="#BF6040" opacity="0.80">★★★★★</text>
-  </g>
-  <text x="530" y="298" font-family="-apple-system, system-ui, sans-serif" font-size="10" fill="#BF6040" letter-spacing="1.5" opacity="0.6">EDITOR'S PICK 2026</text>
+  <!-- Main title -->
+  <text x="400" y="220" font-family="Georgia,serif" font-style="italic" font-size="42" fill="#1C110A" text-anchor="middle" letter-spacing="-0.5">Best Journaling</text>
+  <text x="400" y="268" font-family="Georgia,serif" font-style="italic" font-size="42" fill="#1C110A" text-anchor="middle" letter-spacing="-0.5">Apps for iPhone</text>
 
   <!-- Year badge -->
-  <rect x="80" y="300" width="80" height="34" rx="8" fill="#BF6040" opacity="0.10" stroke="#BF6040" stroke-width="1" stroke-opacity="0.25"/>
-  <text x="120" y="323" font-family="-apple-system, system-ui, sans-serif" font-size="15" fill="#BF6040" font-weight="700" text-anchor="middle">2026</text>
+  <rect x="335" y="296" width="130" height="40" rx="20" fill="#0E3272"/>
+  <text x="400" y="322" font-family="-apple-system,system-ui,sans-serif" font-size="16" fill="#FFF6E9" text-anchor="middle" font-weight="700" letter-spacing="0.05em">2026</text>
 
-  <!-- Main headline -->
-  <line x1="80" y1="94" x2="118" y2="94" stroke="#BF6040" stroke-width="1.5" opacity="0.6"/>
-  <text x="80" y="82" font-family="Georgia, serif" font-style="italic" font-size="13" fill="#A8907E" letter-spacing="3">COMPARISON</text>
-  <text x="78" y="150" font-family="Georgia, serif" font-style="italic" font-size="46" fill="#1C110A" letter-spacing="-1">Best Journaling</text>
-  <text x="78" y="200" font-family="Georgia, serif" font-style="italic" font-size="46" fill="#BF6040" letter-spacing="-1">Apps for iPhone</text>
-  <text x="80" y="244" font-family="-apple-system, system-ui, sans-serif" font-size="14" fill="#6B5244" opacity="0.75">Day One · Reflectly · Rosebud · ÉCHO</text>
+  <!-- Label at top -->
+  <text x="100" y="56" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#8B6B58" letter-spacing="0.14em" font-weight="700">VOICE JOURNALING</text>
 </svg>

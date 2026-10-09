@@ -1,73 +1,56 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
   <defs>
-    <radialGradient id="bg4" cx="70%" cy="40%" r="55%">
-      <stop offset="0%" stop-color="#F2EBE3"/>
-      <stop offset="100%" stop-color="#FAF6F1"/>
-    </radialGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF6E9"/>
+      <stop offset="100%" stop-color="#FAF0E2"/>
+    </linearGradient>
   </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
 
-  <!-- Background -->
-  <rect width="800" height="420" fill="url(#bg4)"/>
+  <!-- Label -->
+  <text x="80" y="84" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#8B6B58" letter-spacing="0.18em" font-weight="700">DAILY PRACTICE</text>
+  <line x1="80" y1="96" x2="240" y2="96" stroke="#BF6040" stroke-width="1.5" opacity="0.5"/>
 
-  <!-- Habit tracker grid (right side) — 7 cols × 5 rows -->
-  <g transform="translate(440, 120)">
-    <!-- Row 1 -->
-    <rect x="0"   y="0"  width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="34"  y="0"  width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="68"  y="0"  width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="102" y="0"  width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="136" y="0"  width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="170" y="0"  width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="204" y="0"  width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <!-- Row 2 -->
-    <rect x="0"   y="34" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="34"  y="34" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="68"  y="34" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="102" y="34" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="136" y="34" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="170" y="34" width="26" height="26" rx="6" fill="#EDE4DA" stroke="#BF6040" stroke-width="1" opacity="0.60"/>
-    <rect x="204" y="34" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <!-- Row 3 -->
-    <rect x="0"   y="68" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="34"  y="68" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="68"  y="68" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="102" y="68" width="26" height="26" rx="6" fill="#EDE4DA" stroke="#BF6040" stroke-width="1" opacity="0.55"/>
-    <rect x="136" y="68" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="170" y="68" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="204" y="68" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <!-- Row 4 -->
-    <rect x="0"   y="102" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="34"  y="102" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="68"  y="102" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="102" y="102" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="136" y="102" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="170" y="102" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="204" y="102" width="26" height="26" rx="6" fill="#EDE4DA" stroke="#BF6040" stroke-width="1" opacity="0.50"/>
-    <!-- Row 5 (partial — habit building) -->
-    <rect x="0"   y="136" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="34"  y="136" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="68"  y="136" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="102" y="136" width="26" height="26" rx="6" fill="#BF6040" opacity="0.80"/>
-    <rect x="136" y="136" width="26" height="26" rx="6" fill="#EDE4DA" stroke="#BF6040" stroke-width="1.5" opacity="0.70"/>
-    <rect x="170" y="136" width="26" height="26" rx="6" fill="#EDE4DA" stroke="#BF6040" stroke-width="1" opacity="0.40"/>
-    <rect x="204" y="136" width="26" height="26" rx="6" fill="#EDE4DA" stroke="#BF6040" stroke-width="1" opacity="0.30"/>
+  <!-- Title text -->
+  <text x="80" y="168" font-family="Georgia,serif" font-style="italic" font-size="44" fill="#1C110A" letter-spacing="-0.5">Build the habit</text>
+  <text x="80" y="220" font-family="Georgia,serif" font-style="italic" font-size="44" fill="#BF6040" letter-spacing="-0.5">one day at a time.</text>
 
-    <!-- Check marks on filled cells (last row hint) -->
-    <text x="13" y="154" font-family="system-ui" font-size="14" fill="white" opacity="0.5" text-anchor="middle">✓</text>
-    <text x="47" y="154" font-family="system-ui" font-size="14" fill="white" opacity="0.5" text-anchor="middle">✓</text>
-    <text x="81" y="154" font-family="system-ui" font-size="14" fill="white" opacity="0.5" text-anchor="middle">✓</text>
-    <text x="115" y="154" font-family="system-ui" font-size="14" fill="white" opacity="0.5" text-anchor="middle">✓</text>
+  <!-- Week strip: M T W T F S S -->
+  <g transform="translate(80, 280)">
+    <!-- Mon -->
+    <circle cx="30"  cy="30" r="28" fill="#BF6040"/>
+    <text x="30"  y="26" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#FFF6E9" text-anchor="middle" font-weight="700">M</text>
+    <text x="30"  y="42" font-family="-apple-system,system-ui,sans-serif" font-size="9"  fill="#FFF6E9" text-anchor="middle" opacity="0.75">✓</text>
+
+    <!-- Tue -->
+    <circle cx="98"  cy="30" r="28" fill="#BF6040"/>
+    <text x="98"  y="26" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#FFF6E9" text-anchor="middle" font-weight="700">T</text>
+    <text x="98"  y="42" font-family="-apple-system,system-ui,sans-serif" font-size="9"  fill="#FFF6E9" text-anchor="middle" opacity="0.75">✓</text>
+
+    <!-- Wed -->
+    <circle cx="166" cy="30" r="28" fill="#BF6040"/>
+    <text x="166" y="26" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#FFF6E9" text-anchor="middle" font-weight="700">W</text>
+    <text x="166" y="42" font-family="-apple-system,system-ui,sans-serif" font-size="9"  fill="#FFF6E9" text-anchor="middle" opacity="0.75">✓</text>
+
+    <!-- Thu -->
+    <circle cx="234" cy="30" r="28" fill="#BF6040"/>
+    <text x="234" y="26" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#FFF6E9" text-anchor="middle" font-weight="700">T</text>
+    <text x="234" y="42" font-family="-apple-system,system-ui,sans-serif" font-size="9"  fill="#FFF6E9" text-anchor="middle" opacity="0.75">✓</text>
+
+    <!-- Fri -->
+    <circle cx="302" cy="30" r="28" fill="#BF6040"/>
+    <text x="302" y="26" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#FFF6E9" text-anchor="middle" font-weight="700">F</text>
+    <text x="302" y="42" font-family="-apple-system,system-ui,sans-serif" font-size="9"  fill="#FFF6E9" text-anchor="middle" opacity="0.75">✓</text>
+
+    <!-- Sat — empty -->
+    <circle cx="370" cy="30" r="28" fill="none" stroke="#DDD5C8" stroke-width="1.5"/>
+    <text x="370" y="35" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#C4B49A" text-anchor="middle" font-weight="700">S</text>
+
+    <!-- Sun — empty -->
+    <circle cx="438" cy="30" r="28" fill="none" stroke="#DDD5C8" stroke-width="1.5"/>
+    <text x="438" y="35" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#C4B49A" text-anchor="middle" font-weight="700">S</text>
   </g>
 
-  <!-- Streak counter badge -->
-  <rect x="440" y="308" width="100" height="38" rx="10" fill="#BF6040" opacity="0.12"/>
-  <text x="491" y="325" font-family="-apple-system, system-ui, sans-serif" font-size="11" fill="#BF6040" text-anchor="middle" font-weight="600" letter-spacing="1">28 DAY</text>
-  <text x="491" y="340" font-family="-apple-system, system-ui, sans-serif" font-size="11" fill="#BF6040" text-anchor="middle" font-weight="600" letter-spacing="1">STREAK</text>
-
-  <!-- Main headline -->
-  <line x1="80" y1="96" x2="118" y2="96" stroke="#BF6040" stroke-width="1.5" opacity="0.6"/>
-  <text x="80" y="84" font-family="Georgia, serif" font-style="italic" font-size="13" fill="#A8907E" letter-spacing="3">HABIT BUILDING</text>
-  <text x="78" y="152" font-family="Georgia, serif" font-style="italic" font-size="50" fill="#1C110A" letter-spacing="-1">Build a habit</text>
-  <text x="78" y="204" font-family="Georgia, serif" font-style="italic" font-size="30" fill="#BF6040">that actually sticks</text>
-  <text x="80" y="248" font-family="-apple-system, system-ui, sans-serif" font-size="14" fill="#6B5244" opacity="0.8">The science of journaling consistency</text>
+  <!-- Caption below -->
+  <text x="80" y="398" font-family="-apple-system,system-ui,sans-serif" font-size="14" fill="#8B6B58" opacity="0.8">Five days. That is enough to start.</text>
 </svg>

@@ -3,11 +3,12 @@ import { useState, useCallback } from "react";
 interface CopyButtonProps {
   text: string;
   className?: string;
+  label?: string;
 }
 
 type CopyState = "idle" | "copied" | "error";
 
-export function CopyButton({ text, className = "" }: CopyButtonProps) {
+export function CopyButton({ text, className = "", label }: CopyButtonProps) {
   const [state, setState] = useState<CopyState>("idle");
 
   const handleCopy = useCallback(async () => {
@@ -21,15 +22,15 @@ export function CopyButton({ text, className = "" }: CopyButtonProps) {
     }
   }, [text]);
 
-  const label =
-    state === "copied" ? "Copied!" : state === "error" ? "Failed — try again" : "Copy prompt";
+  const ariaLabel =
+    state === "copied" ? "Copied!" : state === "error" ? "Failed — try again" : label ?? "Copy prompt";
 
   return (
     <>
       <button
         type="button"
         onClick={handleCopy}
-        aria-label={label}
+        aria-label={ariaLabel}
         className={`b-copy-btn${state === "copied" ? " copied" : ""}${state === "error" ? " error" : ""} ${className}`}
       >
         {state === "copied" ? (
@@ -42,7 +43,7 @@ export function CopyButton({ text, className = "" }: CopyButtonProps) {
             <path d="M1 4h2M1 4v8a1.5 1.5 0 001.5 1.5H10" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
           </svg>
         )}
-        <span>{state === "idle" ? "Copy" : state === "copied" ? "Copied!" : "Error"}</span>
+        <span>{state === "idle" ? (label ?? "Copy") : state === "copied" ? "Copied!" : "Error"}</span>
       </button>
       <span role="status" aria-live="polite" className="sr-only">
         {state === "copied" ? "Prompt copied to clipboard" : state === "error" ? "Failed to copy" : ""}

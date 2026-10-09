@@ -43,6 +43,35 @@
   color: var(--b-brown);
 }
 
+/* Button colour overrides — two-class selectors beat .blog-scope a [0,1,1] */
+.blog-scope .b-btn-dark,
+.blog-scope .b-btn-dark:hover,
+.blog-scope .b-btn-primary,
+.blog-scope .b-btn-primary:hover {
+  color: var(--b-cream);
+  text-decoration: none;
+}
+
+.blog-scope .b-btn-secondary {
+  color: var(--b-blue);
+  text-decoration: none;
+}
+
+.blog-scope .b-btn-secondary:hover {
+  color: var(--b-cream);
+  text-decoration: none;
+}
+
+.blog-scope .b-invite-cta {
+  color: var(--b-navy);
+  text-decoration: none;
+}
+
+.blog-scope .b-invite-cta:hover {
+  color: var(--b-navy);
+  text-decoration: none;
+}
+
 .blog-scope :focus-visible {
   outline: 3px solid var(--b-blue);
   outline-offset: 3px;
@@ -139,8 +168,7 @@
   color: var(--b-blue);
 }
 
-.b-nav-link.active,
-.b-nav-link[aria-current="page"] {
+.b-nav-link.active {
   color: var(--b-blue);
   box-shadow: inset 0 -2px 0 var(--b-terracotta);
 }
@@ -243,6 +271,27 @@
 .b-btn-secondary:hover {
   background: var(--b-blue);
   color: var(--b-cream);
+}
+
+.b-text-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 4px;
+  font-family: var(--b-sans);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--b-navy);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.b-text-link:hover {
+  color: var(--b-blue);
+  text-decoration: underline;
 }
 
 .b-btn-dark {
@@ -710,14 +759,16 @@
 }
 
 .b-card:hover .b-card-vis {
-  box-shadow: 0 4px 20px rgba(15, 26, 44, 0.12);
+  box-shadow: 0 8px 28px rgba(15, 26, 44, 0.14);
+  transform: translateY(-2px);
 }
 
 .b-card-vis {
   aspect-ratio: 16 / 10;
   border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(15, 26, 44, 0.07), 0 0 0 1px rgba(15, 26, 44, 0.05);
   overflow: hidden;
-  transition: box-shadow 0.2s;
+  transition: box-shadow 0.2s, transform 0.2s;
 }
 
 .b-card-topic {
@@ -988,6 +1039,19 @@
 .b-vis-ph strong {
   font-size: 11px;
   letter-spacing: 0.14em;
+}
+
+.b-vis-image {
+  height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.b-vis-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .b-empty {

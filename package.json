@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build && node scripts/generate-og-images.mjs && node scripts/prerender.mjs",
+    "build": "vite build && node scripts/generate-og-images.mjs --out dist/blog-og && node scripts/prerender.mjs",
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write ."

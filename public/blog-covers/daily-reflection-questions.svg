@@ -1,38 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
   <defs>
-    <radialGradient id="bg3" cx="30%" cy="60%" r="60%">
-      <stop offset="0%" stop-color="#F2EBE3"/>
-      <stop offset="100%" stop-color="#FAF6F1"/>
-    </radialGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFE4B8"/>
+      <stop offset="100%" stop-color="#F5D8A0"/>
+    </linearGradient>
   </defs>
+  <!-- Background: warm sand -->
+  <rect width="800" height="500" fill="url(#bg)"/>
 
-  <!-- Background -->
-  <rect width="800" height="420" fill="url(#bg3)"/>
+  <!-- Decorative faint quote mark -->
+  <text x="580" y="380" font-family="Georgia,serif" font-size="320" fill="#BF6040" opacity="0.06">"</text>
 
-  <!-- Floating question marks (right side, decorative) -->
-  <text x="480" y="140" font-family="Georgia, serif" font-style="italic" font-size="120" fill="#BF6040" opacity="0.07">?</text>
-  <text x="580" y="300" font-family="Georgia, serif" font-style="italic" font-size="80" fill="#BF6040" opacity="0.09">?</text>
-  <text x="430" y="350" font-family="Georgia, serif" font-style="italic" font-size="55" fill="#BF6040" opacity="0.07">?</text>
-  <text x="650" y="190" font-family="Georgia, serif" font-style="italic" font-size="48" fill="#BF6040" opacity="0.08">?</text>
-  <text x="700" y="360" font-family="Georgia, serif" font-style="italic" font-size="35" fill="#BF6040" opacity="0.06">?</text>
+  <!-- Label -->
+  <text x="80" y="128" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#8B6B58" letter-spacing="0.18em" font-weight="700">FROM THE ARTICLE</text>
+  <line x1="80" y1="140" x2="240" y2="140" stroke="#BF6040" stroke-width="1.5" opacity="0.5"/>
 
-  <!-- 5 numbered question dots on left -->
-  <circle cx="88" cy="170" r="16" fill="#BF6040" opacity="0.15"/>
-  <circle cx="88" cy="220" r="16" fill="#BF6040" opacity="0.12"/>
-  <circle cx="88" cy="270" r="16" fill="#BF6040" opacity="0.10"/>
-  <circle cx="88" cy="320" r="16" fill="#BF6040" opacity="0.08"/>
-  <circle cx="88" cy="370" r="16" fill="#BF6040" opacity="0.06"/>
-
-  <text x="88" y="175" font-family="-apple-system, system-ui, sans-serif" font-size="12" fill="#BF6040" opacity="0.7" text-anchor="middle" font-weight="600">1</text>
-  <text x="88" y="225" font-family="-apple-system, system-ui, sans-serif" font-size="12" fill="#BF6040" opacity="0.7" text-anchor="middle" font-weight="600">2</text>
-  <text x="88" y="275" font-family="-apple-system, system-ui, sans-serif" font-size="12" fill="#BF6040" opacity="0.7" text-anchor="middle" font-weight="600">3</text>
-  <text x="88" y="325" font-family="-apple-system, system-ui, sans-serif" font-size="12" fill="#BF6040" opacity="0.7" text-anchor="middle" font-weight="600">4</text>
-  <text x="88" y="375" font-family="-apple-system, system-ui, sans-serif" font-size="12" fill="#BF6040" opacity="0.7" text-anchor="middle" font-weight="600">5</text>
-
-  <!-- Main headline -->
-  <line x1="140" y1="80" x2="178" y2="80" stroke="#BF6040" stroke-width="1.5" opacity="0.6"/>
-  <text x="140" y="68" font-family="Georgia, serif" font-style="italic" font-size="13" fill="#A8907E" letter-spacing="3">REFLECTION</text>
-  <text x="138" y="124" font-family="Georgia, serif" font-style="italic" font-size="56" fill="#1C110A" letter-spacing="-1">5 Questions</text>
-  <text x="138" y="174" font-family="Georgia, serif" font-style="italic" font-size="28" fill="#BF6040">that change how</text>
-  <text x="138" y="212" font-family="Georgia, serif" font-style="italic" font-size="28" fill="#BF6040">you think</text>
+  <!-- Large serif question -->
+  <text x="80" y="230" font-family="Georgia,serif" font-style="italic" font-size="52" fill="#1C110A" letter-spacing="-0.5">What was I</text>
+  <text x="80" y="294" font-family="Georgia,serif" font-style="italic" font-size="52" fill="#1C110A" letter-spacing="-0.5">wrong about</text>
+  <text x="80" y="358" font-family="Georgia,serif" font-style="italic" font-size="52" fill="#BF6040" letter-spacing="-0.5">today?</text>
 </svg>

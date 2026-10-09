@@ -1,32 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420">
-  <defs>
-    <radialGradient id="bg6" cx="35%" cy="45%" r="60%">
-      <stop offset="0%" stop-color="#EDE4DA"/>
-      <stop offset="100%" stop-color="#FAF6F1"/>
-    </radialGradient>
-    <radialGradient id="circle6" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#BF6040" stop-opacity="0.08"/>
-      <stop offset="100%" stop-color="#BF6040" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  <rect width="800" height="420" fill="url(#bg6)"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Background: very dark blue-green -->
+  <rect width="800" height="500" fill="#0A1628"/>
 
-  <!-- Calming concentric arcs (right side) -->
-  <circle cx="640" cy="210" r="160" fill="none" stroke="#BF6040" stroke-width="0.8" stroke-opacity="0.12"/>
-  <circle cx="640" cy="210" r="120" fill="none" stroke="#BF6040" stroke-width="0.8" stroke-opacity="0.18"/>
-  <circle cx="640" cy="210" r="80" fill="none" stroke="#BF6040" stroke-width="1" stroke-opacity="0.25"/>
-  <circle cx="640" cy="210" r="40" fill="#BF6040" fill-opacity="0.07"/>
-  <circle cx="640" cy="210" r="16" fill="#BF6040" fill-opacity="0.18"/>
-
-  <!-- Heartbeat / calm wave line -->
-  <polyline points="80,290 160,290 185,240 210,330 235,200 260,290 440,290" fill="none" stroke="#BF6040" stroke-width="2" stroke-opacity="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Subtle radial glow -->
+  <radialGradient id="glow" cx="35%" cy="60%" r="55%">
+    <stop offset="0%" stop-color="#1A2D50" stop-opacity="1"/>
+    <stop offset="100%" stop-color="#0A1628" stop-opacity="1"/>
+  </radialGradient>
+  <rect width="800" height="500" fill="url(#glow)"/>
 
   <!-- Label -->
-  <line x1="80" y1="98" x2="115" y2="98" stroke="#BF6040" stroke-width="1.5" stroke-opacity="0.6"/>
-  <text x="80" y="86" font-family="Georgia, serif" font-style="italic" font-size="13" fill="#A8907E" letter-spacing="3">WELLBEING</text>
+  <text x="80" y="120" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#BF6040" letter-spacing="0.22em" font-weight="700">TRY ASKING</text>
+  <line x1="80" y1="132" x2="190" y2="132" stroke="#BF6040" stroke-width="1.5" opacity="0.7"/>
 
-  <!-- Headline -->
-  <text x="78" y="155" font-family="Georgia, serif" font-style="italic" font-size="48" fill="#1C110A" letter-spacing="-1">Journaling</text>
-  <text x="78" y="207" font-family="Georgia, serif" font-style="italic" font-size="48" fill="#BF6040" letter-spacing="-1">for Anxiety</text>
-  <text x="80" y="248" font-family="-apple-system, system-ui, sans-serif" font-size="14" fill="#6B5244" opacity="0.75">How speaking breaks the loop</text>
+  <!-- Large serif question -->
+  <text x="80" y="222" font-family="Georgia,serif" font-style="italic" font-size="52" fill="#FFE4B8" letter-spacing="-0.5">What exactly</text>
+  <text x="80" y="286" font-family="Georgia,serif" font-style="italic" font-size="52" fill="#FFF6E9" letter-spacing="-0.5">are you</text>
+  <text x="80" y="350" font-family="Georgia,serif" font-style="italic" font-size="52" fill="#F0C09A" letter-spacing="-0.5">worried about?</text>
+
+  <!-- Small decorative circles bottom-right -->
+  <circle cx="680" cy="400" r="60" fill="none" stroke="#BF6040" stroke-width="0.8" opacity="0.20"/>
+  <circle cx="680" cy="400" r="40" fill="none" stroke="#BF6040" stroke-width="0.8" opacity="0.28"/>
+  <circle cx="680" cy="400" r="22" fill="#BF6040" opacity="0.18"/>
 </svg>
