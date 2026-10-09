@@ -3,6 +3,7 @@ import { useState, useMemo, Fragment } from "react";
 import { BLOG_POSTS, TOPIC_LABELS, type BlogTopic, type CardVisual } from "@/lib/blog-posts";
 import { APP_STORE_LINK_PROPS } from "@/lib/app-store";
 import { CopyButton } from "@/components/blog/CopyButton";
+import { SiteFooter } from "@/components/SiteFooter";
 import "@/styles/blog.css";
 
 export const Route = createLazyFileRoute("/blog/")({
@@ -156,6 +157,28 @@ function BlogIndex() {
       <title>The ÉCHO Journal — Voice Journaling Guides and Prompts</title>
       <meta name="description" content="Voice journaling guides, prompts, and simple ways to reflect. Find something to say, build a practice that suits you, and revisit your thoughts over time." />
       <link rel="canonical" href="https://www.echobyreaclyse.com/blog" />
+      <meta property="og:title" content="The ÉCHO Journal — Voice Journaling Guides and Prompts" />
+      <meta property="og:description" content="Voice journaling guides, prompts, and simple ways to reflect. Find something to say, build a practice that suits you, and revisit your thoughts over time." />
+      <meta property="og:url" content="https://www.echobyreaclyse.com/blog" />
+      <meta property="og:image" content="https://www.echobyreaclyse.com/og-image.png" />
+      <meta property="og:type" content="website" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="The ÉCHO Journal — Voice Journaling Guides and Prompts" />
+      <meta name="twitter:description" content="Voice journaling guides, prompts, and simple ways to reflect. Find something to say, build a practice that suits you." />
+      <meta name="twitter:image" content="https://www.echobyreaclyse.com/og-image.png" />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://www.echobyreaclyse.com/" },
+              { "@type": "ListItem", position: 2, name: "Journal", item: "https://www.echobyreaclyse.com/blog" },
+            ],
+          }),
+        }}
+      />
 
       {/* Sticky header */}
       <header className="b-header" role="banner">
@@ -367,24 +390,7 @@ function BlogIndex() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="b-footer">
-        <div className="b-footer-inner b-wrap">
-          <div>
-            <img src="/logo.svg" alt="" aria-hidden="true" width={32} height={32} />
-            <p className="b-footer-tag">A little space to hear yourself.</p>
-            <p style={{ fontSize: "13px", marginTop: "8px" }}>ÉCHO by RÉACLYSE</p>
-          </div>
-          <nav aria-label="Footer links">
-            <ul>
-              <li><Link to="/blog">Journal</Link></li>
-              <li><Link to="/blog/voice-journaling-prompts">Prompts</Link></li>
-              <li><Link to="/">Explore the app</Link></li>
-              <li><Link to="/privacy">Privacy &amp; support</Link></li>
-            </ul>
-          </nav>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

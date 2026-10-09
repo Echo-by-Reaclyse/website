@@ -4596,104 +4596,185 @@ function FAQSection() {
 function Footer() {
   const { C, isDark } = useLandingTheme();
 
+  const colTitle: React.CSSProperties = {
+    fontSize: 10,
+    fontWeight: 700,
+    letterSpacing: "0.2em",
+    textTransform: "uppercase",
+    color: isDark ? "rgba(255,246,233,0.35)" : "rgba(26,15,5,0.38)",
+    fontFamily: C.sans,
+    margin: "0 0 14px",
+  };
+
+  const colLink: React.CSSProperties = {
+    display: "block",
+    fontSize: 13,
+    color: isDark ? "rgba(255,246,233,0.55)" : "rgba(26,15,5,0.55)",
+    textDecoration: "none",
+    fontFamily: C.sans,
+    padding: "4px 0",
+    transition: "color 0.15s",
+  };
+
+  const hoverProps = {
+    onMouseEnter: (e: React.MouseEvent<HTMLAnchorElement>) =>
+      ((e.currentTarget as HTMLAnchorElement).style.color = C.ember),
+    onMouseLeave: (e: React.MouseEvent<HTMLAnchorElement>) =>
+      ((e.currentTarget as HTMLAnchorElement).style.color = isDark
+        ? "rgba(255,246,233,0.55)"
+        : "rgba(26,15,5,0.55)"),
+  };
+
+  const vsCompetitors = [
+    { label: "vs Day One", slug: "day-one" },
+    { label: "vs Reflectly", slug: "reflectly" },
+    { label: "vs Rosebud", slug: "rosebud" },
+    { label: "vs Journey", slug: "journey" },
+    { label: "vs ChatGPT", slug: "chatgpt" },
+    { label: "vs Apple Journal", slug: "apple-journal" },
+  ];
+
   return (
     <footer
       style={{
         borderTop: `1px solid ${C.border}`,
-        padding: "40px 24px 32px",
+        padding: "48px 24px 32px",
       }}
     >
-      <div
-        style={{
-          maxWidth: 1100,
-          margin: "0 auto",
-          display: "flex",
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 20,
-        }}
-      >
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        {/* Multi-column grid */}
         <div
-          style={{ display: "flex", alignItems: "flex-end", gap: 10 }}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "2fr 1fr 1fr 1fr",
+            gap: "40px 48px",
+            marginBottom: 40,
+          }}
         >
-          <img
-            src="/logo-main.svg"
-            alt="ÉCHO"
-            width="65"
-            height="20"
-            style={{ height: 20, width: "auto", opacity: isDark ? 0.88 : 0.75 }}
-          />
-          <span
-            style={{
-              fontSize: 10,
-              textTransform: "uppercase",
-              letterSpacing: "0.18em",
-              color: isDark
-                ? "rgba(255,246,233,0.3)"
-                : "rgba(26,15,5,0.35)",
-              fontFamily: C.sans,
-              paddingBottom: 2,
-            }}
-          >
-            by RÉACLYSE
-          </span>
+          {/* Brand */}
+          <div>
+            <div style={{ display: "flex", alignItems: "flex-end", gap: 10, marginBottom: 12 }}>
+              <img
+                src="/logo-main.svg"
+                alt="ÉCHO"
+                width="65"
+                height="20"
+                style={{ height: 20, width: "auto", opacity: isDark ? 0.88 : 0.75 }}
+              />
+              <span
+                style={{
+                  fontSize: 10,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.18em",
+                  color: isDark ? "rgba(255,246,233,0.3)" : "rgba(26,15,5,0.35)",
+                  fontFamily: C.sans,
+                  paddingBottom: 2,
+                }}
+              >
+                by RÉACLYSE
+              </span>
+            </div>
+            <p
+              style={{
+                fontSize: 13,
+                color: isDark ? "rgba(255,246,233,0.45)" : "rgba(26,15,5,0.45)",
+                fontFamily: C.sans,
+                margin: 0,
+                lineHeight: 1.55,
+                maxWidth: 220,
+              }}
+            >
+              A private voice journal that learns how you think over time.
+            </p>
+          </div>
+
+          {/* Explore */}
+          <div>
+            <p style={colTitle}>Explore</p>
+            {[
+              { label: "Blog", to: "/blog" as const },
+              { label: "Prompt library", to: "/blog/voice-journaling-prompts" as const },
+              { label: "About", to: "/about" as const },
+              { label: "Contact", to: "/contact" as const },
+            ].map(({ label, to }) => (
+              <Link key={to} to={to} style={colLink} {...hoverProps}>{label}</Link>
+            ))}
+          </div>
+
+          {/* Compare */}
+          <div>
+            <p style={colTitle}>Compare</p>
+            {vsCompetitors.map(({ label, slug }) => (
+              <Link
+                key={slug}
+                to="/vs/$competitor"
+                params={{ competitor: slug }}
+                style={colLink}
+                {...hoverProps}
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Legal */}
+          <div>
+            <p style={colTitle}>Legal & support</p>
+            {[
+              { label: "Privacy", to: "/privacy" as const },
+              { label: "GDPR", to: "/gdpr" as const },
+              { label: "Terms", to: "/terms" as const },
+              { label: "Support", to: "/support" as const },
+              { label: "FAQ", to: "/faq" as const },
+            ].map(({ label, to }) => (
+              <Link key={to} to={to} style={colLink} {...hoverProps}>{label}</Link>
+            ))}
+          </div>
         </div>
 
-        <nav
+        {/* Bottom bar */}
+        <div
           style={{
+            borderTop: `1px solid ${C.border}`,
+            paddingTop: 20,
             display: "flex",
             flexWrap: "wrap",
-            alignItems: "center",
-            gap: "10px 22px",
+            justifyContent: "space-between",
+            gap: 8,
           }}
         >
-          {[
-            { label: "About", to: "/about" as const },
-            { label: "Blog", to: "/blog" as const },
-            { label: "Contact", to: "/contact" as const },
-            { label: "Privacy", to: "/privacy" as const },
-            { label: "GDPR", to: "/gdpr" as const },
-            { label: "Support", to: "/support" as const },
-          ].map(({ label, to }) => (
-            <Link
-              key={to}
-              to={to}
-              style={{
-                fontSize: 12,
-                textTransform: "uppercase",
-                letterSpacing: "0.18em",
-                color: C.muted,
-                textDecoration: "none",
-                fontFamily: C.sans,
-                transition: "color 0.2s",
-              }}
-              onMouseEnter={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.color =
-                  C.ember)
-              }
-              onMouseLeave={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.color =
-                  C.muted)
-              }
-            >
-              {label}
-            </Link>
-          ))}
-        </nav>
-
-        <p
-          style={{
-            fontSize: 11,
-            color: isDark
-              ? "rgba(255,246,233,0.22)"
-              : "rgba(26,15,5,0.28)",
-            fontFamily: C.sans,
-          }}
-        >
-          © 2026 ÉCHO by RÉACLYSE S.à r.l.-S. All rights reserved.
-        </p>
+          <p
+            style={{
+              fontSize: 11,
+              color: isDark ? "rgba(255,246,233,0.22)" : "rgba(26,15,5,0.28)",
+              fontFamily: C.sans,
+              margin: 0,
+            }}
+          >
+            © 2026 ÉCHO by RÉACLYSE S.à r.l.-S. All rights reserved.
+          </p>
+          <p
+            style={{
+              fontSize: 11,
+              color: isDark ? "rgba(255,246,233,0.22)" : "rgba(26,15,5,0.28)",
+              fontFamily: C.sans,
+              margin: 0,
+            }}
+          >
+            Made with care in Luxembourg.
+          </p>
+        </div>
       </div>
+
+      {/* Responsive styles */}
+      <style>{`
+        @media (max-width: 900px) {
+          .site-footer-grid { grid-template-columns: 1fr 1fr !important; }
+        }
+        @media (max-width: 560px) {
+          .site-footer-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </footer>
   );
 }
@@ -4741,6 +4822,27 @@ function Landing() {
           content="ÉCHO is a private voice journal for iPhone. One question a day, your voice recorded and encrypted on-device. Weeks later, ÉCHO surfaces what you said before the doubt set in. Free on the App Store."
         />
         <link rel="canonical" href="https://www.echobyreaclyse.com/" />
+        <meta property="og:title" content="ÉCHO — Private Voice Journal for iPhone" />
+        <meta property="og:description" content="ÉCHO is a private voice journal for iPhone. One question a day, your voice recorded and encrypted on-device. Weeks later, ÉCHO surfaces what you said before the doubt set in. Free on the App Store." />
+        <meta property="og:url" content="https://www.echobyreaclyse.com/" />
+        <meta property="og:image" content="https://www.echobyreaclyse.com/og-image.png" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="ÉCHO — Private Voice Journal for iPhone" />
+        <meta name="twitter:description" content="ÉCHO is a private voice journal for iPhone. One question a day, your voice recorded and encrypted on-device. Free on the App Store." />
+        <meta name="twitter:image" content="https://www.echobyreaclyse.com/og-image.png" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "ÉCHO",
+              url: "https://www.echobyreaclyse.com",
+              description: "ÉCHO is a private voice journal for iPhone. One question a day, your voice recorded and encrypted on-device.",
+            }),
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

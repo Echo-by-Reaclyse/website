@@ -17,6 +17,15 @@ function TermsPage() {
         content="Terms of Service for the ÉCHO app and website, operated by ECHO by REACLYSE S.à r.l.-S, Luxembourg."
       />
       <link rel="canonical" href="https://www.echobyreaclyse.com/terms" />
+      <meta property="og:title" content="Terms of Service · ÉCHO" />
+      <meta property="og:description" content="Terms of Service for the ÉCHO app and website, operated by ECHO by REACLYSE S.à r.l.-S, Luxembourg." />
+      <meta property="og:url" content="https://www.echobyreaclyse.com/terms" />
+      <meta property="og:image" content="https://www.echobyreaclyse.com/og-image.png" />
+      <meta property="og:type" content="website" />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:title" content="Terms of Service · ÉCHO" />
+      <meta name="twitter:description" content="Terms of Service for the ÉCHO app and website, operated by ECHO by REACLYSE S.à r.l.-S, Luxembourg." />
+      <meta name="twitter:image" content="https://www.echobyreaclyse.com/og-image.png" />
 
       <Section title="I. Who we are">
         ÉCHO is a private voice journalling application developed and operated by{" "}

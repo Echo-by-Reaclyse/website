@@ -240,11 +240,12 @@ function About() {
         content="ÉCHO is a private voice journal for iPhone built by RÉACLYSE in Luxembourg. Privacy-first journaling for reflective adults."
       />
       <meta property="og:url" content="https://www.echobyreaclyse.com/about" />
-      <meta property="og:image" content="https://www.echobyreaclyse.com/og-image.jpg" />
+      <meta property="og:image" content="https://www.echobyreaclyse.com/og-image.png" />
+      <meta property="og:type" content="website" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="About · ÉCHO — Private Voice Journal" />
       <meta name="twitter:description" content="ÉCHO is a private voice journal for iPhone built by RÉACLYSE in Luxembourg. Privacy-first journaling for reflective adults." />
-      <meta name="twitter:image" content="https://www.echobyreaclyse.com/og-image.jpg" />
+      <meta name="twitter:image" content="https://www.echobyreaclyse.com/og-image.png" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

@@ -16,7 +16,7 @@ export const PROMPT_GROUPS: PromptGroup[] = [
   {
     id: "evening",
     anchor: "evening",
-    name: "Evening prompts",
+    name: "Evening",
     intro: "A few minutes before you wind down. No performance required.",
     prompts: [
       { id: "p1", number: 1, text: "What moment from today am I still thinking about?" },
@@ -94,7 +94,7 @@ export const PROMPT_GROUPS: PromptGroup[] = [
   {
     id: "future-self",
     anchor: "future-self",
-    name: "Your future self",
+    name: "Future self",
     intro: "Speaking to — or from — the person you're becoming.",
     prompts: [
       { id: "p31", number: 31, text: "What do I want to have figured out by the end of this year?" },

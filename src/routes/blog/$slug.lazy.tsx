@@ -2,6 +2,7 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import { BLOG_POSTS, TOPIC_LABELS, type BlogSection } from "@/lib/blog-posts";
 import { APP_STORE_LINK_PROPS } from "@/lib/app-store";
+import { SiteFooter } from "@/components/SiteFooter";
 import "@/styles/blog.css";
 
 export const Route = createLazyFileRoute("/blog/$slug")({
@@ -425,24 +426,7 @@ function BlogPost() {
         </div>{/* end b-wrap */}
       </main>
 
-      {/* Footer */}
-      <footer className="b-footer">
-        <div className="b-footer-inner b-wrap">
-          <div>
-            <img src="/logo.svg" alt="" aria-hidden="true" width={32} height={32} />
-            <p className="b-footer-tag">A little space to hear yourself.</p>
-            <p style={{ fontSize: "13px", marginTop: "8px" }}>ÉCHO by RÉACLYSE</p>
-          </div>
-          <nav aria-label="Footer links">
-            <ul>
-              <li><Link to="/blog">Journal</Link></li>
-              <li><Link to="/blog/voice-journaling-prompts">Prompts</Link></li>
-              <li><Link to="/">Explore the app</Link></li>
-              <li><Link to="/privacy">Privacy &amp; support</Link></li>
-            </ul>
-          </nav>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

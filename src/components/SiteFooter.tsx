@@ -14,6 +14,15 @@ const FOOTER_COMPANY = [
   { label: "GDPR", to: "/gdpr" },
 ];
 
+const FOOTER_COMPARE = [
+  { label: "vs Day One", slug: "day-one" },
+  { label: "vs Reflectly", slug: "reflectly" },
+  { label: "vs Rosebud", slug: "rosebud" },
+  { label: "vs Journey", slug: "journey" },
+  { label: "vs ChatGPT", slug: "chatgpt" },
+  { label: "vs Apple Journal", slug: "apple-journal" },
+];
+
 export function SiteFooter() {
   return (
     <footer
@@ -73,6 +82,27 @@ export function SiteFooter() {
             <Link
               key={label}
               to={to}
+              className="font-sans text-sm text-muted-foreground transition hover:text-ink"
+              style={{ textDecoration: "none" }}
+            >
+              {label}
+            </Link>
+          ))}
+        </div>
+
+        {/* Compare */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          <p
+            className="font-sans text-[11px] font-semibold uppercase tracking-widest"
+            style={{ color: "#BF6040", margin: 0 }}
+          >
+            Compare
+          </p>
+          {FOOTER_COMPARE.map(({ label, slug }) => (
+            <Link
+              key={slug}
+              to="/vs/$competitor"
+              params={{ competitor: slug }}
               className="font-sans text-sm text-muted-foreground transition hover:text-ink"
               style={{ textDecoration: "none" }}
             >

@@ -138,14 +138,15 @@ function FAQ() {
         content="Everything you need to know about ÉCHO — the private voice journal for iPhone."
       />
       <meta property="og:url" content="https://www.echobyreaclyse.com/faq" />
-      <meta property="og:image" content="https://www.echobyreaclyse.com/og-image.jpg" />
+      <meta property="og:image" content="https://www.echobyreaclyse.com/og-image.png" />
+      <meta property="og:type" content="website" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="FAQ — ÉCHO Voice Journal" />
       <meta
         name="twitter:description"
         content="Everything you need to know about ÉCHO — the private voice journal for iPhone."
       />
-      <meta name="twitter:image" content="https://www.echobyreaclyse.com/og-image.jpg" />
+      <meta name="twitter:image" content="https://www.echobyreaclyse.com/og-image.png" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}

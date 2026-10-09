@@ -20,6 +20,12 @@ function Contact() {
         content="General enquiries, press, partnerships, or data requests — hello@reaclyse.com."
       />
       <meta property="og:url" content="https://www.echobyreaclyse.com/contact" />
+      <meta property="og:image" content="https://www.echobyreaclyse.com/og-image.png" />
+      <meta property="og:type" content="website" />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:title" content="Contact · ÉCHO" />
+      <meta name="twitter:description" content="General enquiries, press, partnerships, or data requests — hello@reaclyse.com." />
+      <meta name="twitter:image" content="https://www.echobyreaclyse.com/og-image.png" />
 
       <Section title="General enquiries">
         For questions about ÉCHO, partnerships, or press:{" "}

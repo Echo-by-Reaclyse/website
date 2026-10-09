@@ -1,29 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#F2EDE7"/>
-      <stop offset="100%" stop-color="#EAE3DA"/>
-    </linearGradient>
-  </defs>
-  <rect width="800" height="500" fill="url(#bg)"/>
+  <rect width="800" height="500" fill="#EEE8E1"/>
 
-  <!-- Central bordered card -->
   <rect x="100" y="80" width="600" height="340" rx="14" fill="#FFFFFF" opacity="0.85"/>
-  <!-- Dashed border effect (approximated with rectangles/lines) -->
   <rect x="100" y="80" width="600" height="340" rx="14" fill="none" stroke="#C4A882" stroke-width="1.5" stroke-dasharray="10,6"/>
 
-  <!-- Card label -->
   <text x="400" y="132" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#8B6B58" letter-spacing="0.18em" font-weight="700" text-anchor="middle">COMPARISON</text>
   <line x1="160" y1="148" x2="640" y2="148" stroke="#EDE5DB" stroke-width="1"/>
 
-  <!-- Main title -->
   <text x="400" y="220" font-family="Georgia,serif" font-style="italic" font-size="42" fill="#1C110A" text-anchor="middle" letter-spacing="-0.5">Best Journaling</text>
   <text x="400" y="268" font-family="Georgia,serif" font-style="italic" font-size="42" fill="#1C110A" text-anchor="middle" letter-spacing="-0.5">Apps for iPhone</text>
 
-  <!-- Year badge -->
   <rect x="335" y="296" width="130" height="40" rx="20" fill="#0E3272"/>
   <text x="400" y="322" font-family="-apple-system,system-ui,sans-serif" font-size="16" fill="#FFF6E9" text-anchor="middle" font-weight="700" letter-spacing="0.05em">2026</text>
 
-  <!-- Label at top -->
-  <text x="100" y="56" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#8B6B58" letter-spacing="0.14em" font-weight="700">PRIVACY & APPS</text>
+  <text x="100" y="56" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#8B6B58" letter-spacing="0.14em" font-weight="700">PRIVACY &amp; APPS</text>
 </svg>

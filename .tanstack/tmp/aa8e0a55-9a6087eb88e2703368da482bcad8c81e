@@ -105,9 +105,7 @@ const VsCompetitorRoute = VsCompetitorRouteImport.update({
   id: '/vs/$competitor',
   path: '/vs/$competitor',
   getParentRoute: () => rootRouteImport,
-} as any).lazy(() =>
-  import('./routes/vs/$competitor.lazy').then((d) => d.Route),
-)
+} as any)
 const BlogVoiceJournalingPromptsRoute =
   BlogVoiceJournalingPromptsRouteImport.update({
     id: '/voice-journaling-prompts',

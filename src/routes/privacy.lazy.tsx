@@ -14,6 +14,15 @@ function Privacy() {
         content="ÉCHO privacy policy. Your voice recordings and transcripts are encrypted and never used to train AI models. GDPR-compliant. Built by RÉACLYSE, Luxembourg."
       />
       <link rel="canonical" href="https://www.echobyreaclyse.com/privacy" />
+      <meta property="og:title" content="Privacy Policy · ÉCHO" />
+      <meta property="og:description" content="ÉCHO privacy policy. Your voice recordings and transcripts are encrypted and never used to train AI models. GDPR-compliant. Built by RÉACLYSE, Luxembourg." />
+      <meta property="og:url" content="https://www.echobyreaclyse.com/privacy" />
+      <meta property="og:image" content="https://www.echobyreaclyse.com/og-image.png" />
+      <meta property="og:type" content="website" />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:title" content="Privacy Policy · ÉCHO" />
+      <meta name="twitter:description" content="ÉCHO privacy policy. Voice recordings encrypted on-device. GDPR-compliant. Built by RÉACLYSE, Luxembourg." />
+      <meta name="twitter:image" content="https://www.echobyreaclyse.com/og-image.png" />
 
       <Section title="Data controller">
         ÉCHO is developed and operated by ECHO by REACLYSE S.à r.l.-S, a company incorporated
