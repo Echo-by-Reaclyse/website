@@ -20,7 +20,7 @@ function CardVisualEl({ visual, slug }: { visual: CardVisual; slug: string }) {
   if (visual.type === "image") {
     return (
       <div className="b-vis-image">
-        <img src={`/blog-covers/${slug}.svg`} alt="" aria-hidden="true" loading="lazy" />
+        <img src={`/blog-covers/${slug}.svg`} alt="" aria-hidden="true" loading="lazy" width={800} height={420} />
       </div>
     );
   }
@@ -129,6 +129,7 @@ function BlogCard({ post }: { post: (typeof BLOG_POSTS)[number] }) {
 function BlogIndex() {
   const [activeTopic, setActiveTopic] = useState<BlogTopic | null>(null);
   const [query, setQuery] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
   const pathway = [
     { step: "01", text: "Find your first words" },
@@ -184,8 +185,7 @@ function BlogIndex() {
       <header className="b-header" role="banner">
         <div className="b-header-inner b-wrap">
           <Link to="/" className="b-logo" aria-label="ÉCHO home">
-            <img src="/logo.svg" alt="ÉCHO" width={32} height={32} />
-            <span>ÉCHO</span>
+            <img src="/logo-main.svg" alt="ÉCHO" height={22} style={{ width: "auto" }} />
           </Link>
           <nav className="b-nav" aria-label="Site navigation">
             <Link to="/blog" className="b-nav-link active">Journal</Link>
@@ -367,24 +367,28 @@ function BlogIndex() {
                 <h2>Letters from <em>Roksana.</em></h2>
                 <p>A reflection prompt and a personal note from the person building ÉCHO.</p>
               </div>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const email = (e.currentTarget.elements.namedItem("email") as HTMLInputElement).value;
-                  window.location.href = `mailto:hello@reaclyse.com?subject=Subscribe&body=Email: ${email}`;
-                }}
-              >
-                <label htmlFor="nl-email">Your email address</label>
-                <input
-                  id="nl-email"
-                  name="email"
-                  type="email"
-                  placeholder="you@example.com"
-                  required
-                />
-                <button type="submit" className="b-btn b-btn-dark">Subscribe</button>
-                <p className="b-letters-fine">Prototype only. This form does not collect or send your email.</p>
-              </form>
+              {submitted ? (
+                <div className="b-letters-success">
+                  <p className="b-letters-success-msg">You're on the list. We'll be in touch.</p>
+                </div>
+              ) : (
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    setSubmitted(true);
+                  }}
+                >
+                  <label htmlFor="nl-email">Your email address</label>
+                  <input
+                    id="nl-email"
+                    name="email"
+                    type="email"
+                    placeholder="you@example.com"
+                    required
+                  />
+                  <button type="submit" className="b-btn b-btn-dark">Subscribe</button>
+                </form>
+              )}
             </div>
           </section>
         </div>

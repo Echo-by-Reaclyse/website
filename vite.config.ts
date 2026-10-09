@@ -5,6 +5,7 @@ import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 import path from "path";
 import fs from "fs";
 import { BLOG_POSTS } from "./src/lib/blog-posts";
+import { PROMPT_GROUPS } from "./src/lib/blog-prompts";
 
 function exportBlogData(): Plugin {
   return {
@@ -19,12 +20,26 @@ function exportBlogData(): Plugin {
   };
 }
 
+function exportPromptsData(): Plugin {
+  return {
+    name: "export-prompts-data",
+    apply: "build",
+    closeBundle() {
+      fs.writeFileSync(
+        path.resolve(__dirname, "dist/prompts-data.json"),
+        JSON.stringify(PROMPT_GROUPS)
+      );
+    },
+  };
+}
+
 export default defineConfig({
   plugins: [
     TanStackRouterVite({ routesDirectory: "./src/routes", generatedRouteTree: "./src/routeTree.gen.ts" }),
     react(),
     tailwindcss(),
     exportBlogData(),
+    exportPromptsData(),
   ],
   resolve: {
     alias: { "@": path.resolve(__dirname, "./src") },

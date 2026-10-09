@@ -25,6 +25,7 @@ const distDir = join(__dirname, "../dist");
 // plugin in vite.config.ts so this script (plain .mjs) can read it without TS.
 // ---------------------------------------------------------------------------
 const BLOG_POSTS = JSON.parse(readFileSync(join(distDir, "blog-posts.json"), "utf8"));
+const PROMPT_GROUPS = JSON.parse(readFileSync(join(distDir, "prompts-data.json"), "utf8"));
 
 // ---------------------------------------------------------------------------
 // Route manifest — title / description / ogTitle / ogDescription / url
@@ -108,17 +109,18 @@ const ROUTES = [
   // Blog listing
   {
     path: "blog",
-    title: "The ÉCHO Journal — Voice Journaling Articles",
+    title: "The ÉCHO Journal — Voice Journaling Guides and Prompts",
     description:
-      "Articles on voice journaling, daily reflection, building better habits, and long-term self-understanding. By the team behind ÉCHO.",
-    ogTitle: "The ÉCHO Journal — Voice Journaling Articles",
+      "Voice journaling guides, prompts, and simple ways to reflect. Find something to say, build a practice that suits you, and revisit your thoughts over time.",
+    ogTitle: "The ÉCHO Journal — Voice Journaling Guides and Prompts",
     ogDescription:
-      "Articles on voice journaling, daily reflection, building better habits, and long-term self-understanding.",
+      "Voice journaling guides, prompts, and simple ways to reflect.",
     ogImage: `${BASE}/og-image.png`,
   },
   // Prompts page — static route (not via $slug)
   {
     path: "blog/voice-journaling-prompts",
+    promptsPage: true,
     title: "35 Voice Journaling Prompts to Answer Out Loud | ÉCHO Journal",
     description:
       "35 short voice journaling prompts in seven groups: evening, anxious days, gratitude, big decisions, self-discovery, relationships and your future self. Copy one and start.",
@@ -191,6 +193,41 @@ function renderHomepageHtml(posts) {
 }
 
 /**
+ * Render the /blog/voice-journaling-prompts page as plain HTML.
+ * Gives crawlers the full list of prompts without running JS.
+ */
+function renderPromptsHtml(groups) {
+  const groupsHtml = groups.map((group) => {
+    const promptsHtml = group.prompts
+      .map(
+        (p) =>
+          `<li>` +
+          `<span>${p.number}.</span>` +
+          `<p>${escHtml(p.text)}</p>` +
+          `</li>`
+      )
+      .join("");
+    return (
+      `<section id="${escHtml(group.anchor)}">` +
+      `<h2>${escHtml(group.name)}</h2>` +
+      `<p>${escHtml(group.intro)}</p>` +
+      `<ol>${promptsHtml}</ol>` +
+      `</section>`
+    );
+  }).join("");
+
+  const totalPrompts = groups.reduce((n, g) => n + g.prompts.length, 0);
+
+  return (
+    `<main>` +
+    `<h1>${totalPrompts} voice journaling prompts to answer out loud</h1>` +
+    `<p>Find a question for the moment you are in. Choose what is on your mind. Pick one question. Take it at your own pace.</p>` +
+    groupsHtml +
+    `</main>`
+  );
+}
+
+/**
  * Render the /blog listing as plain HTML to inject into <div id="root">.
  * Gives crawlers a full list of article links without running JS.
  */
@@ -217,8 +254,8 @@ function renderBlogListingHtml(posts) {
 
   return (
     `<main>` +
-    `<h1>The ÉCHO Journal</h1>` +
-    `<p>Thoughts on reflection, voice, and building a healthier inner life.</p>` +
+    `<h1>A little space to hear yourself.</h1>` +
+    `<p>Voice journaling guides, prompts, and simple ways to reflect.</p>` +
     items +
     `</main>`
   );
@@ -232,24 +269,49 @@ function renderBlogListingHtml(posts) {
 function renderArticleHtml(post) {
   const sectionsHtml = post.sections
     .map((section) => {
+      if (section.type === "invite" || section.type === "callout") return "";
       const heading = section.heading
         ? `<h2>${escHtml(section.heading)}</h2>`
         : "";
-      const bodyText = section.body || section.quote || "";
-      const paragraphs = bodyText
-        .split("\n\n")
-        .filter(Boolean)
-        .map((p) => `<p>${escHtml(p.trim())}</p>`)
-        .join("");
-      const afterText = section.afterBody
-        ? section.afterBody
-            .split("\n\n")
-            .filter(Boolean)
-            .map((p) => `<p>${escHtml(p.trim())}</p>`)
-            .join("")
+
+      const bodyText = section.body || "";
+      const paragraphs = bodyText.split("\n\n").filter(Boolean)
+        .map((p) => `<p>${escHtml(p.trim())}</p>`).join("");
+
+      const stepsHtml = section.steps
+        ? section.steps.map((s) =>
+            `<div><strong>${escHtml(s.title)}</strong><p>${escHtml(s.body)}</p></div>`
+          ).join("")
         : "";
-      return `<section>${heading}${paragraphs}${afterText}</section>`;
+
+      const faqsHtml = section.faqs
+        ? section.faqs.map((f) =>
+            `<div><strong>${escHtml(f.q)}</strong><p>${escHtml(f.a)}</p></div>`
+          ).join("")
+        : "";
+
+      const comparisonHtml =
+        section.left && section.right
+          ? `<div><strong>${escHtml(section.left.label)}:</strong> ${escHtml(section.left.heading)} ${escHtml(section.left.body)}</div>` +
+            `<div><strong>${escHtml(section.right.label)}:</strong> ${escHtml(section.right.heading)} ${escHtml(section.right.body)}</div>`
+          : "";
+
+      const linesHtml = section.lines
+        ? section.lines.map((l) => `<p>${escHtml(l)}</p>`).join("")
+        : "";
+
+      const afterText = (section.afterBody || "").split("\n\n").filter(Boolean)
+        .map((p) => `<p>${escHtml(p.trim())}</p>`).join("");
+
+      const quoteHtml = section.quote && !section.kicker
+        ? `<blockquote><p>${escHtml(section.quote)}</p></blockquote>`
+        : section.kicker && section.quote
+        ? `<p><em>${escHtml(section.kicker)}:</em> ${escHtml(section.quote)}</p>`
+        : "";
+
+      return `<section>${heading}${paragraphs}${stepsHtml}${faqsHtml}${comparisonHtml}${linesHtml}${quoteHtml}${afterText}</section>`;
     })
+    .filter(Boolean)
     .join("");
 
   let relatedHtml = "";
@@ -395,6 +457,38 @@ function injectMeta(html, route) {
     /<meta name="twitter:image" content="[^"]*"/,
     `<meta name="twitter:image" content="${ogImage}"`
   );
+
+  // hreflang: replace homepage href with per-page canonical URL
+  html = html.replace(
+    /(<link rel="alternate" hreflang="en" href=")[^"]*(")/g,
+    `$1${url}$2`
+  );
+  html = html.replace(
+    /(<link rel="alternate" hreflang="x-default" href=")[^"]*(")/g,
+    `$1${url}$2`
+  );
+
+  // Inject prompts page HTML for /blog/voice-journaling-prompts
+  if (route.promptsPage) {
+    const promptsHtml = renderPromptsHtml(PROMPT_GROUPS);
+    html = html.replace(
+      /<div id="root"><\/div>/,
+      `<div id="root">${promptsHtml}</div>`
+    );
+    const promptsBreadcrumb = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${BASE}/` },
+        { "@type": "ListItem", position: 2, name: "Blog", item: `${BASE}/blog` },
+        { "@type": "ListItem", position: 3, name: "35 Voice Journaling Prompts", item: url },
+      ],
+    });
+    html = html.replace(
+      "</head>",
+      `<script type="application/ld+json">${promptsBreadcrumb}</script>\n</head>`
+    );
+  }
 
   // Inject blog listing into #root for /blog so crawlers see all article links
   if (route.path === "blog") {

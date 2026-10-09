@@ -74,8 +74,7 @@ function PromptsPage() {
       <header className="b-header" role="banner">
         <div className="b-header-inner b-wrap">
           <Link to="/" className="b-logo" aria-label="ÉCHO home">
-            <img src="/logo.svg" alt="ÉCHO" width={32} height={32} />
-            <span>ÉCHO</span>
+            <img src="/logo-main.svg" alt="ÉCHO" height={22} style={{ width: "auto" }} />
           </Link>
           <nav className="b-nav" aria-label="Site navigation">
             <Link to="/blog" className="b-nav-link">Journal</Link>
@@ -175,7 +174,7 @@ function PromptsPage() {
                           {String(prompt.number).padStart(2, "0")}
                         </span>
                         <p className="b-prompt-text">{prompt.text}</p>
-                        <CopyButton text={prompt.text} />
+                        <CopyButton text={prompt.text} label={`Copy prompt ${prompt.number}`} />
                       </li>
                     ))}
                   </ol>
