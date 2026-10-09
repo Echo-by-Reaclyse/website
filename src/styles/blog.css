@@ -386,7 +386,7 @@
 .b-home-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 380px;
-  grid-template-areas: "intro q" "path path" "lib lib" "letters letters";
+  grid-template-areas: "intro q" "path path" "lib lib" "promo promo" "letters letters";
   gap: 0 56px;
 }
 
@@ -1708,6 +1708,346 @@
 }
 
 /* ============================================================
+   MISSING CLASS ALIASES & ADDITIONS
+   ============================================================ */
+
+/* Topic label (article/prompts hero) */
+.b-topic-label {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  color: var(--b-brown);
+  text-transform: uppercase;
+  display: block;
+  margin: 0 0 10px;
+}
+
+/* Article head explicit classes */
+.b-article-h1 {
+  font-family: var(--b-serif);
+  font-size: clamp(40px, 5.6vw, 68px);
+  font-weight: 400;
+  line-height: 1.05;
+  margin: 0;
+}
+.b-article-h1 em {
+  color: var(--b-terracotta);
+  font-style: normal;
+}
+.b-article-desc {
+  font-size: clamp(18px, 1.8vw, 21px);
+  line-height: 1.55;
+  margin: 20px 0 0;
+  color: var(--b-navy);
+}
+
+/* ToC */
+.b-toc-heading {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  color: var(--b-brown);
+  text-transform: uppercase;
+  margin: 0 0 8px;
+  font-family: var(--b-sans);
+}
+.b-toc-toggle {
+  background: none;
+  border: 0;
+  font-family: var(--b-sans);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--b-navy);
+  cursor: pointer;
+  padding: 14px 18px;
+  min-height: 48px;
+  width: 100%;
+  text-align: left;
+}
+
+/* In short */
+.b-in-short-label {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  color: var(--b-brown);
+  text-transform: uppercase;
+  margin: 0 0 8px;
+  font-family: var(--b-sans);
+}
+
+/* Invite inner structure */
+.b-invite-inner {
+  flex: 1 1 320px;
+}
+.b-invite-kicker {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+  color: var(--b-sand);
+  text-transform: uppercase;
+  margin: 0 0 6px;
+  display: block;
+}
+.b-invite-heading {
+  font-family: var(--b-serif);
+  font-size: clamp(22px, 2.4vw, 28px);
+  font-weight: 400;
+  color: var(--b-cream);
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+.b-invite-body {
+  font-size: 16px;
+  color: #D8D2C8;
+  margin: 0 0 18px;
+  line-height: 1.55;
+}
+.b-invite-cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: var(--b-cream);
+  color: var(--b-navy);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  font-family: var(--b-sans);
+  transition: background 0.15s;
+}
+.b-invite-cta:hover {
+  background: var(--b-sand);
+  color: var(--b-navy);
+}
+
+/* Author */
+.b-author-info {
+  flex: 1 1 0;
+}
+.b-author-name {
+  font-family: var(--b-sans);
+  font-weight: 700;
+  font-size: 17px;
+  margin: 0 0 4px;
+  color: var(--b-navy);
+}
+.b-author-bio {
+  margin: 0;
+  font-size: 16px;
+  color: var(--b-ink2);
+}
+
+/* Related section */
+.b-related-heading {
+  font-family: var(--b-serif);
+  font-size: clamp(28px, 3vw, 38px);
+  margin: 0 0 22px;
+  font-weight: 400;
+}
+.b-related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.b-related-card {
+  background: var(--b-card);
+  border: 1px solid var(--b-line);
+  border-radius: 16px;
+  padding: 20px;
+  text-decoration: none;
+  color: var(--b-navy);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: box-shadow 0.15s;
+}
+.b-related-card:hover {
+  box-shadow: 0 4px 16px rgba(15,26,44,0.1);
+  color: var(--b-navy);
+}
+.b-related-label {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: var(--b-brown);
+  text-transform: uppercase;
+  margin: 0;
+}
+.b-related-title {
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.35;
+  margin: 0;
+  color: var(--b-navy);
+}
+.b-related-card:hover .b-related-title {
+  color: var(--b-blue);
+}
+.b-related-excerpt {
+  font-size: 15px;
+  color: var(--b-ink2);
+  margin: 0;
+  line-height: 1.5;
+  flex: 1;
+}
+.b-related-read {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--b-blue);
+  margin-top: 4px;
+}
+
+/* Footer (article/prompts variant) */
+.b-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--b-cream);
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+}
+.b-footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+  align-items: center;
+}
+.b-footer-link {
+  color: #E9E2D6;
+  text-decoration: none;
+  font-size: 15px;
+  padding: 6px 0;
+  display: inline-block;
+}
+.b-footer-link:hover {
+  color: var(--b-sand);
+}
+.b-footer-copy {
+  font-size: 13px;
+  color: #9C8F80;
+  margin: 0;
+  flex-basis: 100%;
+}
+
+/* Prompt group explicit classes */
+.b-prompt-group-head {
+  margin-bottom: 22px;
+}
+.b-prompt-group-num {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+  color: var(--b-ink2);
+  text-transform: uppercase;
+  margin: 0 0 6px;
+}
+.b-prompt-group-name {
+  font-family: var(--b-serif);
+  font-size: clamp(32px, 3.6vw, 44px);
+  font-weight: 400;
+  margin: 0 0 6px;
+  color: var(--b-navy);
+}
+
+/* FAQ with dt/dd instead of details/summary */
+.b-faq-item {
+  border-bottom: 1px solid var(--b-line);
+  padding: 16px 0;
+}
+.b-faq-item dt {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--b-navy);
+  cursor: default;
+  margin: 0 0 10px;
+}
+.b-faq-item dd {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--b-ink2);
+}
+
+/* ============================================================
+   PROMPT LIBRARY PROMO SECTION (index page)
+   ============================================================ */
+
+.b-promo-lib {
+  grid-area: promo;
+  margin-top: 48px;
+  background: var(--b-card);
+  border: 1px solid var(--b-line);
+  border-radius: 24px;
+  padding: clamp(24px, 4vw, 48px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px 48px;
+  align-items: center;
+}
+
+.b-promo-lib-txt {
+  flex: 1 1 340px;
+}
+
+.b-promo-lib-txt h2 {
+  font-family: var(--b-serif);
+  font-size: clamp(32px, 3.6vw, 44px);
+  font-weight: 400;
+  margin: 8px 0 12px;
+  line-height: 1.08;
+}
+
+.b-promo-lib-txt h2 em {
+  color: var(--b-terracotta);
+  font-style: italic;
+}
+
+.b-promo-lib-txt p {
+  color: var(--b-ink2);
+  margin: 0 0 20px;
+  max-width: 380px;
+}
+
+.b-promo-cats {
+  flex: 1 1 280px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.b-promo-cat {
+  background: var(--b-cream);
+  border: 1px solid var(--b-line);
+  border-radius: 14px;
+  padding: 16px 18px;
+  text-decoration: none;
+  color: var(--b-navy);
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+
+.b-promo-cat:hover {
+  border-color: var(--b-blue);
+  box-shadow: 0 2px 10px rgba(14,50,114,0.08);
+  color: var(--b-navy);
+}
+
+.b-promo-cat-name {
+  font-weight: 700;
+  font-size: 16px;
+  display: block;
+  margin: 0 0 3px;
+}
+
+.b-promo-cat-sub {
+  font-size: 13px;
+  color: var(--b-ink2);
+  display: block;
+}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 
@@ -1729,12 +2069,15 @@
   .b-related ul {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  .b-related-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 760px) {
   .b-home-grid {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "intro" "path" "lib" "q" "letters";
+    grid-template-areas: "intro" "path" "lib" "promo" "q" "letters";
   }
   .b-intro {
     padding: 36px 0 28px;
@@ -1791,6 +2134,12 @@
   }
   .b-related ul {
     grid-template-columns: minmax(0, 1fr);
+  }
+  .b-related-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .b-promo-cats {
+    grid-template-columns: 1fr 1fr;
   }
 }
 

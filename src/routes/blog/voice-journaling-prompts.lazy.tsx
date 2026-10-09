@@ -58,16 +58,17 @@ function PromptsPage() {
 
       {/* Sticky header */}
       <header className="b-header" role="banner">
-        <div className="b-header-inner">
+        <div className="b-header-inner b-wrap">
           <Link to="/" className="b-logo" aria-label="ÉCHO home">
             <img src="/logo.svg" alt="ÉCHO" width={32} height={32} />
             <span>ÉCHO</span>
           </Link>
           <nav className="b-nav" aria-label="Site navigation">
             <Link to="/blog" className="b-nav-link">Journal</Link>
+            <Link to="/blog/voice-journaling-prompts" className="b-nav-link active">Prompts</Link>
           </nav>
           <a {...APP_STORE_LINK_PROPS} className="b-header-cta">
-            Download ÉCHO
+            Explore ÉCHO
           </a>
         </div>
       </header>
@@ -226,18 +227,20 @@ function PromptsPage() {
 
       {/* Footer */}
       <footer className="b-footer">
-        <div className="b-footer-inner">
-          <div className="b-footer-brand">
-            <img src="/logo.svg" alt="ÉCHO" width={24} height={24} />
-            <span>ÉCHO by RÉACLYSE</span>
+        <div className="b-footer-inner b-wrap">
+          <div>
+            <img src="/logo.svg" alt="" aria-hidden="true" width={32} height={32} />
+            <p className="b-footer-tag">A little space to hear yourself.</p>
+            <p style={{ fontSize: "13px", marginTop: "8px" }}>ÉCHO by RÉACLYSE</p>
           </div>
-          <nav className="b-footer-nav" aria-label="Footer links">
-            <Link to="/privacy" className="b-footer-link">Privacy</Link>
-            <Link to="/terms" className="b-footer-link">Terms</Link>
-            <Link to="/support" className="b-footer-link">Support</Link>
-            <Link to="/contact" className="b-footer-link">Contact</Link>
+          <nav aria-label="Footer links">
+            <ul>
+              <li><Link to="/blog">Journal</Link></li>
+              <li><Link to="/blog/voice-journaling-prompts">Prompts</Link></li>
+              <li><Link to="/">Explore the app</Link></li>
+              <li><Link to="/privacy">Privacy &amp; support</Link></li>
+            </ul>
           </nav>
-          <p className="b-footer-copy">© {new Date().getFullYear()} ECHO by REACLYSE S.à r.l.-S, Luxembourg</p>
         </div>
       </footer>
     </div>

@@ -208,7 +208,7 @@ function BlogIndex() {
                   Start there. You do not need to have it all figured out.
                 </p>
                 <a {...APP_STORE_LINK_PROPS} className="b-copy-btn">
-                  Answer in ÉCHO
+                  Copy this prompt
                 </a>
                 <p className="b-qcard-note">
                   <Link to="/blog/voice-journaling-prompts">Browse all 35 prompts</Link>
@@ -309,12 +309,42 @@ function BlogIndex() {
               )}
             </div>
 
+            {/* Prompt Library promo */}
+            <div className="b-promo-lib" aria-label="Prompt library">
+              <div className="b-promo-lib-txt">
+                <p className="b-label">The prompt library</p>
+                <h2>Not sure what to say?<br /><em>Begin with a question.</em></h2>
+                <p>35 prompts for evenings, decisions, relationships, and the moments in between.</p>
+                <Link to="/blog/voice-journaling-prompts" className="b-btn b-btn-dark">
+                  Browse all 35 prompts
+                </Link>
+              </div>
+              <div className="b-promo-cats">
+                <Link to="/blog/voice-journaling-prompts#evening" className="b-promo-cat">
+                  <span className="b-promo-cat-name">Evening</span>
+                  <span className="b-promo-cat-sub">Let the day settle</span>
+                </Link>
+                <Link to="/blog/voice-journaling-prompts#big-decisions" className="b-promo-cat">
+                  <span className="b-promo-cat-name">Big decisions</span>
+                  <span className="b-promo-cat-sub">Find your priorities</span>
+                </Link>
+                <Link to="/blog/voice-journaling-prompts#gratitude" className="b-promo-cat">
+                  <span className="b-promo-cat-name">Gratitude</span>
+                  <span className="b-promo-cat-sub">Notice the small things</span>
+                </Link>
+                <Link to="/blog/voice-journaling-prompts#self-discovery" className="b-promo-cat">
+                  <span className="b-promo-cat-name">Self-discovery</span>
+                  <span className="b-promo-cat-sub">Make room for you</span>
+                </Link>
+              </div>
+            </div>
+
             {/* Letters / newsletter */}
             <div className="b-letters" aria-label="Newsletter">
               <div className="b-letters-txt">
                 <p className="b-label">A note to come back to</p>
-                <h2>Letters from <em>ÉCHO.</em></h2>
-                <p>A reflection prompt and a personal note, once a month. No noise.</p>
+                <h2>Letters from <em>Roksana.</em></h2>
+                <p>A reflection prompt and a personal note from the person building ÉCHO.</p>
               </div>
               <form
                 onSubmit={(e) => {
