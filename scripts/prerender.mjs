@@ -197,11 +197,20 @@ function renderArticleHtml(post) {
       const heading = section.heading
         ? `<h2>${escHtml(section.heading)}</h2>`
         : "";
-      const paragraphs = section.body
+      const bodyText = section.body || section.quote || "";
+      const paragraphs = bodyText
         .split("\n\n")
+        .filter(Boolean)
         .map((p) => `<p>${escHtml(p.trim())}</p>`)
         .join("");
-      return `<section>${heading}${paragraphs}</section>`;
+      const afterText = section.afterBody
+        ? section.afterBody
+            .split("\n\n")
+            .filter(Boolean)
+            .map((p) => `<p>${escHtml(p.trim())}</p>`)
+            .join("")
+        : "";
+      return `<section>${heading}${paragraphs}${afterText}</section>`;
     })
     .join("");
 
@@ -252,7 +261,7 @@ function buildFaqSchema(post) {
 
     if (section.heading.toLowerCase() === "common questions") {
       // Parse "Q? A." pairs from separate paragraphs
-      for (const para of section.body.split("\n\n")) {
+      for (const para of (section.body || "").split("\n\n")) {
         const trimmed = para.trim();
         const qMark = trimmed.indexOf("?");
         if (qMark !== -1) {
