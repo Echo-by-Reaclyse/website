@@ -1,6 +1,6 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
-import { BLOG_POSTS, TOPIC_LABELS } from "@/lib/blog-posts";
+import { BLOG_POSTS, TOPIC_LABELS, type BlogSection } from "@/lib/blog-posts";
 import { APP_STORE_LINK_PROPS } from "@/lib/app-store";
 import "@/styles/blog.css";
 
@@ -29,16 +29,134 @@ function slugifyHeading(heading: string) {
     .replace(/^-|-$/g, "");
 }
 
+function FaqList({ faqs }: { faqs: Array<{ q: string; a: string }> }) {
+  const [open, setOpen] = useState<number | null>(null);
+  return (
+    <div className="b-faq-accordion">
+      {faqs.map((item, i) => (
+        <div key={i} className={`b-faq-item ${open === i ? "is-open" : ""}`}>
+          <button
+            type="button"
+            className="b-faq-q"
+            aria-expanded={open === i}
+            onClick={() => setOpen(open === i ? null : i)}
+          >
+            <span>{item.q}</span>
+            <span className="b-faq-icon" aria-hidden="true">{open === i ? "−" : "+"}</span>
+          </button>
+          {open === i && <div className="b-faq-a"><p>{item.a}</p></div>}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function renderSection(section: BlogSection, i: number) {
+  const id = section.heading && section.type !== "invite" ? slugifyHeading(section.heading) : undefined;
+
+  if (section.type === "invite") {
+    return (
+      <div key={i} className="b-invite b-invite--blue b-invite--mid">
+        <div className="b-invite-inner">
+          {section.kicker && <p className="b-invite-kicker">{section.kicker}</p>}
+          {section.heading && <h2 className="b-invite-heading">{section.heading}</h2>}
+          {section.ctaBody && <p className="b-invite-body">{section.ctaBody}</p>}
+        </div>
+        <a {...APP_STORE_LINK_PROPS} className="b-invite-cta">
+          {section.ctaText ?? "Explore ÉCHO"}
+        </a>
+      </div>
+    );
+  }
+
+  return (
+    <section key={i} id={id}>
+      {section.heading && <h2>{section.heading}</h2>}
+      {section.body && section.body.split("\n\n").map((para, j) => (
+        <p key={j}>{para.trim()}</p>
+      ))}
+
+      {section.steps && (
+        <div className="b-steps">
+          {section.steps.map((step, j) => (
+            <div key={j} className="b-step">
+              <span className="b-step-num">{step.num}</span>
+              <p className="b-step-title">{step.title}</p>
+              <p className="b-step-body">{step.body}</p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {section.kicker && section.quote && (
+        <div className="b-callout">
+          <p className="b-callout-kicker">{section.kicker}</p>
+          {section.prompt && <p className="b-callout-prompt">{section.prompt}</p>}
+          <p className="b-callout-quote">{section.quote}</p>
+          {section.disclaimer && <p className="b-callout-disclaimer">{section.disclaimer}</p>}
+        </div>
+      )}
+
+      {section.left && section.right && (
+        <div className="b-comparison">
+          <div className="b-comparison-col b-comparison-col--left">
+            <p className="b-comparison-label">{section.left.label}</p>
+            <p className="b-comparison-heading">{section.left.heading}</p>
+            <p>{section.left.body}</p>
+          </div>
+          <div className="b-comparison-col b-comparison-col--right">
+            <p className="b-comparison-label">{section.right.label}</p>
+            <p className="b-comparison-heading">{section.right.heading}</p>
+            <p>{section.right.body}</p>
+          </div>
+        </div>
+      )}
+
+      {section.note && <p className="b-comparison-note">{section.note}</p>}
+
+      {section.lines && (
+        <blockquote className="b-blockquote">
+          {section.lines.map((line, j) => <p key={j}>{line}</p>)}
+        </blockquote>
+      )}
+
+      {section.tags && (
+        <div className="b-tags">
+          {section.tags.map((tag, j) => (
+            <span key={j} className="b-tag">{tag}</span>
+          ))}
+        </div>
+      )}
+
+      {section.faqs && <FaqList faqs={section.faqs} />}
+
+      {section.afterBody && section.afterBody.split("\n\n").map((para, j) => (
+        <p key={j}>{para.trim()}</p>
+      ))}
+
+      {section.link && (
+        <p>
+          <Link to={section.link.to} className="b-body-link">
+            {section.link.text}
+          </Link>
+        </p>
+      )}
+    </section>
+  );
+}
+
 function BlogPost() {
   const post = Route.useLoaderData();
   const [activeSection, setActiveSection] = useState<string>("");
   const [tocOpen, setTocOpen] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
-  const headings = post.sections.filter((s) => s.heading).map((s) => ({
-    id: slugifyHeading(s.heading!),
-    text: s.heading!,
-  }));
+  const headings = post.sections
+    .filter((s) => s.heading && s.type !== "invite")
+    .map((s) => ({
+      id: slugifyHeading(s.heading!),
+      text: s.heading!,
+    }));
 
   useEffect(() => {
     if (!headings.length) return;
@@ -240,17 +358,7 @@ function BlogPost() {
           )}
 
           <article className="b-body">
-            {post.sections.map((section, i) => {
-              const id = section.heading ? slugifyHeading(section.heading) : undefined;
-              return (
-                <section key={i} id={id}>
-                  {section.heading && <h2>{section.heading}</h2>}
-                  {section.body.split("\n\n").map((para, j) => (
-                    <p key={j}>{para.trim()}</p>
-                  ))}
-                </section>
-              );
-            })}
+            {post.sections.map((section, i) => renderSection(section, i))}
           </article>
         </div>
 
