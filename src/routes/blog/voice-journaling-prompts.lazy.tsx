@@ -139,17 +139,17 @@ function PromptsPage() {
 
             {/* Product invite after group 4 */}
             {groupIndex === 3 && (
-              <div className="b-invite b-invite--inline">
+              <div className="b-invite b-invite--blue">
                 <div className="b-invite-inner">
-                  <p className="b-invite-kicker">ÉCHO</p>
-                  <h2 className="b-invite-heading">Answer these out loud, not in writing.</h2>
+                  <p className="b-invite-kicker">Make it yours</p>
+                  <h2 className="b-invite-heading">One question is enough to begin.</h2>
                   <p className="b-invite-body">
-                    ÉCHO gives you one question a day and transcribes your answer on your device. Free to start.
+                    Try a short reflection. Explore ÉCHO when you are ready.
                   </p>
-                  <a {...APP_STORE_LINK_PROPS} className="b-invite-cta">
-                    Download on the App Store
-                  </a>
                 </div>
+                <a {...APP_STORE_LINK_PROPS} className="b-invite-cta">
+                  Explore ÉCHO
+                </a>
               </div>
             )}
           </section>

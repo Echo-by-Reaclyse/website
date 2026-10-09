@@ -12,6 +12,14 @@ function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 }
 
+function splitTitle(title: string): { main: string; sub: string | null } {
+  const qIdx = title.indexOf("? ");
+  if (qIdx !== -1) return { main: title.slice(0, qIdx + 1), sub: title.slice(qIdx + 2).trim() };
+  const cIdx = title.indexOf(": ");
+  if (cIdx !== -1 && cIdx > 10) return { main: title.slice(0, cIdx), sub: title.slice(cIdx + 2).trim() };
+  return { main: title, sub: null };
+}
+
 function slugifyHeading(heading: string) {
   return heading
     .toLowerCase()
@@ -141,23 +149,36 @@ function BlogPost() {
         {/* Article head */}
         <div className="b-article-head">
           <span className="b-topic-label">{TOPIC_LABELS[post.topic]}</span>
-          <h1 className="b-article-h1">{post.title}</h1>
+          {(() => {
+            const { main, sub } = splitTitle(post.title);
+            return (
+              <h1 className="b-article-h1">
+                {main}
+                {sub && <span className="b-article-h1-sub">{/[.!?]$/.test(sub) ? sub : `${sub}.`}</span>}
+              </h1>
+            );
+          })()}
           {post.description && (
             <p className="b-article-desc">{post.description}</p>
           )}
           <div className="b-byline">
-            <span>{post.author}</span>
-            <span aria-hidden="true">·</span>
+            <div className="b-byline-who">
+              <div className="b-byline-avatar" aria-hidden="true">É</div>
+              <div>
+                <span className="b-byline-name">{post.author}</span>
+                <span className="b-byline-role">ÉCHO by RÉACLYSE</span>
+              </div>
+            </div>
             <time dateTime={post.date}>{formatDate(post.date)}</time>
             <span aria-hidden="true">·</span>
             <span>{post.readingTime}</span>
           </div>
         </div>
 
-        {/* In short */}
+        {/* The quick answer */}
         {post.inShort && (
           <div className="b-in-short">
-            <p className="b-in-short-label">In short</p>
+            <p className="b-in-short-label">The quick answer</p>
             <p>{post.inShort}</p>
           </div>
         )}
@@ -197,7 +218,7 @@ function BlogPost() {
         <div className="b-layout">
           {headings.length > 2 && (
             <aside className="b-toc" aria-label="Table of contents">
-              <p className="b-toc-heading">Contents</p>
+              <p className="b-toc-heading">In this guide</p>
               <nav>
                 <ol className="b-toc-list">
                   {headings.map(({ id, text }) => (
@@ -209,6 +230,12 @@ function BlogPost() {
                   ))}
                 </ol>
               </nav>
+              <div className="b-toc-promo">
+                <p className="b-toc-promo-title">Need a first question?</p>
+                <Link to="/blog/voice-journaling-prompts" className="b-toc-promo-link">
+                  Explore 35 prompts →
+                </Link>
+              </div>
             </aside>
           )}
 
@@ -217,7 +244,7 @@ function BlogPost() {
               const id = section.heading ? slugifyHeading(section.heading) : undefined;
               return (
                 <section key={i} id={id}>
-                  {section.heading && <h2 id={id}>{section.heading}</h2>}
+                  {section.heading && <h2>{section.heading}</h2>}
                   {section.body.split("\n\n").map((para, j) => (
                     <p key={j}>{para.trim()}</p>
                   ))}
@@ -228,17 +255,17 @@ function BlogPost() {
         </div>
 
         {/* Product invite */}
-        <div className="b-invite">
+        <div className="b-invite b-invite--blue">
           <div className="b-invite-inner">
             <p className="b-invite-kicker">Try ÉCHO</p>
             <h2 className="b-invite-heading">One question. Spoken. Every day.</h2>
             <p className="b-invite-body">
               On-device transcription. No audio leaves your phone. Free to start.
             </p>
-            <a {...APP_STORE_LINK_PROPS} className="b-invite-cta">
-              Download on the App Store
-            </a>
           </div>
+          <a {...APP_STORE_LINK_PROPS} className="b-invite-cta">
+            Download on the App Store
+          </a>
         </div>
 
         {/* Author */}
@@ -255,19 +282,33 @@ function BlogPost() {
         {/* Related reading */}
         {relatedPosts.length > 0 && (
           <section className="b-related" aria-label="Related articles">
-            <h2 className="b-related-heading">Read next</h2>
-            <div className="b-related-grid">
+            <p className="b-related-kicker">Keep exploring</p>
+            <h2 className="b-related-heading">Your next small step.</h2>
+            <div className="b-related-list">
               {relatedPosts.map((rel) => (
                 <Link
                   key={rel.slug}
                   to="/blog/$slug"
                   params={{ slug: rel.slug }}
-                  className="b-related-card"
+                  className="b-related-item"
                 >
-                  <span className="b-related-label">{TOPIC_LABELS[rel.topic]}</span>
-                  <p className="b-related-title">{rel.title}</p>
-                  <p className="b-related-excerpt">{rel.excerpt}</p>
-                  <span className="b-related-read">{rel.readingTime} →</span>
+                  <div className="b-related-cover">
+                    <img
+                      src={`/blog-covers/${rel.slug}.svg`}
+                      alt=""
+                      aria-hidden="true"
+                      loading="lazy"
+                      width={220}
+                      height={138}
+                    />
+                  </div>
+                  <div className="b-related-text">
+                    <span className="b-related-label">{TOPIC_LABELS[rel.topic]}</span>
+                    <p className="b-related-title">{rel.title}</p>
+                    <span className="b-related-cta">
+                      {rel.slug === "voice-journaling-prompts" ? "Browse the prompts" : "Read the guide"}
+                    </span>
+                  </div>
                 </Link>
               ))}
             </div>

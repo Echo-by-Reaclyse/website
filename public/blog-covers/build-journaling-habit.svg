@@ -1,56 +1,42 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#FFF6E9"/>
-      <stop offset="100%" stop-color="#FAF0E2"/>
-    </linearGradient>
-  </defs>
-  <rect width="800" height="500" fill="url(#bg)"/>
+  <rect width="800" height="500" fill="#FFF6E9"/>
 
   <!-- Label -->
-  <text x="80" y="84" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#8B6B58" letter-spacing="0.18em" font-weight="700">DAILY PRACTICE</text>
-  <line x1="80" y1="96" x2="240" y2="96" stroke="#BF6040" stroke-width="1.5" opacity="0.5"/>
+  <text x="80" y="84" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#6B5244" letter-spacing="0.18em" font-weight="700">DAILY PRACTICE</text>
+  <line x1="80" y1="98" x2="248" y2="98" stroke="#BF6040" stroke-width="2" opacity="0.55"/>
 
-  <!-- Title text -->
-  <text x="80" y="168" font-family="Georgia,serif" font-style="italic" font-size="44" fill="#1C110A" letter-spacing="-0.5">Build the habit</text>
-  <text x="80" y="220" font-family="Georgia,serif" font-style="italic" font-size="44" fill="#BF6040" letter-spacing="-0.5">one day at a time.</text>
+  <!-- Title — dark navy for max contrast on cream -->
+  <text x="80" y="174" font-family="Georgia,serif" font-style="italic" font-size="46" fill="#0F1A2C" letter-spacing="-0.5">Build the habit</text>
+  <text x="80" y="230" font-family="Georgia,serif" font-style="italic" font-size="46" fill="#BF6040" letter-spacing="-0.5">one day at a time.</text>
 
-  <!-- Week strip: M T W T F S S -->
-  <g transform="translate(80, 280)">
-    <!-- Mon -->
-    <circle cx="30"  cy="30" r="28" fill="#BF6040"/>
-    <text x="30"  y="26" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#FFF6E9" text-anchor="middle" font-weight="700">M</text>
-    <text x="30"  y="42" font-family="-apple-system,system-ui,sans-serif" font-size="9"  fill="#FFF6E9" text-anchor="middle" opacity="0.75">✓</text>
+  <!-- Week dots -->
+  <g transform="translate(80, 278)">
+    <circle cx="32"  cy="32" r="30" fill="#0F1A2C"/>
+    <text x="32"  y="27" font-family="-apple-system,system-ui,sans-serif" font-size="12" fill="#FFF6E9" text-anchor="middle" font-weight="700">M</text>
+    <text x="32"  y="45" font-family="-apple-system,system-ui,sans-serif" font-size="12" fill="#BF6040"  text-anchor="middle" font-weight="700">✓</text>
 
-    <!-- Tue -->
-    <circle cx="98"  cy="30" r="28" fill="#BF6040"/>
-    <text x="98"  y="26" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#FFF6E9" text-anchor="middle" font-weight="700">T</text>
-    <text x="98"  y="42" font-family="-apple-system,system-ui,sans-serif" font-size="9"  fill="#FFF6E9" text-anchor="middle" opacity="0.75">✓</text>
+    <circle cx="106" cy="32" r="30" fill="#0F1A2C"/>
+    <text x="106" y="27" font-family="-apple-system,system-ui,sans-serif" font-size="12" fill="#FFF6E9" text-anchor="middle" font-weight="700">T</text>
+    <text x="106" y="45" font-family="-apple-system,system-ui,sans-serif" font-size="12" fill="#BF6040"  text-anchor="middle" font-weight="700">✓</text>
 
-    <!-- Wed -->
-    <circle cx="166" cy="30" r="28" fill="#BF6040"/>
-    <text x="166" y="26" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#FFF6E9" text-anchor="middle" font-weight="700">W</text>
-    <text x="166" y="42" font-family="-apple-system,system-ui,sans-serif" font-size="9"  fill="#FFF6E9" text-anchor="middle" opacity="0.75">✓</text>
+    <circle cx="180" cy="32" r="30" fill="#0F1A2C"/>
+    <text x="180" y="27" font-family="-apple-system,system-ui,sans-serif" font-size="12" fill="#FFF6E9" text-anchor="middle" font-weight="700">W</text>
+    <text x="180" y="45" font-family="-apple-system,system-ui,sans-serif" font-size="12" fill="#BF6040"  text-anchor="middle" font-weight="700">✓</text>
 
-    <!-- Thu -->
-    <circle cx="234" cy="30" r="28" fill="#BF6040"/>
-    <text x="234" y="26" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#FFF6E9" text-anchor="middle" font-weight="700">T</text>
-    <text x="234" y="42" font-family="-apple-system,system-ui,sans-serif" font-size="9"  fill="#FFF6E9" text-anchor="middle" opacity="0.75">✓</text>
+    <circle cx="254" cy="32" r="30" fill="#0F1A2C"/>
+    <text x="254" y="27" font-family="-apple-system,system-ui,sans-serif" font-size="12" fill="#FFF6E9" text-anchor="middle" font-weight="700">T</text>
+    <text x="254" y="45" font-family="-apple-system,system-ui,sans-serif" font-size="12" fill="#BF6040"  text-anchor="middle" font-weight="700">✓</text>
 
-    <!-- Fri -->
-    <circle cx="302" cy="30" r="28" fill="#BF6040"/>
-    <text x="302" y="26" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#FFF6E9" text-anchor="middle" font-weight="700">F</text>
-    <text x="302" y="42" font-family="-apple-system,system-ui,sans-serif" font-size="9"  fill="#FFF6E9" text-anchor="middle" opacity="0.75">✓</text>
+    <circle cx="328" cy="32" r="30" fill="#0F1A2C"/>
+    <text x="328" y="27" font-family="-apple-system,system-ui,sans-serif" font-size="12" fill="#FFF6E9" text-anchor="middle" font-weight="700">F</text>
+    <text x="328" y="45" font-family="-apple-system,system-ui,sans-serif" font-size="12" fill="#BF6040"  text-anchor="middle" font-weight="700">✓</text>
 
-    <!-- Sat — empty -->
-    <circle cx="370" cy="30" r="28" fill="none" stroke="#DDD5C8" stroke-width="1.5"/>
-    <text x="370" y="35" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#C4B49A" text-anchor="middle" font-weight="700">S</text>
+    <circle cx="402" cy="32" r="30" fill="none" stroke="#C4B49A" stroke-width="2"/>
+    <text x="402" y="37" font-family="-apple-system,system-ui,sans-serif" font-size="12" fill="#B0906A" text-anchor="middle" font-weight="700">S</text>
 
-    <!-- Sun — empty -->
-    <circle cx="438" cy="30" r="28" fill="none" stroke="#DDD5C8" stroke-width="1.5"/>
-    <text x="438" y="35" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#C4B49A" text-anchor="middle" font-weight="700">S</text>
+    <circle cx="476" cy="32" r="30" fill="none" stroke="#C4B49A" stroke-width="2"/>
+    <text x="476" y="37" font-family="-apple-system,system-ui,sans-serif" font-size="12" fill="#B0906A" text-anchor="middle" font-weight="700">S</text>
   </g>
 
-  <!-- Caption below -->
-  <text x="80" y="398" font-family="-apple-system,system-ui,sans-serif" font-size="14" fill="#8B6B58" opacity="0.8">Five days. That is enough to start.</text>
+  <text x="80" y="426" font-family="-apple-system,system-ui,sans-serif" font-size="14" fill="#6B5244">Five days. That is enough to start.</text>
 </svg>

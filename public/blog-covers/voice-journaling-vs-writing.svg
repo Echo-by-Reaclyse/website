@@ -2,45 +2,60 @@
   <!-- Left half: deep navy — Speak -->
   <rect x="0" y="0" width="400" height="500" fill="#0E3272"/>
   <!-- Right half: warm cream — Write -->
-  <rect x="400" y="0" width="400" height="500" fill="#FFF6E9"/>
+  <rect x="400" y="0" width="400" height="500" fill="#F5EDE0"/>
 
-  <!-- Left: Speak label -->
-  <text x="60" y="72" font-family="-apple-system,system-ui,sans-serif" font-size="12" fill="#FFE4B8" letter-spacing="0.18em" font-weight="700" opacity="0.8">SPEAK</text>
+  <!-- Divider -->
+  <line x1="400" y1="0" x2="400" y2="500" stroke="#D4C5A9" stroke-width="1"/>
 
-  <!-- Left: mini waveform -->
-  <g transform="translate(60, 110)">
-    <rect x="0"  y="22" width="10" height="20" rx="3" fill="#FFE4B8" opacity="0.50"/>
-    <rect x="16" y="10" width="10" height="32" rx="3" fill="#FFE4B8" opacity="0.65"/>
-    <rect x="32" y="2"  width="10" height="40" rx="3" fill="#FFF6E9" opacity="0.85"/>
-    <rect x="48" y="8"  width="10" height="34" rx="3" fill="#FFE4B8" opacity="0.75"/>
-    <rect x="64" y="16" width="10" height="26" rx="3" fill="#FFE4B8" opacity="0.60"/>
-    <rect x="80" y="6"  width="10" height="36" rx="3" fill="#FFF6E9" opacity="0.80"/>
-    <rect x="96" y="14" width="10" height="28" rx="3" fill="#FFE4B8" opacity="0.65"/>
-    <rect x="112" y="24" width="10" height="18" rx="3" fill="#BF6040" opacity="0.55"/>
+  <!-- Left: SPEAK label -->
+  <text x="52" y="64" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#FFE4B8" letter-spacing="0.2em" font-weight="700" opacity="0.85">SPEAK</text>
+
+  <!-- Left: floating mini dark card with waveform -->
+  <rect x="52" y="84" width="296" height="216" rx="12" fill="#0A2560"/>
+  <!-- Waveform inside mini card -->
+  <g transform="translate(80, 154)">
+    <rect x="0"   y="28" width="12" height="16" rx="4" fill="#FFE4B8" opacity="0.45"/>
+    <rect x="18"  y="16" width="12" height="28" rx="4" fill="#FFE4B8" opacity="0.55"/>
+    <rect x="36"  y="4"  width="12" height="40" rx="4" fill="#FFFFFF"  opacity="0.80"/>
+    <rect x="54"  y="0"  width="12" height="44" rx="4" fill="#FFFFFF"  opacity="0.90"/>
+    <rect x="72"  y="8"  width="12" height="36" rx="4" fill="#FFE4B8" opacity="0.75"/>
+    <rect x="90"  y="18" width="12" height="26" rx="4" fill="#FFE4B8" opacity="0.60"/>
+    <rect x="108" y="4"  width="12" height="40" rx="4" fill="#FFFFFF"  opacity="0.85"/>
+    <rect x="126" y="12" width="12" height="32" rx="4" fill="#BF6040" opacity="0.80"/>
+    <rect x="144" y="22" width="12" height="22" rx="4" fill="#FFE4B8" opacity="0.55"/>
+    <rect x="162" y="6"  width="12" height="38" rx="4" fill="#FFFFFF"  opacity="0.80"/>
+    <rect x="180" y="16" width="12" height="28" rx="4" fill="#BF6040" opacity="0.70"/>
+    <rect x="198" y="30" width="12" height="14" rx="4" fill="#FFE4B8" opacity="0.50"/>
+    <rect x="216" y="2"  width="12" height="42" rx="4" fill="#FFFFFF"  opacity="0.85"/>
+    <rect x="234" y="14" width="12" height="30" rx="4" fill="#FFE4B8" opacity="0.65"/>
   </g>
 
-  <!-- Left: descriptive text -->
-  <text x="60" y="220" font-family="Georgia,serif" font-style="italic" font-size="28" fill="#FFF6E9">Faster,</text>
-  <text x="60" y="258" font-family="Georgia,serif" font-style="italic" font-size="28" fill="#FFE4B8">more honest.</text>
-  <text x="60" y="312" font-family="Georgia,serif" font-size="16" fill="#B8C4D8" opacity="0.75">First thought, unfiltered.</text>
-  <text x="60" y="338" font-family="Georgia,serif" font-size="16" fill="#B8C4D8" opacity="0.75">No delete key.</text>
+  <!-- Left: text below card -->
+  <text x="52" y="338" font-family="Georgia,serif" font-style="italic" font-size="24" fill="#FFF6E9">Faster,</text>
+  <text x="52" y="370" font-family="Georgia,serif" font-style="italic" font-size="24" fill="#FFE4B8">more honest.</text>
+  <text x="52" y="406" font-family="-apple-system,system-ui,sans-serif" font-size="13" fill="#8DA8D0" opacity="0.85">First thought, unfiltered.</text>
+  <text x="52" y="428" font-family="-apple-system,system-ui,sans-serif" font-size="13" fill="#8DA8D0" opacity="0.85">No delete key.</text>
 
-  <!-- Divider line -->
-  <line x1="400" y1="0" x2="400" y2="500" stroke="#E8D5BE" stroke-width="1.5"/>
+  <!-- Right: WRITE label -->
+  <text x="456" y="64" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#6B5244" letter-spacing="0.2em" font-weight="700">WRITE</text>
 
-  <!-- Right: Write label -->
-  <text x="456" y="72" font-family="-apple-system,system-ui,sans-serif" font-size="12" fill="#6B5244" letter-spacing="0.18em" font-weight="700">WRITE</text>
+  <!-- Right: text lines (representing written text) -->
+  <rect x="456" y="104" width="240" height="3" rx="1.5" fill="#C4A882" opacity="0.60"/>
+  <rect x="456" y="120" width="288" height="3" rx="1.5" fill="#C4A882" opacity="0.50"/>
+  <rect x="456" y="136" width="210" height="3" rx="1.5" fill="#C4A882" opacity="0.55"/>
+  <rect x="456" y="152" width="264" height="3" rx="1.5" fill="#C4A882" opacity="0.45"/>
+  <rect x="456" y="168" width="180" height="3" rx="1.5" fill="#C4A882" opacity="0.50"/>
+  <rect x="456" y="184" width="248" height="3" rx="1.5" fill="#C4A882" opacity="0.40"/>
+  <rect x="456" y="200" width="200" height="3" rx="1.5" fill="#C4A882" opacity="0.45"/>
+  <rect x="456" y="216" width="272" height="3" rx="1.5" fill="#C4A882" opacity="0.38"/>
+  <rect x="456" y="232" width="192" height="3" rx="1.5" fill="#C4A882" opacity="0.42"/>
+  <rect x="456" y="248" width="256" height="3" rx="1.5" fill="#C4A882" opacity="0.36"/>
+  <rect x="456" y="264" width="220" height="3" rx="1.5" fill="#C4A882" opacity="0.40"/>
+  <rect x="456" y="280" width="160" height="3" rx="1.5" fill="#C4A882" opacity="0.32"/>
 
-  <!-- Right: text lines (representing writing) -->
-  <rect x="456" y="112" width="200" height="3" rx="1.5" fill="#C4A882" opacity="0.55"/>
-  <rect x="456" y="124" width="260" height="3" rx="1.5" fill="#C4A882" opacity="0.45"/>
-  <rect x="456" y="136" width="180" height="3" rx="1.5" fill="#C4A882" opacity="0.55"/>
-  <rect x="456" y="148" width="240" height="3" rx="1.5" fill="#C4A882" opacity="0.40"/>
-  <rect x="456" y="160" width="210" height="3" rx="1.5" fill="#C4A882" opacity="0.50"/>
-
-  <!-- Right: descriptive text -->
-  <text x="456" y="220" font-family="Georgia,serif" font-style="italic" font-size="28" fill="#1C110A">Slower,</text>
-  <text x="456" y="258" font-family="Georgia,serif" font-style="italic" font-size="28" fill="#471A0D">more considered.</text>
-  <text x="456" y="312" font-family="Georgia,serif" font-size="16" fill="#8B6B58" opacity="0.85">Edits before you read it.</text>
-  <text x="456" y="338" font-family="Georgia,serif" font-size="16" fill="#8B6B58" opacity="0.85">The inner editor runs.</text>
+  <!-- Right: text below lines -->
+  <text x="456" y="338" font-family="Georgia,serif" font-style="italic" font-size="24" fill="#1C110A">Slower,</text>
+  <text x="456" y="370" font-family="Georgia,serif" font-style="italic" font-size="24" fill="#471A0D">more considered.</text>
+  <text x="456" y="406" font-family="-apple-system,system-ui,sans-serif" font-size="13" fill="#7A5C48" opacity="0.90">Edits before you read it.</text>
+  <text x="456" y="428" font-family="-apple-system,system-ui,sans-serif" font-size="13" fill="#7A5C48" opacity="0.90">The inner editor runs.</text>
 </svg>

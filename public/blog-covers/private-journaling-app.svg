@@ -1,40 +1,34 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#F2EDE7"/>
-      <stop offset="100%" stop-color="#EAE3DA"/>
-    </linearGradient>
-  </defs>
-  <!-- Background -->
-  <rect width="800" height="500" fill="url(#bg)"/>
+  <!-- Background: cool light gray-blue like design -->
+  <rect width="800" height="500" fill="#EDEEF5"/>
 
-  <!-- Checklist card -->
-  <rect x="160" y="80" width="480" height="340" rx="14" fill="#FFFFFF"/>
-  <rect x="160" y="80" width="480" height="340" rx="14" fill="none" stroke="#DDD5C8" stroke-width="1"/>
+  <!-- Main card -->
+  <rect x="140" y="72" width="520" height="356" rx="16" fill="#FFFFFF"/>
+  <rect x="140" y="72" width="520" height="356" rx="16" fill="none" stroke="#D8D4E8" stroke-width="1"/>
 
   <!-- Card heading -->
-  <text x="210" y="132" font-family="-apple-system,system-ui,sans-serif" font-size="13" fill="#8B6B58" letter-spacing="0.14em" font-weight="700">BEFORE YOU CHOOSE</text>
-  <line x1="210" y1="148" x2="590" y2="148" stroke="#EDE5DB" stroke-width="1"/>
+  <text x="200" y="130" font-family="Georgia,serif" font-size="24" fill="#0F1A2C" font-weight="400">Before you choose</text>
+  <line x1="200" y1="148" x2="620" y2="148" stroke="#E0DBF0" stroke-width="1"/>
 
   <!-- Item 1 -->
-  <rect x="210" y="170" width="20" height="20" rx="4" fill="none" stroke="#BF6040" stroke-width="1.5"/>
-  <text x="244" y="185" font-family="-apple-system,system-ui,sans-serif" font-size="17" fill="#1C110A" font-weight="500">Where is it stored?</text>
-  <line x1="210" y1="212" x2="590" y2="212" stroke="#EDE5DB" stroke-width="0.8"/>
+  <text x="200" y="196" font-family="-apple-system,system-ui,sans-serif" font-size="12" fill="#BF6040" letter-spacing="0.08em" font-weight="700">01</text>
+  <text x="236" y="196" font-family="-apple-system,system-ui,sans-serif" font-size="17" fill="#0F1A2C" font-weight="400">Where is it stored?</text>
+  <line x1="200" y1="220" x2="620" y2="220" stroke="#E0DBF0" stroke-width="1"/>
 
   <!-- Item 2 -->
-  <rect x="210" y="228" width="20" height="20" rx="4" fill="none" stroke="#BF6040" stroke-width="1.5"/>
-  <text x="244" y="243" font-family="-apple-system,system-ui,sans-serif" font-size="17" fill="#1C110A" font-weight="500">Who can access it?</text>
-  <line x1="210" y1="270" x2="590" y2="270" stroke="#EDE5DB" stroke-width="0.8"/>
+  <text x="200" y="264" font-family="-apple-system,system-ui,sans-serif" font-size="12" fill="#BF6040" letter-spacing="0.08em" font-weight="700">02</text>
+  <text x="236" y="264" font-family="-apple-system,system-ui,sans-serif" font-size="17" fill="#0F1A2C" font-weight="400">Who can access it?</text>
+  <line x1="200" y1="288" x2="620" y2="288" stroke="#E0DBF0" stroke-width="1"/>
 
   <!-- Item 3 -->
-  <rect x="210" y="286" width="20" height="20" rx="4" fill="none" stroke="#BF6040" stroke-width="1.5"/>
-  <text x="244" y="301" font-family="-apple-system,system-ui,sans-serif" font-size="17" fill="#1C110A" font-weight="500">Is AI used, and on what?</text>
-  <line x1="210" y1="328" x2="590" y2="328" stroke="#EDE5DB" stroke-width="0.8"/>
+  <text x="200" y="332" font-family="-apple-system,system-ui,sans-serif" font-size="12" fill="#BF6040" letter-spacing="0.08em" font-weight="700">03</text>
+  <text x="236" y="332" font-family="-apple-system,system-ui,sans-serif" font-size="17" fill="#0F1A2C" font-weight="400">Can you delete it?</text>
+  <line x1="200" y1="356" x2="620" y2="356" stroke="#E0DBF0" stroke-width="1"/>
 
   <!-- Item 4 -->
-  <rect x="210" y="344" width="20" height="20" rx="4" fill="none" stroke="#BF6040" stroke-width="1.5"/>
-  <text x="244" y="359" font-family="-apple-system,system-ui,sans-serif" font-size="17" fill="#1C110A" font-weight="500">Can I delete everything?</text>
+  <text x="200" y="400" font-family="-apple-system,system-ui,sans-serif" font-size="12" fill="#BF6040" letter-spacing="0.08em" font-weight="700">04</text>
+  <text x="236" y="400" font-family="-apple-system,system-ui,sans-serif" font-size="17" fill="#0F1A2C" font-weight="400">Is AI used on it?</text>
 
-  <!-- Label at top -->
-  <text x="160" y="54" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#8B6B58" letter-spacing="0.14em" font-weight="700">PRIVACY</text>
+  <!-- Label -->
+  <text x="140" y="46" font-family="-apple-system,system-ui,sans-serif" font-size="11" fill="#6B6890" letter-spacing="0.14em" font-weight="700">PRIVACY</text>
 </svg>

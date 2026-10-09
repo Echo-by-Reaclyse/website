@@ -1,5 +1,5 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
-import { useState, useMemo } from "react";
+import { useState, useMemo, Fragment } from "react";
 import { BLOG_POSTS, TOPIC_LABELS, type BlogTopic, type CardVisual } from "@/lib/blog-posts";
 import { APP_STORE_LINK_PROPS } from "@/lib/app-store";
 import { CopyButton } from "@/components/blog/CopyButton";
@@ -28,13 +28,13 @@ function CardVisualEl({ visual, slug }: { visual: CardVisual; slug: string }) {
       <div className="b-vis-graphic">
         <div className="b-vis-steps">
           {visual.labels.map((label, i) => (
-            <>
-              {i > 0 && <div key={`bar-${i}`} className="b-vis-bar" aria-hidden="true" />}
-              <div key={i} className="b-vis-steps-item">
+            <Fragment key={i}>
+              {i > 0 && <div className="b-vis-bar" aria-hidden="true" />}
+              <div className="b-vis-steps-item">
                 <div className="b-vis-step-num">{i + 1}</div>
                 {label}
               </div>
-            </>
+            </Fragment>
           ))}
         </div>
       </div>
@@ -263,17 +263,16 @@ function BlogIndex() {
                   />
                   <label htmlFor="topic-all">All guides</label>
                   {TOPICS.map((t) => (
-                    <>
+                    <Fragment key={t}>
                       <input
-                        key={`input-${t}`}
                         type="radio"
                         id={`topic-${t}`}
                         name="topic-filter"
                         checked={activeTopic === t}
                         onChange={() => setActiveTopic(t)}
                       />
-                      <label key={`label-${t}`} htmlFor={`topic-${t}`}>{TOPIC_LABELS[t]}</label>
-                    </>
+                      <label htmlFor={`topic-${t}`}>{TOPIC_LABELS[t]}</label>
+                    </Fragment>
                   ))}
                 </div>
               </fieldset>
@@ -319,22 +318,22 @@ function BlogIndex() {
                 </Link>
               </div>
               <div className="b-promo-cats">
-                <Link to="/blog/voice-journaling-prompts#evening" className="b-promo-cat">
+                <a href="/blog/voice-journaling-prompts#evening" className="b-promo-cat">
                   <span className="b-promo-cat-name">Evening</span>
                   <span className="b-promo-cat-sub">Let the day settle</span>
-                </Link>
-                <Link to="/blog/voice-journaling-prompts#big-decisions" className="b-promo-cat">
+                </a>
+                <a href="/blog/voice-journaling-prompts#big-decisions" className="b-promo-cat">
                   <span className="b-promo-cat-name">Big decisions</span>
                   <span className="b-promo-cat-sub">Find your priorities</span>
-                </Link>
-                <Link to="/blog/voice-journaling-prompts#gratitude" className="b-promo-cat">
+                </a>
+                <a href="/blog/voice-journaling-prompts#gratitude" className="b-promo-cat">
                   <span className="b-promo-cat-name">Gratitude</span>
                   <span className="b-promo-cat-sub">Notice the small things</span>
-                </Link>
-                <Link to="/blog/voice-journaling-prompts#self-discovery" className="b-promo-cat">
+                </a>
+                <a href="/blog/voice-journaling-prompts#self-discovery" className="b-promo-cat">
                   <span className="b-promo-cat-name">Self-discovery</span>
                   <span className="b-promo-cat-sub">Make room for you</span>
-                </Link>
+                </a>
               </div>
             </div>
 
