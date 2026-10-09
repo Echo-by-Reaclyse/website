@@ -1149,6 +1149,24 @@
   margin: 2px 0 0;
 }
 
+.b-letters-success {
+  display: flex;
+  align-items: center;
+}
+
+.b-letters-success-msg {
+  font-size: 16px;
+  color: var(--b-ink);
+  margin: 0;
+}
+
+.b-letters-error {
+  flex-basis: 100%;
+  font-size: 13px;
+  color: #c0392b;
+  margin: 6px 0 0;
+}
+
 /* ============================================================
    ARTICLE PAGE
    ============================================================ */

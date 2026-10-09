@@ -126,10 +126,35 @@ function BlogCard({ post }: { post: (typeof BLOG_POSTS)[number] }) {
   );
 }
 
+const API_URL = import.meta.env.VITE_API_URL ?? "";
+
 function BlogIndex() {
   const [activeTopic, setActiveTopic] = useState<BlogTopic | null>(null);
   const [query, setQuery] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [nlEmail, setNlEmail] = useState("");
+  const [nlLoading, setNlLoading] = useState(false);
+  const [nlError, setNlError] = useState<string | null>(null);
+
+  async function handleNewsletterSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setNlError(null);
+    setNlLoading(true);
+    try {
+      const res = await fetch(`${API_URL}/subscribe`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: nlEmail, hp: "" }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Something went wrong");
+      setSubmitted(true);
+    } catch (err) {
+      setNlError(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setNlLoading(false);
+    }
+  }
 
   const pathway = [
     { step: "01", text: "Find your first words" },
@@ -372,12 +397,7 @@ function BlogIndex() {
                   <p className="b-letters-success-msg">You're on the list. We'll be in touch.</p>
                 </div>
               ) : (
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    setSubmitted(true);
-                  }}
-                >
+                <form onSubmit={handleNewsletterSubmit}>
                   <label htmlFor="nl-email">Your email address</label>
                   <input
                     id="nl-email"
@@ -385,8 +405,14 @@ function BlogIndex() {
                     type="email"
                     placeholder="you@example.com"
                     required
+                    value={nlEmail}
+                    onChange={(e) => setNlEmail(e.target.value)}
+                    disabled={nlLoading}
                   />
-                  <button type="submit" className="b-btn b-btn-dark">Subscribe</button>
+                  <button type="submit" className="b-btn b-btn-dark" disabled={nlLoading}>
+                    {nlLoading ? "Subscribing…" : "Subscribe"}
+                  </button>
+                  {nlError && <p className="b-letters-error">{nlError}</p>}
                 </form>
               )}
             </div>
